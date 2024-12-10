@@ -27,6 +27,9 @@ public abstract class ScrollingWorld extends World
         timer++;
         if(timer > -1)
         {
+            /*
+             * 
+             *
             if(Greenfoot.isKeyDown("right"))
             {
                 scrollX -= scrollSpeed;
@@ -46,6 +49,7 @@ public abstract class ScrollingWorld extends World
                 scrollY += scrollSpeed;
                 timer = 0;
             }
+            */
             for(ScrollingActor actor : getObjects(ScrollingActor.class))
             {
                 actor.changeScrollPosition(scrollX, scrollY);
@@ -56,9 +60,20 @@ public abstract class ScrollingWorld extends World
     {
         this.scrollSpeed = scrollSpeed;
     }
+    public void forceScrollUp(int speed)
+    {
+        scrollY += speed;
+    }
     public void forceScrollDown(int speed)
     {
         scrollY -= speed;
-        timer = 0;
+    }
+    public void forceScrollLeft(int speed)
+    {
+        scrollX += speed;
+    }
+    public void forceScrollRight(int speed)
+    {
+        scrollX -= speed;
     }
 }

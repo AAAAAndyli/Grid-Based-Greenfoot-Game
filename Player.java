@@ -10,11 +10,15 @@ public class Player extends ScrollingActor
 {
     private double xVelocity = 0;
     private int xDirection = 0;
-    private int xSpeed = 10;
+    private final int xSpeed = 10;
+    
+    private final int slideSpeed = 15;
+    private boolean isSliding;
     
     private double yVelocity = 0;
-    private double yGravity = 1;
-    private double jumpSpeed = 20;
+    private final double yGravity = 1;
+    private final double maximumYVelocity = 40;
+    private final double jumpSpeed = 20;
     
     private boolean touchingFloor;
     /**
@@ -33,7 +37,13 @@ public class Player extends ScrollingActor
             originalX = getX();
             originalY = getY();
         }
-        horizontalMovement();
+        
+        slide();
+        if(!isSliding)
+        {
+            horizontalMovement();
+            slam();
+        }
         checkFloor();
         applyGravity();
         jump();
@@ -41,25 +51,32 @@ public class Player extends ScrollingActor
         boundingBox();
     }
     public void boundingBox()
-    {
-        if((getX() > 600 && xDirection == 1)||(getX() < 200 && xDirection == -1)||getY() > 500||getY() < 100)
+    {     
+        boolean rightBounding = getX() > 600 && xDirection == 1 && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"));
+        boolean leftBounding = getX() < 200 && xDirection == -1 && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"));
+        boolean downBounding = getY() > 400;
+        boolean upBounding = getY() < 200 && yVelocity < 0;
+        if(rightBounding || leftBounding || downBounding || upBounding)
         {
-            if(getX() > 600 && xDirection == 1)
+            if(rightBounding)
             {
                 setLocation(getX(),getY()+yVelocity);
+                getWorldOfType(ScrollingWorld.class).forceScrollRight(10);
             }
-            else if(getX() < 200 && xDirection == -1)
+            else if(leftBounding)
             {
                 setLocation(getX(),getY()+yVelocity);
+                getWorldOfType(ScrollingWorld.class).forceScrollLeft(10);
             }
-            else if(getY() > 300)
+            if(downBounding)
             {
                 setLocation(getX()+xVelocity,getY()+yVelocity);
                 getWorldOfType(ScrollingWorld.class).forceScrollDown(20);
             }
-            else if(getY() < 100)
+            else if(upBounding)
             {
-                setLocation(getX()+xVelocity,getY()+yVelocity);
+                setLocation(getX()+xVelocity,getY());
+                getWorldOfType(ScrollingWorld.class).forceScrollUp((int)-yVelocity);
             }
             getWorldOfType(ScrollingWorld.class).setScrollSpeed(10);
         }
@@ -138,12 +155,72 @@ public class Player extends ScrollingActor
         {
             yVelocity = 0;
         }
+        if(yVelocity > maximumYVelocity)
+        {
+            yVelocity = maximumYVelocity;
+        }
     }
     public void jump()
     {
         if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up"))&&touchingFloor)
         {
             yVelocity -= jumpSpeed;
+        }
+    }
+    public void slam()
+    {
+        if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"))&&!touchingFloor)
+        {
+            for(int i = 0 ; i < 100 ; i++)
+            {
+                Tile predictedMidTile = (Tile)getOneObjectAtOffset(0, 50 * i, Tile.class);
+                if(predictedMidTile != null)
+                {
+                    setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);  
+                }
+            }
+        }
+    }
+    public void slide()
+    {
+        if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"))&&(touchingFloor||isSliding))
+        {
+            switch(xDirection)
+            {
+                case -1:
+                    if(!isSliding)
+                    {
+                        xVelocity = -slideSpeed;
+                    }
+                    if(xVelocity < 0)
+                    {
+                        xVelocity += 0.2;
+                    }
+                    else
+                    {
+                        xVelocity = 0;
+                    }
+                    break;
+                case 1:
+                    if(!isSliding)
+                    {
+                        xVelocity = slideSpeed;
+                    }
+                    if(xVelocity > 0)
+                    {
+                        xVelocity -= 0.2;
+                    }
+                    else
+                    {
+                        xVelocity = 0;
+                    }
+                    break;
+            }
+            isSliding = true;
+        }
+        else
+        {
+            isSliding = false;
         }
     }
 }
