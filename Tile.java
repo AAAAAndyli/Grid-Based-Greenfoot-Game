@@ -6,17 +6,40 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Tile extends Actor
+public class Tile extends ScrollingActor
 {
     private String type;
-    public Tile(String type)
+    private int rotations;
+    private boolean isButton;
+    
+    private MapMaker mapMaker;
+    
+    public Tile(String type, int rotations)
+    {
+        this(type, rotations, false, null);
+    }
+    public Tile(String type, int rotations, boolean isButton, MapMaker mapMaker)
     {
         this.type = type;
-        switch(type)
+        this.rotations = rotations;
+        this.isButton = isButton;
+        if(!isButton)
         {
-            case "Stair":
-                this.setImage("tile
+            this.setImage("Tiles/"+type+".png");
+            getImage().scale(50,50);
+            getImage().rotate(rotations*90);
         }
+        else
+        {
+            this.setImage("Tiles/"+type+".png");
+            getImage().scale(50,50);
+            getImage().rotate(rotations*90);
+            this.mapMaker = mapMaker;
+        }
+    }
+    public void addedToWorld()
+    {
+        //super.addedToWorld();
     }
     
     /**
@@ -25,6 +48,24 @@ public class Tile extends Actor
      */
     public void act()
     {
-        
+        if(isButton)
+        {
+            setType();
+        }
+        else
+        {
+            super.act();
+        }
+    }
+    public void setType()
+    {
+        if(Greenfoot.mouseClicked(this))
+        {
+            mapMaker.setType(type);
+        }
+    }
+    public boolean getButton()
+    {
+        return isButton;
     }
 }
