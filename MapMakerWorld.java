@@ -2,6 +2,24 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 import java.util.Collection;
 
+import java.util.Scanner;
+import java.util.NoSuchElementException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import java.util.StringTokenizer;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+
+//Window Creation
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+import javax.swing.filechooser.*;
+
 /**
  * Write a description of class MapMakerWorld here.
  * 
@@ -10,8 +28,9 @@ import java.util.Collection;
  */
 public class MapMakerWorld extends ScrollingWorld
 {
-    ArrayList<ArrayList<String>> world = new ArrayList<ArrayList<String>>();
+    ArrayList<String> world = new ArrayList<String>();
     private MapMaker mapMaker = new MapMaker(this);
+    private String loadedFile;
     
     /**
      * Constructor for objects of class MapMakerWorld.
@@ -28,9 +47,73 @@ public class MapMakerWorld extends ScrollingWorld
     public void act()
     {
         super.act();
+        useArrowKeysToMove();
         editMap();
+        if(Greenfoot.isKeyDown("enter"))
+        {
+            printWorld();
+        }
     }
-    public void setWorld(ArrayList<ArrayList<String>> world)
+    public void printWorld()
+    {
+        System.out.println("The World:");
+        for(String tile : world)
+        {
+            System.out.println(tile);
+        }
+        saveFileExplorer();
+        saveFile();
+    }
+    
+    public void saveFileExplorer()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".csv files", "csv");
+        fileChooser.setFileFilter(filter);
+        
+        int r = fileChooser.showOpenDialog(null);
+        // if the user selects a file
+        
+        if (r == JFileChooser.APPROVE_OPTION)
+        {
+            loadedFile = fileChooser.getSelectedFile().getAbsolutePath();
+            if(!loadedFile.endsWith(".csv")) 
+            {
+                loadedFile += ".csv";
+            }
+        }
+    }
+    public void saveFile()
+    {
+        writeFile(loadedFile,"", false, false);
+        for(String tile : world)
+        {
+            writeFile(loadedFile, tile, true, true);
+        }
+    }
+    public void writeFile(String path, String line, boolean append, boolean newLine)
+    {
+        try
+        {
+            FileWriter out = new FileWriter(path, append);
+            PrintWriter output = new PrintWriter(out);
+            if(newLine)
+            {
+                output.println(line);
+            }
+            else
+            {
+                output.print(line);
+            }
+            output.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error: " + e);
+        }
+    }
+    public void setWorld(ArrayList<String> world)
     {
         this.world = world;
     }
@@ -72,7 +155,8 @@ public class MapMakerWorld extends ScrollingWorld
 
     public void placeTile(int x, int y, String type)
     {
-        Tile tile = new Tile(type, mapMaker.getRotations());
+        Tile tile = new Tile(type, mapMaker.getRotations(), x, y);
+        world.add(tile.getString());
         addObject(tile, x, y);
     }
     public void replaceTile()

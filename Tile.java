@@ -12,17 +12,25 @@ public class Tile extends ScrollingActor
     private int rotations;
     private boolean isButton;
     
+    private int x, y;
+    
     private MapMaker mapMaker;
     
-    public Tile(String type, int rotations)
+    public Tile(String type, int rotations, int xPosition, int yPosition)
     {
-        this(type, rotations, false, null);
+        this(type, rotations, false, null, xPosition, yPosition);
     }
     public Tile(String type, int rotations, boolean isButton, MapMaker mapMaker)
+    {
+        this(type, rotations, isButton, mapMaker, 0, 0);
+    }
+    public Tile(String type, int rotations, boolean isButton, MapMaker mapMaker, int xPosition, int yPosition)
     {
         this.type = type;
         this.rotations = rotations;
         this.isButton = isButton;
+        this.x = xPosition;
+        this.y = yPosition;
         if(!isButton)
         {
             this.setImage("Tiles/"+type+".png");
@@ -67,5 +75,9 @@ public class Tile extends ScrollingActor
     public boolean getButton()
     {
         return isButton;
+    }
+    public String getString()
+    {
+        return(type + "," + rotations + ","  + x + "," + y);
     }
 }

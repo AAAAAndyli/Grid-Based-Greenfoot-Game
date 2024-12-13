@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public abstract class ScrollingWorld extends World
 {
     protected static int scrollX = 0, scrollY = 0;
-    private int scrollSpeed = 10;
+    private int scrollSpeed = 50;
     private int timer = 0;
     /**
      * Constructor for objects of class ScrollingWorld.
@@ -24,12 +24,16 @@ public abstract class ScrollingWorld extends World
     }
     public void act()
     {
-        timer++;
-        if(timer > -1)
+        for(ScrollingActor actor : getObjects(ScrollingActor.class))
         {
-            /*
-             * 
-             *
+            actor.changeScrollPosition(scrollX, scrollY);
+        }
+    }
+    public void useArrowKeysToMove()
+    {
+        timer++;
+        if(timer > 10)
+        {
             if(Greenfoot.isKeyDown("right"))
             {
                 scrollX -= scrollSpeed;
@@ -43,16 +47,12 @@ public abstract class ScrollingWorld extends World
             if(Greenfoot.isKeyDown("down"))
             {
                 forceScrollDown(scrollSpeed);
+                timer = 0;
             }
             else if(Greenfoot.isKeyDown("up"))
             {
                 scrollY += scrollSpeed;
                 timer = 0;
-            }
-            */
-            for(ScrollingActor actor : getObjects(ScrollingActor.class))
-            {
-                actor.changeScrollPosition(scrollX, scrollY);
             }
         }
     }

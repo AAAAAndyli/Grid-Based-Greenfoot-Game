@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Player here.
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class Player extends ScrollingActor
@@ -26,10 +26,6 @@ public class Player extends ScrollingActor
     private int coyoteTimer = 0;
     
     private boolean touchingFloor;
-    /**
-     * Act - do whatever the Player wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     public void addedToWorld()
     {
       //super.addedToWorld();
@@ -38,12 +34,14 @@ public class Player extends ScrollingActor
     {
         if(isFirstAct)
         {
+            //I'm pretty sure this isn't useful anymore lol
             isFirstAct = false;
             originalX = getX();
             originalY = getY();
         }
         
         slide();
+        
         if(!isSliding)
         {
             horizontalMovement();
@@ -137,7 +135,7 @@ public class Player extends ScrollingActor
         {
             coyoteTimer = 0;
         }
-        return coyoteTimer < 10;
+        return touchingFloor;
     }
     public void predictFloor()
     {
@@ -195,9 +193,10 @@ public class Player extends ScrollingActor
     }
     public void jump()
     {
-        if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up"))&&touchingFloor)
+        if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && coyoteTimer < 10)
         {
             yVelocity -= (jumpSpeed + storedJump);
+            coyoteTimer = 100;
             storedJump = 0;
         }
     }
