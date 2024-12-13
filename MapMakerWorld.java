@@ -22,6 +22,8 @@ public class MapMakerWorld extends ScrollingWorld
         super(800, 600, 1, false); 
         addObject(mapMaker, 400, 550);
         setPaintOrder(Tile.class, MapMaker.class, TileSelector.class);
+        Greenfoot.setSpeed(51);
+        addObject(new FPS(), 200, 10);
     }
     public void act()
     {
@@ -51,7 +53,10 @@ public class MapMakerWorld extends ScrollingWorld
             {
                 if (mouse.getButton() == 3)
                 {
-                    //for(
+                    if(getObjectsAt(mouse.getX(), mouse.getY(), Tile.class).size() != 0)
+                    {
+                        removeObject(getObjectsAt(mouse.getX(), mouse.getY(), Tile.class).get(0));
+                    }
                 }
             }
             if (getObjects(TileSelector.class).isEmpty()) 

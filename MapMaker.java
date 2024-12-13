@@ -16,6 +16,7 @@ public class MapMaker extends SuperSmoothMover
     private String type;
     private int rotation = 0;
     private boolean isFirstAct = true;
+    private boolean hide = false;
     
     private int actTimer = 60;
     public MapMaker(MapMakerWorld origin)
@@ -46,9 +47,43 @@ public class MapMaker extends SuperSmoothMover
                 refreshOptions(rotation);
             }
         }
+        else if(Greenfoot.isKeyDown("h"))
+        {
+            if(actTimer != 0)
+            {
+                actTimer = 0;
+                if(hide == false)
+                {
+                    hide = true;
+                }
+                else
+                {
+                    hide = false;
+                }
+            }
+        }
         else
         {
             actTimer++;
+        }
+        if(hide)
+        {
+            hide();
+        }
+        else
+        {
+            displayOptions();
+        }
+    }
+    public void hide()
+    {
+        ArrayList<Tile> allTiles = new ArrayList<Tile>(getWorld().getObjects(Tile.class));
+        for(Tile tile: allTiles)
+        {
+            if(tile.getButton())
+            {
+                getWorld().removeObject(tile);
+            }
         }
     }
     public void refreshOptions(int rotations)
@@ -65,6 +100,7 @@ public class MapMaker extends SuperSmoothMover
         tileListOptions.add(new Tile("FullTile", rotations, true, this));
         tileListOptions.add(new Tile("DiagonalTile", rotations, true, this));
         tileListOptions.add(new Tile("Stair", rotations, true, this));
+        tileListOptions.add(new Tile("PlayerSpawnPoint", 0, true, this));
         //getWorld().getWidth()/2;
         displayOptions();
     }
