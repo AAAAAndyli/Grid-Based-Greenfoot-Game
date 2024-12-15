@@ -31,6 +31,8 @@ public class MapMakerWorld extends ScrollingWorld
     ArrayList<String> world = new ArrayList<String>();
     private MapMaker mapMaker = new MapMaker(this);
     private String loadedFile;
+    //The primary frame
+    private JFrame frame = new JFrame("Save/Load Map");
     
     /**
      * Constructor for objects of class MapMakerWorld.
@@ -43,6 +45,11 @@ public class MapMakerWorld extends ScrollingWorld
         setPaintOrder(Tile.class, MapMaker.class, TileSelector.class);
         Greenfoot.setSpeed(51);
         addObject(new FPS(), 200, 10);
+        
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setAlwaysOnTop(true);
+        frame.setVisible(false);
     }
     public void act()
     {
@@ -51,7 +58,7 @@ public class MapMakerWorld extends ScrollingWorld
         editMap();
         if(Greenfoot.isKeyDown("enter"))
         {
-            printWorld();
+            showMainMenu();
         }
     }
     public void printWorld()
@@ -61,29 +68,82 @@ public class MapMakerWorld extends ScrollingWorld
         {
             System.out.println(tile);
         }
-        saveFileExplorer();
-        saveFile();
     }
     
-    public void saveFileExplorer()
+    
+    public void showMainMenu()
     {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(".csv files", "csv");
-        fileChooser.setFileFilter(filter);
+        frame.setVisible(true);
         
-        int r = fileChooser.showOpenDialog(null);
-        // if the user selects a file
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        JPanel buttonPanel = new JPanel();
+        JPanel textPanel = new JPanel();
+        JButton loadButton = new JButton("Load Map");
+        JButton createButton = new JButton("Create New Map");
         
-        if (r == JFileChooser.APPROVE_OPTION)
+        //Create new map file
+        createButton.addActionListener(new ActionListener() 
         {
-            loadedFile = fileChooser.getSelectedFile().getAbsolutePath();
-            if(!loadedFile.endsWith(".csv")) 
+            public void actionPerformed(ActionEvent e) 
             {
-                loadedFile += ".csv";
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(".csv files", "csv");
+                fileChooser.setFileFilter(filter);
+                
+                int r = fileChooser.showSaveDialog(null);
+                // if the user selects a file
+                if (r == JFileChooser.APPROVE_OPTION)
+                {
+                     // set the label to the path of the selected file
+                    loadedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                    if(!loadedFile.endsWith(".csv")) 
+                    {
+                        loadedFile += ".csv";
+                    }
+                    saveFile();
+                }
             }
-        }
+        });
+        //Load map file
+        loadButton.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(".csv files", "csv");
+                fileChooser.setFileFilter(filter);
+                
+                int r = fileChooser.showOpenDialog(null);
+                // if the user selects a file
+                if (r == JFileChooser.APPROVE_OPTION)
+                {
+                    // set the label to the path of the selected file
+                    loadedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                    loadLevel(loadedFile);
+                }
+            }
+        });
+        buttonPanel.add(createButton);
+        buttonPanel.add(loadButton);
+        
+        
+        mainPanel.add(buttonPanel);
+        mainPanel.add(textPanel);
+        
+        frame.add(mainPanel);
     }
+    
+    public void updateFrame()
+    {
+        frame.invalidate();
+        frame.validate();
+        frame.repaint();
+        frame.show();
+    }
+    
     public void saveFile()
     {
         writeFile(loadedFile,"", false, false);
@@ -112,6 +172,14 @@ public class MapMakerWorld extends ScrollingWorld
         {
             System.out.println("Error: " + e);
         }
+        catch (NullPointerException e)
+        {
+            System.out.println("Error: " + e);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error: " + e);
+        }
     }
     public void setWorld(ArrayList<String> world)
     {
@@ -128,18 +196,20 @@ public class MapMakerWorld extends ScrollingWorld
             int yMapPosition = (int)(50 * Math.round((double)(y) / 50) - 50 * Math.round((double)scrollY/50));
             x = (int)(50 * Math.round((double)(x) / 50));
             y = (int)(50 * Math.round((double)(y) / 50));
-            if((Greenfoot.mouseClicked(this) || getObjects(TileSelector.class).size() != 0 && Greenfoot.mouseClicked(getObjects(TileSelector.class).get(0))) && mapMaker.getType() != null)
-            {
-                placeTile(xMapPosition, yMapPosition, mapMaker.getType());
-            }
             if(mouse != null)
             {
                 if (mouse.getButton() == 3)
                 {
-                    if(getObjectsAt(mouse.getX(), mouse.getY(), Tile.class).size() != 0)
+                    ArrayList<Tile> tilesAtMouse = (ArrayList<Tile>)getObjectsAt(mouse.getX(), mouse.getY(), Tile.class);
+                    if(tilesAtMouse.size() != 0)
                     {
-                        removeObject(getObjectsAt(mouse.getX(), mouse.getY(), Tile.class).get(0));
+                        world.remove(world.indexOf(tilesAtMouse.get(0).getString()));
+                        removeObject(tilesAtMouse.get(0));
                     }
+                }
+                else if((Greenfoot.mouseClicked(this) || getObjects(TileSelector.class).size() != 0 && Greenfoot.mouseClicked(getObjects(TileSelector.class).get(0))) && mapMaker.getType() != null)
+                {
+                    placeTile(xMapPosition, yMapPosition, mapMaker.getType());
                 }
             }
             if (getObjects(TileSelector.class).isEmpty()) 
@@ -159,8 +229,39 @@ public class MapMakerWorld extends ScrollingWorld
         world.add(tile.getString());
         addObject(tile, x, y);
     }
-    public void replaceTile()
+    
+    public void loadLevel(String path)
     {
-        
+        Scanner scan = new Scanner (System.in);
+        try
+        {
+            scan = new Scanner (new File(path));
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File Not Found");
+        }
+        while (scan.hasNext()) // loop until end of file
+        {
+            world.add(scan.nextLine());
+        }
+        StringTokenizer tokenizer;
+        for(String tile : world)
+        {
+            tokenizer = new StringTokenizer(tile, ",");
+            int sizeOfString = tokenizer.countTokens();
+            try
+            {
+                String type = tokenizer.nextToken();
+                int rotation = Integer.parseInt(tokenizer.nextToken());
+                int xLocation = Integer.parseInt(tokenizer.nextToken());
+                int yLocation = Integer.parseInt(tokenizer.nextToken());
+                addObject(new Tile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+            }
+            catch(NumberFormatException e)
+            {
+                System.out.println("Bad File >:(");
+            }
+        }
     }
 }

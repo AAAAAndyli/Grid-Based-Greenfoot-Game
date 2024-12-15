@@ -34,7 +34,7 @@ public class LevelWorld extends ScrollingWorld
         Scanner scan = new Scanner (System.in);
         try
         {
-            scan = new Scanner (new File(levelName));
+            scan = new Scanner (new File("level/maps/" + levelName));
         }
         catch (FileNotFoundException e)
         {
