@@ -28,6 +28,9 @@ import javax.swing.filechooser.*;
  */
 public class MapMakerWorld extends ScrollingWorld
 {
+    //Safe mode prevents overlapping tiles
+    private final static boolean SAFE_MODE = true;
+    
     ArrayList<String> world = new ArrayList<String>();
     private MapMaker mapMaker = new MapMaker(this);
     private String loadedFile;
@@ -201,13 +204,13 @@ public class MapMakerWorld extends ScrollingWorld
                 if (mouse.getButton() == 3)
                 {
                     ArrayList<Tile> tilesAtMouse = (ArrayList<Tile>)getObjectsAt(mouse.getX(), mouse.getY(), Tile.class);
-                    if(tilesAtMouse.size() != 0)
+                    if(tilesAtMouse.size() != 0 && !tilesAtMouse.get(0).getButton())
                     {
                         world.remove(world.indexOf(tilesAtMouse.get(0).getString()));
                         removeObject(tilesAtMouse.get(0));
                     }
                 }
-                else if((Greenfoot.mouseClicked(this) || getObjects(TileSelector.class).size() != 0 && Greenfoot.mouseClicked(getObjects(TileSelector.class).get(0))) && mapMaker.getType() != null)
+                else if((mouse.getButton() == 1) && mapMaker.getType() != null)
                 {
                     placeTile(xMapPosition, yMapPosition, mapMaker.getType());
                 }
@@ -226,8 +229,20 @@ public class MapMakerWorld extends ScrollingWorld
     public void placeTile(int x, int y, String type)
     {
         Tile tile = new Tile(type, mapMaker.getRotations(), x, y);
-        world.add(tile.getString());
-        addObject(tile, x, y);
+        if(world.size() == 0)
+        {
+            world.add(tile.getString());
+            addObject(tile, x, y);
+        }
+        else
+        {
+            ArrayList<Tile> tileAtMouse = (ArrayList<Tile>)getObjectsAt(x, y, Tile.class);
+            if((SAFE_MODE && tileAtMouse.size() == 0) || !SAFE_MODE)
+            {
+                world.add(tile.getString());
+                addObject(tile, x, y);
+            }
+        }
     }
     
     public void loadLevel(String path)

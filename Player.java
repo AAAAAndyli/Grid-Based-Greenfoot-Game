@@ -24,6 +24,7 @@ public class Player extends ScrollingActor
     private final double maximumYVelocity = 40;
     private final double jumpSpeed = 20;
     private int coyoteTimer = 0;
+    private boolean isJumpKeyDown = false;
     
     private boolean touchingFloor;
     public void addedToWorld()
@@ -123,9 +124,12 @@ public class Player extends ScrollingActor
     }
     public boolean checkFloor()
     {
-        boolean midTouching = getOneTileAtOffset(0, getImage().getHeight()/2) != null;
-        boolean leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + 10, getImage().getHeight()/2) != null;
-        boolean rightTouching = getOneTileAtOffset(getImage().getWidth()/2 - 10, getImage().getHeight()/2) != null;
+        Tile mid = getOneTileAtOffset(0, getImage().getHeight()/2);
+        Tile left = getOneTileAtOffset(-getImage().getWidth()/2 + 10, getImage().getHeight()/2);
+        Tile right = getOneTileAtOffset(getImage().getWidth()/2 - 10, getImage().getHeight()/2);
+        boolean midTouching = mid != null;
+        boolean leftTouching = left != null;
+        boolean rightTouching = right != null;
         touchingFloor = midTouching || leftTouching || rightTouching;
         if(!touchingFloor)
         {
@@ -139,28 +143,31 @@ public class Player extends ScrollingActor
     }
     public void predictFloor()
     {
-        Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
-        
-        boolean midWillTouch = predictedMidTile != null;
-        boolean leftWillTouch = predictedLeftTile != null;
-        boolean rightWillTouch = predictedRightTile != null;
-        
-        if(midWillTouch || leftWillTouch || rightWillTouch)
+        if(!touchingFloor)
         {
-            yVelocity = 0;
-            if(midWillTouch)
+            Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
+            Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
+            Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
+            
+            boolean midWillTouch = predictedMidTile != null;
+            boolean leftWillTouch = predictedLeftTile != null;
+            boolean rightWillTouch = predictedRightTile != null;
+            
+            if(midWillTouch || leftWillTouch || rightWillTouch)
             {
-                setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
-            }
-            else if(leftWillTouch)
-            {
-                setLocation(getX(), predictedLeftTile.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
-            }
-            else if(rightWillTouch)
-            {
-                setLocation(getX(), predictedRightTile.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);                
+                yVelocity = 0;
+                if(midWillTouch)
+                {
+                    setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
+                }
+                else if(leftWillTouch)
+                {
+                    setLocation(getX(), predictedLeftTile.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
+                }
+                else if(rightWillTouch)
+                {
+                    setLocation(getX(), predictedRightTile.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);                
+                }
             }
         }
     }
@@ -193,11 +200,16 @@ public class Player extends ScrollingActor
     }
     public void jump()
     {
-        if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && coyoteTimer < 10)
+        if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && coyoteTimer < 10 && !isJumpKeyDown)
         {
             yVelocity -= (jumpSpeed + storedJump);
             coyoteTimer = 100;
             storedJump = 0;
+            isJumpKeyDown = true;
+        }
+        else if(!Greenfoot.isKeyDown("w") && !Greenfoot.isKeyDown("up"))
+        {
+            isJumpKeyDown = false;
         }
     }
     public void slam()

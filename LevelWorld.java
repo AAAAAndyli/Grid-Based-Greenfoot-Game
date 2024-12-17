@@ -28,6 +28,7 @@ public class LevelWorld extends ScrollingWorld
         super(800, 600, 1, false); 
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
+        loadLevel();
     }
     public void loadLevel()
     {
@@ -55,7 +56,14 @@ public class LevelWorld extends ScrollingWorld
                 int rotation = Integer.parseInt(tokenizer.nextToken());
                 int xLocation = Integer.parseInt(tokenizer.nextToken());
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
-                addObject(new Tile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                if(type.equals("PlayerSpawnPoint"))
+                {
+                    addObject(new Player(), xLocation, yLocation);
+                }
+                else
+                {
+                    addObject(new Tile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                }
             }
             catch(NumberFormatException e)
             {
