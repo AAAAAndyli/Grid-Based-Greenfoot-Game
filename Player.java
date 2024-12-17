@@ -193,7 +193,7 @@ public class Player extends ScrollingActor
     {
         if(diagonalTile.isDiagonal())
         {
-            int tileTop = diagonalTile.getY()-diagonalTile.getImage().getHeight()/2;
+            int tileTop = diagonalTile.getY()-diagonalTile.getImage().getHeight()/2-getImage().getHeight()/2;
             if(diagonalTile.getRotation() == 0)
             {
                 setLocation(getX(), tileTop - (getX() - diagonalTile.getX()));
