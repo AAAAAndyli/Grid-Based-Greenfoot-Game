@@ -45,7 +45,7 @@ public class MapMakerWorld extends ScrollingWorld
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(800, 600, 1, false); 
         addObject(mapMaker, 400, 550);
-        setPaintOrder(Tile.class, MapMaker.class, TileSelector.class);
+        setPaintOrder(test.class, Tile.class, MapMaker.class, TileSelector.class);
         Greenfoot.setSpeed(51);
         addObject(new FPS(), 200, 10);
         
@@ -236,7 +236,7 @@ public class MapMakerWorld extends ScrollingWorld
         }
         else
         {
-            ArrayList<Tile> tileAtMouse = (ArrayList<Tile>)getObjectsAt(x, y, Tile.class);
+            ArrayList<Tile> tileAtMouse = (ArrayList<Tile>)getObjectsAt(x+scrollX, y+scrollY, Tile.class);
             if((SAFE_MODE && tileAtMouse.size() == 0) || !SAFE_MODE)
             {
                 world.add(tile.getString());
