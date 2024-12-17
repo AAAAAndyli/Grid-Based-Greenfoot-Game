@@ -62,7 +62,7 @@ public class Player extends ScrollingActor
         boolean rightBounding = getX() > 500 && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"));
         boolean leftBounding = getX() < 300 && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"));
         boolean downBounding = getY() > 350;
-        boolean upBounding = getY() < 250 && !isCollidingUp && yVelocity < 0;
+        boolean upBounding = getY() < 250;
         if(rightBounding || leftBounding)
         {
             if(rightBounding)
@@ -91,6 +91,11 @@ public class Player extends ScrollingActor
             if(upBounding)
             {
                 getWorldOfType(ScrollingWorld.class).forceScrollUp(-(int)yVelocity);
+                if(yVelocity == 0)
+                {
+                    getWorldOfType(ScrollingWorld.class).forceScrollUp(5);
+                    setLocation(getX(),getY()+5);
+                }
             }
         }
         else
@@ -143,31 +148,31 @@ public class Player extends ScrollingActor
     }
     public void predictFloor()
     {
-        if(!touchingFloor)
+        Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
+        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
+        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
+        
+        boolean midWillTouch = predictedMidTile != null;
+        boolean leftWillTouch = predictedLeftTile != null;
+        boolean rightWillTouch = predictedRightTile != null;
+        
+        if(midWillTouch || leftWillTouch || rightWillTouch)
         {
-            Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
-            Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
-            Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
-            
-            boolean midWillTouch = predictedMidTile != null;
-            boolean leftWillTouch = predictedLeftTile != null;
-            boolean rightWillTouch = predictedRightTile != null;
-            
-            if(midWillTouch || leftWillTouch || rightWillTouch)
+            yVelocity = -1;
+            if(midWillTouch)
             {
-                yVelocity = 0;
-                if(midWillTouch)
-                {
-                    setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
-                }
-                else if(leftWillTouch)
-                {
-                    setLocation(getX(), predictedLeftTile.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
-                }
-                else if(rightWillTouch)
-                {
-                    setLocation(getX(), predictedRightTile.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);                
-                }
+                setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
+                moveOnDiagonal(predictedMidTile);
+            }
+            if(leftWillTouch)
+            {
+                setLocation(getX(), predictedLeftTile.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
+                moveOnDiagonal(predictedLeftTile);
+            }
+            if(rightWillTouch)
+            {
+                setLocation(getX(), predictedRightTile.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);  
+                moveOnDiagonal(predictedRightTile);
             }
         }
     }
@@ -183,6 +188,23 @@ public class Player extends ScrollingActor
             return tile;
         }
     }
+    
+    public void moveOnDiagonal(Tile diagonalTile)
+    {
+        if(diagonalTile.isDiagonal())
+        {
+            int tileTop = diagonalTile.getY()-diagonalTile.getImage().getHeight()/2;
+            if(diagonalTile.getRotation() == 0)
+            {
+                setLocation(getX(), tileTop - (getX() - diagonalTile.getX()));
+            }
+            else if(diagonalTile.getRotation() == 1)
+            {
+                setLocation(getX(), getY()-(diagonalTile.getImage().getHeight()/2 - (diagonalTile.getX() - getX())));
+            }
+        }
+    }
+    
     public void applyGravity()
     {
         if(touchingFloor == false)
@@ -280,21 +302,29 @@ public class Player extends ScrollingActor
         Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 0);
         Tile leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 0);
         Tile upTouching = getOneTileAtOffset(0, -getImage().getHeight()/2);
-        if(rightTouching != null && xDirection == 1)
+        if(rightTouching != null && (xDirection == 1||xVelocity > 0) && !rightTouching.isDiagonal())
         {
             isCollidingRight = true;
             xVelocity = 0;
             setLocation(rightTouching.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, getY());
         }
+        else if(rightTouching != null && (xDirection == 1||xVelocity > 0) && rightTouching.isDiagonal())
+        {
+            moveOnDiagonal(rightTouching);
+        }
         else
         {
             isCollidingRight = false;
         }
-        if(leftTouching != null && xDirection == -1)
+        if(leftTouching != null && (xDirection == -1||xVelocity < 0) && !leftTouching.isDiagonal())
         {
             isCollidingLeft = true;
             xVelocity = 0;
             setLocation(leftTouching.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, getY());
+        }
+        else if(leftTouching != null && (xDirection == -1||xVelocity < 0) && leftTouching.isDiagonal())
+        {
+            moveOnDiagonal(leftTouching);
         }
         else
         {

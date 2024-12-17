@@ -72,9 +72,13 @@ public class Tile extends ScrollingActor
             mapMaker.setType(type);
         }
     }
+    public int getRotation()
+    {
+        return rotations;
+    }
     public boolean isDiagonal()
     {
-        return (type.equals("Diagonal"));
+        return (type.equals("DiagonalTile"));
     }
     public boolean getButton()
     {
