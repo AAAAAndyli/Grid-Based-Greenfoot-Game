@@ -19,6 +19,15 @@ public class LevelWorld extends ScrollingWorld
 {
     private String levelName;
     ArrayList<String> world = new ArrayList<String>();
+    private Crosshair crosshair = new Crosshair();
+    private Camera camera = new Camera(crosshair);
+    
+    
+    public LevelWorld()
+    {
+        this("test5.csv");
+    }
+    
     /**
      * Constructor for objects of class LevelWorld.
      * 
@@ -58,7 +67,13 @@ public class LevelWorld extends ScrollingWorld
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
                 if(type.equals("PlayerSpawnPoint"))
                 {
-                    addObject(new Player(), xLocation, yLocation);
+                    Player player = new Player();
+                    addObject(player, xLocation, yLocation);
+                    addObject(crosshair, xLocation, yLocation);
+                    addObject(camera, 0, 0);
+                    camera.addFollowing(player);
+                    camera.addFollowing(crosshair);
+                    //camera.setFollowing(player);
                 }
                 else
                 {

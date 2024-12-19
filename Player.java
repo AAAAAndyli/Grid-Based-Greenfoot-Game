@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Andy
  * @version (a version number or a date)
  */
-public class Player extends ScrollingActor
+public class Player extends MovingScrollingActor
 {
     private double xVelocity = 0;
     private int xDirection = 0;
@@ -27,82 +27,49 @@ public class Player extends ScrollingActor
     private boolean isJumpKeyDown = false;
     
     private boolean touchingFloor;
-    public void addedToWorld()
+    
+    public Player()
     {
-      //super.addedToWorld();
+        globalPosition = new Coordinate(0,0);
     }
-    public void act()
+    
+    public void firstAddedToWorld(World world)
     {
-        if(isFirstAct)
+        globalPosition.setCoordinate(getX(), getY());
+    }
+
+    public void act()
+    {     
+        movement();
+        if(Greenfoot.mouseClicked(null))
         {
-            //I'm pretty sure this isn't useful anymore lol
-            isFirstAct = false;
-            originalX = getX();
-            originalY = getY();
+            MouseInfo mouse = Greenfoot.getMouseInfo();
+            Coordinate mouseTarget = new Coordinate(mouse.getX(), mouse.getY());
+            getWorld().addObject(new PProjectile(mouseTarget, 15, this), getX(), getY());
         }
-        
+        super.act();
+    }
+    
+    public void movement()
+    {
         slide();
         
+        predictFloor();
+        checkFloor();
+        applyGravity();
+        jump();
         if(!isSliding)
         {
             horizontalMovement();
             slam();
         }
-        
-        predictFloor();
-        
-        checkFloor();
-        applyGravity();
-        jump();
         collision();
-        boundingBox();
+        
+        setLocation(getX()+xVelocity,getY()+yVelocity);
+        
+        globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
     }
-    public void boundingBox()
-    {     
-        boolean rightBounding = getX() > 500 && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"));
-        boolean leftBounding = getX() < 300 && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"));
-        boolean downBounding = getY() > 350;
-        boolean upBounding = getY() < 250;
-        if(rightBounding || leftBounding)
-        {
-            if(rightBounding)
-            {
-                getWorldOfType(ScrollingWorld.class).forceScrollRight((int)xVelocity);
-            }
-            if(leftBounding)
-            {
-                getWorldOfType(ScrollingWorld.class).forceScrollLeft(-(int)xVelocity);
-            }
-        }
-        else
-        {
-            setLocation(getX()+xVelocity,getY());
-        }
-        if(downBounding || upBounding)
-        {
-            if(downBounding)
-            {
-                getWorldOfType(ScrollingWorld.class).forceScrollDown((int)yVelocity);
-                if(yVelocity == 0)
-                {
-                    getWorldOfType(ScrollingWorld.class).forceScrollDown(20);
-                }
-            }
-            if(upBounding)
-            {
-                getWorldOfType(ScrollingWorld.class).forceScrollUp(-(int)yVelocity);
-                if(yVelocity == 0)
-                {
-                    getWorldOfType(ScrollingWorld.class).forceScrollUp(5);
-                    setLocation(getX(),getY()+5);
-                }
-            }
-        }
-        else
-        {
-            setLocation(getX(),getY()+yVelocity);
-        }
-    }
+    
     public void horizontalMovement()
     {
         if((Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))&&(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")))
@@ -127,6 +94,7 @@ public class Player extends ScrollingActor
             }
         }
     }
+    
     public boolean checkFloor()
     {
         Tile mid = getOneTileAtOffset(0, getImage().getHeight()/2);
@@ -136,6 +104,19 @@ public class Player extends ScrollingActor
         boolean leftTouching = left != null;
         boolean rightTouching = right != null;
         touchingFloor = midTouching || leftTouching || rightTouching;
+        if(midTouching)
+        {
+            moveOnDiagonal(mid);
+        }
+        if(leftTouching)
+        {
+            moveOnDiagonal(left);
+        }
+        if(rightTouching)
+        {
+            moveOnDiagonal(right);
+        }
+        
         if(!touchingFloor)
         {
             coyoteTimer++;
@@ -146,6 +127,7 @@ public class Player extends ScrollingActor
         }
         return touchingFloor;
     }
+    
     public void predictFloor()
     {
         Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
@@ -156,7 +138,7 @@ public class Player extends ScrollingActor
         boolean leftWillTouch = predictedLeftTile != null;
         boolean rightWillTouch = predictedRightTile != null;
         
-        if(midWillTouch || leftWillTouch || rightWillTouch)
+        if((midWillTouch || leftWillTouch || rightWillTouch) && yVelocity >= 0)
         {
             yVelocity = -1;
             if(midWillTouch)
@@ -164,18 +146,19 @@ public class Player extends ScrollingActor
                 setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
                 moveOnDiagonal(predictedMidTile);
             }
-            if(leftWillTouch)
+            else if(leftWillTouch)
             {
                 setLocation(getX(), predictedLeftTile.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
                 moveOnDiagonal(predictedLeftTile);
             }
-            if(rightWillTouch)
+            else if(rightWillTouch)
             {
                 setLocation(getX(), predictedRightTile.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);  
                 moveOnDiagonal(predictedRightTile);
             }
         }
     }
+    
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
         Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);
@@ -196,11 +179,23 @@ public class Player extends ScrollingActor
             int tileTop = diagonalTile.getY()-diagonalTile.getImage().getHeight()/2-getImage().getHeight()/2;
             if(diagonalTile.getRotation() == 0)
             {
-                setLocation(getX(), tileTop - (getX() - diagonalTile.getX()));
+                touchingFloor = true;
+                double heightOnTile = getX() - diagonalTile.getX();
+                if(heightOnTile < 0 && heightOnTile > -50)
+                {
+                    setLocation(getX(), tileTop - heightOnTile);
+                }
+                globalPosition.setY(tileTop - diagonalTile.getScrollY() - (int)heightOnTile);
             }
             else if(diagonalTile.getRotation() == 1)
             {
-                setLocation(getX(), getY()-(diagonalTile.getImage().getHeight()/2 - (diagonalTile.getX() - getX())));
+                touchingFloor = true;
+                double heightOnTile = diagonalTile.getX() - getX();
+                if(heightOnTile < 0 && heightOnTile > -50)
+                {
+                    setLocation(getX(), tileTop - heightOnTile);
+                }
+                globalPosition.setY(tileTop - diagonalTile.getScrollY() - (int)heightOnTile);
             }
         }
     }
@@ -220,6 +215,7 @@ public class Player extends ScrollingActor
             yVelocity = maximumYVelocity;
         }
     }
+    
     public void jump()
     {
         if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && coyoteTimer < 10 && !isJumpKeyDown)
@@ -234,6 +230,7 @@ public class Player extends ScrollingActor
             isJumpKeyDown = false;
         }
     }
+    
     public void slam()
     {
         if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"))&&!touchingFloor)
@@ -244,7 +241,8 @@ public class Player extends ScrollingActor
                 if(predictedMidTile != null)
                 {
                     setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);  
-                    storedJump += 5;
+                    storedJump = 5;
+                    globalPosition.setY(globalPosition.getY() + i * 10);
                     break;
                 }
                 isSlamming = true;
@@ -255,6 +253,7 @@ public class Player extends ScrollingActor
             isSlamming = false;
         }
     }
+    
     public void slide()
     {
         if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && (touchingFloor||isSliding) && !isSlamming)
@@ -297,20 +296,28 @@ public class Player extends ScrollingActor
             isSliding = false;
         }
     }
+    
     public void collision()
     {
         Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 0);
         Tile leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 0);
         Tile upTouching = getOneTileAtOffset(0, -getImage().getHeight()/2);
+        Tile upTouchingBefore = getOneTileAtOffset(0, -getImage().getHeight()-10);
         if(rightTouching != null && (xDirection == 1||xVelocity > 0) && !rightTouching.isDiagonal())
         {
             isCollidingRight = true;
             xVelocity = 0;
             setLocation(rightTouching.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, getY());
         }
-        else if(rightTouching != null && (xDirection == 1||xVelocity > 0) && rightTouching.isDiagonal())
+        else if(rightTouching != null && (xDirection == 1||xVelocity > 0) && rightTouching.isDiagonal() && rightTouching.getRotation() == 0)
         {
             moveOnDiagonal(rightTouching);
+        }
+        else if(rightTouching != null && (xDirection == 1||xVelocity > 0))
+        {
+            isCollidingRight = true;
+            xVelocity = 0;
+            setLocation(rightTouching.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, getY());
         }
         else
         {
@@ -322,15 +329,21 @@ public class Player extends ScrollingActor
             xVelocity = 0;
             setLocation(leftTouching.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, getY());
         }
-        else if(leftTouching != null && (xDirection == -1||xVelocity < 0) && leftTouching.isDiagonal())
+        else if(leftTouching != null && (xDirection == -1||xVelocity < 0) && leftTouching.isDiagonal() && leftTouching.getRotation() == 1)
         {
             moveOnDiagonal(leftTouching);
+        }
+        else if(leftTouching != null && (xDirection == -1||xVelocity < 0))
+        {
+            isCollidingLeft = true;
+            xVelocity = 0;
+            setLocation(leftTouching.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, getY());
         }
         else
         {
             isCollidingLeft = false;
         }
-        if(upTouching != null)
+        if(upTouching != null && upTouchingBefore != null)
         {
             isCollidingUp = true;
             yVelocity = 1;
@@ -339,6 +352,65 @@ public class Player extends ScrollingActor
         else
         {
             isCollidingUp = false;
+        }
+    }
+    
+    
+    public void boundingBox()
+    {     
+        boolean rightBounding = getX() > 500;
+        boolean leftBounding = getX() < 300;
+        boolean downBounding = (getY() > 350 && yVelocity > 0) || (getY() > 500);
+        boolean upBounding = getY() < 300;
+        if(rightBounding || leftBounding)
+        {
+            if(rightBounding)
+            {
+                getWorldOfType(ScrollingWorld.class).forceScrollRight((int)xVelocity);
+                if(xVelocity == 0)
+                {
+                    getWorldOfType(ScrollingWorld.class).forceScrollRight(5);
+                    setLocation(getX()-5,getY());
+                }
+            }
+            if(leftBounding)
+            {
+                getWorldOfType(ScrollingWorld.class).forceScrollLeft(-(int)xVelocity);
+                if(xVelocity == 0)
+                {
+                    getWorldOfType(ScrollingWorld.class).forceScrollLeft(5);
+                    setLocation(getX()+5,getY());
+                }
+            }
+        }
+        else
+        {
+            setLocation(getX()+xVelocity,getY());
+        }
+        if(downBounding || upBounding)
+        {
+            if(downBounding)
+            {
+                getWorldOfType(ScrollingWorld.class).forceScrollDown((int)yVelocity);
+                if(yVelocity == 0)
+                {
+                    getWorldOfType(ScrollingWorld.class).forceScrollDown(20);
+                    setLocation(getX(),getY()-20);
+                }
+            }
+            if(upBounding)
+            {
+                getWorldOfType(ScrollingWorld.class).forceScrollUp(-(int)yVelocity);
+                if(yVelocity == 0)
+                {
+                    getWorldOfType(ScrollingWorld.class).forceScrollUp(10);
+                    setLocation(getX(),getY()+10);
+                }
+            }
+        }
+        else
+        {
+            setLocation(getX(),getY()+yVelocity);
         }
     }
 }

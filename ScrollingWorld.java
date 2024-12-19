@@ -56,6 +56,24 @@ public abstract class ScrollingWorld extends World
             }
         }
     }
+    
+    
+    public int getScrollX()
+    {
+        return scrollX;
+    }
+    public int getScrollY()
+    {
+        return scrollY;
+    }
+    public void setScrollX(int newScroll)
+    {
+        scrollX = newScroll; 
+    }
+    public void setScrollY(int newScroll)
+    {
+        scrollY = newScroll;
+    }
     public void setScrollSpeed(int scrollSpeed)
     {
         this.scrollSpeed = scrollSpeed;

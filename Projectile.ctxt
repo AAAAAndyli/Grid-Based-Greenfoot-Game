@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Projectile
+comment0.text=\n\ Write\ a\ description\ of\ class\ Projectile\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=target\ speed\ spawner
+comment1.target=Projectile(Coordinate,\ double,\ ScrollingActor)
+comment2.params=world
+comment2.target=void\ addedToWorld(greenfoot.World)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=target
+comment4.target=void\ changeAim(Coordinate)
+comment5.params=
+comment5.target=void\ autoAim()
+comment6.params=
+comment6.target=void\ homing()
+numComments=7

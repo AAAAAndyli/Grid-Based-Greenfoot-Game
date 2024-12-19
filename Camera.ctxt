@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Camera
+comment0.text=\n\ Write\ a\ description\ of\ class\ Camera\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=followingActor
+comment1.target=Camera(greenfoot.Actor)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ Camera\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=
+comment3.target=void\ followSingleTarget()
+comment4.params=
+comment4.target=void\ followMultipleTargets()
+comment5.params=
+comment5.target=void\ setMultipleFollowing()
+comment6.params=newFollowingActor
+comment6.target=void\ setFollowing(greenfoot.Actor)
+comment7.params=newFollowingActor
+comment7.target=void\ addFollowing(greenfoot.Actor)
+comment8.params=newFollowingActor
+comment8.target=void\ removeFollowing(greenfoot.Actor)
+numComments=9

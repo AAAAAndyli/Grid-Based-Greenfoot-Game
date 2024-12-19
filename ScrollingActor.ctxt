@@ -1,9 +1,15 @@
 #BlueJ class context
 comment0.target=ScrollingActor
 comment0.text=\n\ Write\ a\ description\ of\ class\ ScrollingActor\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=
-comment1.target=void\ act()
-comment1.text=\n\ Act\ -\ do\ whatever\ the\ ScrollingActor\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
-comment2.params=x\ y
-comment2.target=void\ changeScrollPosition(int,\ int)
-numComments=3
+comment1.params=world
+comment1.target=void\ addedToWorld(greenfoot.World)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ ScrollingActor\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=x\ y
+comment3.target=void\ changeScrollPosition(int,\ int)
+comment4.params=
+comment4.target=int\ getScrollX()
+comment5.params=
+comment5.target=int\ getScrollY()
+numComments=6
