@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Andy
  * @version (a version number or a date)
  */
-public class Player extends MovingScrollingActor
+public class Player extends Entity
 {
     private double xVelocity = 0;
     private int xDirection = 0;
@@ -33,13 +33,14 @@ public class Player extends MovingScrollingActor
         globalPosition = new Coordinate(0,0);
     }
     
-    public void firstAddedToWorld(World world)
+    public void addedToWorld(World world)
     {
         globalPosition.setCoordinate(getX(), getY());
     }
 
     public void act()
     {     
+        super.act();
         movement();
         if(Greenfoot.mouseClicked(null))
         {
@@ -47,7 +48,8 @@ public class Player extends MovingScrollingActor
             Coordinate mouseTarget = new Coordinate(mouse.getX(), mouse.getY());
             getWorld().addObject(new PProjectile(mouseTarget, 15, this), getX(), getY());
         }
-        super.act();
+        System.out.println("xVelocity: " + xVelocity + ", yVelocity: " + yVelocity);
+        System.out.println(globalPosition.getX() + ", " + globalPosition.getY());
     }
     
     public void movement()
@@ -65,7 +67,6 @@ public class Player extends MovingScrollingActor
         }
         collision();
         
-        setLocation(getX()+xVelocity,getY()+yVelocity);
         
         globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
     }
@@ -98,12 +99,13 @@ public class Player extends MovingScrollingActor
     public boolean checkFloor()
     {
         Tile mid = getOneTileAtOffset(0, getImage().getHeight()/2);
-        Tile left = getOneTileAtOffset(-getImage().getWidth()/2 + 10, getImage().getHeight()/2);
-        Tile right = getOneTileAtOffset(getImage().getWidth()/2 - 10, getImage().getHeight()/2);
+        Tile left = getOneTileAtOffset(-getImage().getWidth()/2 + 15, getImage().getHeight()/2);
+        Tile right = getOneTileAtOffset(getImage().getWidth()/2 - 15, getImage().getHeight()/2);
         boolean midTouching = mid != null;
         boolean leftTouching = left != null;
         boolean rightTouching = right != null;
         touchingFloor = midTouching || leftTouching || rightTouching;
+        /*
         if(midTouching)
         {
             moveOnDiagonal(mid);
@@ -116,6 +118,7 @@ public class Player extends MovingScrollingActor
         {
             moveOnDiagonal(right);
         }
+        */
         
         if(!touchingFloor)
         {
@@ -138,23 +141,20 @@ public class Player extends MovingScrollingActor
         boolean leftWillTouch = predictedLeftTile != null;
         boolean rightWillTouch = predictedRightTile != null;
         
-        if((midWillTouch || leftWillTouch || rightWillTouch) && yVelocity >= 0)
+        if((midWillTouch || leftWillTouch || rightWillTouch))
         {
             yVelocity = -1;
             if(midWillTouch)
             {
-                setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
-                moveOnDiagonal(predictedMidTile);
+                globalPosition.setCoordinate(globalPosition.getX(), predictedMidTile.globalPosition.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
             }
             else if(leftWillTouch)
             {
-                setLocation(getX(), predictedLeftTile.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
-                moveOnDiagonal(predictedLeftTile);
+                globalPosition.setCoordinate(globalPosition.getX(), predictedLeftTile.globalPosition.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
             }
             else if(rightWillTouch)
             {
-                setLocation(getX(), predictedRightTile.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);  
-                moveOnDiagonal(predictedRightTile);
+                globalPosition.setCoordinate(globalPosition.getX(), predictedRightTile.globalPosition.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);
             }
         }
     }
@@ -181,20 +181,12 @@ public class Player extends MovingScrollingActor
             {
                 touchingFloor = true;
                 double heightOnTile = getX() - diagonalTile.getX();
-                if(heightOnTile < 0 && heightOnTile > -50)
-                {
-                    setLocation(getX(), tileTop - heightOnTile);
-                }
                 globalPosition.setY(tileTop - diagonalTile.getScrollY() - (int)heightOnTile);
             }
             else if(diagonalTile.getRotation() == 1)
             {
                 touchingFloor = true;
                 double heightOnTile = diagonalTile.getX() - getX();
-                if(heightOnTile < 0 && heightOnTile > -50)
-                {
-                    setLocation(getX(), tileTop - heightOnTile);
-                }
                 globalPosition.setY(tileTop - diagonalTile.getScrollY() - (int)heightOnTile);
             }
         }
@@ -235,14 +227,13 @@ public class Player extends MovingScrollingActor
     {
         if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"))&&!touchingFloor)
         {
-            for(int i = 0 ; i < 100 ; i++)
+            for(int i = 0 ; i < 200 ; i++)
             {
-                Tile predictedMidTile = getOneTileAtOffset(0, 10 * i);
+                Tile predictedMidTile = getOneTileAtOffset(0, 5 * i);
                 if(predictedMidTile != null)
                 {
-                    setLocation(getX(), predictedMidTile.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);  
                     storedJump = 5;
-                    globalPosition.setY(globalPosition.getY() + i * 10);
+                    globalPosition.setY(predictedMidTile.globalPosition.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
                     break;
                 }
                 isSlamming = true;
@@ -302,22 +293,21 @@ public class Player extends MovingScrollingActor
         Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 0);
         Tile leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 0);
         Tile upTouching = getOneTileAtOffset(0, -getImage().getHeight()/2);
-        Tile upTouchingBefore = getOneTileAtOffset(0, -getImage().getHeight()-10);
         if(rightTouching != null && (xDirection == 1||xVelocity > 0) && !rightTouching.isDiagonal())
         {
             isCollidingRight = true;
             xVelocity = 0;
-            setLocation(rightTouching.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, getY());
+            globalPosition.setCoordinate(rightTouching.globalPosition.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, globalPosition.getY());
         }
-        else if(rightTouching != null && (xDirection == 1||xVelocity > 0) && rightTouching.isDiagonal() && rightTouching.getRotation() == 0)
-        {
-            moveOnDiagonal(rightTouching);
-        }
+        //else if(rightTouching != null && (xDirection == 1||xVelocity > 0) && rightTouching.isDiagonal() && rightTouching.getRotation() == 0)
+        //{
+            //moveOnDiagonal(rightTouching);
+        //}
         else if(rightTouching != null && (xDirection == 1||xVelocity > 0))
         {
             isCollidingRight = true;
             xVelocity = 0;
-            setLocation(rightTouching.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, getY());
+            globalPosition.setCoordinate(rightTouching.globalPosition.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, globalPosition.getY());
         }
         else
         {
@@ -327,90 +317,31 @@ public class Player extends MovingScrollingActor
         {
             isCollidingLeft = true;
             xVelocity = 0;
-            setLocation(leftTouching.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, getY());
+            globalPosition.setCoordinate(leftTouching.globalPosition.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, globalPosition.getY());
         }
-        else if(leftTouching != null && (xDirection == -1||xVelocity < 0) && leftTouching.isDiagonal() && leftTouching.getRotation() == 1)
-        {
-            moveOnDiagonal(leftTouching);
-        }
+        //else if(leftTouching != null && (xDirection == -1||xVelocity < 0) && leftTouching.isDiagonal() && leftTouching.getRotation() == 1)
+        //{
+            //moveOnDiagonal(leftTouching);
+        //}
         else if(leftTouching != null && (xDirection == -1||xVelocity < 0))
         {
             isCollidingLeft = true;
             xVelocity = 0;
-            setLocation(leftTouching.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, getY());
+            globalPosition.setCoordinate(leftTouching.globalPosition.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, globalPosition.getY());
         }
         else
         {
             isCollidingLeft = false;
         }
-        if(upTouching != null && upTouchingBefore != null)
+        if(upTouching != null)
         {
             isCollidingUp = true;
-            yVelocity = 1;
-            setLocation(getX(), upTouching.getY() + getImage().getHeight()/2 + upTouching.getImage().getHeight()/2);
+            yVelocity = 0;
+            globalPosition.setCoordinate(globalPosition.getX(), upTouching.globalPosition.getY() + getImage().getHeight()/2 + upTouching.getImage().getHeight()/2);
         }
         else
         {
             isCollidingUp = false;
-        }
-    }
-    
-    
-    public void boundingBox()
-    {     
-        boolean rightBounding = getX() > 500;
-        boolean leftBounding = getX() < 300;
-        boolean downBounding = (getY() > 350 && yVelocity > 0) || (getY() > 500);
-        boolean upBounding = getY() < 300;
-        if(rightBounding || leftBounding)
-        {
-            if(rightBounding)
-            {
-                getWorldOfType(ScrollingWorld.class).forceScrollRight((int)xVelocity);
-                if(xVelocity == 0)
-                {
-                    getWorldOfType(ScrollingWorld.class).forceScrollRight(5);
-                    setLocation(getX()-5,getY());
-                }
-            }
-            if(leftBounding)
-            {
-                getWorldOfType(ScrollingWorld.class).forceScrollLeft(-(int)xVelocity);
-                if(xVelocity == 0)
-                {
-                    getWorldOfType(ScrollingWorld.class).forceScrollLeft(5);
-                    setLocation(getX()+5,getY());
-                }
-            }
-        }
-        else
-        {
-            setLocation(getX()+xVelocity,getY());
-        }
-        if(downBounding || upBounding)
-        {
-            if(downBounding)
-            {
-                getWorldOfType(ScrollingWorld.class).forceScrollDown((int)yVelocity);
-                if(yVelocity == 0)
-                {
-                    getWorldOfType(ScrollingWorld.class).forceScrollDown(20);
-                    setLocation(getX(),getY()-20);
-                }
-            }
-            if(upBounding)
-            {
-                getWorldOfType(ScrollingWorld.class).forceScrollUp(-(int)yVelocity);
-                if(yVelocity == 0)
-                {
-                    getWorldOfType(ScrollingWorld.class).forceScrollUp(10);
-                    setLocation(getX(),getY()+10);
-                }
-            }
-        }
-        else
-        {
-            setLocation(getX(),getY()+yVelocity);
         }
     }
 }

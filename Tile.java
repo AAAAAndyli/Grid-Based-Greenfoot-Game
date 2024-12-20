@@ -8,13 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Tile extends ScrollingActor
 {
-    private String type;
-    private int rotations;
-    private boolean isButton;
+    protected String type;
+    protected int rotations;
+    protected boolean isButton;
     
-    private int x, y;
+    protected int x, y;
     
-    private MapMaker mapMaker;
+    protected MapMaker mapMaker;
     
     public Tile(String type, int rotations, int xPosition, int yPosition)
     {
@@ -45,9 +45,9 @@ public class Tile extends ScrollingActor
             this.mapMaker = mapMaker;
         }
     }
-    public void addedToWorld()
+    public void addedToWorld(World world)
     {
-        //super.addedToWorld();
+        super.addedToWorld(world);
     }
     
     /**

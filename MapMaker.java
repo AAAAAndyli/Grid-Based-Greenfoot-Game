@@ -101,6 +101,7 @@ public class MapMaker extends SuperSmoothMover
         tileListOptions.add(new Tile("DiagonalTile", rotations, true, this));
         tileListOptions.add(new Tile("Stair", rotations, true, this));
         tileListOptions.add(new Tile("PlayerSpawnPoint", 0, true, this));
+        tileListOptions.add(new KillTile("LaserTile", rotations, true, this));
         //getWorld().getWidth()/2;
         displayOptions();
     }

@@ -10,7 +10,7 @@ public class Camera extends SuperSmoothMover
 {
     private Actor followingActor;
     private ArrayList<Actor> followingActors = new ArrayList<Actor>();
-    private boolean followingMultipleActors = true;
+    private boolean followingMultipleActors = false;
     private int numberOfFollowingActors = 2;
     
     public Camera(Actor followingActor)
@@ -38,37 +38,21 @@ public class Camera extends SuperSmoothMover
         int actorY = followingActor.getY();
         //300 = global position - scroll x
         //
-        if(actorX > 500)
+        if(actorX > 425)
         {
-            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - (actorX - 500));
+            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - (actorX - 425));
         }
-        else if(actorX < 300)
+        else if(actorX < 375)
         {
-            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - (actorX - 300));
+            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - (actorX - 375));
         }
-        if(actorX > 800)
+        if(actorY < 275)
         {
-            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - 800);
+            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - (actorY - 275));
         }
-        else if(actorX < 0)
+        else if(actorY > 325)
         {
-            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() + 0);
-        }
-        if(actorY > 400)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - (actorY - 400));
-        }
-        else if(actorY < 200)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - (actorY - 200));
-        }
-        if(actorY > 600)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - 100);
-        }
-        else if(actorY < 0)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() + 100);
+            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - (actorY - 325));
         }
     }
     

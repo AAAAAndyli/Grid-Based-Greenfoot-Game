@@ -18,7 +18,7 @@ public class Coordinate
     
     public void setCoordinate(int x, int y)
     {
-        System.out.println(this);
+        //System.out.println(this);
         this.x = x;
         this.y = y;
     }

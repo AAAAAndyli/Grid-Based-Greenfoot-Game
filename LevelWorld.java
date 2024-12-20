@@ -25,7 +25,7 @@ public class LevelWorld extends ScrollingWorld
     
     public LevelWorld()
     {
-        this("test5.csv");
+        this("test.csv");
     }
     
     /**
@@ -72,8 +72,13 @@ public class LevelWorld extends ScrollingWorld
                     addObject(crosshair, xLocation, yLocation);
                     addObject(camera, 0, 0);
                     camera.addFollowing(player);
+                    camera.addFollowing(player);
+                    camera.addFollowing(player);
+                    camera.addFollowing(player);
+                    camera.addFollowing(player);
+                    camera.addFollowing(player);
                     camera.addFollowing(crosshair);
-                    //camera.setFollowing(player);
+                    camera.setFollowing(player);
                 }
                 else
                 {

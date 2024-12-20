@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Enemy extends MovingScrollingActor
+public class Enemy extends Entity
 {
     protected int health, speed;
     public Enemy()
@@ -19,8 +19,8 @@ public class Enemy extends MovingScrollingActor
      */
     public void act()
     {
-        super.act();
-        
+        //super.act();
+        barrier();
     }
     public void findAirPath()
     {
