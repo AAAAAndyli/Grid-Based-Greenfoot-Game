@@ -57,7 +57,7 @@ public class Player extends Entity
         if(mouse != null && mouse.getButton() == 1)
         {   
             Coordinate mouseTarget = new Coordinate(mouse.getX(), mouse.getY());
-            getWorld().addObject(new Laser(5, 100, 3), getX(), getY());
+            getWorld().addObject(new Laser(5, 100, 3, false), getX(), getY());
             if(Greenfoot.mouseClicked(null))
             {
                 getWorld().addObject(new PProjectile(mouseTarget, 15, this), getX(), getY());

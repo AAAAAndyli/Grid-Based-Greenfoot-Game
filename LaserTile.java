@@ -53,7 +53,7 @@ public class LaserTile extends Tile
         }
         int laserX = (rotations == 0) ? length : (rotations == 2) ? -length : 10;
         int laserY = (rotations == 1) ? length : (rotations == 3) ? -length : 10;
-        laser = new Laser(Math.abs(laserX), Math.abs(laserY), 2);
+        laser = new Laser(Math.abs(laserX), Math.abs(laserY), 2, true);
         getWorld().addObject(laser, globalPosition.getX() + ((rotations == 0 || rotations == 2) ? laserX/2 : 0), globalPosition.getY() + ((rotations == 1 || rotations == 3) ? laserY/2 : 0));
     }
     public void removeLaser()
