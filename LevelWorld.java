@@ -21,6 +21,7 @@ public class LevelWorld extends ScrollingWorld
     ArrayList<String> world = new ArrayList<String>();
     private Crosshair crosshair = new Crosshair();
     private Camera camera = new Camera(crosshair);
+    private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
     
     
     public LevelWorld()
@@ -65,7 +66,7 @@ public class LevelWorld extends ScrollingWorld
                 int rotation = Integer.parseInt(tokenizer.nextToken());
                 int xLocation = Integer.parseInt(tokenizer.nextToken());
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
-                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile"))
+                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint"))
                 {
                     switch(type)
                     {
@@ -85,6 +86,11 @@ public class LevelWorld extends ScrollingWorld
                             break;
                         case "LaserTile":
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                            break;
+                        case "EnemySpawnPoint":
+                            Enemy enemy = new Enemy();
+                            addObject(enemy, xLocation, yLocation);
+                            break;
                     }
                 }
                 else

@@ -24,4 +24,12 @@ public class PProjectile extends Projectile
     {
         super.act();
     }
+    public void collide()
+    {
+        if(isTouching(Enemy.class))
+        {
+            Enemy enemyTarget = (Enemy)getOneIntersectingObject(Enemy.class);
+            enemyTarget.hurt(1);
+        }
+    }
 }

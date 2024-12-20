@@ -27,6 +27,7 @@ public class Player extends Entity
     private boolean isJumpKeyDown = false;
     
     private boolean touchingFloor;
+    //private Laser sight = new Laser
     
     public Player()
     {
@@ -42,17 +43,25 @@ public class Player extends Entity
     {     
         super.act();
         movement();
-        if(Greenfoot.mouseClicked(null))
-        {
-            MouseInfo mouse = Greenfoot.getMouseInfo();
-            Coordinate mouseTarget = new Coordinate(mouse.getX(), mouse.getY());
-            getWorld().addObject(new PProjectile(mouseTarget, 15, this), getX(), getY());
-        }
-        System.out.println("xVelocity: " + xVelocity + ", yVelocity: " + yVelocity);
-        System.out.println(globalPosition.getX() + ", " + globalPosition.getY());
+        shoot();
+        //System.out.println("xVelocity: " + xVelocity + ", yVelocity: " + yVelocity);
+        //System.out.println(globalPosition.getX() + ", " + globalPosition.getY());
         if(willDie)
         {
             die();
+        }
+    }
+    public void shoot()
+    {
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if(mouse != null && mouse.getButton() == 1)
+        {   
+            Coordinate mouseTarget = new Coordinate(mouse.getX(), mouse.getY());
+            getWorld().addObject(new Laser(5, 100, 3), getX(), getY());
+            if(Greenfoot.mouseClicked(null))
+            {
+                getWorld().addObject(new PProjectile(mouseTarget, 15, this), getX(), getY());
+            }
         }
     }
     
@@ -70,8 +79,6 @@ public class Player extends Entity
             slam();
         }
         collision();
-        
-        
         globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
     }
     
@@ -230,7 +237,7 @@ public class Player extends Entity
     
     public void slam()
     {
-        if((touchingFloor || getOneTileAtOffset(0, getImage().getHeight()/2+10) != null) && !(Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")))
+        if(((touchingFloor || getOneTileAtOffset(getImage().getWidth()/2, getImage().getHeight()/2+10) != null)|| getOneTileAtOffset(-getImage().getWidth()/2, getImage().getHeight()/2+10) != null) && !(Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")))
         {
             isSlamming = false;
         }

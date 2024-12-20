@@ -25,21 +25,14 @@ public class LaserTile extends Tile
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);
-        createLaser();
+        if(!isButton)
+        {
+            createLaser();
+        }
     }
     public void act()
     {
         super.act();
-        if(timer > 500)
-        {
-            timer = 0;
-            removeLaser();
-            createLaser();
-        }
-        else
-        {
-            timer++;
-        }
     }
     public void createLaser()
     {

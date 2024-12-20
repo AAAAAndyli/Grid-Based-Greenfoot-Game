@@ -8,13 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Enemy extends Entity
 {
-    protected int health, speed;
     public Enemy()
     {
         
     }
     public void addedToWorld(World world)
     {
+        super.addedToWorld(world);
         globalPosition.setCoordinate(getX(), getY());
     }
     /**
@@ -25,6 +25,10 @@ public class Enemy extends Entity
     {
         super.act();
         barrier();
+        if(willDie)
+        {
+            die();
+        }
     }
     public void findAirPath()
     {

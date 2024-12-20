@@ -8,11 +8,29 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Laser extends ScrollingActor
 {
-    private int width, height;
-    public Laser(int width, int height, int laserVariant)
+    private int width, height, laserVariant;
+    private boolean scrolling;
+    public Laser(int width, int height, int laserVariant, boolean scrolling)
     {
-        setImage("laser"+laserVariant+".png");
+        this.laserVariant = laserVariant;
+        this.scrolling = scrolling;
+        setImage("laser/laser"+laserVariant+".png");
         getImage().scale(width+1, height+1);
+    }
+    
+    public int getVariant()
+    {
+        return laserVariant;
+    }
+    
+    public void changeWidth(int width)
+    {
+        getImage().scale(width+1, getImage().getHeight());
+    }
+    
+    public void changeHeight(int height)
+    {
+        getImage().scale(getImage().getWidth(), height+1);
     }
 
     public String toString()

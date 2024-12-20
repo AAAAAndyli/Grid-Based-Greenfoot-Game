@@ -15,6 +15,7 @@ public class MapMaker extends SuperSmoothMover
     private ArrayList<Tile> tileListOptions = new ArrayList<Tile>();
     private String type;
     private int rotation = 0;
+    private int page = 0;
     private boolean isFirstAct = true;
     private boolean hide = false;
     
@@ -74,6 +75,11 @@ public class MapMaker extends SuperSmoothMover
         {
             displayOptions();
         }
+        String key = Greenfoot.getKey();
+        if(key != null && key.matches("\\d+"))
+        {
+            page = Integer.parseInt(key) - 1;
+        }
     }
     public void hide()
     {
@@ -97,13 +103,23 @@ public class MapMaker extends SuperSmoothMover
             }
         }
         tileListOptions.clear();
-        tileListOptions.add(new Tile("FullTile", rotations, true, this));
-        tileListOptions.add(new Tile("DiagonalTile", rotations, true, this));
-        tileListOptions.add(new Tile("Stair", rotations, true, this));
-        tileListOptions.add(new Tile("PlayerSpawnPoint", 0, true, this));
-        tileListOptions.add(new LaserTile("LaserTile", rotations, true, this));
+        pickOptions(page, rotations);
         //getWorld().getWidth()/2;
         displayOptions();
+    }
+    public void pickOptions(int page, int rotations)
+    {
+        switch(page)
+        {
+            case 0:
+                tileListOptions.add(new Tile("FullTile", rotations, true, this));
+                tileListOptions.add(new Tile("DiagonalTile", rotations, true, this));
+                tileListOptions.add(new Tile("Stair", rotations, true, this));
+                tileListOptions.add(new Tile("PlayerSpawnPoint", 0, true, this));
+                tileListOptions.add(new LaserTile("LaserTile", rotations, true, this));
+                tileListOptions.add(new Tile("EnemySpawnPoint", rotations, true, this));
+                break;
+        }
     }
     public void displayOptions()
     {

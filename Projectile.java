@@ -29,7 +29,7 @@ public abstract class Projectile extends ScrollingActor
         distance += speed;
         super.act();
         globalPosition.setCoordinate(globalPosition.getX()+(int)Math.round(speed * Math.cos(Math.toRadians(getRotation()))), globalPosition.getY()+(int)Math.round(speed * Math.sin(Math.toRadians(getRotation()))));
-        
+        collide();
         //move(speed);
         if(distance > MAX_DISTANCE)
         {
@@ -40,6 +40,9 @@ public abstract class Projectile extends ScrollingActor
             getWorld().removeObject(this);
         }
     }
+    
+    public abstract void collide();
+    
     public void changeAim(Coordinate target)
     {
         turnTowards(target.getX(), target.getY());
