@@ -13,13 +13,17 @@ public class Enemy extends Entity
     {
         
     }
+    public void addedToWorld(World world)
+    {
+        globalPosition.setCoordinate(getX(), getY());
+    }
     /**
      * Act - do whatever the Enemy wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        //super.act();
+        super.act();
         barrier();
     }
     public void findAirPath()

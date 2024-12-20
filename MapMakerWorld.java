@@ -228,20 +228,43 @@ public class MapMakerWorld extends ScrollingWorld
 
     public void placeTile(int x, int y, String type)
     {
-        Tile tile = new Tile(type, mapMaker.getRotations(), x, y);
-        if(world.size() == 0)
+        if(!type.equals("LaserTile"))
         {
-            world.add(tile.getString());
-            addObject(tile, x, y);
-        }
-        else
-        {
-            ArrayList<Tile> tileAtMouse = (ArrayList<Tile>)getObjectsAt(x+scrollX, y+scrollY, Tile.class);
-            if((SAFE_MODE && tileAtMouse.size() == 0) || !SAFE_MODE)
+            Tile tile = new Tile(type, mapMaker.getRotations(), x, y);
+            if(world.size() == 0)
             {
                 world.add(tile.getString());
                 addObject(tile, x, y);
             }
+            else
+            {
+                ArrayList<Tile> tileAtMouse = (ArrayList<Tile>)getObjectsAt(x+scrollX, y+scrollY, Tile.class);
+                if((SAFE_MODE && tileAtMouse.size() == 0) || !SAFE_MODE)
+                {
+                    world.add(tile.getString());
+                    addObject(tile, x, y);
+                }
+            }
+        }
+        switch(type)
+        {
+            case "LaserTile":
+                LaserTile tile = new LaserTile(type, mapMaker.getRotations(), x, y);
+                if(world.size() == 0)
+                {
+                    world.add(tile.getString());
+                    addObject(tile, x, y);
+                }
+                else
+                {
+                    ArrayList<Tile> tileAtMouse = (ArrayList<Tile>)getObjectsAt(x+scrollX, y+scrollY, Tile.class);
+                    if((SAFE_MODE && tileAtMouse.size() == 0) || !SAFE_MODE)
+                    {
+                        world.add(tile.getString());
+                        addObject(tile, x, y);
+                    }
+                }
+                break;
         }
     }
     

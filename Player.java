@@ -50,6 +50,10 @@ public class Player extends Entity
         }
         System.out.println("xVelocity: " + xVelocity + ", yVelocity: " + yVelocity);
         System.out.println(globalPosition.getX() + ", " + globalPosition.getY());
+        if(willDie)
+        {
+            die();
+        }
     }
     
     public void movement()
@@ -232,6 +236,7 @@ public class Player extends Entity
         }
         else if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down") || isSlamming))
         {
+            storedJump = 5;
             xVelocity = 0;
             isSlamming = true;
             yVelocity = 35;

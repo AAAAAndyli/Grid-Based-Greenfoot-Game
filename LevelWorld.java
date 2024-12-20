@@ -65,20 +65,27 @@ public class LevelWorld extends ScrollingWorld
                 int rotation = Integer.parseInt(tokenizer.nextToken());
                 int xLocation = Integer.parseInt(tokenizer.nextToken());
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
-                if(type.equals("PlayerSpawnPoint"))
+                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile"))
                 {
-                    Player player = new Player();
-                    addObject(player, xLocation, yLocation);
-                    addObject(crosshair, xLocation, yLocation);
-                    addObject(camera, 0, 0);
-                    camera.addFollowing(player);
-                    camera.addFollowing(player);
-                    camera.addFollowing(player);
-                    camera.addFollowing(player);
-                    camera.addFollowing(player);
-                    camera.addFollowing(player);
-                    camera.addFollowing(crosshair);
-                    camera.setFollowing(player);
+                    switch(type)
+                    {
+                        case "PlayerSpawnPoint":
+                            Player player = new Player();
+                            addObject(player, xLocation, yLocation);
+                            addObject(crosshair, xLocation, yLocation);
+                            addObject(camera, 0, 0);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.addFollowing(crosshair);
+                            camera.setFollowing(player);
+                            break;
+                        case "LaserTile":
+                            addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                    }
                 }
                 else
                 {

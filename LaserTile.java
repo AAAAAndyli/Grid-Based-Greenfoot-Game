@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class LaserTile extends Tile
 {
+    private Laser laser;
     public LaserTile(String type, int rotations, int xPosition, int yPosition)
     {
         this(type, rotations, false, null, xPosition, yPosition);
@@ -23,6 +24,14 @@ public class LaserTile extends Tile
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);
+        createLaser();
+    }
+    public void act()
+    {
+        super.act();
+    }
+    public void createLaser()
+    {
         int length;
         for(length = 0; length < 10000; length++)   
         {
@@ -33,24 +42,18 @@ public class LaserTile extends Tile
             rotations == 1 ? length:
             rotations == 3 ? -length:
             0, Tile.class));
-            System.out.println("otherTile");
             if(otherTile!= null && otherTile != this)
             {
-                System.out.println("Thing Found!!");
                 break;
             }
         }
-        Laser laser = new Laser(rotations == 0 ? length:
-            rotations == 2 ? -length:
-            20,
-            rotations == 1 ? length:
-            rotations == 3 ? -length:
-            20, 2);
-        System.out.println(laser);
-        getWorld().addObject(laser, globalPosition.getX(), globalPosition.getY());
+        int laserX = (rotations == 0) ? length : (rotations == 2) ? -length : 10;
+        int laserY = (rotations == 1) ? length : (rotations == 3) ? -length : 10;
+        laser = new Laser(Math.abs(laserX), Math.abs(laserY), 2);
+        getWorld().addObject(laser, globalPosition.getX() + ((rotations == 0 || rotations == 2) ? laserX/2 : 0), globalPosition.getY() + ((rotations == 1 || rotations == 3) ? laserY/2 : 0));
     }
-    public void act()
+    public void removeLaser()
     {
-        super.act();
+        getWorld().removeObject(laser);
     }
 }

@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public abstract class Entity extends ScrollingActor
 {
+    protected boolean willDie = false;
     public void act()
     {
         barrier();
@@ -21,7 +22,7 @@ public abstract class Entity extends ScrollingActor
     {
         if(isTouching(Laser.class))
         {
-            die();
+            willDie = true;
         }
     }
 }

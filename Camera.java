@@ -29,7 +29,10 @@ public class Camera extends SuperSmoothMover
         }
         else
         {
-            followSingleTarget();
+            if(followingActor.getWorld() != null)
+            {
+                followSingleTarget();
+            }
         }
     }
     public void followSingleTarget()

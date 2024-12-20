@@ -12,16 +12,9 @@ public class Laser extends ScrollingActor
     public Laser(int width, int height, int laserVariant)
     {
         setImage("laser"+laserVariant+".png");
-        getImage().scale(width, height);
+        getImage().scale(width+1, height+1);
     }
-    /**
-     * Act - do whatever the laser wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
-    }
+
     public String toString()
     {
         return "Laser: width: " + width + ", height: " + height;
