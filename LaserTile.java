@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class LaserTile extends Tile
 {
     private Laser laser;
+    private int timer = 0;
     public LaserTile(String type, int rotations, int xPosition, int yPosition)
     {
         this(type, rotations, false, null, xPosition, yPosition);
@@ -29,6 +30,16 @@ public class LaserTile extends Tile
     public void act()
     {
         super.act();
+        if(timer > 500)
+        {
+            timer = 0;
+            removeLaser();
+            createLaser();
+        }
+        else
+        {
+            timer++;
+        }
     }
     public void createLaser()
     {

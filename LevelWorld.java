@@ -97,5 +97,10 @@ public class LevelWorld extends ScrollingWorld
                 System.out.println("Bad File >:(");
             }
         }
+        for(LaserTile laserTile : getObjects(LaserTile.class))
+        {
+            laserTile.removeLaser();
+            laserTile.createLaser();
+        }
     }
 }
