@@ -134,8 +134,8 @@ public class Player extends Entity
     public void predictFloor()
     {
         Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
+        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity+5);
+        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity+5);
         
         boolean midWillTouch = predictedMidTile != null;
         boolean leftWillTouch = predictedLeftTile != null;
@@ -144,6 +144,7 @@ public class Player extends Entity
         if((midWillTouch || leftWillTouch || rightWillTouch))
         {
             yVelocity = -1;
+            touchingFloor = true;
             if(midWillTouch)
             {
                 globalPosition.setCoordinate(globalPosition.getX(), predictedMidTile.globalPosition.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
@@ -225,23 +226,17 @@ public class Player extends Entity
     
     public void slam()
     {
-        if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"))&&!touchingFloor)
-        {
-            for(int i = 0 ; i < 200 ; i++)
-            {
-                Tile predictedMidTile = getOneTileAtOffset(0, 5 * i);
-                if(predictedMidTile != null)
-                {
-                    storedJump = 5;
-                    globalPosition.setY(predictedMidTile.globalPosition.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
-                    break;
-                }
-                isSlamming = true;
-            }
-        }
-        else if(!(Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && isSlamming)
+        if((touchingFloor || getOneTileAtOffset(0, getImage().getHeight()/2+10) != null) && !(Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")))
         {
             isSlamming = false;
+        }
+        else if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down") || isSlamming))
+        {
+            xVelocity = 0;
+            isSlamming = true;
+            yVelocity = 35;
+            predictFloor();
+            checkFloor();
         }
     }
     
@@ -290,9 +285,10 @@ public class Player extends Entity
     
     public void collision()
     {
-        Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 0);
-        Tile leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 0);
+        Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity + 5, 0);
+        Tile leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity - 5, 0);
         Tile upTouching = getOneTileAtOffset(0, -getImage().getHeight()/2);
+        Tile upTouchingBefore = getOneTileAtOffset(0, -getImage().getHeight()-5);
         if(rightTouching != null && (xDirection == 1||xVelocity > 0) && !rightTouching.isDiagonal())
         {
             isCollidingRight = true;
