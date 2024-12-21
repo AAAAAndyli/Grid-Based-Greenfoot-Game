@@ -32,6 +32,10 @@ public class MapMakerWorld extends ScrollingWorld
     private final static boolean SAFE_MODE = true;
     
     ArrayList<String> world = new ArrayList<String>();
+    private String[][] grid2D;
+    private String value;
+    private int index;
+    
     private MapMaker mapMaker = new MapMaker(this);
     private String loadedFile;
     //The primary frame
@@ -54,6 +58,7 @@ public class MapMakerWorld extends ScrollingWorld
         frame.setAlwaysOnTop(true);
         frame.setVisible(false);
     }
+    
     public void act()
     {
         super.act();
@@ -64,6 +69,22 @@ public class MapMakerWorld extends ScrollingWorld
             showMainMenu();
         }
     }
+    
+    public void toGrid(int x, int y)
+    {
+        grid2D = new String[x][y];
+        index = 0;
+        for(int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < y; j++)
+            {
+                value = world.get(index);
+                grid2D[i][j] = value;
+                index++;
+            }
+        }
+    }
+    
     public void printWorld()
     {
         System.out.println("The World:");
@@ -72,7 +93,6 @@ public class MapMakerWorld extends ScrollingWorld
             System.out.println(tile);
         }
     }
-    
     
     public void showMainMenu()
     {
