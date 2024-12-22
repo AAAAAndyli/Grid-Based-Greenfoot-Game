@@ -12,4 +12,6 @@ comment4.params=
 comment4.target=int\ getScrollX()
 comment5.params=
 comment5.target=int\ getScrollY()
-numComments=6
+comment6.params=
+comment6.target=Coordinate\ getPosition()
+numComments=7

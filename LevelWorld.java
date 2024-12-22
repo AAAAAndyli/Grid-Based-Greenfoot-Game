@@ -39,6 +39,7 @@ public class LevelWorld extends ScrollingWorld
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
         loadLevel();
+        addObject(new FPS(), 200, 10);
     }
     public void loadLevel()
     {
@@ -72,11 +73,9 @@ public class LevelWorld extends ScrollingWorld
                     {
                         case "PlayerSpawnPoint":
                             Player player = new Player();
-                            addObject(player, xLocation, yLocation);
                             addObject(crosshair, xLocation, yLocation);
+                            addObject(player, xLocation, yLocation);
                             addObject(camera, 0, 0);
-                            camera.addFollowing(player);
-                            camera.addFollowing(player);
                             camera.addFollowing(player);
                             camera.addFollowing(player);
                             camera.addFollowing(player);
@@ -88,7 +87,7 @@ public class LevelWorld extends ScrollingWorld
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
                             break;
                         case "EnemySpawnPoint":
-                            Enemy enemy = new Enemy();
+                            ProjectileEnemy enemy = new ProjectileEnemy();
                             addObject(enemy, xLocation, yLocation);
                             break;
                     }

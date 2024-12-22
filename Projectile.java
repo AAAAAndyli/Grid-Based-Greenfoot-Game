@@ -13,11 +13,12 @@ public abstract class Projectile extends ScrollingActor
     protected double speed;
     protected double distance = 0;
     protected final double MAX_DISTANCE = 2000;
-    public Projectile(Coordinate target, double speed, ScrollingActor spawner)
+    public Projectile(Coordinate target, double speed, ScrollingActor spawner, String sprite)
     {
         this.target = target;
         this.speed = speed;
         this.spawner = spawner;
+        setImage("Projectiles/" + sprite + ".png");
     }
     public void addedToWorld(World world)
     {

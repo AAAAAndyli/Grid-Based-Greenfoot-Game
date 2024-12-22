@@ -14,7 +14,12 @@ public class PProjectile extends Projectile
      */
     public PProjectile(Coordinate target, double speed, ScrollingActor spawner)
     {
-        super(target, speed, spawner);
+        super(target, speed, spawner, "projectilePlaceholder");
+    }
+    
+    public PProjectile(Coordinate target, double speed, ScrollingActor spawner, String sprite)
+    {
+        super(target, speed, spawner, sprite);
     }
     public void addedToWorld(World world)
     {
