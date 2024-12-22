@@ -33,7 +33,13 @@ public class ProjectileEnemy extends Enemy
     public void useProjectile(int projectileType, int speed)
     {
         Player player = getWorld().getObjects(Player.class).get(0);
-        Coordinate playerLocalPosition = new Coordinate(player.getX(), player.getY());
+        
+        int distance = (int)Math.sqrt(Math.pow(player.getX() - getX(), 2) + Math.pow(player.getY() - getY(), 2));
+        int playerPredictedOffsetX = (int)player.getXVelocity() * (distance/15);
+        int playerPredictedOffsetY = (int)player.getYVelocity() * (distance/15);
+        
+        Coordinate playerLocalPosition = new Coordinate(player.getX() + playerPredictedOffsetX, player.getY() + playerPredictedOffsetY);
+        
         getWorld().addObject(new EProjectile(playerLocalPosition, speed, this, "EnemyProjectile"), getX(), getY());
         System.out.println("PEWPEW");
     }

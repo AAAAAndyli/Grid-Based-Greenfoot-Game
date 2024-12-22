@@ -35,6 +35,7 @@ public class PProjectile extends Projectile
         {
             Enemy enemyTarget = (Enemy)getOneIntersectingObject(Enemy.class);
             enemyTarget.hurt(1);
+            markedForDeletion = true;
         }
     }
 }

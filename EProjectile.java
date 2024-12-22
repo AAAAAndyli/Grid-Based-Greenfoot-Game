@@ -26,6 +26,7 @@ public class EProjectile extends Projectile
         {
             Player player = (Player)getOneIntersectingObject(Player.class);
             player.hurt(1);
+            markedForDeletion = true;
         }
     }
     public void parried()

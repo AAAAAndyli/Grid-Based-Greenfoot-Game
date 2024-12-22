@@ -42,6 +42,7 @@ public class Player extends Entity
     public Player()
     {
         globalPosition = new Coordinate(0,0);
+        health = 10;
     }
     
     public void addedToWorld(World world)
@@ -408,5 +409,13 @@ public class Player extends Entity
                 projectile.parried();
             }
         }
+    }
+    public double getXVelocity()
+    {
+        return xVelocity;
+    }
+    public double getYVelocity()
+    {
+        return yVelocity;
     }
 }

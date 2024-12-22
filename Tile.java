@@ -72,6 +72,14 @@ public class Tile extends ScrollingActor
             mapMaker.setType(type);
         }
     }
+    public int getGlobalX()
+    {
+        return x;
+    }
+    public int getGlobalY()
+    {
+        return y;
+    }
     public int getRotation()
     {
         return rotations;

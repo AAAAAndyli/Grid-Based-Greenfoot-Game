@@ -19,6 +19,7 @@ public class LevelWorld extends ScrollingWorld
 {
     private String levelName;
     ArrayList<String> world = new ArrayList<String>();
+    ArrayList<Tile> tileWorld = new ArrayList<Tile>();
     private Crosshair crosshair = new Crosshair();
     private Camera camera = new Camera(crosshair);
     private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
@@ -39,6 +40,7 @@ public class LevelWorld extends ScrollingWorld
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
         loadLevel();
+        toGrid();
         addObject(new FPS(), 200, 10);
     }
     public void loadLevel()
@@ -95,6 +97,7 @@ public class LevelWorld extends ScrollingWorld
                 else
                 {
                     addObject(new Tile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                    tileWorld.add(new Tile(type, rotation, xLocation, yLocation));
                 }
             }
             catch(NumberFormatException e)
@@ -107,5 +110,39 @@ public class LevelWorld extends ScrollingWorld
             laserTile.removeLaser();
             laserTile.createLaser();
         }
+    }
+    public Tile[][] toGrid()
+    {
+        int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
+        int highestX = Integer.MIN_VALUE, highestY = Integer.MIN_VALUE;
+        for(Tile tile : tileWorld)
+        {
+            if(lowestX > tile.getGlobalX())
+            {
+                lowestX = tile.getGlobalX();
+            }
+            if(lowestY > tile.getGlobalY())
+            {
+                lowestY = tile.getGlobalY();
+            }
+            if(highestX < tile.getGlobalX())
+            {
+                highestX = tile.getGlobalX();
+            }
+            if(highestY < tile.getGlobalY())
+            {
+                highestY = tile.getGlobalY();
+            }
+        }
+        
+        int xTiles = (highestX - lowestX)/50 + 1;
+        int yTiles = (highestY - lowestY)/50 + 1;
+        Tile[][] map = new Tile[yTiles][xTiles];
+        
+        for(Tile tile : tileWorld)
+        {
+            map[(tile.getGlobalY() - lowestY)/50][(tile.getGlobalX() - lowestX)/50] = tile;
+        }
+        return map;
     }
 }

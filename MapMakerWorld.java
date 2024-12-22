@@ -1,24 +1,20 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
-import java.util.Scanner;
-import java.util.NoSuchElementException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
 import java.util.StringTokenizer;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
-
 //Window Creation
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 import javax.swing.filechooser.*;
+
+import java.io.*;
+import java.lang.*;
 
 /**
  * Write a description of class MapMakerWorld here.
@@ -32,6 +28,7 @@ public class MapMakerWorld extends ScrollingWorld
     private final static boolean SAFE_MODE = true;
     
     ArrayList<String> world = new ArrayList<String>();
+    ArrayList<Tile> tileWorld = new ArrayList<Tile>();
     private String[][] grid2D;
     private String value;
     private int index;
@@ -67,9 +64,11 @@ public class MapMakerWorld extends ScrollingWorld
         if(Greenfoot.isKeyDown("enter"))
         {
             showMainMenu();
+            printWorld();
         }
     }
     
+    /*
     public void toGrid(int x, int y)
     {
         grid2D = new String[x][y];
@@ -84,13 +83,74 @@ public class MapMakerWorld extends ScrollingWorld
             }
         }
     }
+    */
+    public ArrayList<Tile> sortWorld()
+    {
+        Collections.sort(tileWorld, new TileComparator());
+        return tileWorld;
+    }
+    public Tile[][] toGrid()
+    {
+        sortWorld();
+        int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
+        int highestX = Integer.MIN_VALUE, highestY = Integer.MIN_VALUE;
+        for(Tile tile : tileWorld)
+        {
+            if(lowestX > tile.getGlobalX())
+            {
+                lowestX = tile.getGlobalX();
+            }
+            if(lowestY > tile.getGlobalY())
+            {
+                lowestY = tile.getGlobalY();
+            }
+            if(highestX < tile.getGlobalX())
+            {
+                highestX = tile.getGlobalX();
+            }
+            if(highestY < tile.getGlobalY())
+            {
+                highestY = tile.getGlobalY();
+            }
+        }
+        
+        int xTiles = (highestX - lowestX)/50 + 1;
+        int yTiles = (highestY - lowestY)/50 + 1;
+        System.out.println(yTiles + " " + xTiles);
+        Tile[][] map = new Tile[yTiles][xTiles];
+        
+        for(Tile tile : tileWorld)
+        {
+            System.out.println((tile.getGlobalY() + Math.abs(lowestY))/50 + " " + (tile.getGlobalX() + Math.abs(lowestX))/50);
+            map[(tile.getGlobalY() - lowestY)/50][(tile.getGlobalX() - lowestX)/50] = tile;
+        }
+        return map;
+    }
     
     public void printWorld()
     {
+        sortWorld();
         System.out.println("The World:");
-        for(String tile : world)
+        for(Tile tile : tileWorld)
         {
-            System.out.println(tile);
+            System.out.println(tile.getString());
+        }
+        System.out.println("The World in 2dArray:");
+        Tile[][] tile2DArray = toGrid();
+        for(int i = 0 ; i < tile2DArray.length ; i++)
+        {
+            System.out.println("Row #" + i);
+            for(int j = 0 ; j < tile2DArray[i].length ; j++)
+            {
+                if(tile2DArray[i][j] != null)
+                {
+                    System.out.println(tile2DArray[i][j].getString());
+                }
+                else
+                {
+                    System.out.println("null");
+                }
+            }
         }
     }
     
@@ -103,7 +163,7 @@ public class MapMakerWorld extends ScrollingWorld
         JPanel buttonPanel = new JPanel();
         JPanel textPanel = new JPanel();
         JButton loadButton = new JButton("Load Map");
-        JButton createButton = new JButton("Create New Map");
+        JButton createButton = new JButton("Save Map");
         
         //Create new map file
         createButton.addActionListener(new ActionListener() 
@@ -169,10 +229,11 @@ public class MapMakerWorld extends ScrollingWorld
     
     public void saveFile()
     {
+        sortWorld();
         writeFile(loadedFile,"", false, false);
-        for(String tile : world)
+        for(Tile tile : tileWorld)
         {
-            writeFile(loadedFile, tile, true, true);
+            writeFile(loadedFile, tile.getString(), true, true);
         }
     }
     public void writeFile(String path, String line, boolean append, boolean newLine)
@@ -204,10 +265,12 @@ public class MapMakerWorld extends ScrollingWorld
             System.out.println("Error: " + e);
         }
     }
-    public void setWorld(ArrayList<String> world)
+    
+    public void setWorld(ArrayList<Tile> world)
     {
-        this.world = world;
+        this.tileWorld = world;
     }
+    
     public void editMap()
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -226,7 +289,7 @@ public class MapMakerWorld extends ScrollingWorld
                     ArrayList<Tile> tilesAtMouse = (ArrayList<Tile>)getObjectsAt(mouse.getX(), mouse.getY(), Tile.class);
                     if(tilesAtMouse.size() != 0 && !tilesAtMouse.get(0).getButton())
                     {
-                        world.remove(world.indexOf(tilesAtMouse.get(0).getString()));
+                        tileWorld.remove(tileWorld.indexOf(tilesAtMouse.get(0)));
                         removeObject(tilesAtMouse.get(0));
                     }
                 }
@@ -253,7 +316,7 @@ public class MapMakerWorld extends ScrollingWorld
             Tile tile = new Tile(type, mapMaker.getRotations(), x, y);
             if(world.size() == 0)
             {
-                world.add(tile.getString());
+                tileWorld.add(tile);
                 addObject(tile, x, y);
             }
             else
@@ -261,7 +324,7 @@ public class MapMakerWorld extends ScrollingWorld
                 ArrayList<Tile> tileAtMouse = (ArrayList<Tile>)getObjectsAt(x+scrollX, y+scrollY, Tile.class);
                 if((SAFE_MODE && tileAtMouse.size() == 0) || !SAFE_MODE)
                 {
-                    world.add(tile.getString());
+                    tileWorld.add(tile);
                     addObject(tile, x, y);
                 }
             }
@@ -270,9 +333,9 @@ public class MapMakerWorld extends ScrollingWorld
         {
             case "LaserTile":
                 LaserTile tile = new LaserTile(type, mapMaker.getRotations(), x, y);
-                if(world.size() == 0)
+                if(tileWorld.size() == 0)
                 {
-                    world.add(tile.getString());
+                    tileWorld.add(tile);
                     addObject(tile, x, y);
                 }
                 else
@@ -280,7 +343,7 @@ public class MapMakerWorld extends ScrollingWorld
                     ArrayList<Tile> tileAtMouse = (ArrayList<Tile>)getObjectsAt(x+scrollX, y+scrollY, Tile.class);
                     if((SAFE_MODE && tileAtMouse.size() == 0) || !SAFE_MODE)
                     {
-                        world.add(tile.getString());
+                        tileWorld.add(tile);
                         addObject(tile, x, y);
                     }
                 }
@@ -314,7 +377,9 @@ public class MapMakerWorld extends ScrollingWorld
                 int rotation = Integer.parseInt(tokenizer.nextToken());
                 int xLocation = Integer.parseInt(tokenizer.nextToken());
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
-                addObject(new Tile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                Tile newTile = new Tile(type, rotation, xLocation, yLocation);
+                addObject(newTile, xLocation, yLocation);
+                tileWorld.add(newTile);
             }
             catch(NumberFormatException e)
             {
@@ -322,4 +387,16 @@ public class MapMakerWorld extends ScrollingWorld
             }
         }
     }
+}
+
+class TileComparator implements Comparator<Tile> {
+    public int compare(Tile t1, Tile t2) {
+        // descending order (ascending order would be:
+        // t1.getJerseyNumber()-t2.getJerseyNumber())
+        int xCompare = t1.getGlobalX()-t2.getGlobalX();
+        int yCompare = t1.getGlobalY()-t2.getGlobalY();
+        
+        return (yCompare == 0) ? xCompare : yCompare;
+    }
+    
 }

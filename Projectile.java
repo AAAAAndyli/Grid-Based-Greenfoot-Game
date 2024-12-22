@@ -12,6 +12,7 @@ public abstract class Projectile extends ScrollingActor
     protected ScrollingActor spawner;
     protected double speed;
     protected double distance = 0;
+    protected boolean markedForDeletion = false;
     protected final double MAX_DISTANCE = 2000;
     public Projectile(Coordinate target, double speed, ScrollingActor spawner, String sprite)
     {
@@ -37,6 +38,10 @@ public abstract class Projectile extends ScrollingActor
             getWorld().removeObject(this);
         }
         else if(isTouching(Tile.class))
+        {
+            getWorld().removeObject(this);
+        }
+        else if(markedForDeletion)
         {
             getWorld().removeObject(this);
         }
