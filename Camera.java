@@ -13,6 +13,9 @@ public class Camera extends SuperSmoothMover
     private boolean followingMultipleActors = false;
     private int numberOfFollowingActors = 2;
     
+    private int screenShakeLength = 0;
+    private double screenShakeMultiplier = 0;
+    
     public Camera(Actor followingActor)
     {
         this.followingActor = followingActor;
@@ -49,7 +52,9 @@ public class Camera extends SuperSmoothMover
                 followSingleTarget();
             }
         }
+        screenShake(screenShakeMultiplier, 0);
     }
+    
     public void followSingleTarget()
     {
         ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
@@ -60,7 +65,6 @@ public class Camera extends SuperSmoothMover
         int newScrollX = (int) (world.getScrollX() + (targetScrollX - world.getScrollX()) * 0.5);
         int newScrollY = (int) (world.getScrollY() + (targetScrollY - world.getScrollY()) * 0.5);
         
-        // Set the new scroll positions
         world.setScrollX(newScrollX);
         world.setScrollY(newScrollY); 
     }
@@ -84,9 +88,32 @@ public class Camera extends SuperSmoothMover
         int newScrollX = (int) (world.getScrollX() + (targetScrollX - world.getScrollX()) * 0.5);
         int newScrollY = (int) (world.getScrollY() + (targetScrollY - world.getScrollY()) * 0.5);
         
-        // Set the new scroll positions
         world.setScrollX(newScrollX);
         world.setScrollY(newScrollY);    
+    }
+    
+    public void screenShake(double multiplier, int length)
+    {
+        if(length != 0 && screenShakeLength == 0)
+        {
+            System.out.println("Starting shaking");
+            screenShakeLength = length;
+            screenShakeMultiplier = multiplier;
+        }
+        else if(screenShakeLength != 0)
+        {
+            System.out.println("shaking");
+            screenShakeLength--;
+            ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
+            int xChange = (int)Math.round((Greenfoot.getRandomNumber(10) - 5) * multiplier);
+            int yChange = (int)Math.round((Greenfoot.getRandomNumber(10) - 5) * multiplier);
+            world.setScrollX(world.getScrollX() + xChange);
+            world.setScrollY(world.getScrollY() + yChange);
+        }
+        else if(screenShakeLength == 0)
+        {
+            screenShakeMultiplier = 0;
+        }
     }
     
     public void setMultipleFollowing(boolean multipleActors)

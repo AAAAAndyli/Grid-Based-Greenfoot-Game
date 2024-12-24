@@ -31,8 +31,16 @@ public class EProjectile extends Projectile
     }
     public void parried()
     {
-        Coordinate spawnerLocalCoordinate = new Coordinate(spawner.getX(), spawner.getY());
-        getWorld().addObject(new PProjectile(spawnerLocalCoordinate, speed, this, "ParriedProjectile"), getX(), getY());
-        getWorld().removeObject(this);
+        if(spawner.getWorld() != null)
+        {
+            Coordinate spawnerLocalCoordinate = new Coordinate(spawner.getX(), spawner.getY());
+            getWorld().addObject(new PProjectile(spawnerLocalCoordinate, speed, this, "ParriedProjectile"), getX(), getY());
+            getWorld().removeObject(this);
+        }
+        else
+        {
+            getWorld().addObject(new PProjectile(new Coordinate(0, 0), speed, this, "ParriedProjectile"), getX(), getY());
+            getWorld().removeObject(this);
+        }
     }
 }

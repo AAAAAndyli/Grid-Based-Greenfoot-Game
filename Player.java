@@ -407,9 +407,18 @@ public class Player extends Entity
             for(EProjectile projectile : projectilesInRange)
             {
                 projectile.parried();
+                Greenfoot.delay(10);
+                getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
             }
         }
     }
+    public void hurt(int damage)
+    {
+        super.hurt(damage);
+        getWorld().getObjects(Camera.class).get(0).screenShake(2, 10);
+        //Greenfoot.delay(10);
+    }
+    
     public double getXVelocity()
     {
         return xVelocity;
@@ -417,5 +426,9 @@ public class Player extends Entity
     public double getYVelocity()
     {
         return yVelocity;
+    }
+    public double getYGravity()
+    {
+        return yGravity;
     }
 }

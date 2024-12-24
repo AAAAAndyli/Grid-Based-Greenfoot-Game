@@ -8,7 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ProjectileEnemy extends Enemy
 {
-    private int attackTimer;
+    protected int attackTimer;
+    protected int attackCooldown = 120;
+    protected int speed = 15;
+    protected Coordinate target = new Coordinate(0,0);
     public ProjectileEnemy()
     {
         attackTimer = 0;
@@ -19,28 +22,46 @@ public class ProjectileEnemy extends Enemy
      */
     public void act()
     {
-        if(attackTimer > 120 && getObjectsInRange(500, Player.class).size() != 0)
+        super.act();
+    }
+    public void attack()
+    {
+        if(attackTimer > attackCooldown && getObjectsInRange(500, Player.class).size() != 0)
         {
+            //System.out.println("attacking");
             attackTimer = 0;
-            useProjectile(0, 15);
+            useProjectile(0, speed, target);
         }
-        else
+        else if(attackTimer < attackCooldown - 5 && getObjectsInRange(500, Player.class).size() != 0)
+        {
+            aiming(speed);
+        }
+        if(attackTimer < attackCooldown + 5)
         {
             attackTimer++;
         }
-        super.act();
+        else
+        {
+            attackTimer = 0;
+        }
     }
-    public void useProjectile(int projectileType, int speed)
+    public void useProjectile(int projectileType, int speed, Coordinate target)
+    {
+        getWorld().addObject(new EProjectile(target, speed, this, "EnemyProjectile"), getX(), getY());
+    }
+    public void aiming(int speed)
     {
         Player player = getWorld().getObjects(Player.class).get(0);
+        int playerPredictedX, playerPredictedY;
+        double distance = Math.sqrt(Math.pow(player.getX() - getX(), 2) + Math.pow(player.getY() - getY(), 2));
+        playerPredictedX = player.getPosition().getX() + (int)player.getXVelocity() * (10 + (int)distance/speed);
+        playerPredictedY = player.getPosition().getY();
         
-        int distance = (int)Math.sqrt(Math.pow(player.getX() - getX(), 2) + Math.pow(player.getY() - getY(), 2));
-        int playerPredictedOffsetX = (int)player.getXVelocity() * (distance/15);
-        int playerPredictedOffsetY = (int)player.getYVelocity() * (distance/15);
-        
-        Coordinate playerLocalPosition = new Coordinate(player.getX() + playerPredictedOffsetX, player.getY() + playerPredictedOffsetY);
-        
-        getWorld().addObject(new EProjectile(playerLocalPosition, speed, this, "EnemyProjectile"), getX(), getY());
-        System.out.println("PEWPEW");
+        target.setCoordinate(playerPredictedX, playerPredictedY);
+        //getWorld().addObject(new test(), sightPlayerMidX, sightPlayerMidY);
+        if(attackTimer == attackCooldown - 21)
+        {
+            getWorld().addObject(new test(), playerPredictedX, playerPredictedY);
+        }
     }
 }

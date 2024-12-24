@@ -38,6 +38,14 @@ public class ScrollingActor extends SuperSmoothMover
     {
         return scrollY;
     }
+    public void setCoordinate(Coordinate newCoordinate)
+    {
+        globalPosition = newCoordinate;
+    }
+    public void setCoordinate(int x, int y)
+    {
+        globalPosition = new Coordinate(x, y);
+    }
     public Coordinate getPosition()
     {
         return globalPosition;

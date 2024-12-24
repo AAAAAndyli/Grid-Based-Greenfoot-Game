@@ -27,7 +27,7 @@ public class LevelWorld extends ScrollingWorld
     
     public LevelWorld()
     {
-        this("test.csv");
+        this("test5.csv");
     }
     
     /**
@@ -89,7 +89,7 @@ public class LevelWorld extends ScrollingWorld
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
                             break;
                         case "EnemySpawnPoint":
-                            ProjectileEnemy enemy = new ProjectileEnemy();
+                            BurstTurret enemy = new BurstTurret();
                             addObject(enemy, xLocation, yLocation);
                             break;
                     }
