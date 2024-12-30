@@ -11,8 +11,8 @@ import java.util.StringTokenizer;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.event.*;
-import javax.swing.filechooser.*;
 
+import javax.swing.filechooser.*;
 import java.io.*;
 import java.lang.*;
 

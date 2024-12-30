@@ -8,9 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class EProjectile extends Projectile
 {
-    public EProjectile(Coordinate target, double speed, ScrollingActor spawner, String sprite)
+    public EProjectile(Coordinate target, double speed, int damage, ScrollingActor spawner, String sprite)
     {
-        super(target, speed, spawner, sprite);
+        super(target, speed, damage, spawner, sprite);
     }
     public void addedToWorld(World world)
     {
@@ -25,21 +25,24 @@ public class EProjectile extends Projectile
         if(isTouching(Player.class))
         {
             Player player = (Player)getOneIntersectingObject(Player.class);
-            player.hurt(1);
-            markedForDeletion = true;
+            if(player.getHurtable())
+            {
+                player.hurt(damage);
+                markedForDeletion = true;
+            }
         }
     }
-    public void parried()
+    public void parried(int mouseX, int mouseY)
     {
         if(spawner.getWorld() != null)
         {
             Coordinate spawnerLocalCoordinate = new Coordinate(spawner.getX(), spawner.getY());
-            getWorld().addObject(new PProjectile(spawnerLocalCoordinate, speed, this, "ParriedProjectile"), getX(), getY());
+            getWorld().addObject(new PProjectile(spawnerLocalCoordinate, speed, 15, this, "ParriedProjectile"), getX(), getY());
             getWorld().removeObject(this);
         }
         else
         {
-            getWorld().addObject(new PProjectile(new Coordinate(0, 0), speed, this, "ParriedProjectile"), getX(), getY());
+            getWorld().addObject(new PProjectile(new Coordinate(mouseX, mouseY), speed, 15, this, "ParriedProjectile"), getX(), getY());
             getWorld().removeObject(this);
         }
     }

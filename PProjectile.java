@@ -14,12 +14,12 @@ public class PProjectile extends Projectile
      */
     public PProjectile(Coordinate target, double speed, ScrollingActor spawner)
     {
-        super(target, speed, spawner, "projectilePlaceholder");
+        super(target, speed, 1, spawner, "PlayerDefault");
     }
     
-    public PProjectile(Coordinate target, double speed, ScrollingActor spawner, String sprite)
+    public PProjectile(Coordinate target, double speed, int damage, ScrollingActor spawner, String sprite)
     {
-        super(target, speed, spawner, sprite);
+        super(target, speed, damage, spawner, sprite);
     }
     public void addedToWorld(World world)
     {
@@ -34,7 +34,7 @@ public class PProjectile extends Projectile
         if(isTouching(Enemy.class))
         {
             Enemy enemyTarget = (Enemy)getOneIntersectingObject(Enemy.class);
-            enemyTarget.hurt(1);
+            enemyTarget.hurt(damage);
             markedForDeletion = true;
         }
     }

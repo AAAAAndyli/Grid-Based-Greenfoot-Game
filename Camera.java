@@ -96,13 +96,11 @@ public class Camera extends SuperSmoothMover
     {
         if(length != 0 && screenShakeLength == 0)
         {
-            System.out.println("Starting shaking");
             screenShakeLength = length;
             screenShakeMultiplier = multiplier;
         }
         else if(screenShakeLength != 0)
         {
-            System.out.println("shaking");
             screenShakeLength--;
             ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
             int xChange = (int)Math.round((Greenfoot.getRandomNumber(10) - 5) * multiplier);

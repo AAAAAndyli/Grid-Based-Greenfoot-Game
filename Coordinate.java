@@ -40,7 +40,7 @@ public class Coordinate
         return y;
     }
     
-    public String toString()
+    public String getString()
     {
         return "X Coordinate: " + x + ", Y Coordinate: " + y;
     }

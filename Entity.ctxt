@@ -9,4 +9,6 @@ comment3.params=
 comment3.target=void\ barrier()
 comment4.params=damage
 comment4.target=void\ hurt(int)
-numComments=5
+comment5.params=
+comment5.target=int\ getHP()
+numComments=6

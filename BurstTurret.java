@@ -6,12 +6,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class BurstTurret extends RapidTurret
+public class BurstTurret extends FlyingEnemy
 {
     private int numberOfProjectiles = 0;
     public BurstTurret()
     {
         attackCooldown = 120;
+        health = 20;
+        speed = 10;
     }
     /**
      * Act - do whatever the BurstTurret wants to do. This method is called whenever
@@ -23,16 +25,16 @@ public class BurstTurret extends RapidTurret
     }
     public void attack()
     {
-        if(((numberOfProjectiles > 0 && numberOfProjectiles < 10) && attackTimer > 5)||(numberOfProjectiles == 0 && attackTimer > attackCooldown) && getObjectsInRange(500, Player.class).size() != 0)
+        if(((numberOfProjectiles > 0 && numberOfProjectiles < 10) && attackTimer > 5)||(numberOfProjectiles == 0 && attackTimer > attackCooldown) && getObjectsInRange(attackRange, Player.class).size() != 0)
         {
             //System.out.println("attacking");
             numberOfProjectiles ++ ;
             attackTimer = 0;
-            useProjectile(0, speed, target);
+            useProjectile(0, projectileSpeed, target);
         }
-        else if(attackTimer < attackCooldown - 5 && getObjectsInRange(500, Player.class).size() != 0)
+        else if(attackTimer < attackCooldown - 5 && getObjectsInRange(attackRange, Player.class).size() != 0)
         {
-            aiming(speed);
+            aiming(projectileSpeed);
         }
         else if(numberOfProjectiles != 0)
         {
@@ -45,6 +47,9 @@ public class BurstTurret extends RapidTurret
         else
         {
             attackTimer = 0;
+            time = 0;
+            totalVelocityOfTarget = 0;
+            averageVelocityOfTarget = 0;
         }
     }
 }

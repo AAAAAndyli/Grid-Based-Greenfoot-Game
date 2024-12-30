@@ -15,19 +15,32 @@ public class TheGrid
     // instance variables - replace the example below with your own
     private static Tile[][] theGrid;
     private static int[][] airGrid; // 1 - air, 0 - tile
+    private static int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
+
 
     /**
      * Constructor for objects of class TheGrid
      */
-    public TheGrid(Tile[][] theGrid)
+    public static void setGrid(Tile[][] newGrid)
     {
-        this.theGrid = theGrid;
+        theGrid = new Tile[newGrid.length][newGrid[0].length];
+        for(int i = 0; i < theGrid.length; i++)
+        {
+            for(int j = 0; j < theGrid[i].length; j++)
+            {
+                theGrid[i][j] = newGrid[i][j];
+            }
+        }
+        populateAirGrid();
+        findLowestCoordinates(newGrid);
     }
-    public void populateAirGrid()
+    
+    public static void populateAirGrid()
     {
+        airGrid = new int[theGrid.length][theGrid[0].length];
         for(int i = 0 ; i < theGrid.length ; i++)
         {
-            for(int j = 0 ; j < theGrid[i].length ; i++)
+            for(int j = 0 ; j < theGrid[i].length ; j++)
             {
                 if(theGrid[i][j] != null)
                 {
@@ -41,62 +54,78 @@ public class TheGrid
         }
     }
     
-    public ArrayList<Coordinate> findPathAirGreedy(Coordinate start, Coordinate end) 
+    public static void findLowestCoordinates(Tile[][] grid)
     {
-        int startXIndex = start.getX() / 50;
-        int startYIndex = start.getY() / 50;
-        int endXIndex = end.getX() / 50;
-        int endYIndex = end.getY() / 50;
-    
-        PriorityQueue<Node> openSet = new PriorityQueue<>(Comparator.comparingInt(node -> node.hCost));
-        HashSet<String> closedSet = new HashSet<>();
-    
-        openSet.add(new Node(startXIndex, startYIndex, getHeuristic(startXIndex, startYIndex, endXIndex, endYIndex), null));
-    
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Left, Right, Up, Down
-    
-        while(!openSet.isEmpty()) {
-            Node current = openSet.poll();
-            if(current.x == endXIndex && current.y == endYIndex) {
-                return reconstructPath(current);
-            }
-            String currentKey = current.x + "," + current.y;
-            closedSet.add(currentKey);
-    
-            for(int[] dir : directions) {
-                int newX = current.x + dir[0];
-                int newY = current.y + dir[1];
-                if (newX >= 0 && newY >= 0 && airGrid[newY][newX] == 0 && !closedSet.contains(newX + "," + newY)) {
-                    openSet.add(new Node(newX, newY, getHeuristic(newX, newY, endXIndex, endYIndex), current));
+        for(int i = 0; i < grid.length; i++)
+        {
+            for(int j = 0; j < grid[i].length; j++)
+            {
+                if(grid[i][j] != null)
+                {
+                    if(lowestX > grid[i][j].getGlobalX())
+                    {
+                        lowestX = grid[i][j].getGlobalX();
+                    }
+                    if(lowestY > grid[i][j].getGlobalY())
+                    {
+                        lowestY = grid[i][j].getGlobalY();
+                    }
                 }
             }
         }
-        return new ArrayList<>(); // Return empty path if no path is found
-    }
-
-    private int getHeuristic(int x1, int y1, int x2, int y2) {
-        return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
     
-    private ArrayList<Coordinate> reconstructPath(Node node) {
-        ArrayList<Coordinate> path = new ArrayList<>();
-        while (node != null) {
-            path.add(0, new Coordinate(node.x * 50, node.y * 50));
-            node = node.parent;
-        }
-        return path;
-    }
-
-    private static class Node 
+    public static ArrayList<Coordinate> findPathAir(Coordinate start, Coordinate end) 
     {
-        int x, y, hCost;
-        Node parent;
-        Node(int x, int y, int hCost, Node parent) 
+        int startXIndex = (start.getX() + lowestX) / 50;
+        int startYIndex = (start.getY() + lowestY) / 50;
+        int endXIndex = (end.getX() + lowestX) / 50;
+        int endYIndex = (end.getY() + lowestY) / 50;
+        
+        int currentXIndex = startXIndex;
+        int currentYIndex = startYIndex;
+        ArrayList<Coordinate> tilePoints = new ArrayList<Coordinate>();
+        while(currentXIndex != endXIndex && currentYIndex != endYIndex)
         {
-            this.x = x;
-            this.y = y;
-            this.hCost = hCost;
-            this.parent = parent;
+            if(currentXIndex > endXIndex)
+            {
+                currentXIndex--;
+            }
+            else if(currentXIndex < endXIndex)
+            {
+                currentXIndex++;
+            }
+            if(currentYIndex > endYIndex)
+            {
+                currentYIndex--;
+            }
+            else if(currentYIndex < endYIndex)
+            {
+                currentYIndex++;
+            }
+            if(!checkOccupiedTile(currentYIndex, currentXIndex))
+            {
+                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
+            }
+            else
+            {
+                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
+            }
         }
+        for(Coordinate coords : tilePoints)
+        {
+            System.out.println(coords.getString());
+        }
+        return tilePoints; // Return empty path if no path is found
+    }
+    
+    public static boolean checkOccupiedTile(int x, int y)
+    {
+        //if occupied, true. else, false
+        if((y + lowestY) / 50 > 0 && (x + lowestX) / 50 > 0)
+        {
+            return airGrid[(y + lowestY) / 50][(x + lowestX) / 50] != 0;
+        }
+        return true;
     }
 }

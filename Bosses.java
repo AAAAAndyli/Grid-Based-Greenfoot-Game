@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Bosses extends MixedEnemy
+public class Bosses extends Enemy
 {
     /**
      * Act - do whatever the Bosses wants to do. This method is called whenever

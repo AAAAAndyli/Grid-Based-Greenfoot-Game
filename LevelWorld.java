@@ -40,8 +40,18 @@ public class LevelWorld extends ScrollingWorld
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
         loadLevel();
-        toGrid();
+        /*
+        for(int i = 0; i < toGrid().length; i++)
+        {
+            for(int j = 0; j < toGrid()[i].length; j++)
+            {
+                System.out.println(toGrid()[i][j].getString());
+            }
+        }
+        */
+        TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
+        setPaintOrder(HealthBar.class);
     }
     public void loadLevel()
     {
@@ -76,7 +86,7 @@ public class LevelWorld extends ScrollingWorld
                         case "PlayerSpawnPoint":
                             Player player = new Player();
                             addObject(crosshair, xLocation, yLocation);
-                            addObject(player, xLocation, yLocation);
+                            addObject(player, xLocation, yLocation - player.getImage().getHeight()/4);
                             addObject(camera, 0, 0);
                             camera.addFollowing(player);
                             camera.addFollowing(player);
@@ -84,6 +94,7 @@ public class LevelWorld extends ScrollingWorld
                             camera.addFollowing(player);
                             camera.addFollowing(crosshair);
                             camera.setFollowing(player);
+                            addObject(new HealthBar(player), 100, 100);
                             break;
                         case "LaserTile":
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
@@ -111,6 +122,7 @@ public class LevelWorld extends ScrollingWorld
             laserTile.createLaser();
         }
     }
+    
     public Tile[][] toGrid()
     {
         int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;

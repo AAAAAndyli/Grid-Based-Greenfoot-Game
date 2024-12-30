@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=PlayerSprites
+comment0.text=\n\ Write\ a\ description\ of\ class\ MovingGraphic\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=player
+comment1.target=PlayerSprites(Player)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ MovingGraphic\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=path
+comment3.target=void\ loadAnimationFrames(java.lang.String)
+comment3.text=\n\ Loads\ in\ every\ frame\ for\ every\ animation\n\ \n\ @param\ path\ -\ The\ file\ path\ for\ the\ unit\n
+comment4.params=animation\ index
+comment4.target=int\ animate(java.util.ArrayList,\ int)
+numComments=5
