@@ -85,6 +85,7 @@ public class TheGrid
         int currentXIndex = startXIndex;
         int currentYIndex = startYIndex;
         ArrayList<Coordinate> tilePoints = new ArrayList<Coordinate>();
+        /*
         while(currentXIndex != endXIndex && currentYIndex != endYIndex)
         {
             if(currentXIndex > endXIndex)
@@ -112,13 +113,65 @@ public class TheGrid
                 tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
             }
         }
-        for(Coordinate coords : tilePoints)
+        */
+        while (currentXIndex != endXIndex || currentYIndex != endYIndex) 
         {
-            System.out.println(coords.getString());
+            if (currentXIndex != endXIndex && currentYIndex != endYIndex) 
+            {
+                // Diagonal movement
+                if (currentXIndex > endXIndex)
+                {
+                    currentXIndex--;
+                } else 
+                {
+                    currentXIndex++;
+                }
+                if (currentYIndex > endYIndex)
+                {
+                    currentYIndex--;
+                } 
+                else 
+                {
+                    currentYIndex++;
+                }
+            } else if (currentXIndex != endXIndex) 
+            {
+                // Horizontal movement
+                if (currentXIndex > endXIndex) 
+                {
+                    currentXIndex--;
+                } 
+                else 
+                {
+                    currentXIndex++;
+                }
+            } else if (currentYIndex != endYIndex) 
+            {
+                // Vertical movement
+                if (currentYIndex > endYIndex) 
+                {
+                    currentYIndex--;
+                } 
+                else 
+                {
+                    currentYIndex++;
+                }
+            }
+            if (!checkOccupiedTile(currentYIndex, currentXIndex)) 
+            {
+                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
+            } else 
+            {
+                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
+            }
+            for(Coordinate coords : tilePoints)
+            {
+                System.out.println(coords.getString());
+            }
         }
-        return tilePoints; // Return empty path if no path is found
+        
+        return tilePoints;
     }
-    
     public static boolean checkOccupiedTile(int x, int y)
     {
         //if occupied, true. else, false

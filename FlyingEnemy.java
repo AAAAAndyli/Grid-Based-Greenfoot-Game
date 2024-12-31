@@ -30,8 +30,10 @@ public class FlyingEnemy extends Enemy
         {
             findPath();
         }
+        /*
         if(forcePathfindTimer > 120)
         {
+            path = new ArrayList<Coordinate>();
             findPath();
             forcePathfindTimer = 0;
         }
@@ -39,12 +41,12 @@ public class FlyingEnemy extends Enemy
         {
             forcePathfindTimer++;
         }
-        System.out.println("size: " + path.size());
+        */
+        //System.out.println("size: " + path.size());
         super.act();
     }
     public void findPath()
     {
-        path = new ArrayList<Coordinate>();
         Player player = getWorld().getObjects(Player.class).get(0);
         for(Coordinate coords : TheGrid.findPathAir(getPosition(), player.getPosition()))
         {
@@ -61,8 +63,6 @@ public class FlyingEnemy extends Enemy
             {
                 findPath();
             }
-            System.out.println("LOCATING");
-            System.out.println("Position: " + getPosition().getString());
         }
         else
         {
@@ -73,24 +73,19 @@ public class FlyingEnemy extends Enemy
             boolean closeEnoughX = (location.getX() < globalPosition.getX() + speed && location.getX() > globalPosition.getX() - speed);
             boolean closeEnoughY = (location.getY() < globalPosition.getY() + speed && location.getY() > globalPosition.getY() - speed);
             
-            int speedX = closeEnoughX ? 0 : (int)Math.round(speed * Math.cos(angle));
-            int speedY = closeEnoughY ? 0 : (int)Math.round(speed * Math.sin(angle));
-                        
+            int speedX = (int)Math.round(speed * Math.cos(angle));
+            int speedY = (int)Math.round(speed * Math.sin(angle));
+             
+            globalPosition.setCoordinate(globalPosition.getX() + speedX, globalPosition.getY() + speedY);
+            
             if(closeEnoughX)
             {
                 globalPosition.setX(location.getX());
-                System.out.println("TELEPORT X");
             }
             if(closeEnoughY)
             {
                 globalPosition.setY(location.getY());
-                System.out.println("TELEPORT Y");
             }
-            
-            globalPosition.setCoordinate(globalPosition.getX() + speedX, globalPosition.getY() + speedY);
-            
-            System.out.println("MOVING to " + path.get(0).getString());
-            System.out.println("Position: " + getPosition().getString());
         }
     }
 }

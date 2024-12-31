@@ -41,6 +41,8 @@ public class Player extends Entity
     private final int dashCooldown = -200;
     private boolean canBeHurt = true;
     
+    private int knockbackX = 0, knockBackY = 0;
+    
     private boolean isHeal = false;
     private boolean isHurt = false;
     private int invincibilityFrames = 0;
