@@ -23,6 +23,7 @@ public class MapMaker extends SuperSmoothMover
     public MapMaker(MapMakerWorld origin)
     {
         world = origin;
+        getImage().scale(1080, 75);
     }
     /**
      * Act - do whatever the MapMakerAssets wants to do. This method is called whenever

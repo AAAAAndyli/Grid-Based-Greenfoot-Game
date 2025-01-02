@@ -1,4 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Write a description of class Enemy here.
@@ -6,20 +8,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Enemy extends Entity
-{
-    
-    
+public abstract class Enemy extends Entity
+{    
     //Attacking Variables
     protected int attackTimer;
     protected int attackCooldown = 120;
-    protected int attackRange = 1000;
     
     
     //Ranged attacking Variables
+    protected int attackRange = 1000;
     protected int projectileSpeed = 15;
     protected Coordinate target = new Coordinate(0,0);
     protected int totalVelocityOfTarget, averageVelocityOfTarget, time;
+    
+    protected int animationTimer = 0;
     
     public Enemy()
     {
@@ -98,10 +100,42 @@ public class Enemy extends Entity
         target.setCoordinate(playerPredictedX, playerPredictedY);
     }
     
+     /**
+     * Loads in every frame for every animation
+     * 
+     * @param path - The file path for the unit
+     */
+    protected abstract void loadAnimationFrames(String path);
     
-    
-    public void findPath()
+    protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation, String action)
     {
-        
+        this.loadSingleAnimation(path, animation, action, false);
+    }
+    
+    protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation, String action, boolean isRotated)
+    {
+        for(int i = 0; i < new File(path + "/" + action).listFiles().length-1; i++)
+        {
+            animation.add(new GreenfootImage(path + "/" + action + "/" + i + ".png"));
+            if(isRotated)
+            {
+                animation.get(i).mirrorHorizontally();
+            }
+        }
+    }
+
+    protected int animate(ArrayList<GreenfootImage> animation, int index)
+    {
+        if(animationTimer < 10){
+            return index;
+        }
+        setImage(animation.get(index));
+        index++;
+        if(index > animation.size()-1)
+        {
+            index = 0;
+        }
+        animationTimer = 0;
+        return index;
     }
 }

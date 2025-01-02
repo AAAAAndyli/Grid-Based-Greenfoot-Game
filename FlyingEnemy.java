@@ -7,10 +7,24 @@ import java.util.ArrayList;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class FlyingEnemy extends Enemy
+public abstract class FlyingEnemy extends Enemy
 {
     private ArrayList<Coordinate> path = new ArrayList<Coordinate>();
     private int forcePathfindTimer = 0;
+    
+    protected int moveIndex;
+    protected ArrayList<GreenfootImage> moveAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> moveAnimL = new ArrayList<GreenfootImage>();
+    protected int attackIndex;
+    protected ArrayList<GreenfootImage> attackAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> attackAnimL = new ArrayList<GreenfootImage>();
+    protected int idleIndex;
+    protected ArrayList<GreenfootImage> idleAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> idleAnimL = new ArrayList<GreenfootImage>();
+    protected int deathIndex;
+    protected ArrayList<GreenfootImage> deathAnimR = new ArrayList<GreenfootImage>();    
+    protected ArrayList<GreenfootImage> deathAnimL = new ArrayList<GreenfootImage>();
+    
     public FlyingEnemy()
     {
         attackTimer = 0;

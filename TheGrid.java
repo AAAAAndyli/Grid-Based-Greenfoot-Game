@@ -175,10 +175,10 @@ public class TheGrid
     public static boolean checkOccupiedTile(int x, int y)
     {
         //if occupied, true. else, false
-        if((y + lowestY) / 50 > 0 && (x + lowestX) / 50 > 0)
+        if((y + lowestY) / 50 > 0 && (x + lowestX) / 50 > 0 && (x + lowestX) / 50 < airGrid[0].length && (y + lowestY) / 50 < airGrid.length)
         {
             return airGrid[(y + lowestY) / 50][(x + lowestX) / 50] != 0;
         }
-        return true;
+        return false;
     }
 }

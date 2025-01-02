@@ -46,7 +46,7 @@ public class Player extends Entity
     private boolean isHeal = false;
     private boolean isHurt = false;
     private int invincibilityFrames = 0;
-    private final int totalInvincibilityFrames = 60;
+    private final int totalInvincibilityFrames = 30;
     
     private Crosshair crosshair;
     private boolean isAiming;
@@ -63,7 +63,8 @@ public class Player extends Entity
     
     public void addedToWorld(World world)
     {
-        getWorld().addObject(new PlayerSprites(this), getX(), getY()); 
+        getWorld().addObject(new LowerPlayerSprites(this), getX(), getY()); 
+        getWorld().addObject(new UpperPlayerSprites(this), getX(), getY()); 
         globalPosition.setCoordinate(getX(), getY());
         crosshair = getWorld().getObjects(Crosshair.class).get(0);
     }
@@ -79,6 +80,7 @@ public class Player extends Entity
         }
         if(invincibilityFrames == 2)
         {
+            invincibilityFrames++;
             isHurt = false;
             canBeHurt = false;
         }
@@ -86,6 +88,10 @@ public class Player extends Entity
         {
             invincibilityFrames = 0;
             canBeHurt = true;
+        }
+        else if(invincibilityFrames != 0)
+        {
+            invincibilityFrames++;
         }
         movement();
         shoot();
@@ -504,6 +510,22 @@ public class Player extends Entity
         //Greenfoot.delay(10);
     }
     
+    private int upperSpriteDirection;
+    private int lowerSpriteDirection;
+    //animation methods
+    public boolean matchingSpriteDirection()
+    {
+        return upperSpriteDirection == lowerSpriteDirection;
+    }
+    public void setUpperSpriteDirection(int newDir)
+    {
+        upperSpriteDirection = newDir;
+    }
+    public void setLowerSpriteDirection(int newDir)
+    {
+        lowerSpriteDirection = newDir;
+    }
+    
     public boolean getHurt()
     {
         return isHurt;
@@ -515,6 +537,11 @@ public class Player extends Entity
     public int getHealthBarHP()
     {
         return health/3;
+    }
+    public boolean getFacing()
+    {
+        //right = true
+        return xDirection == 1;
     }
     public boolean getHurtable()
     {

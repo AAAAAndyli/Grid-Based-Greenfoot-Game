@@ -44,8 +44,8 @@ public class MapMakerWorld extends ScrollingWorld
     public MapMakerWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(800, 600, 1, false); 
-        addObject(mapMaker, 400, 550);
+        super(1080, 720, 1, false); 
+        addObject(mapMaker, 540, 645);
         setPaintOrder(test.class, Tile.class, MapMaker.class, TileSelector.class);
         Greenfoot.setSpeed(51);
         addObject(new FPS(), 200, 10);

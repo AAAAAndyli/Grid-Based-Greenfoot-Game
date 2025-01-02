@@ -10,23 +10,30 @@ import java.util.ArrayList;
  */
 public class PlayerSprites extends SuperSmoothMover
 {
-    private Player player;
+    protected Player player;
+    protected boolean flipped = false;
     
-    private int walkIndex;
-    private ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
-    private int attackIndex;
-    private ArrayList<GreenfootImage> attackAnim = new ArrayList<GreenfootImage>();
-    private int idleIndex;
-    private ArrayList<GreenfootImage> idleAnim = new ArrayList<GreenfootImage>();
-    private int deathIndex;
-    private ArrayList<GreenfootImage> deathAnim = new ArrayList<GreenfootImage>();
+    protected int walkIndex;
+    protected ArrayList<GreenfootImage> walkAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> walkAnimL = new ArrayList<GreenfootImage>();
+    protected int attackIndex;
+    protected ArrayList<GreenfootImage> attackAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> attackAnimL = new ArrayList<GreenfootImage>();
+    protected int idleIndex;
+    protected ArrayList<GreenfootImage> idleAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> idleAnimL = new ArrayList<GreenfootImage>();
+    protected int deathIndex;
+    protected ArrayList<GreenfootImage> deathAnimR = new ArrayList<GreenfootImage>();    
+    protected ArrayList<GreenfootImage> deathAnimL = new ArrayList<GreenfootImage>();
+
+    protected int animationTimer = 0;
     
-    private int animationTimer = 0;
+    protected int offsetX = 0;
     
     public PlayerSprites(Player player)
     {
         this.player = player;
-        loadAnimationFrames("images/PlayerSprites");
+        //loadAnimationFrames("images/PlayerSprites");
     }
     
     /**
@@ -37,10 +44,10 @@ public class PlayerSprites extends SuperSmoothMover
     {
         if(player.getWorld() != null)
         {
-            setLocation(player.getX(), player.getY());
+            setLocation(player.getX() + offsetX, player.getY());
         }
         animationTimer++;
-        idleIndex = animate(idleAnim, idleIndex);
+        idleIndex = animate(!flipped ? idleAnimR : idleAnimL, idleIndex);
     }
     
      /**
@@ -50,11 +57,25 @@ public class PlayerSprites extends SuperSmoothMover
      */
     protected void loadAnimationFrames(String path)
     {
-        for(int i = 0; i < new File(path+"/idle").listFiles().length-1; i++)
+        loadSingleAnimation(path, idleAnimL, "idle", true);
+        loadSingleAnimation(path, idleAnimR, "idle");
+    }
+    
+    protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation, String action)
+    {
+        this.loadSingleAnimation(path, animation, action, false);
+    }
+    
+    protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation, String action, boolean isRotated)
+    {
+        for(int i = 0; i < new File(path + "/" + action).listFiles().length-1; i++)
         {
-            idleAnim.add(new GreenfootImage(path + "/idle/" + i + ".png"));
+            animation.add(new GreenfootImage(path + "/" + action + "/" + i + ".png"));
+            if(isRotated)
+            {
+                animation.get(i).mirrorHorizontally();
+            }
         }
-        idleAnim.add(new GreenfootImage(path + "/idle/" + 1 + ".png"));
     }
 
     protected int animate(ArrayList<GreenfootImage> animation, int index)

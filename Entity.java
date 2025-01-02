@@ -38,4 +38,5 @@ public abstract class Entity extends ScrollingActor
     {
         return health;
     }
+
 }

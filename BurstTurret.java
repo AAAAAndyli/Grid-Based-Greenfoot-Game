@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class BurstTurret extends FlyingEnemy
 {
     private int numberOfProjectiles = 0;
+    
     public BurstTurret()
     {
         attackCooldown = 120;
@@ -51,5 +52,15 @@ public class BurstTurret extends FlyingEnemy
             totalVelocityOfTarget = 0;
             averageVelocityOfTarget = 0;
         }
+    }
+    /**
+     * Loads in every frame for every animation
+     * 
+     * @param path - The file path for the unit
+     */
+    public void loadAnimationFrames(String path)
+    {
+        loadSingleAnimation(path, idleAnimL, "hover", true);
+        loadSingleAnimation(path, idleAnimR, "hover");
     }
 }
