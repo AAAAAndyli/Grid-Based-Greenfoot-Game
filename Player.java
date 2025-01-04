@@ -287,7 +287,7 @@ public class Player extends Entity
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
         Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);
-        if(tile  == null || tile.getButton())
+        if(tile  == null || tile.getButton() || tile.getCollidable() == false)
         {
             return null;
         }

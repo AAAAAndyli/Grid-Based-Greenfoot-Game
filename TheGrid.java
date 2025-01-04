@@ -42,7 +42,7 @@ public class TheGrid
         {
             for(int j = 0 ; j < theGrid[i].length ; j++)
             {
-                if(theGrid[i][j] != null)
+                if(theGrid[i][j] != null && theGrid[i][j].getCollidable() == true)
                 {
                     airGrid[i][j] = 1;
                 }
@@ -85,35 +85,6 @@ public class TheGrid
         int currentXIndex = startXIndex;
         int currentYIndex = startYIndex;
         ArrayList<Coordinate> tilePoints = new ArrayList<Coordinate>();
-        /*
-        while(currentXIndex != endXIndex && currentYIndex != endYIndex)
-        {
-            if(currentXIndex > endXIndex)
-            {
-                currentXIndex--;
-            }
-            else if(currentXIndex < endXIndex)
-            {
-                currentXIndex++;
-            }
-            if(currentYIndex > endYIndex)
-            {
-                currentYIndex--;
-            }
-            else if(currentYIndex < endYIndex)
-            {
-                currentYIndex++;
-            }
-            if(!checkOccupiedTile(currentYIndex, currentXIndex))
-            {
-                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
-            }
-            else
-            {
-                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
-            }
-        }
-        */
         while (currentXIndex != endXIndex || currentYIndex != endYIndex) 
         {
             if (currentXIndex != endXIndex && currentYIndex != endYIndex) 

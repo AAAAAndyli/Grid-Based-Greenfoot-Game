@@ -39,7 +39,7 @@ public abstract class Projectile extends ScrollingActor
         {
             getWorld().removeObject(this);
         }
-        else if(isTouching(Tile.class))
+        else if(isTouching(Tile.class) && ((Tile)getOneIntersectingObject(Tile.class)).getCollidable() == true)
         {
             getWorld().removeObject(this);
         }

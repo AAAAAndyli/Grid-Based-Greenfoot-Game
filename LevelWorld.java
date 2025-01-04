@@ -24,7 +24,6 @@ public class LevelWorld extends ScrollingWorld
     private Camera camera = new Camera(crosshair);
     private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
     
-    
     public LevelWorld()
     {
         this("test3.csv");
@@ -32,7 +31,6 @@ public class LevelWorld extends ScrollingWorld
     
     /**
      * Constructor for objects of class LevelWorld.
-     * 
      */
     public LevelWorld(String levelName)
     {
@@ -80,7 +78,12 @@ public class LevelWorld extends ScrollingWorld
                 int rotation = Integer.parseInt(tokenizer.nextToken());
                 int xLocation = Integer.parseInt(tokenizer.nextToken());
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
-                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint"))
+                int triggerNumber = -1;
+                if(tokenizer.hasMoreTokens())
+                {
+                    triggerNumber = Integer.parseInt(tokenizer.nextToken());
+                }
+                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint") || type.equals("EnemySpawner") || type.equals("TriggerTile"))
                 {
                     switch(type)
                     {
@@ -104,12 +107,20 @@ public class LevelWorld extends ScrollingWorld
                             WalMare enemy = new WalMare();
                             addObject(enemy, xLocation, yLocation);
                             break;
+                        case "EnemySpawner":
+                            EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, new WalMare());
+                            addObject(enemySpawner, xLocation, yLocation);
+                            break;
+                        case "TriggerTile":
+                            TriggerTile trigger = new TriggerTile(type, rotation, xLocation, yLocation, triggerNumber);
+                            addObject(trigger, xLocation, yLocation);
+                            break;
                     }
                 }
                 else
                 {
-                    addObject(new Tile(type, rotation, xLocation, yLocation), xLocation, yLocation);
-                    tileWorld.add(new Tile(type, rotation, xLocation, yLocation));
+                    addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
+                    tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
                 }
             }
             catch(NumberFormatException e)

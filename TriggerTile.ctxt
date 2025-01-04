@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=TriggerTile
+comment0.text=\n\ Write\ a\ description\ of\ class\ KillBorder\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=type\ rotations\ xPosition\ yPosition\ triggerNumber
+comment1.target=TriggerTile(java.lang.String,\ int,\ int,\ int,\ int)
+comment2.params=type\ rotations\ isButton\ mapMaker\ triggerNumber
+comment2.target=TriggerTile(java.lang.String,\ int,\ boolean,\ MapMaker,\ int)
+comment3.params=type\ rotations\ isButton\ mapMaker\ xPosition\ yPosition\ triggerNumber
+comment3.target=TriggerTile(java.lang.String,\ int,\ boolean,\ MapMaker,\ int,\ int,\ int)
+comment4.params=world
+comment4.target=void\ addedToWorld(greenfoot.World)
+comment5.params=
+comment5.target=void\ act()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7

@@ -20,7 +20,7 @@ public class LaserTile extends Tile
     }
     public LaserTile(String type, int rotations, boolean isButton, MapMaker mapMaker, int xPosition, int yPosition)
     {
-        super(type,rotations,isButton,mapMaker,xPosition,yPosition);
+        super(type,rotations,isButton,mapMaker,xPosition,yPosition, true);
     }
     public void addedToWorld(World world)
     {
