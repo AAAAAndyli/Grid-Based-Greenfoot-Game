@@ -1,15 +1,18 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
 /**
  * Write a description of class Trigger here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Trigger  
+public class Trigger
 {
     // instance variables - replace the example below with your own
     private int triggerID;
-    private boolean triggerActivated;
+    private boolean triggerActivated = false;
     private boolean triggerCanBeActivated = true;
+    private boolean toBeDeactivated = false;
 
     /**
      * Constructor for objects of class Trigger
@@ -18,6 +21,16 @@ public class Trigger
     public Trigger(int TriggerID)
     {
         this.triggerID = triggerID;
+        triggerActivated = false;
+    }
+    
+    public void act()
+    {
+        System.out.println("a");
+        if(toBeDeactivated)
+        {
+            permanentlyDeactivateTrigger();
+        }
     }
     
     public boolean getTrigger()
@@ -51,4 +64,10 @@ public class Trigger
     {
         return "Trigger Number: " + triggerID;
     }
+    /*
+    public void deactivateAtEndOfAct()
+    {
+        toBeDeactivated = true;
+    }
+    */
 }

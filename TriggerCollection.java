@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class TriggerCollection  
 {
     // instance variables - replace the example below with your own
-    public static ArrayList<Trigger> triggerList = new ArrayList<Trigger>();
+    private static ArrayList<Trigger> triggerList = new ArrayList<Trigger>();
 
     /**
      * Constructor for objects of class TriggerCollection
@@ -17,6 +17,10 @@ public class TriggerCollection
     public TriggerCollection()
     {
         ArrayList<Trigger> triggerList = new ArrayList<Trigger>();
+    }
+    public static void resetList()
+    {
+        triggerList.clear();
     }
     public static void addTrigger(Trigger trigger)
     {

@@ -36,7 +36,7 @@ FullTile,0,950,400
 FullTile,0,200,450
 PlayerSpawnPoint,0,350,450
 TriggerTile,0,650,450,0
-EnemySpawner,0,850,450,0,-1
+EnemySpawner,0,850,450,0,0
 FullTile,0,950,450
 FullTile,0,200,500
 FullTile,0,250,500

@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class EnemySpawner extends TriggerTile
 {
     private Enemy enemy;
+    private int timer = 0;
     public EnemySpawner(String type, int rotations, int xPosition, int yPosition, int triggerNumber, Enemy enemy)
     {
         this(type, rotations, false, null, xPosition, yPosition, triggerNumber, enemy);
@@ -40,6 +41,14 @@ public class EnemySpawner extends TriggerTile
     public void whenTriggered()
     {
         getWorld().addObject(enemy, x, y);
+        if(timer > 0)
+        {
+            trigger.permanentlyDeactivateTrigger();
+        }
+        else
+        {
+            timer++;
+        }
     }
     public String toString()
     {
