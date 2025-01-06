@@ -10,6 +10,7 @@ public class EnemySpawner extends TriggerTile
 {
     private Enemy enemy;
     private int timer = 0;
+    private Label triggerNumberDisplay;
     public EnemySpawner(String type, int rotations, int xPosition, int yPosition, int triggerNumber, Enemy enemy)
     {
         this(type, rotations, false, null, xPosition, yPosition, triggerNumber, enemy);
@@ -40,7 +41,7 @@ public class EnemySpawner extends TriggerTile
     }
     public void whenTriggered()
     {
-        getWorld().addObject(enemy, x, y);
+        getWorld().addObject(enemy, getPosition().getX(), getPosition().getY());
         if(timer > 0)
         {
             trigger.permanentlyDeactivateTrigger();

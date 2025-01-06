@@ -18,13 +18,13 @@ public class LowerPlayerSprites extends PlayerSprites
         if(!player.getFacing()) //if player is facing right
         {
             flipped = true;            
-            System.out.println("Down facing Left");
+            //System.out.println("Down facing Left");
             player.setLowerSpriteDirection(-1);
         }
         else
         {
             flipped = false;
-            System.out.println("Down facing Right");
+            //System.out.println("Down facing Right");
             player.setLowerSpriteDirection(1);
         }
         super.act();

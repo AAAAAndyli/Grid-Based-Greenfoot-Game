@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 public abstract class GroundedEnemy extends Enemy
 {
-    private double xVelocity = 0;
-    private int xDirection = 1;
-    private final int xSpeed = 10;
+    protected double xVelocity = 0;
+    protected int xDirection = 1;
+    protected int xSpeed = 10;
     protected int detectionRange = 1080;
     protected int attackRange = 100;
     

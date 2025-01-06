@@ -35,6 +35,7 @@ public class LevelWorld extends ScrollingWorld
     public LevelWorld(String levelName)
     {
         super(1080, 720, 1, false); 
+        TriggerCollection.resetList();
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
         loadLevel();
@@ -47,11 +48,10 @@ public class LevelWorld extends ScrollingWorld
             }
         }
         */
-        TriggerCollection.resetList();
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class);
-        setActOrder(HealthBar.class, HealthPod.class, HealthBlob.class, Tile.class, Player.class, Camera.class);
+        setActOrder(Tile.class, Player.class, Enemy.class, Actor.class, Camera.class);
     }
     public void loadLevel()
     {
@@ -113,7 +113,7 @@ public class LevelWorld extends ScrollingWorld
                             addObject(enemySpawner, xLocation, yLocation);
                             break;
                         case "TriggerTile":
-                            TriggerTile trigger = new TriggerTile(type, rotation, xLocation, yLocation, triggerNumber);
+                            CollisionTrigger trigger = new CollisionTrigger(type, rotation, xLocation, yLocation, triggerNumber);
                             addObject(trigger, xLocation, yLocation);
                             break;
                     }

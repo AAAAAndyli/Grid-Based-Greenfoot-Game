@@ -28,9 +28,37 @@ public class EnemyID
             value++;
         }
     }
+    public static void loadHash()
+    {
+        enemyHash.put(0, new WalMare());
+        enemyHash.put(1, new BurstTurret());
+        int value = 0;
+        for(HashMap.Entry<Integer, Enemy> entry : enemyHash.entrySet())
+        {
+            Enemy key = entry.getValue();
+            enemyIDHash.put(key, value);
+            value++;
+        }
+    }
     public static Enemy getEnemy(int index)
     {
-        return enemyHash.get(index);
+        Class<? extends Enemy> enemyClass;
+        try
+        {
+            enemyClass = (enemyHash.get(index)).getClass();
+        }
+        catch(java.lang.NullPointerException e)
+        {
+            enemyClass = enemyHash.get(0).getClass();
+        }
+        try
+        {
+            return enemyClass.getDeclaredConstructor().newInstance();
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
     }
     public static int getID(Enemy index)
     {

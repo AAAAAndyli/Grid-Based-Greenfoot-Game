@@ -56,6 +56,12 @@ public class Player extends Entity
     
     public Player()
     {
+        this(0,0);
+    }
+    
+    public Player(int scrollX, int scrollY)
+    {
+        super(scrollX, scrollY);
         globalPosition = new Coordinate(0,0);
         health = 15;
         maxHealth = health;

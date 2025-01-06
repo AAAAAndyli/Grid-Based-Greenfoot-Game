@@ -30,7 +30,18 @@ public class TriggerCollection
     {
         for(Trigger inListTrigger : triggerList)
         {
-            if(trigger.toString().equals(inListTrigger.toString()))
+            if(trigger.getID() == inListTrigger.getID())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean searchTrigger(int id)
+    {
+        for(Trigger inListTrigger : triggerList)
+        {
+            if(id == inListTrigger.getID())
             {
                 return true;
             }
@@ -41,7 +52,18 @@ public class TriggerCollection
     {
         for(Trigger inListTrigger : triggerList)
         {
-            if(trigger.toString().equals(inListTrigger.toString()))
+            if(trigger.getID() == inListTrigger.getID())
+            {
+                return inListTrigger;
+            }
+        }
+        return null;
+    }
+    public static Trigger returnTrigger(int id)
+    {
+        for(Trigger inListTrigger : triggerList)
+        {
+            if(id == inListTrigger.getID())
             {
                 return inListTrigger;
             }

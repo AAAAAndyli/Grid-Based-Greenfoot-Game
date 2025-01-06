@@ -9,10 +9,10 @@ import java.util.ArrayList;
  */
 public class WalMare extends GroundedEnemy
 {
-    private int xspeed = 1;
     public WalMare()
     {
         super();
+        xSpeed = 5;
         loadAnimationFrames("images/Enemies/walmare");
     }
     /**

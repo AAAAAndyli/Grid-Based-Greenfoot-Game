@@ -23,10 +23,17 @@ public abstract class Enemy extends Entity
     
     protected int animationTimer = 0;
     
+    
     public Enemy()
     {
-        
+        this(0,0);
     }
+    
+    public Enemy(int scrollX, int scrollY)
+    {
+        super(scrollX, scrollY);
+    }
+    
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);

@@ -13,31 +13,35 @@ public class Trigger
     private boolean triggerActivated = false;
     private boolean triggerCanBeActivated = true;
     private boolean toBeDeactivated = false;
-
+    
     /**
      * Constructor for objects of class Trigger
      * If two objects share the same trigger
      */
-    public Trigger(int TriggerID)
+    public Trigger(int triggerID)
     {
+        //System.out.println("TriggerID:" + TriggerID);
         this.triggerID = triggerID;
         triggerActivated = false;
     }
     
-    public void act()
+    public void setTrigger(int triggerID)
     {
-        System.out.println("a");
-        if(toBeDeactivated)
-        {
-            permanentlyDeactivateTrigger();
-        }
+        this.triggerID = triggerID;
+        //System.out.println("TriggerID owo:" + (this.TriggerID));
+        triggerActivated = false;
     }
     
     public boolean getTrigger()
     {
         return triggerActivated;
     }
-
+    
+    public int getID()
+    {
+        return triggerID;
+    }
+    
     /**
      * An example of a method - replace this comment with your own
      * 

@@ -20,14 +20,14 @@ public class UpperPlayerSprites extends PlayerSprites
         if(mouse != null && mouse.getX() > getX()) //if mouse if to the right
         {
             flipped = false;
-            System.out.println("Up facing Right");
+            //System.out.println("Up facing Right");
             player.setUpperSpriteDirection(1);
             headDirection = 1;
         }
         else
         {
             flipped = true;
-            System.out.println("Up facing Left");
+            //System.out.println("Up facing Left");
             player.setUpperSpriteDirection(-1);
             headDirection = -1;
         }

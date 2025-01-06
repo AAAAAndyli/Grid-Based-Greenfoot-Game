@@ -12,7 +12,16 @@ public class ScrollingActor extends SuperSmoothMover
     protected int scrollY;
     protected boolean isFirstAct = true;
     protected Coordinate globalPosition;
-    
+
+    public ScrollingActor()
+    {
+        this(0,0);
+    }
+    public ScrollingActor(int scrollX, int scrollY)
+    {
+        this.scrollX = scrollX;
+        this.scrollY = scrollY;
+    }
     public void addedToWorld(World world)
     {
         globalPosition = new Coordinate(getX()+scrollX, getY()+scrollY);

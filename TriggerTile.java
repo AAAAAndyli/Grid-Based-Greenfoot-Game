@@ -11,6 +11,10 @@ public class TriggerTile extends Tile
     protected int triggerNumber;
     protected Trigger trigger;
     protected boolean collidable = false;
+    
+    private Label triggerNumberDisplay;
+    private StillLabel buttonTriggerNumberDisplay;
+    
     public TriggerTile(String type, int rotations, int xPosition, int yPosition, int triggerNumber)
     {
         this(type, rotations, false, null, xPosition, yPosition, triggerNumber);
@@ -23,28 +27,38 @@ public class TriggerTile extends Tile
     {
         super(type,rotations,isButton,mapMaker,xPosition,yPosition, false);
         this.triggerNumber = triggerNumber;
+        System.out.println(triggerNumber);
         collidable = false;
+        triggerNumberDisplay = new Label(triggerNumber, 50);
+        buttonTriggerNumberDisplay = new StillLabel(triggerNumber, 50);
     }
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);
-        trigger = new Trigger(triggerNumber);
-        if(TriggerCollection.searchTrigger(trigger))
+        //trigger.setTrigger(triggerNumber);
+        if(!isButton)
         {
-            trigger = TriggerCollection.returnTrigger(trigger);
+            getWorld().addObject(triggerNumberDisplay, getPosition().getX(), getPosition().getY());
         }
         else
         {
+            getWorld().addObject(buttonTriggerNumberDisplay, getPosition().getX(), getPosition().getY());
+        }
+        if(TriggerCollection.searchTrigger(triggerNumber))
+        {
+            trigger = TriggerCollection.returnTrigger(triggerNumber);
+            trigger.setTrigger(triggerNumber);
+        }
+        else
+        {
+            trigger = new Trigger(triggerNumber);
+            trigger.setTrigger(triggerNumber);
             TriggerCollection.addTrigger(trigger);
         }
     }
     public void act()
     {
         super.act();
-        if(isTouching(Player.class))
-        {
-            trigger.activateTrigger();
-        }
     }
     public String toString()
     {

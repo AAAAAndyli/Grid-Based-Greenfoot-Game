@@ -46,7 +46,7 @@ public class MapMaker extends SuperSmoothMover
                 triggerID++;
             }
         }
-        else if(Greenfoot.isKeyDown("="))
+        else if(Greenfoot.isKeyDown("-"))
         {
             if(actTimer != 0)
             {
@@ -139,7 +139,7 @@ public class MapMaker extends SuperSmoothMover
                 tileListOptions.add(new Tile("PlayerSpawnPoint", 0, true, this));
                 tileListOptions.add(new LaserTile("LaserTile", rotations, true, this));
                 tileListOptions.add(new Tile("EnemySpawnPoint", 0, true, this));
-                tileListOptions.add(new TriggerTile("TriggerTile", 0, true, this, triggerID));
+                tileListOptions.add(new CollisionTrigger("TriggerTile", 0, true, this, triggerID));
                 tileListOptions.add(new EnemySpawner("EnemySpawner", 0, true, this, triggerID, EnemyID.getEnemy(enemyID)));
                 break;
         } 

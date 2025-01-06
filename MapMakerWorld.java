@@ -37,6 +37,7 @@ public class MapMakerWorld extends ScrollingWorld
     //The primary frame
     private JFrame frame = new JFrame("Save/Load Map");
     
+    private StillLabel currentTriggerID = new StillLabel("Trigger ID: ", 40);
     
     /**
      * Constructor for objects of class MapMakerWorld.
@@ -46,9 +47,11 @@ public class MapMakerWorld extends ScrollingWorld
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1, false); 
         addObject(mapMaker, 540, 645);
-        setPaintOrder(test.class, Tile.class, MapMaker.class, TileSelector.class);
+        setPaintOrder(Tile.class, MapMaker.class, TileSelector.class);
         Greenfoot.setSpeed(51);
         addObject(new FPS(), 200, 10);
+        addObject(currentTriggerID, 900, 40);
+        
         
         frame.setSize(500, 300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -66,6 +69,7 @@ public class MapMakerWorld extends ScrollingWorld
             showMainMenu();
             printWorld();
         }
+        currentTriggerID.setValue("Trigger ID: " + mapMaker.getTriggerID());
     }
     
     /*
@@ -252,14 +256,6 @@ public class MapMakerWorld extends ScrollingWorld
             }
             output.close();
         }
-        catch (IOException e)
-        {
-            System.out.println("Error: " + e);
-        }
-        catch (NullPointerException e)
-        {
-            System.out.println("Error: " + e);
-        }
         catch (Exception e)
         {
             System.out.println("Error: " + e);
@@ -322,7 +318,7 @@ public class MapMakerWorld extends ScrollingWorld
         }
         else if(type.equals("TriggerTile"))
         {
-            tile = new TriggerTile(type, mapMaker.getRotations(), x, y, triggerID);
+            tile = new CollisionTrigger(type, mapMaker.getRotations(), x, y, triggerID);
         }
         else
         {
