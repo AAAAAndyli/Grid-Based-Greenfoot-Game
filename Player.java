@@ -54,6 +54,9 @@ public class Player extends Entity
     
     private static int mouseX, mouseY;
     
+    private Inventory inventory;
+    private boolean spawned = false;
+    
     public Player()
     {
         this(0,0);
@@ -74,7 +77,10 @@ public class Player extends Entity
         globalPosition.setCoordinate(getX(), getY());
         crosshair = getWorld().getObjects(Crosshair.class).get(0);
     }
-
+    
+    
+    
+    
     public void act()
     {     
         super.act();
@@ -102,6 +108,7 @@ public class Player extends Entity
         movement();
         shoot();
         parry();
+        inventory();
         if(Greenfoot.isKeyDown("f"))
         {
             aimIsActivated = !aimIsActivated;
@@ -113,6 +120,24 @@ public class Player extends Entity
             die();
         }
     }
+    
+    public void inventory(){
+        
+        if(Greenfoot.isKeyDown("i") && !spawned){
+            if(inventory == null){
+                inventory = new Inventory();
+            }
+            getWorld().addObject(inventory, this.getX(), this.getY());
+            spawned = true;
+        }
+        
+        else if(Greenfoot.isKeyDown("o") && spawned){
+            getWorld().removeObject(inventory);
+            spawned = false;
+        }
+    }
+    
+    
     
     public void dash()
     {
