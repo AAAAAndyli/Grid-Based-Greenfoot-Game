@@ -1,4 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 /**
  * Write a description of class Player here.
@@ -20,30 +23,89 @@ public class Player extends Entity
     
     private double yVelocity = 0;
     private double storedJump = 0;
-    private final double yGravity = 1;
+    private double yGravity = 1;
+    private final double normalFallingGravity = 1;
+    private final double aimingFallingGravity = 0.2;
     private final double maximumYVelocity = 40;
     private final double jumpSpeed = 20;
     private int coyoteTimer = 0;
     private boolean isJumpKeyDown = false;
     
     private boolean touchingFloor;
-    //private Laser sight = new Laser
+    private Laser sight = new Laser(1,5,3,false);
+    
+    private Coordinate mouseTarget = new Coordinate(0, 0);
+    
+    private int parryTimer = 10;
+    private int dashTimer = 10;
+    private final int dashCooldown = -200;
+    private boolean canBeHurt = true;
+    
+    private int knockbackX = 0, knockBackY = 0;
+    
+    private boolean isHeal = false;
+    private boolean isHurt = false;
+    private int invincibilityFrames = 0;
+    private final int totalInvincibilityFrames = 30;
+    
+    private Crosshair crosshair;
+    private boolean isAiming;
+    private boolean aimIsActivated = false;
+    
+    private static int mouseX, mouseY;
     
     public Player()
     {
+        this(0,0);
+    }
+    
+    public Player(int scrollX, int scrollY)
+    {
+        super(scrollX, scrollY);
         globalPosition = new Coordinate(0,0);
+        health = 15;
+        maxHealth = health;
     }
     
     public void addedToWorld(World world)
     {
+        getWorld().addObject(new LowerPlayerSprites(this), getX(), getY()); 
+        getWorld().addObject(new UpperPlayerSprites(this), getX(), getY()); 
         globalPosition.setCoordinate(getX(), getY());
+        crosshair = getWorld().getObjects(Crosshair.class).get(0);
     }
 
     public void act()
     {     
         super.act();
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if(mouse != null)
+        {
+            mouseX = mouse.getX();
+            mouseY = mouse.getY();
+        }
+        if(invincibilityFrames == 2)
+        {
+            invincibilityFrames++;
+            isHurt = false;
+            canBeHurt = false;
+        }
+        else if(invincibilityFrames > totalInvincibilityFrames)
+        {
+            invincibilityFrames = 0;
+            canBeHurt = true;
+        }
+        else if(invincibilityFrames != 0)
+        {
+            invincibilityFrames++;
+        }
         movement();
         shoot();
+        parry();
+        if(Greenfoot.isKeyDown("f"))
+        {
+            aimIsActivated = !aimIsActivated;
+        }
         //System.out.println("xVelocity: " + xVelocity + ", yVelocity: " + yVelocity);
         //System.out.println(globalPosition.getX() + ", " + globalPosition.getY());
         if(willDie)
@@ -51,33 +113,90 @@ public class Player extends Entity
             die();
         }
     }
+    
+    public void dash()
+    {
+        if(Greenfoot.isKeyDown("shift") && dashTimer > 0)
+        {
+            dashTimer --;
+            xVelocity = 40 * xDirection;
+            yVelocity = 0;
+            canBeHurt = false;
+        }
+        else if(dashTimer == -100)
+        {
+            dashTimer = 10;
+            canBeHurt = true;
+        }
+        else if(dashTimer != 10)
+        {
+            dashTimer --;
+            canBeHurt = true;
+        }
+    }
+    
     public void shoot()
     {
-        MouseInfo mouse = Greenfoot.getMouseInfo();
-        if(mouse != null && mouse.getButton() == 1)
+        if(Greenfoot.getMouseInfo() != null && (Greenfoot.getMouseInfo().getButton() == 1)||isAiming)
         {   
-            Coordinate mouseTarget = new Coordinate(mouse.getX(), mouse.getY());
-            getWorld().addObject(new Laser(5, 100, 3, false), getX(), getY());
+            mouseTarget = new Coordinate(mouseX, mouseY);
+            if(aimIsActivated)
+            {
+                if(yVelocity > 0)
+                {
+                    yGravity = aimingFallingGravity;
+                }
+                else
+                {
+                    yGravity = normalFallingGravity;
+                }
+                
+                getWorld().getObjects(Camera.class).get(0).setMultipleFollowing(true);
+                isAiming = true;
+                getWorld().addObject(sight, getX(), getY());
+                
+                int deltaX = mouseX - getX();
+                int deltaY = mouseY - getY();
+                double scale = 500 / Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+                int offsetX = (int) (deltaX * scale);
+                int offsetY = (int) (deltaY * scale);
+                int sightPlayerMidX = getX() + offsetX;
+                int sightPlayerMidY = getY() + offsetY;
+                
+                sight.setLocation(sightPlayerMidX, sightPlayerMidY);
+                sight.turnTowards(mouseX, mouseY);
+                sight.setWidth(1000);
+            }
             if(Greenfoot.mouseClicked(null))
             {
+                isAiming = false;
                 getWorld().addObject(new PProjectile(mouseTarget, 15, this), getX(), getY());
             }
+        }
+        else
+        {
+            yGravity = normalFallingGravity;
+            getWorld().removeObject(sight);
+            getWorld().getObjects(Camera.class).get(0).setMultipleFollowing(false);
         }
     }
     
     public void movement()
     {
-        slide();
-        
-        predictFloor();
-        checkFloor();
-        applyGravity();
-        jump();
+        if(dashTimer == 10 || dashTimer < 0)
+        {
+            slide();
+            predictFloor();
+            checkFloor();
+            applyGravity();
+            jump();
+        }
         if(!isSliding)
         {
             horizontalMovement();
             slam();
         }
+        dash();
         collision();
         globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
     }
@@ -145,8 +264,8 @@ public class Player extends Entity
     public void predictFloor()
     {
         Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity+5);
-        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity+5);
+        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
+        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
         
         boolean midWillTouch = predictedMidTile != null;
         boolean leftWillTouch = predictedLeftTile != null;
@@ -174,7 +293,7 @@ public class Player extends Entity
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
         Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);
-        if(tile  == null || tile.getButton())
+        if(tile  == null || tile.getButton() || tile.getCollidable() == false)
         {
             return null;
         }
@@ -237,7 +356,7 @@ public class Player extends Entity
     
     public void slam()
     {
-        if(((touchingFloor || getOneTileAtOffset(getImage().getWidth()/2, getImage().getHeight()/2+10) != null)|| getOneTileAtOffset(-getImage().getWidth()/2, getImage().getHeight()/2+10) != null) && !(Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")))
+        if(((touchingFloor || getOneTileAtOffset(0, getImage().getHeight()/2+10) != null|| getOneTileAtOffset(getImage().getWidth()/2, getImage().getHeight()/2+10) != null) || getOneTileAtOffset(-getImage().getWidth()/2, getImage().getHeight()/2+10) != null) && !(Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")))
         {
             isSlamming = false;
         }
@@ -299,8 +418,8 @@ public class Player extends Entity
     {
         Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity + 5, 0);
         Tile leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity - 5, 0);
-        Tile upTouching = getOneTileAtOffset(0, -getImage().getHeight()/2);
-        Tile upTouchingBefore = getOneTileAtOffset(0, -getImage().getHeight()-5);
+        Tile upLeftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + 5, -getImage().getHeight()/2);
+        Tile upRightTouching = getOneTileAtOffset(getImage().getWidth()/2 - 5, -getImage().getHeight()/2);
         if(rightTouching != null && (xDirection == 1||xVelocity > 0) && !rightTouching.isDiagonal())
         {
             isCollidingRight = true;
@@ -341,15 +460,109 @@ public class Player extends Entity
         {
             isCollidingLeft = false;
         }
-        if(upTouching != null)
+        if((upLeftTouching != null || upRightTouching != null) && yVelocity < 0)
         {
             isCollidingUp = true;
             yVelocity = 0;
-            globalPosition.setCoordinate(globalPosition.getX(), upTouching.globalPosition.getY() + getImage().getHeight()/2 + upTouching.getImage().getHeight()/2);
+            int ceilingTileBottom = upLeftTouching != null ? upLeftTouching.globalPosition.getY() + getImage().getHeight()/2 + upLeftTouching.getImage().getHeight()/2 : upRightTouching.globalPosition.getY() + getImage().getHeight()/2 + upRightTouching.getImage().getHeight()/2;
+            globalPosition.setCoordinate(globalPosition.getX(), ceilingTileBottom);
         }
         else
         {
             isCollidingUp = false;
         }
+    }
+    
+    public void parry()
+    {
+        if(Greenfoot.isKeyDown("e") && parryTimer > 0)
+        {
+            ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>)getObjectsInRange(100, EProjectile.class);
+            for(EProjectile projectile : projectilesInRange)
+            {
+                projectile.parried(mouseX, mouseY);
+                Greenfoot.delay(10);
+                getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
+                heal(3);
+            }
+            parryTimer--;
+        }
+        else if(!Greenfoot.isKeyDown("e"))
+        {
+            parryTimer = 10;
+        }
+    }
+    
+    public void heal(int regen)
+    {
+        health += regen;
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
+        isHeal = true;
+        getWorld().getObjects(HealthBar.class).get(0).raise();
+    }
+    
+    public void hurt(int damage)
+    {
+        if(canBeHurt)
+        {
+            super.hurt(damage);
+            getWorld().getObjects(Camera.class).get(0).screenShake(3, 5);
+            isHurt = true;
+            invincibilityFrames = 1;
+        }
+        //Greenfoot.delay(10);
+    }
+    
+    private int upperSpriteDirection;
+    private int lowerSpriteDirection;
+    //animation methods
+    public boolean matchingSpriteDirection()
+    {
+        return upperSpriteDirection == lowerSpriteDirection;
+    }
+    public void setUpperSpriteDirection(int newDir)
+    {
+        upperSpriteDirection = newDir;
+    }
+    public void setLowerSpriteDirection(int newDir)
+    {
+        lowerSpriteDirection = newDir;
+    }
+    
+    public boolean getHurt()
+    {
+        return isHurt;
+    }
+    public boolean getHeal()
+    {
+        return isHeal;
+    }
+    public int getHealthBarHP()
+    {
+        return health/3;
+    }
+    public boolean getFacing()
+    {
+        //right = true
+        return xDirection == 1;
+    }
+    public boolean getHurtable()
+    {
+        return canBeHurt;
+    }
+    public double getXVelocity()
+    {
+        return xVelocity;
+    }
+    public double getYVelocity()
+    {
+        return yVelocity;
+    }
+    public double getYGravity()
+    {
+        return yGravity;
     }
 }

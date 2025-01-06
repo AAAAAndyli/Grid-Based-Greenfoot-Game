@@ -10,14 +10,18 @@ public abstract class Projectile extends ScrollingActor
 {
     protected Coordinate target;
     protected ScrollingActor spawner;
+    protected int damage;
     protected double speed;
     protected double distance = 0;
+    protected boolean markedForDeletion = false;
     protected final double MAX_DISTANCE = 2000;
-    public Projectile(Coordinate target, double speed, ScrollingActor spawner)
+    public Projectile(Coordinate target, double speed, int damage, ScrollingActor spawner, String sprite)
     {
         this.target = target;
         this.speed = speed;
+        this.damage = damage;
         this.spawner = spawner;
+        setImage("Projectiles/" + sprite + ".png");
     }
     public void addedToWorld(World world)
     {
@@ -35,7 +39,11 @@ public abstract class Projectile extends ScrollingActor
         {
             getWorld().removeObject(this);
         }
-        else if(isTouching(Tile.class))
+        else if(isTouching(Tile.class) && ((Tile)getOneIntersectingObject(Tile.class)).getCollidable() == true)
+        {
+            getWorld().removeObject(this);
+        }
+        else if(markedForDeletion)
         {
             getWorld().removeObject(this);
         }

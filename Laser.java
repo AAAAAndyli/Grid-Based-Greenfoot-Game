@@ -17,18 +17,25 @@ public class Laser extends ScrollingActor
         setImage("laser/laser"+laserVariant+".png");
         getImage().scale(width+1, height+1);
     }
+    public void act()
+    {
+        if(scrolling)
+        {
+            super.act();
+        }
+    }
     
     public int getVariant()
     {
         return laserVariant;
     }
     
-    public void changeWidth(int width)
+    public void setWidth(int width)
     {
         getImage().scale(width+1, getImage().getHeight());
     }
     
-    public void changeHeight(int height)
+    public void setHeight(int height)
     {
         getImage().scale(getImage().getWidth(), height+1);
     }

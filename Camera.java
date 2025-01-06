@@ -13,6 +13,9 @@ public class Camera extends SuperSmoothMover
     private boolean followingMultipleActors = false;
     private int numberOfFollowingActors = 2;
     
+    private int screenShakeLength = 0;
+    private double screenShakeMultiplier = 0;
+    
     public Camera(Actor followingActor)
     {
         this.followingActor = followingActor;
@@ -25,7 +28,22 @@ public class Camera extends SuperSmoothMover
     {
         if(followingMultipleActors)
         {
-            followMultipleTargets();
+            try
+            {
+                followMultipleTargets();
+            }
+            catch(IllegalStateException e)
+            {
+                for(Actor actor: followingActors)
+                {
+                    if(actor.getWorld() == null)
+                    {
+                        removeFollowing(actor);
+                        followingMultipleActors = false;
+                        break;
+                    }
+                }
+            }
         }
         else
         {
@@ -34,63 +52,71 @@ public class Camera extends SuperSmoothMover
                 followSingleTarget();
             }
         }
+        screenShake(screenShakeMultiplier, 0);
     }
+    
     public void followSingleTarget()
     {
-        int actorX = followingActor.getX();
-        int actorY = followingActor.getY();
-        //300 = global position - scroll x
-        //
-        if(actorX > 425)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - (actorX - 425));
-        }
-        else if(actorX < 375)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - (actorX - 375));
-        }
-        if(actorY < 275)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - (actorY - 275));
-        }
-        else if(actorY > 325)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - (actorY - 325));
-        }
+        ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
+        
+        int targetScrollX = world.getScrollX() - (followingActor.getX() - world.getWidth()/2);
+        int targetScrollY = world.getScrollY() - (followingActor.getY() - world.getHeight()/2);
+        
+        int newScrollX = (int) (world.getScrollX() + (targetScrollX - world.getScrollX()) * 0.5);
+        int newScrollY = (int) (world.getScrollY() + (targetScrollY - world.getScrollY()) * 0.5);
+        
+        world.setScrollX(newScrollX);
+        world.setScrollY(newScrollY); 
     }
     
     public void followMultipleTargets()
     {
+        ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
         int totalX = 0;
         int totalY = 0;
-        for(Actor targets: followingActors) 
+        for (Actor targets : followingActors) 
         {
             totalX += targets.getX();
             totalY += targets.getY();
         }
         totalX /= followingActors.size();
         totalY /= followingActors.size();
-        if(totalX > 400)
+        
+        int targetScrollX = world.getScrollX() - (totalX - world.getWidth()/2);
+        int targetScrollY = world.getScrollY() - (totalY - world.getHeight()/2);
+        
+        int newScrollX = (int) (world.getScrollX() + (targetScrollX - world.getScrollX()) * 0.5);
+        int newScrollY = (int) (world.getScrollY() + (targetScrollY - world.getScrollY()) * 0.5);
+        
+        world.setScrollX(newScrollX);
+        world.setScrollY(newScrollY);    
+    }
+    
+    public void screenShake(double multiplier, int length)
+    {
+        if(length != 0 && screenShakeLength == 0)
         {
-            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - (totalX - 400));
+            screenShakeLength = length;
+            screenShakeMultiplier = multiplier;
         }
-        else if(totalX < 400)
+        else if(screenShakeLength != 0)
         {
-            getWorldOfType(ScrollingWorld.class).setScrollX(getWorldOfType(ScrollingWorld.class).getScrollX() - (totalX - 400));
+            screenShakeLength--;
+            ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
+            int xChange = (int)Math.round((Greenfoot.getRandomNumber(10) - 5) * multiplier);
+            int yChange = (int)Math.round((Greenfoot.getRandomNumber(10) - 5) * multiplier);
+            world.setScrollX(world.getScrollX() + xChange);
+            world.setScrollY(world.getScrollY() + yChange);
         }
-        if(totalY > 300)
+        else if(screenShakeLength == 0)
         {
-            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - (totalY - 300));
-        }
-        else if(totalY < 300)
-        {
-            getWorldOfType(ScrollingWorld.class).setScrollY(getWorldOfType(ScrollingWorld.class).getScrollY() - (totalY - 300));
+            screenShakeMultiplier = 0;
         }
     }
     
-    public void setMultipleFollowing()
+    public void setMultipleFollowing(boolean multipleActors)
     {
-        followingMultipleActors = true;
+        followingMultipleActors = multipleActors;
     }
     public void setFollowing(Actor newFollowingActor)
     {

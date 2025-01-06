@@ -9,7 +9,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public abstract class Entity extends ScrollingActor
 {
     protected boolean willDie = false;
-    protected int health, speed;
+    protected int maxHealth, health, speed;
+    
+    public Entity(int scrollX, int scrollY)
+    {
+        super(scrollX, scrollY);
+    }
+    
     public void act()
     {
         barrier();
@@ -31,7 +37,11 @@ public abstract class Entity extends ScrollingActor
         health -= damage;
         if(health < 0)
         {
-            die();
+            willDie = true;
         }
+    }
+    public int getHP()
+    {
+        return health;
     }
 }

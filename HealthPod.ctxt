@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=HealthPod
+comment0.text=\n\ Write\ a\ description\ of\ class\ HealthPod\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=HealthPod()
+comment2.params=world
+comment2.target=void\ addedToWorld(greenfoot.World)
+comment3.params=hpLost
+comment3.target=void\ lower(int)
+comment4.params=
+comment4.target=void\ raise()
+numComments=5

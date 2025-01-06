@@ -21,6 +21,7 @@ public abstract class ScrollingWorld extends World
         super(xSize, ySize, cellSize, bounding); 
         scrollX = 0;
         scrollY = 0;
+        EnemyID.loadHash();
     }
     public void act()
     {

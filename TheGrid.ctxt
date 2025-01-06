@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=TheGrid
+comment0.text=\n\ Write\ a\ description\ of\ class\ TheGrid\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=newGrid
+comment1.target=void\ setGrid(Tile[][])
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ TheGrid\n
+comment2.params=
+comment2.target=void\ populateAirGrid()
+comment3.params=grid
+comment3.target=void\ findLowestCoordinates(Tile[][])
+comment4.params=start\ end
+comment4.target=java.util.ArrayList\ findPathAir(Coordinate,\ Coordinate)
+comment5.params=x\ y
+comment5.target=boolean\ checkOccupiedTile(int,\ int)
+numComments=6

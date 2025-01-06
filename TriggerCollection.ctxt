@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=TriggerCollection
+comment0.text=\n\ Write\ a\ description\ of\ class\ TriggerCollection\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=TriggerCollection()
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ TriggerCollection\n
+comment2.params=
+comment2.target=void\ resetList()
+comment3.params=trigger
+comment3.target=void\ addTrigger(Trigger)
+comment4.params=trigger
+comment4.target=boolean\ searchTrigger(Trigger)
+comment5.params=id
+comment5.target=boolean\ searchTrigger(int)
+comment6.params=trigger
+comment6.target=Trigger\ returnTrigger(Trigger)
+comment7.params=id
+comment7.target=Trigger\ returnTrigger(int)
+numComments=8

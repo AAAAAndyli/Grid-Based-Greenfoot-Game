@@ -19,26 +19,39 @@ public class LevelWorld extends ScrollingWorld
 {
     private String levelName;
     ArrayList<String> world = new ArrayList<String>();
+    ArrayList<Tile> tileWorld = new ArrayList<Tile>();
     private Crosshair crosshair = new Crosshair();
     private Camera camera = new Camera(crosshair);
     private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
     
-    
     public LevelWorld()
     {
-        this("test.csv");
+        this("test3.csv");
     }
     
     /**
      * Constructor for objects of class LevelWorld.
-     * 
      */
     public LevelWorld(String levelName)
     {
-        super(800, 600, 1, false); 
+        super(1080, 720, 1, false); 
+        TriggerCollection.resetList();
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
         loadLevel();
+        /*
+        for(int i = 0; i < toGrid().length; i++)
+        {
+            for(int j = 0; j < toGrid()[i].length; j++)
+            {
+                System.out.println(toGrid()[i][j].getString());
+            }
+        }
+        */
+        TheGrid.setGrid(toGrid());
+        addObject(new FPS(), 200, 10);
+        setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class);
+        setActOrder(Tile.class, Player.class, Enemy.class, Actor.class, Camera.class);
     }
     public void loadLevel()
     {
@@ -66,36 +79,49 @@ public class LevelWorld extends ScrollingWorld
                 int rotation = Integer.parseInt(tokenizer.nextToken());
                 int xLocation = Integer.parseInt(tokenizer.nextToken());
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
-                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint"))
+                int triggerNumber = -1;
+                if(tokenizer.hasMoreTokens())
+                {
+                    triggerNumber = Integer.parseInt(tokenizer.nextToken());
+                }
+                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint") || type.equals("EnemySpawner") || type.equals("TriggerTile"))
                 {
                     switch(type)
                     {
                         case "PlayerSpawnPoint":
                             Player player = new Player();
-                            addObject(player, xLocation, yLocation);
                             addObject(crosshair, xLocation, yLocation);
+                            addObject(player, xLocation, yLocation - player.getImage().getHeight()/4);
                             addObject(camera, 0, 0);
-                            camera.addFollowing(player);
-                            camera.addFollowing(player);
                             camera.addFollowing(player);
                             camera.addFollowing(player);
                             camera.addFollowing(player);
                             camera.addFollowing(player);
                             camera.addFollowing(crosshair);
                             camera.setFollowing(player);
+                            addObject(new HealthBar(player), 100, 100);
                             break;
                         case "LaserTile":
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
                             break;
                         case "EnemySpawnPoint":
-                            Enemy enemy = new Enemy();
+                            WalMare enemy = new WalMare();
                             addObject(enemy, xLocation, yLocation);
+                            break;
+                        case "EnemySpawner":
+                            EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, new WalMare());
+                            addObject(enemySpawner, xLocation, yLocation);
+                            break;
+                        case "TriggerTile":
+                            CollisionTrigger trigger = new CollisionTrigger(type, rotation, xLocation, yLocation, triggerNumber);
+                            addObject(trigger, xLocation, yLocation);
                             break;
                     }
                 }
                 else
                 {
-                    addObject(new Tile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                    addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
+                    tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
                 }
             }
             catch(NumberFormatException e)
@@ -108,5 +134,40 @@ public class LevelWorld extends ScrollingWorld
             laserTile.removeLaser();
             laserTile.createLaser();
         }
+    }
+    
+    public Tile[][] toGrid()
+    {
+        int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
+        int highestX = Integer.MIN_VALUE, highestY = Integer.MIN_VALUE;
+        for(Tile tile : tileWorld)
+        {
+            if(lowestX > tile.getGlobalX())
+            {
+                lowestX = tile.getGlobalX();
+            }
+            if(lowestY > tile.getGlobalY())
+            {
+                lowestY = tile.getGlobalY();
+            }
+            if(highestX < tile.getGlobalX())
+            {
+                highestX = tile.getGlobalX();
+            }
+            if(highestY < tile.getGlobalY())
+            {
+                highestY = tile.getGlobalY();
+            }
+        }
+        
+        int xTiles = (highestX - lowestX)/50 + 1;
+        int yTiles = (highestY - lowestY)/50 + 1;
+        Tile[][] map = new Tile[yTiles][xTiles];
+        
+        for(Tile tile : tileWorld)
+        {
+            map[(tile.getGlobalY() - lowestY)/50][(tile.getGlobalX() - lowestX)/50] = tile;
+        }
+        return map;
     }
 }

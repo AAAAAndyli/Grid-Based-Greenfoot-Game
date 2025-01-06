@@ -19,10 +19,14 @@ public class MapMaker extends SuperSmoothMover
     private boolean isFirstAct = true;
     private boolean hide = false;
     
+    private int enemyID = 0; 
+    private int triggerID = 0;
+    
     private int actTimer = 60;
     public MapMaker(MapMakerWorld origin)
     {
         world = origin;
+        getImage().scale(1080, 75);
     }
     /**
      * Act - do whatever the MapMakerAssets wants to do. This method is called whenever
@@ -34,6 +38,23 @@ public class MapMaker extends SuperSmoothMover
         {
             refreshOptions(rotation);
             isFirstAct = false;
+        }
+        if(Greenfoot.isKeyDown("="))
+        {
+            if(actTimer != 0)
+            {
+                triggerID++;
+            }
+        }
+        else if(Greenfoot.isKeyDown("-"))
+        {
+            if(actTimer != 0)
+            {
+                if(triggerID > 0)
+                {
+                    triggerID--;
+                }
+            }
         }
         if(Greenfoot.isKeyDown("r"))
         {
@@ -117,9 +138,11 @@ public class MapMaker extends SuperSmoothMover
                 tileListOptions.add(new Tile("Stair", rotations, true, this));
                 tileListOptions.add(new Tile("PlayerSpawnPoint", 0, true, this));
                 tileListOptions.add(new LaserTile("LaserTile", rotations, true, this));
-                tileListOptions.add(new Tile("EnemySpawnPoint", rotations, true, this));
+                tileListOptions.add(new Tile("EnemySpawnPoint", 0, true, this));
+                tileListOptions.add(new CollisionTrigger("TriggerTile", 0, true, this, triggerID));
+                tileListOptions.add(new EnemySpawner("EnemySpawner", 0, true, this, triggerID, EnemyID.getEnemy(enemyID)));
                 break;
-        }
+        } 
     }
     public void displayOptions()
     {
@@ -130,6 +153,14 @@ public class MapMaker extends SuperSmoothMover
             getWorld().addObject(tile, (int)(getWorld().getWidth() / 2 + tileNum * gapSize + gapSize / 2), getY());
             tileNum ++;
         }
+    }
+    public int getEnemyID()
+    {
+        return enemyID;
+    }
+    public int getTriggerID()
+    {
+        return triggerID;
     }
     public void setType(String newType)
     {
