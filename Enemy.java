@@ -23,6 +23,7 @@ public abstract class Enemy extends Entity
     
     protected int animationTimer = 0;
     
+    protected int bytesOnDeath = 3;
     
     public Enemy()
     {
@@ -32,6 +33,14 @@ public abstract class Enemy extends Entity
     public Enemy(int scrollX, int scrollY)
     {
         super(scrollX, scrollY);
+    }
+    
+    public void die() {
+        for (int i = 0; i < bytesOnDeath; i++) {
+            getWorld().addObject(new Byte(getPosition().getX(), getPosition().getY()), 0, 0);
+        }
+        
+        getWorld().removeObject(this);
     }
     
     public void addedToWorld(World world)
