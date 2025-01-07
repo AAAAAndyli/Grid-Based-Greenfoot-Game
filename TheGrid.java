@@ -133,7 +133,7 @@ public class TheGrid
                 tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
             } else 
             {
-                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
+                //tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
             }
             for(Coordinate coords : tilePoints)
             {
