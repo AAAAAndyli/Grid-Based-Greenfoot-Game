@@ -6,14 +6,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class HurtBox extends ScrollingActor
+public abstract class HurtBox extends ScrollingActor
 {
-    /**
-     * Act - do whatever the HurtBox wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
-    }
+    protected int damageDuration;
+    protected int damage;
+    protected int width, height;
+    protected GreenfootImage hitbox;
 }

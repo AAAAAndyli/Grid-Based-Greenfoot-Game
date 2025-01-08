@@ -26,7 +26,7 @@ public class LevelWorld extends ScrollingWorld
     
     public LevelWorld()
     {
-        this("test3.csv");
+        this("testMaps/test5.csv");
     }
     
     /**
@@ -50,7 +50,7 @@ public class LevelWorld extends ScrollingWorld
         */
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
-        setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class);
+        setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class);
         setActOrder(Tile.class, Player.class, Enemy.class, Actor.class, Camera.class);
     }
     public void loadLevel()
@@ -105,7 +105,7 @@ public class LevelWorld extends ScrollingWorld
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
                             break;
                         case "EnemySpawnPoint":
-                            WalMare enemy = new WalMare();
+                            BurstTurret enemy = new BurstTurret();
                             addObject(enemy, xLocation, yLocation);
                             break;
                         case "EnemySpawner":

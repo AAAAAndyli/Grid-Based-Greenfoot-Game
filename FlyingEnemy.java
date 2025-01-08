@@ -65,6 +65,7 @@ public abstract class FlyingEnemy extends Enemy
         for(Coordinate coords : TheGrid.findPathAir(getPosition(), player.getPosition()))
         {
             path.add(coords);
+            getWorld().addObject(new Label(0, 20), coords.getX(), coords.getY());
         }
         //path = TheGrid.findPathAir(this.getPosition(), player.getPosition());
     }

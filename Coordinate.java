@@ -44,4 +44,5 @@ public class Coordinate
     {
         return "X Coordinate: " + x + ", Y Coordinate: " + y;
     }
+    
 }

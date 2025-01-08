@@ -29,10 +29,19 @@ public class TheGrid
             for(int j = 0; j < theGrid[i].length; j++)
             {
                 theGrid[i][j] = newGrid[i][j];
+                if(theGrid[i][j] != null)
+                {
+                    System.out.print(1);
+                }
+                else
+                {
+                    System.out.print(0);
+                }
             }
+            System.out.println();
         }
         populateAirGrid();
-        findLowestCoordinates(newGrid);
+        findLowestCoordinates(theGrid);
     }
     
     public static void populateAirGrid()
@@ -73,83 +82,110 @@ public class TheGrid
                 }
             }
         }
+        lowestX = Math.abs(lowestX) - 100;
+        lowestY = Math.abs(lowestY);
     }
     
     public static ArrayList<Coordinate> findPathAir(Coordinate start, Coordinate end) 
     {
+        ArrayList<Coordinate> path = new ArrayList<>();
+    
         int startXIndex = (start.getX() + lowestX) / 50;
         int startYIndex = (start.getY() + lowestY) / 50;
         int endXIndex = (end.getX() + lowestX) / 50;
         int endYIndex = (end.getY() + lowestY) / 50;
+    
+        System.out.println("xSize: " + airGrid[0].length);
+        System.out.println("ySize: " + airGrid.length);
+        System.out.println("LowestX: " + lowestX);
+        System.out.println("LowestY: " + lowestY);
+        System.out.println("startXIndex: " + startXIndex);
+        System.out.println("startYIndex: " + startYIndex);
+        System.out.println("endXIndex: " + endXIndex);
+        System.out.println("endYIndex: " + endYIndex);
         
-        int currentXIndex = startXIndex;
-        int currentYIndex = startYIndex;
-        ArrayList<Coordinate> tilePoints = new ArrayList<Coordinate>();
-        while (currentXIndex != endXIndex || currentYIndex != endYIndex) 
-        {
-            if (currentXIndex != endXIndex && currentYIndex != endYIndex) 
-            {
-                // Diagonal movement
-                if (currentXIndex > endXIndex)
-                {
-                    currentXIndex--;
-                } else 
-                {
-                    currentXIndex++;
-                }
-                if (currentYIndex > endYIndex)
-                {
-                    currentYIndex--;
-                } 
-                else 
-                {
-                    currentYIndex++;
-                }
-            } else if (currentXIndex != endXIndex) 
-            {
-                // Horizontal movement
-                if (currentXIndex > endXIndex) 
-                {
-                    currentXIndex--;
-                } 
-                else 
-                {
-                    currentXIndex++;
-                }
-            } else if (currentYIndex != endYIndex) 
-            {
-                // Vertical movement
-                if (currentYIndex > endYIndex) 
-                {
-                    currentYIndex--;
-                } 
-                else 
-                {
-                    currentYIndex++;
-                }
-            }
-            if (!checkOccupiedTile(currentYIndex, currentXIndex)) 
-            {
-                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
-            } else 
-            {
-                tilePoints.add(new Coordinate(currentXIndex * 50 - lowestX, currentYIndex * 50 - lowestY));
-            }
-            for(Coordinate coords : tilePoints)
-            {
-                System.out.println(coords.getString());
-            }
+        if (!isInBounds(startXIndex, startYIndex) || !isInBounds(endXIndex, endYIndex)) 
+        {   
+            //System.out.println("Start or end point is out of bounds.");
+            return path;
         }
-        
-        return tilePoints;
+    
+        int currentX = startXIndex;
+        int currentY = startYIndex;
+    
+        while (currentX != endXIndex || currentY != endYIndex) 
+        {
+            if (currentX < endXIndex && !checkOccupiedTile(currentX + 1, currentY)) 
+            {
+                currentX++;
+            } 
+            else if (currentX > endXIndex && !checkOccupiedTile(currentX - 1, currentY)) 
+            {
+                currentX--;
+            } 
+            else if (currentY < endYIndex && !checkOccupiedTile(currentX, currentY + 1)) 
+            {
+                currentY++;
+            } 
+            else if (currentY > endYIndex && !checkOccupiedTile(currentX, currentY - 1)) 
+            {
+                currentY--;
+            } 
+            else 
+            {
+                //System.out.println("Path blocked at (" + currentX + ", " + currentY + ").");
+                break;
+            }
+            path.add(new Coordinate(currentX * 50 - lowestX, currentY * 50 - lowestY));
+        }
+        return path;
     }
-    public static boolean checkOccupiedTile(int x, int y)
+    
+    private static boolean isInBounds(int x, int y) 
     {
-        //if occupied, true. else, false
-        if((y + lowestY) / 50 > 0 && (x + lowestX) / 50 > 0 && (x + lowestX) / 50 < airGrid[0].length && (y + lowestY) / 50 < airGrid.length)
+        return x >= 0 && y >= 0 && x < airGrid[0].length && y < airGrid.length;
+    }
+    
+    private static boolean checkOccupiedTile(int x, int y) 
+    {
+        if (!isInBounds(x, y)) 
         {
-            return airGrid[(y + lowestY) / 50][(x + lowestX) / 50] != 0;
+            return true;
         }
-        return false;
+        return airGrid[y][x] == 1;
+    }
+    
+
+    public static Coordinate checkSurroundingTiles(int x, int y)
+    {
+        if(!checkOccupiedTile(y, x - 1)) 
+        {
+            return(new Coordinate((x-1) * 50 - lowestX, y * 50 - lowestY));
+        } 
+        else 
+        {
+            if(!checkOccupiedTile(y, x + 1)) 
+            {
+                return(new Coordinate((x+1) * 50 - lowestX, y * 50 - lowestY));
+            } 
+            else 
+            {
+                if(!checkOccupiedTile(y + 1, x)) 
+                {
+                    return(new Coordinate(x * 50 - lowestX, (y+1) * 50 - lowestY));
+                } 
+                else 
+                {
+                    if(!checkOccupiedTile(y - 1, x)) 
+                    {
+                        return(new Coordinate(x * 50 - lowestX, (y-1) * 50 - lowestY));
+                    } 
+                    else 
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
     }
 }
