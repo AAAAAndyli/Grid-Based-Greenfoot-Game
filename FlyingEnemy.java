@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public abstract class FlyingEnemy extends Enemy
 {
-    private ArrayList<Coordinate> path = new ArrayList<Coordinate>();
-    private int forcePathfindTimer = 0;
+    protected ArrayList<Coordinate> path = new ArrayList<Coordinate>();
+    protected int forcePathfindTimer = 0;
     
     protected int moveIndex;
     protected ArrayList<GreenfootImage> moveAnimR = new ArrayList<GreenfootImage>();
@@ -62,10 +62,13 @@ public abstract class FlyingEnemy extends Enemy
     public void findPath()
     {
         Player player = getWorld().getObjects(Player.class).get(0);
-        for(Coordinate coords : TheGrid.findPathAir(getPosition(), player.getPosition()))
+        if(player != null)
         {
-            path.add(coords);
-            getWorld().addObject(new Label(0, 20), coords.getX(), coords.getY());
+            for(Coordinate coords : TheGrid.aStarfindPath(getPosition(), player.getPosition()))
+            {
+                path.add(coords);
+                getWorld().addObject(new test(), coords.getX(), coords.getY());
+            }
         }
         //path = TheGrid.findPathAir(this.getPosition(), player.getPosition());
     }

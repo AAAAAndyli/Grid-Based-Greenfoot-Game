@@ -53,6 +53,20 @@ public class BurstTurret extends FlyingEnemy
             averageVelocityOfTarget = 0;
         }
     }
+    public void findPath()
+    {
+        Player player = getWorld().getObjects(Player.class).get(0);
+        if(player != null)
+        {
+            Coordinate hoverCoordinate = new Coordinate(player.getPosition().getX() + Greenfoot.getRandomNumber(300) - 150, player.getPosition().getY() - 200 + Greenfoot.getRandomNumber(50));
+            for(Coordinate coords : TheGrid.aStarfindPath(getPosition(), hoverCoordinate))
+            {
+                path.add(coords);
+                getWorld().addObject(new test(), coords.getX(), coords.getY());
+            }
+        }
+        //path = TheGrid.findPathAir(this.getPosition(), player.getPosition());
+    }
     /**
      * Loads in every frame for every animation
      * 

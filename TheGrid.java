@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.HashSet;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 /**
  * Write a description of class TheGrid here.
@@ -17,7 +18,7 @@ public class TheGrid
     private static int[][] airGrid; // 1 - air, 0 - tile
     private static int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
 
-
+    
     /**
      * Constructor for objects of class TheGrid
      */
@@ -86,6 +87,172 @@ public class TheGrid
         lowestY = Math.abs(lowestY);
     }
     
+    /**
+     * This is the pathfinding system using the algorithm A* <br>
+     * Translated from pseudocode on the website https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2 <br>
+     * Made more efficient from my poor attempt to translate it using Chat GPT. This will be the only time I (Andy) will ever use ChatGPT
+    */
+    public static ArrayList<Coordinate> aStarfindPath(Coordinate start, Coordinate end)
+    {
+        // Initialize both open and closed lists
+        ArrayList<Node> openList = new ArrayList<>();
+        ArrayList<Node> closedList = new ArrayList<>();
+    
+        // Convert start and end coordinates to grid indices
+        int startXIndex = (start.getX() + lowestX) / 50;
+        int startYIndex = (start.getY() + lowestY) / 50;
+        int endXIndex = (end.getX() + lowestX) / 50;
+        int endYIndex = (end.getY() + lowestY) / 50;
+    
+        if (!isInBounds(startXIndex, startYIndex) || !isInBounds(endXIndex, endYIndex)) 
+        {
+            return new ArrayList<>(); 
+        }
+    
+        // Add the start node
+        Node startNode = new Node(startXIndex, startYIndex, 0, getHValue(startXIndex, startYIndex, endXIndex, endYIndex));
+        Node endNode = new Node(endXIndex, endYIndex, 0, 0);
+        openList.add(startNode);
+    
+        // Loop until you find the end
+        while (!openList.isEmpty()) 
+        {
+            // get current node
+            Node currentNode = getLowestCostNode(openList);
+            openList.remove(currentNode);
+            closedList.add(currentNode);
+            
+            if (currentNode.equals(endNode)) 
+            {
+                return createCoordinatePath(currentNode); //Found goal
+            }
+            // Search surrounding tiles
+            for (int[] direction : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {1, 1}, {-1, -1}, {1, -1}, {-1, 1}}) 
+            {
+                int neighborX = currentNode.getX() + direction[0];
+                int neighborY = currentNode.getY() + direction[1];
+                // Skip if out of bounds or blocked
+                if (!isInBounds(neighborX, neighborY) || checkOccupiedTile(neighborX, neighborY)) 
+                {
+                    continue;
+                }
+                Node neighbor = new Node(neighborX, neighborY, currentNode.getGCost() + 1, getHValue(neighborX, neighborY, endXIndex, endYIndex));
+                neighbor.setParent(currentNode);
+                // Skip if already in the closed list
+                if (closedList.contains(neighbor)) 
+                {
+                    continue;
+                }
+                // adds node to openList
+                if (!openList.contains(neighbor) || neighbor.getFCost() < getExistingNodeFCost(openList, neighbor)) 
+                {
+                    openList.add(neighbor);
+                }
+            }
+        }
+        // Return no path if no path exists
+        return new ArrayList<>();
+    }
+    
+    private static Node getLowestCostNode(ArrayList<Node> nodeList) 
+    {
+        return Collections.min(nodeList, Comparator.comparingInt(Node::getFCost));
+    }
+    
+    private static int getExistingNodeFCost(ArrayList<Node> nodeList, Node targetNode) 
+    {
+        for (Node node : nodeList) 
+        {
+            if (node.equals(targetNode)) 
+            {
+                return node.getFCost();
+            }
+        }
+        return Integer.MAX_VALUE;
+    }
+    
+    private static int getHValue(int x, int y, int targetX, int targetY) 
+    {
+        return Math.abs(x - targetX) + Math.abs(y - targetY); // distance
+    }
+    
+    public static ArrayList<Coordinate> createCoordinatePath(Node endNode)
+    {
+        ArrayList<Coordinate> path = new ArrayList<>();
+        Node current = endNode;
+        while (current != null) 
+        {
+            path.add(new Coordinate(current.getX() * 50 - lowestX, current.getY() * 50 - lowestY));
+            current = current.getParent();
+        }
+        Collections.reverse(path);
+        return path;
+    }
+    
+    private static class Node 
+    {
+        private int x, y, gCost, hCost;
+        private Node parent;
+        public Node(int x, int y, int gCost, int hCost) {
+            this.x = x;
+            this.y = y;
+            this.gCost = gCost;
+            this.hCost = hCost;
+            this.parent = null;
+        }
+        public int getX() 
+        {
+            return x;
+        }
+        public int getY() 
+        {
+            return y;
+        }
+        public int getGCost() 
+        {
+            return gCost;
+        }
+        public int getFCost() 
+        {
+            return gCost + hCost;
+        }
+        public Node getParent() 
+        {
+            return parent;
+        }
+        public void setParent(Node parent) 
+        {
+            this.parent = parent;
+        }
+        @Override
+        public boolean equals(Object obj) 
+        {
+            if (this == obj) 
+            {
+                return true;
+            }
+            if (obj == null || getClass() != obj.getClass()) 
+            {
+                return false;
+            }
+            Node node = (Node) obj;
+            return x == node.x && y == node.y;
+        }
+        @Override
+        public int hashCode() {
+            return 31 * x + y;
+        }
+    }
+    
+
+    /**
+     * Method findPathAir
+     *
+     * @param start The starting tile
+     * @param end The desired end location
+     * @return The list of coordinates to follow
+     * @deprecated
+     */
     public static ArrayList<Coordinate> findPathAir(Coordinate start, Coordinate end) 
     {
         ArrayList<Coordinate> path = new ArrayList<>();
