@@ -17,5 +17,11 @@ public class MenuWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1); 
+        Button button = new Button(0.5);
+        addObject(button, 500, 500);
+    }
+    
+    public void act(){
+        
     }
 }
