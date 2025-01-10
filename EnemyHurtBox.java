@@ -12,7 +12,7 @@ public class EnemyHurtBox extends HurtBox
     {
         super(width, height, damage);
     }
-    public void collide()
+    public boolean collide()
     {
         if(isTouching(Player.class))
         {
@@ -22,14 +22,8 @@ public class EnemyHurtBox extends HurtBox
                 player.hurt(damage);
             }
             getWorld().removeObject(this);
+            return true;
         }
-    }
-    /**
-     * Act - do whatever the EnemyHurtBox wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
+        return false;
     }
 }

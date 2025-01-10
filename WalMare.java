@@ -10,7 +10,11 @@ import java.util.ArrayList;
 public class WalMare extends GroundedEnemy
 {
     //attack variables
-    private Attack pierce = new Attack(attackRange, 10, 1, 0 , 25, 0);
+    private int attackRange = 100;
+    private int attackCooldown = 60;
+    private Attack pierce = new Attack(attackRange + 50, 10, 1, 0 , attackRange/2 + 10, 0);
+    
+    private int health = 5;
     
     public WalMare()
     {
@@ -36,19 +40,21 @@ public class WalMare extends GroundedEnemy
             else
             {
                 xVelocity = 0;
+                pierce.changeDirection(xDirection);
+                if(attackCooldown < attackTimer)
+                {
+                    System.out.println("AMONG US");
+                    pierce.performAttack();
+                    attackTimer = 0;
+                }
+                else
+                {
+                    attackTimer++;
+                }
             }
         }
         else
         {
-            if(attackCooldown < attackTimer)
-            {
-                pierce.performAttack();
-                attackTimer = 0;
-            }
-            else
-            {
-                attackTimer++;
-            }
             xVelocity = 0;
             if(checkTimer > 60)
             {

@@ -11,7 +11,7 @@ public abstract class HurtBox extends ScrollingActor
     protected int damageDuration;
     protected int damage;
     protected int width, height;
-    protected GreenfootImage hitbox;
+    protected GreenfootImage hitBox;
     
     public HurtBox(int width, int height, int damage)
     {
@@ -21,10 +21,10 @@ public abstract class HurtBox extends ScrollingActor
     }
     public void createHurtBox() 
     {
-        GreenfootImage image = new GreenfootImage(width, height);
-        image.setColor(new Color(0, 255, 0, 100));
-        image.fillRect(0, 0, width, height);
-        setImage(image);
+        hitBox = new GreenfootImage(width, height);
+        hitBox.setColor(new Color(0, 255, 0, 255));
+        hitBox.fillRect(0, 0, width, height);
+        setImage(hitBox);
     }
     public void removeHurtBox()
     {
@@ -33,5 +33,5 @@ public abstract class HurtBox extends ScrollingActor
             getWorld().removeObject(this);
         }
     }
-
+    public abstract boolean collide();
 }

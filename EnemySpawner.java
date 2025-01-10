@@ -56,6 +56,7 @@ public class EnemySpawner extends TriggerTile
     public void whenTriggered()
     {
         getWorld().addObject(enemy, getPosition().getX(), getPosition().getY());
+        enemy.setLocation(enemy.getPosition().getX() + scrollX, getPosition().getY() + scrollY);
         if(timer > 0)
         {
             trigger.permanentlyDeactivateTrigger();

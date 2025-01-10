@@ -13,6 +13,7 @@ public abstract class Enemy extends Entity
     //Attacking Variables
     protected int attackTimer = 0;
     protected int attackCooldown = 120;
+    protected int attackFrame;
     
     
     //Ranged attacking Variables
@@ -162,6 +163,8 @@ public abstract class Enemy extends Entity
         private int damage, direction;
         private int xOffset, yOffset;
         private EnemyHurtBox hurtBox;
+        private boolean didHit;
+        private int duration = 0;
         public Attack(int width, int height,int damage, int direction, int xOffset, int yOffset)
         {
             this.damage = damage;
@@ -172,13 +175,19 @@ public abstract class Enemy extends Entity
         }
         public void performAttack()
         {
+            System.out.println("AMONG US");
             hurtBox.createHurtBox();
             getWorld().addObject(hurtBox, getPosition().getX() + direction * xOffset, getPosition().getY() + yOffset);
-            hurtBox.collide();
+            hurtBox.setLocation(hurtBox.getPosition().getX()+scrollX, hurtBox.getPosition().getY()+scrollY);
+            didHit = hurtBox.collide();
         }
         public void changeDirection(int direction)
         {
             this.direction = direction;
+        }
+        public boolean attackHit()
+        {
+            return didHit;
         }
     }
 }
