@@ -83,7 +83,7 @@ public class TheGrid
                 }
             }
         }
-        lowestX = Math.abs(lowestX) - 100;
+        lowestX = Math.abs(lowestX);
         lowestY = Math.abs(lowestY);
     }
     
@@ -103,6 +103,15 @@ public class TheGrid
         int startYIndex = (start.getY() + lowestY) / 50;
         int endXIndex = (end.getX() + lowestX) / 50;
         int endYIndex = (end.getY() + lowestY) / 50;
+        
+        System.out.println("xSize: " + airGrid[0].length);
+        System.out.println("ySize: " + airGrid.length);
+        System.out.println("LowestX: " + lowestX);
+        System.out.println("LowestY: " + lowestY);
+        System.out.println("startXIndex: " + startXIndex);
+        System.out.println("startYIndex: " + startYIndex);
+        System.out.println("endXIndex: " + endXIndex);
+        System.out.println("endYIndex: " + endYIndex);
     
         if (!isInBounds(startXIndex, startYIndex) || !isInBounds(endXIndex, endYIndex)) 
         {
@@ -124,6 +133,7 @@ public class TheGrid
             
             if (currentNode.equals(endNode)) 
             {
+                System.out.println("Found Goal");
                 return createCoordinatePath(currentNode); //Found goal
             }
             // Search surrounding tiles

@@ -9,4 +9,6 @@ comment2.text=\n\ Act\ -\ do\ whatever\ the\ WalMare\ wants\ to\ do.\ This\ meth
 comment3.params=path
 comment3.target=void\ loadAnimationFrames(java.lang.String)
 comment3.text=\n\ Loads\ in\ every\ frame\ for\ every\ animation\n\ \n\ @param\ path\ -\ The\ file\ path\ for\ the\ unit\n
-numComments=4
+comment4.params=
+comment4.target=void\ attack()
+numComments=5

@@ -19,6 +19,8 @@ public class MapMaker extends SuperSmoothMover
     private boolean isFirstAct = true;
     private boolean hide = false;
     
+    private int changeIDDelay;
+    private final int delayLength = 15;
     private int enemyID = 0; 
     private int triggerID = 0;
     
@@ -41,21 +43,43 @@ public class MapMaker extends SuperSmoothMover
         }
         if(Greenfoot.isKeyDown("="))
         {
-            if(actTimer != 0)
+            if(changeIDDelay > delayLength)
             {
+                changeIDDelay = 0;
                 triggerID++;
             }
         }
         else if(Greenfoot.isKeyDown("-"))
         {
-            if(actTimer != 0)
+            if(changeIDDelay > delayLength)
             {
+                changeIDDelay = 0;
                 if(triggerID > 0)
                 {
                     triggerID--;
                 }
             }
         }
+        if(Greenfoot.isKeyDown("]"))
+        {
+            if(changeIDDelay > delayLength)
+            {
+                changeIDDelay = 0;
+                enemyID++;
+            }
+        }
+        else if(Greenfoot.isKeyDown("["))
+        {
+            if(changeIDDelay > delayLength)
+            {
+                changeIDDelay = 0;
+                if(enemyID > 0)
+                {
+                    enemyID--;
+                }
+            }
+        }
+        changeIDDelay++;
         if(Greenfoot.isKeyDown("r"))
         {
             if(actTimer != 0)
