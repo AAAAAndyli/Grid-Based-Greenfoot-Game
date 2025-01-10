@@ -22,7 +22,7 @@ public abstract class Enemy extends Entity
     protected int totalVelocityOfTarget, averageVelocityOfTarget, time;
     
     protected int animationTimer = 0;
-    
+    protected int bytesOnDeath = 3;
     
     public Enemy()
     {
@@ -39,6 +39,16 @@ public abstract class Enemy extends Entity
         super.addedToWorld(world);
         globalPosition.setCoordinate(getX(), getY());
     }
+    
+    public void die()
+    {
+        for (int i = 0; i < bytesOnDeath; i++) {
+            getWorld().addObject(new Byte(getPosition().getX(), getPosition().getY()), 0, 0);
+        }
+        
+        getWorld().removeObject(this);
+    }
+    
     /**
      * Act - do whatever the Enemy wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
