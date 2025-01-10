@@ -296,7 +296,7 @@ public class MapMakerWorld extends ScrollingWorld
                 }
                 else if((mouse.getButton() == 1) && mapMaker.getType() != null)
                 {
-                    placeTile(xMapPosition, yMapPosition, mapMaker.getType(), mapMaker.getTriggerID(), EnemyID.getEnemy(mapMaker.getEnemyID()));
+                    placeTile(xMapPosition, yMapPosition, mapMaker.getType(), mapMaker.getTriggerID(), EnemyID.getEnemy(mapMaker.getEnemyID()), mapMaker.getRotation());
                 }
             }
             if (getObjects(TileSelector.class).isEmpty()) 
@@ -310,24 +310,24 @@ public class MapMakerWorld extends ScrollingWorld
         }
     }
 
-    public void placeTile(int x, int y, String type, int triggerID, Enemy enemy)
+    public void placeTile(int x, int y, String type, int triggerID, Enemy enemy, int rotation)
     {
         Tile tile;
         if(type.equals("LasterTile"))
         {
-            tile = new LaserTile(type, mapMaker.getRotations(), x, y);
+            tile = new LaserTile(type, rotation, x, y);
         }
         else if(type.equals("EnemySpawner"))
         {
-            tile = new EnemySpawner(type, mapMaker.getRotations(), x, y, triggerID, enemy);
+            tile = new EnemySpawner(type, rotation, x, y, triggerID, enemy);
         }
         else if(type.equals("TriggerTile"))
         {
-            tile = new CollisionTrigger(type, mapMaker.getRotations(), x, y, triggerID);
+            tile = new CollisionTrigger(type, rotation, x, y, triggerID);
         }
         else
         {
-            tile = new Tile(type, mapMaker.getRotations(), x, y, true);
+            tile = new Tile(type, rotation, x, y, true);
         }
         if(tileWorld.size() == 0)
         {
@@ -379,7 +379,7 @@ public class MapMakerWorld extends ScrollingWorld
                 {
                     enemyNumber = Integer.parseInt(tokenizer.nextToken());
                 }
-                placeTile(xLocation, yLocation, type, triggerNumber, EnemyID.getEnemy(enemyNumber));
+                placeTile(xLocation, yLocation, type, triggerNumber, EnemyID.getEnemy(enemyNumber), rotation);
             }
             catch(NumberFormatException e)
             {

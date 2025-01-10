@@ -19,7 +19,6 @@ public abstract class HurtBox extends ScrollingActor
         this.height = height;
         this.damage = damage;
     }
-    
     public void createHurtBox() 
     {
         GreenfootImage image = new GreenfootImage(width, height);
