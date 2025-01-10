@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=ShopButton
+comment0.text=\n\ Write\ a\ description\ of\ class\ buttons\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=ShopButton()
+comment1.text=\n\ Act\ -\ do\ whatever\ the\ buttons\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ checkButton()
+comment4.params=
+comment4.target=int\ buyProduct()
+numComments=5
