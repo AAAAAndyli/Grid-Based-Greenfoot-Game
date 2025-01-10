@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=TheGrid
-comment0.text=\n\ Write\ a\ description\ of\ class\ TheGrid\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ TheGrid\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=newGrid
 comment1.target=void\ setGrid(Tile[][])
-comment1.text=\n\ Constructor\ for\ objects\ of\ class\ TheGrid\n
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ TheGrid\r\n
 comment10.params=x\ y
 comment10.target=boolean\ isInBounds(int,\ int)
 comment11.params=x\ y
@@ -16,7 +16,7 @@ comment3.params=grid
 comment3.target=void\ findLowestCoordinates(Tile[][])
 comment4.params=start\ end
 comment4.target=java.util.ArrayList\ aStarfindPath(Coordinate,\ Coordinate)
-comment4.text=\n\ This\ is\ the\ pathfinding\ system\ using\ the\ algorithm\ A*\ <br>\n\ Translated\ from\ pseudocode\ on\ the\ website\ https\://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2\ <br>\n\ Made\ more\ efficient\ from\ my\ poor\ attempt\ to\ translate\ it\ using\ Chat\ GPT.\ This\ will\ be\ the\ only\ time\ I\ (Andy)\ will\ ever\ use\ ChatGPT\n
+comment4.text=\r\n\ This\ is\ the\ pathfinding\ system\ using\ the\ algorithm\ A*\ <br>\r\n\ Translated\ from\ pseudocode\ on\ the\ website\ https\://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2\ <br>\r\n\ Made\ more\ efficient\ from\ my\ poor\ attempt\ to\ translate\ it\ using\ Chat\ GPT.\ This\ will\ be\ the\ only\ time\ I\ (Andy)\ will\ ever\ use\ ChatGPT\r\n
 comment5.params=nodeList
 comment5.target=TheGrid.Node\ getLowestCostNode(java.util.ArrayList)
 comment6.params=nodeList\ targetNode
@@ -27,5 +27,5 @@ comment8.params=endNode
 comment8.target=java.util.ArrayList\ createCoordinatePath(TheGrid.Node)
 comment9.params=start\ end
 comment9.target=java.util.ArrayList\ findPathAir(Coordinate,\ Coordinate)
-comment9.text=\n\ Method\ findPathAir\n\n\ @param\ start\ The\ starting\ tile\n\ @param\ end\ The\ desired\ end\ location\n\ @return\ The\ list\ of\ coordinates\ to\ follow\n\ @deprecated\n
+comment9.text=\r\n\ Method\ findPathAir\r\n\r\n\ @param\ start\ The\ starting\ tile\r\n\ @param\ end\ The\ desired\ end\ location\r\n\ @return\ The\ list\ of\ coordinates\ to\ follow\r\n\ @deprecated\r\n
 numComments=13
