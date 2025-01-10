@@ -379,28 +379,7 @@ public class MapMakerWorld extends ScrollingWorld
                 {
                     enemyNumber = Integer.parseInt(tokenizer.nextToken());
                 }
-                if(type.equals("LaserTile") || type.equals("EnemySpawner") || type.equals("TriggerTile"))
-                {
-                    switch(type)
-                    {
-                        case "LaserTile":
-                            addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
-                            break;
-                        case "EnemySpawner":
-                            EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, EnemyID.getEnemy(enemyNumber));
-                            addObject(enemySpawner, xLocation, yLocation);
-                            break;
-                        case "TriggerTile":
-                            CollisionTrigger trigger = new CollisionTrigger(type, rotation, xLocation, yLocation, triggerNumber);
-                            addObject(trigger, xLocation, yLocation);
-                            break;
-                    }
-                }
-                else
-                {
-                    addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
-                    tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
-                }
+                placeTile(xLocation, yLocation, type, triggerNumber, EnemyID.getEnemy(enemyNumber));
             }
             catch(NumberFormatException e)
             {
