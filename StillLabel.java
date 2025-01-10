@@ -14,6 +14,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class StillLabel extends Actor
 {
     private String value;
+    private Actor creator;
     private int fontSize;
     private Color lineColor = Color.BLACK;
     private Color fillColor = Color.WHITE;
@@ -24,19 +25,28 @@ public class StillLabel extends Actor
     /**
      * Create a new label, initialise it with the int value to be shown and the font size 
      */
-    public StillLabel(int value, int fontSize)
+    public StillLabel(int value, int fontSize, Actor actor)
     {
-        this(Integer.toString(value), fontSize);
+        this(Integer.toString(value), fontSize, actor);
     }
     
     /**
      * Create a new label, initialise it with the needed text and the font size 
      */
-    public StillLabel(String value, int fontSize)
+    public StillLabel(String value, int fontSize, Actor actor)
     {
         this.value = value;
         this.fontSize = fontSize;
+        creator = actor;
         updateImage();
+    }
+    
+    public void act()
+    {
+        if(creator.getWorld() == null)
+        {
+            getWorld().removeObject(this);
+        }
     }
 
     /**

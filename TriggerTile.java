@@ -29,8 +29,8 @@ public class TriggerTile extends Tile
         this.triggerNumber = triggerNumber;
         System.out.println(triggerNumber);
         collidable = false;
-        triggerNumberDisplay = new Label(triggerNumber, 50);
-        buttonTriggerNumberDisplay = new StillLabel(triggerNumber, 50);
+        triggerNumberDisplay = new Label(triggerNumber, 25, this);
+        buttonTriggerNumberDisplay = new StillLabel(triggerNumber, 25, this);
     }
     public void addedToWorld(World world)
     {
@@ -38,11 +38,11 @@ public class TriggerTile extends Tile
         //trigger.setTrigger(triggerNumber);
         if(!isButton)
         {
-            getWorld().addObject(triggerNumberDisplay, getPosition().getX(), getPosition().getY());
+            getWorld().addObject(triggerNumberDisplay, getPosition().getX()-15, getPosition().getY()-15);
         }
         else
         {
-            getWorld().addObject(buttonTriggerNumberDisplay, getPosition().getX(), getPosition().getY());
+            getWorld().addObject(buttonTriggerNumberDisplay, getPosition().getX()-15, getPosition().getY()-15);
         }
         if(TriggerCollection.searchTrigger(triggerNumber))
         {
@@ -59,6 +59,10 @@ public class TriggerTile extends Tile
     public void act()
     {
         super.act();
+    }
+    public StillLabel getLabel()
+    {
+        return buttonTriggerNumberDisplay;
     }
     public String toString()
     {

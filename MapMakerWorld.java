@@ -31,13 +31,15 @@ public class MapMakerWorld extends ScrollingWorld
     private String[][] grid2D;
     private String value;
     private int index;
+    private int enemyIndex;
     
     private MapMaker mapMaker = new MapMaker(this);
     private String loadedFile;
     //The primary frame
     private JFrame frame = new JFrame("Save/Load Map");
     
-    private StillLabel currentTriggerID = new StillLabel("Trigger ID: ", 40);
+    private StillLabel currentTriggerID = new StillLabel("Trigger ID: ", 40, mapMaker);
+    private StillLabel currentEnemyID = new StillLabel("Enemy ID: ", 40, mapMaker);
     
     /**
      * Constructor for objects of class MapMakerWorld.
@@ -47,10 +49,11 @@ public class MapMakerWorld extends ScrollingWorld
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1, false); 
         addObject(mapMaker, 540, 645);
-        setPaintOrder(Tile.class, MapMaker.class, TileSelector.class);
+        setPaintOrder(StillLabel.class, Label.class, Tile.class, MapMaker.class, TileSelector.class);
         Greenfoot.setSpeed(51);
         addObject(new FPS(), 200, 10);
         addObject(currentTriggerID, 900, 40);
+        addObject(currentEnemyID, 900, 80);
         
         
         frame.setSize(500, 300);
@@ -70,6 +73,7 @@ public class MapMakerWorld extends ScrollingWorld
             printWorld();
         }
         currentTriggerID.setValue("Trigger ID: " + mapMaker.getTriggerID());
+        currentEnemyID.setValue("Enemy ID: " + mapMaker.getEnemyID());
     }
     
     /*
@@ -240,6 +244,7 @@ public class MapMakerWorld extends ScrollingWorld
             writeFile(loadedFile, tile.toString(), true, true);
         }
     }
+    
     public void writeFile(String path, String line, boolean append, boolean newLine)
     {
         try
@@ -358,16 +363,23 @@ public class MapMakerWorld extends ScrollingWorld
         for(String tile : world)
         {
             tokenizer = new StringTokenizer(tile, ",");
-            int sizeOfString = tokenizer.countTokens();
             try
             {
                 String type = tokenizer.nextToken();
                 int rotation = Integer.parseInt(tokenizer.nextToken());
                 int xLocation = Integer.parseInt(tokenizer.nextToken());
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
-                Tile newTile = new Tile(type, rotation, xLocation, yLocation, true);
-                addObject(newTile, xLocation, yLocation);
-                tileWorld.add(newTile);
+                int triggerNumber = -1;
+                int enemyNumber = -1;
+                if(tokenizer.hasMoreTokens())
+                {
+                    triggerNumber = Integer.parseInt(tokenizer.nextToken());
+                }
+                if(tokenizer.hasMoreTokens())
+                {
+                    enemyNumber = Integer.parseInt(tokenizer.nextToken());
+                }
+                placeTile(xLocation, yLocation, type, triggerNumber, EnemyID.getEnemy(enemyNumber));
             }
             catch(NumberFormatException e)
             {
@@ -375,6 +387,7 @@ public class MapMakerWorld extends ScrollingWorld
             }
         }
     }
+    
 }
 
 class TileComparator implements Comparator<Tile> {

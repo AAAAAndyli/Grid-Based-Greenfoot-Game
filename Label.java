@@ -2,10 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 
 /**
- * A Label class that allows you to display a textual value on screen.
+ * A StillLabel class that allows you to display a textual value on screen.
  * 
- * The Label is an actor, so you will need to create it, and then add it to the world
- * in Greenfoot.  If you keep a reference to the Label then you can change the text it
+ * The StillLabel is an actor, so you will need to create it, and then add it to the world
+ * in Greenfoot.  If you keep a reference to the StillLabel then you can change the text it
  * displays.  
  *
  * @author Amjad Altadmri 
@@ -14,6 +14,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Label extends ScrollingActor
 {
     private String value;
+    private Actor creator;
     private int fontSize;
     private Color lineColor = Color.BLACK;
     private Color fillColor = Color.WHITE;
@@ -24,19 +25,29 @@ public class Label extends ScrollingActor
     /**
      * Create a new label, initialise it with the int value to be shown and the font size 
      */
-    public Label(int value, int fontSize)
+    public Label(int value, int fontSize, Actor actor)
     {
-        this(Integer.toString(value), fontSize);
+        this(Integer.toString(value), fontSize, actor);
     }
     
     /**
      * Create a new label, initialise it with the needed text and the font size 
      */
-    public Label(String value, int fontSize)
+    public Label(String value, int fontSize, Actor actor)
     {
         this.value = value;
         this.fontSize = fontSize;
+        creator = actor;
         updateImage();
+    }
+    
+    public void act()
+    {
+        super.act();
+        if(creator.getWorld() == null)
+        {
+            getWorld().removeObject(this);
+        }
     }
 
     /**

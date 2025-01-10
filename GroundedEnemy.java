@@ -49,34 +49,6 @@ public abstract class GroundedEnemy extends Enemy
         checkFloor();
         predictFloor();
         
-        if(checkForPlayer())
-        {
-            Player player = (Player)getOneObjectAtOffset(playerDistance, 0, Player.class);
-            System.out.println("PlayerPos: " + player.getPosition().getX() + ", EnemyPosition: " +  getPosition().getX() + ", AttackRange: " + attackRange + ", DifferenceInRange: " +  Math.abs(player.getPosition().getX() - getPosition().getX()));
-            if(Math.abs(player.getPosition().getX() - getPosition().getX()) > attackRange)
-            {
-                moveTo(player.getPosition().getX() - xDirection * attackRange);
-                faceTowards(player.getPosition().getX());
-            }
-            else
-            {
-                xVelocity = 0;
-            }
-        }
-        else
-        {
-            xVelocity = 0;
-            if(checkTimer > 60)
-            {
-                xDirection *= -1;
-                checkTimer = 0;
-            }
-            else
-            {
-                checkTimer++;
-            }
-        }
-        
         animationTimer++;
         idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
         
@@ -96,6 +68,7 @@ public abstract class GroundedEnemy extends Enemy
         }
         return false;
     }
+    
     public void faceTowards(int xPositionToFace)
     {
         if(xPositionToFace > getPosition().getX())

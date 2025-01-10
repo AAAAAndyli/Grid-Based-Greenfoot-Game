@@ -12,4 +12,27 @@ public abstract class HurtBox extends ScrollingActor
     protected int damage;
     protected int width, height;
     protected GreenfootImage hitbox;
+    
+    public HurtBox(int width, int height, int damage)
+    {
+        this.width = width;
+        this.height = height;
+        this.damage = damage;
+    }
+    
+    public void createHurtBox() 
+    {
+        GreenfootImage image = new GreenfootImage(width, height);
+        image.setColor(new Color(0, 255, 0, 100));
+        image.fillRect(0, 0, width, height);
+        setImage(image);
+    }
+    public void removeHurtBox()
+    {
+        if(getWorld() != null)
+        {
+            getWorld().removeObject(this);
+        }
+    }
+
 }
