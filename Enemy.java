@@ -145,4 +145,26 @@ public abstract class Enemy extends Entity
         animationTimer = 0;
         return index;
     }
+    
+    protected class Attack
+    {
+        private int width, height;
+        private int damage, duration, direction;
+        private int xOffset, yOffset;
+        private EnemyHurtBox hurtBox;
+        public Attack(int width, int height,int damage, int duration, int direction, int xOffset, int yOffset)
+        {
+            this.damage = damage;
+            this.duration = duration;
+            this.direction = direction;
+            this.xOffset = xOffset;
+            this.yOffset = yOffset;
+            hurtBox = new EnemyHurtBox(width, height, damage);
+        }
+        public void performAttack()
+        {
+            hurtBox.createHurtBox();
+            //getWorld().addObject(hurtBox(width));
+        }
+    }
 }

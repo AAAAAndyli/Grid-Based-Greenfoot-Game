@@ -26,7 +26,7 @@ public class LevelWorld extends ScrollingWorld
     
     public LevelWorld()
     {
-        this("testMaps/test5.csv");
+        this("test3.csv");
     }
     
     /**
@@ -80,9 +80,14 @@ public class LevelWorld extends ScrollingWorld
                 int xLocation = Integer.parseInt(tokenizer.nextToken());
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
                 int triggerNumber = -1;
+                int enemyNumber = -1;
                 if(tokenizer.hasMoreTokens())
                 {
                     triggerNumber = Integer.parseInt(tokenizer.nextToken());
+                }
+                if(tokenizer.hasMoreTokens())
+                {
+                    enemyNumber = Integer.parseInt(tokenizer.nextToken());
                 }
                 if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint") || type.equals("EnemySpawner") || type.equals("TriggerTile"))
                 {
@@ -109,7 +114,7 @@ public class LevelWorld extends ScrollingWorld
                             addObject(enemy, xLocation, yLocation);
                             break;
                         case "EnemySpawner":
-                            EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, new WalMare());
+                            EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, EnemyID.getEnemy(enemyNumber));
                             addObject(enemySpawner, xLocation, yLocation);
                             break;
                         case "TriggerTile":

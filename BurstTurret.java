@@ -64,6 +64,15 @@ public class BurstTurret extends FlyingEnemy
                 path.add(coords);
                 getWorld().addObject(new test(), coords.getX(), coords.getY());
             }
+            if(path.size() == 0)
+            {
+                hoverCoordinate = new Coordinate(player.getPosition().getX() + Greenfoot.getRandomNumber(300) - 150, player.getPosition().getY() - 100 + Greenfoot.getRandomNumber(50));
+                for(Coordinate coords : TheGrid.aStarfindPath(getPosition(), hoverCoordinate))
+                {
+                    path.add(coords);
+                    getWorld().addObject(new test(), coords.getX(), coords.getY());
+                }
+            }
         }
         //path = TheGrid.findPathAir(this.getPosition(), player.getPosition());
     }
