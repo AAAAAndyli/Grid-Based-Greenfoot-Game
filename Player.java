@@ -54,8 +54,6 @@ public class Player extends Entity
     
     private static int mouseX, mouseY;
     
-    private Inventory inventory;
-    private boolean spawned = false;
     
     public Player()
     {
@@ -78,7 +76,12 @@ public class Player extends Entity
         crosshair = getWorld().getObjects(Crosshair.class).get(0);
     }
     
-    
+    public void toolSelection(){
+        if(Greenfoot.isKeyDown("1")){
+            Shield shield = new Shield();
+            getWorld().addObject(shield, getX(), getY());
+        }
+    }
     
     
     public void act()
@@ -108,7 +111,7 @@ public class Player extends Entity
         movement();
         shoot();
         parry();
-        inventory();
+        toolSelection();
         if(Greenfoot.isKeyDown("f"))
         {
             aimIsActivated = !aimIsActivated;
@@ -118,22 +121,6 @@ public class Player extends Entity
         if(willDie)
         {
             die();
-        }
-    }
-    
-    public void inventory(){
-        
-        if(Greenfoot.isKeyDown("i") && !spawned){
-            if(inventory == null){
-                inventory = new Inventory();
-            }
-            getWorld().addObject(inventory, this.getX(), this.getY());
-            spawned = true;
-        }
-        
-        else if(Greenfoot.isKeyDown("o") && spawned){
-            getWorld().removeObject(inventory);
-            spawned = false;
         }
     }
     
