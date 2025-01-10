@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public abstract class Enemy extends Entity
 {    
     //Attacking Variables
-    protected int attackTimer;
+    protected int attackTimer = 0;
     protected int attackCooldown = 120;
     
     
@@ -149,13 +149,12 @@ public abstract class Enemy extends Entity
     protected class Attack
     {
         private int width, height;
-        private int damage, duration, direction;
+        private int damage, direction;
         private int xOffset, yOffset;
         private EnemyHurtBox hurtBox;
-        public Attack(int width, int height,int damage, int duration, int direction, int xOffset, int yOffset)
+        public Attack(int width, int height,int damage, int direction, int xOffset, int yOffset)
         {
             this.damage = damage;
-            this.duration = duration;
             this.direction = direction;
             this.xOffset = xOffset;
             this.yOffset = yOffset;
@@ -164,7 +163,12 @@ public abstract class Enemy extends Entity
         public void performAttack()
         {
             hurtBox.createHurtBox();
-            //getWorld().addObject(hurtBox(width));
+            getWorld().addObject(hurtBox, getPosition().getX() + direction * xOffset, getPosition().getY() + yOffset);
+            hurtBox.collide();
+        }
+        public void changeDirection(int direction)
+        {
+            this.direction = direction;
         }
     }
 }

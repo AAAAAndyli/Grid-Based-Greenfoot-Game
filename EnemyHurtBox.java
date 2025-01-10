@@ -21,6 +21,7 @@ public class EnemyHurtBox extends HurtBox
             {
                 player.hurt(damage);
             }
+            getWorld().removeObject(this);
         }
     }
     /**

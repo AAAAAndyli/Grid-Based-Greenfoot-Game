@@ -34,4 +34,5 @@ public abstract class HurtBox extends ScrollingActor
             getWorld().removeObject(this);
         }
     }
+
 }

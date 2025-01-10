@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class WalMare extends GroundedEnemy
 {
     //attack variables
-    //private Attack pierce = new Attack(attackRange, 10, 1, 0 ,
+    private Attack pierce = new Attack(attackRange, 10, 1, 0 , 25, 0);
+    
     public WalMare()
     {
         super();
@@ -39,7 +40,15 @@ public class WalMare extends GroundedEnemy
         }
         else
         {
-            
+            if(attackCooldown < attackTimer)
+            {
+                pierce.performAttack();
+                attackTimer = 0;
+            }
+            else
+            {
+                attackTimer++;
+            }
             xVelocity = 0;
             if(checkTimer > 60)
             {

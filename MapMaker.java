@@ -124,6 +124,8 @@ public class MapMaker extends SuperSmoothMover
         if(key != null && key.matches("\\d+"))
         {
             page = Integer.parseInt(key) - 1;
+            refreshOptions(rotation);
+            System.out.println("Page: " + page);
         }
     }
     public void hide()
@@ -158,20 +160,25 @@ public class MapMaker extends SuperSmoothMover
         {
             case 0:
                 tileListOptions.add(new Tile("FullTile", rotations, true, this));
-                tileListOptions.add(new Tile("DiagonalTile", rotations, true, this));
-                tileListOptions.add(new Tile("Stair", rotations, true, this));
+                //tileListOptions.add(new Tile("DiagonalTile", rotations, true, this));
+                //tileListOptions.add(new Tile("Stair", rotations, true, this));
                 tileListOptions.add(new Tile("PlayerSpawnPoint", 0, true, this));
                 tileListOptions.add(new LaserTile("LaserTile", rotations, true, this));
-                tileListOptions.add(new Tile("EnemySpawnPoint", 0, true, this));
+                //tileListOptions.add(new Tile("EnemySpawnPoint", 0, true, this));
                 tileListOptions.add(new CollisionTrigger("TriggerTile", 0, true, this, triggerID));
                 tileListOptions.add(new EnemySpawner("EnemySpawner", 0, true, this, triggerID, EnemyID.getEnemy(enemyID)));
+                break;
+            case 1:
+                tileListOptions.add(new Tile("FullTile", rotations, false, this));
+                tileListOptions.add(new Tile("DiagonalTile", rotations, false, this));
+                tileListOptions.add(new Tile("Stair", rotations, false, this));
                 break;
         } 
     }
     public void displayOptions()
     {
         double tileNum = - (double)tileListOptions.size()/2;
-        int gapSize = getWorld().getWidth() / tileListOptions.size();
+        int gapSize = tileListOptions.size() != 0 ? getWorld().getWidth() / tileListOptions.size() : 1;
         for(Tile tile: tileListOptions)
         {
             getWorld().addObject(tile, (int)(getWorld().getWidth() / 2 + tileNum * gapSize + gapSize / 2), getY());
