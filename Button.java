@@ -32,21 +32,23 @@ public class Button extends UI
     public void act()
     {
         checkButton();
+        
     }
     
     public void checkButton()
     {
-        MouseInfo m = Greenfoot.getMouseInfo();
-        if(Greenfoot.mousePressed(this))
+        if(Greenfoot.mousePressed(this)) //when pressed
         {
             isPressed = true;
-            
-            //debug
-            count++;
-            System.out.println(count);
-        }// fix moving away from button TODO
-        else if(Greenfoot.mouseClicked(this) || (Greenfoot.getMouseInfo() != null && !isTouching(MouseInfo.class))){
+
+        } //if press and let go ON BUTTON (activate button)
+        else if(Greenfoot.mouseClicked(this) && isPressed){
             isPressed = false;
+
+        } //if press and let go OFF BUTTON (cancel button)
+        else if(Greenfoot.mouseClicked(null) && isPressed){
+            isPressed = false;
+
         }
         if(isPressed){
             getImage().scale((int)(0.85 * width), (int)(0.85 * height));
