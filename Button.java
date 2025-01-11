@@ -43,21 +43,23 @@ public class Button extends UI
         
     }
     
-    public boolean checkButton()
+    public void checkButton()
     {
         if(Greenfoot.mousePressed(this)) //when pressed
         {
-            return true;
+            isPressed = true;
 
         } //if press and let go ON BUTTON (activate button)
         else if(Greenfoot.mouseClicked(this) && isPressed){
+            isPressed = false;
             if(destination != null){
                 activateButton(destination);
             }
-            return false;
+                
         } //if press and let go OFF BUTTON (cancel button)
         else if(Greenfoot.mouseClicked(null) && isPressed){
-            return false;
+            isPressed = false;
+
         }
         if(isPressed){
             getImage().scale((int)(0.85 * width), (int)(0.85 * height));
@@ -65,10 +67,14 @@ public class Button extends UI
         else{
             getImage().scale(width, height);
         }
-        return false;
     }
     
     public void activateButton(World w){
         Greenfoot.setWorld(w);
+    }
+    
+    public boolean getIsPressed()
+    {
+        return isPressed;
     }
 }
