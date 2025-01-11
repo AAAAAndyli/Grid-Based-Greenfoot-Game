@@ -54,6 +54,8 @@ public class Player extends Entity
     
     private static int mouseX, mouseY;
     
+    private Shield shield = null;
+    private int cooldown = 0;
     
     public Player()
     {
@@ -76,12 +78,7 @@ public class Player extends Entity
         crosshair = getWorld().getObjects(Crosshair.class).get(0);
     }
     
-    public void toolSelection(){
-        if(Greenfoot.isKeyDown("1")){
-            Shield shield = new Shield();
-            getWorld().addObject(shield, getX(), getY());
-        }
-    }
+    
     
     
     public void act()
@@ -111,7 +108,7 @@ public class Player extends Entity
         movement();
         shoot();
         parry();
-        toolSelection();
+        
         if(Greenfoot.isKeyDown("f"))
         {
             aimIsActivated = !aimIsActivated;
@@ -483,24 +480,45 @@ public class Player extends Entity
         }
     }
     
+    
     public void parry()
     {
-        if(Greenfoot.isKeyDown("e") && parryTimer > 0)
-        {
-            ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>)getObjectsInRange(100, EProjectile.class);
-            for(EProjectile projectile : projectilesInRange)
-            {
-                projectile.parried(mouseX, mouseY);
-                Greenfoot.delay(10);
-                getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
-                heal(3);
-            }
-            parryTimer--;
+        if(cooldown > 0){
+            cooldown--;
         }
-        else if(!Greenfoot.isKeyDown("e"))
-        {
+        
+        if (Greenfoot.isKeyDown("e") && cooldown == 0) {
+        
+            if (shield == null) {
+                shield = new Shield();
+                getWorld().addObject(shield, getX(), getY());
+            }
+
+            if (parryTimer > 0) {
+                ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>) getObjectsInRange(100, EProjectile.class);
+                for (EProjectile projectile : projectilesInRange) {
+                    projectile.parried(mouseX, mouseY);
+                    Greenfoot.delay(10);
+                    getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
+                    heal(3);
+                }
+                parryTimer--;
+            }
+
+        
+            cooldown = 60;
+        } else if (!Greenfoot.isKeyDown("e")) {
+            
+            if (shield != null) {
+                getWorld().removeObject(shield);
+                shield = null;
+            }
+    
+            
             parryTimer = 10;
         }
+        
+     
     }
     
     public void heal(int regen)
