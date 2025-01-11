@@ -30,16 +30,16 @@ public class TheGrid
             for(int j = 0; j < theGrid[i].length; j++)
             {
                 theGrid[i][j] = newGrid[i][j];
-                if(theGrid[i][j] != null)
+                if(theGrid[i][j] != null && (theGrid[i][j].getCollidable() == true && !theGrid[i][j].getType().contains("Background")))
                 {
-                    System.out.print(1);
+                    //System.out.print(1);
                 }
                 else
                 {
-                    System.out.print(0);
+                    //System.out.print(0);
                 }
             }
-            System.out.println();
+            //System.out.println();
         }
         populateAirGrid();
         findLowestCoordinates(theGrid);
@@ -52,7 +52,7 @@ public class TheGrid
         {
             for(int j = 0 ; j < theGrid[i].length ; j++)
             {
-                if(theGrid[i][j] != null && theGrid[i][j].getCollidable() == true)
+                if(theGrid[i][j] != null && (theGrid[i][j].getCollidable() == true && !theGrid[i][j].getType().contains("Background")))
                 {
                     airGrid[i][j] = 1;
                 }
@@ -63,6 +63,7 @@ public class TheGrid
             }
         }
     }
+    
     
     public static void findLowestCoordinates(Tile[][] grid)
     {
@@ -98,12 +99,17 @@ public class TheGrid
         ArrayList<Node> openList = new ArrayList<>();
         ArrayList<Node> closedList = new ArrayList<>();
     
-        // Convert start and end coordinates to grid indices
-        int startXIndex = (start.getX() + lowestX) / 50;
-        int startYIndex = (start.getY() + lowestY) / 50;
-        int endXIndex = (end.getX() + lowestX) / 50;
-        int endYIndex = (end.getY() + lowestY) / 50;
+        int startXIndex = (start.getX() - lowestX) / 50;
+        int startYIndex = (start.getY() - lowestY) / 50;
+        int endXIndex = (end.getX() - lowestX) / 50;
+        int endYIndex = (end.getY() - lowestY) / 50;
+
+        /*
+        System.out.println("Start Index: (" + startXIndex + ", " + startYIndex + ")");
+        System.out.println("End Index: (" + endXIndex + ", " + endYIndex + ")");
         
+        System.out.println("Start Global Coordinates: (" + start.getX() + ", " + start.getY() + ")");
+        System.out.println("End Global Coordinates: (" + end.getX() + ", " + end.getY() + ")");
         System.out.println("xSize: " + airGrid[0].length);
         System.out.println("ySize: " + airGrid.length);
         System.out.println("LowestX: " + lowestX);
@@ -112,9 +118,12 @@ public class TheGrid
         System.out.println("startYIndex: " + startYIndex);
         System.out.println("endXIndex: " + endXIndex);
         System.out.println("endYIndex: " + endYIndex);
+        */
+        
     
         if (!isInBounds(startXIndex, startYIndex) || !isInBounds(endXIndex, endYIndex)) 
         {
+            //System.out.println("Path Unobtainable");
             return new ArrayList<>(); 
         }
     
@@ -133,7 +142,7 @@ public class TheGrid
             
             if (currentNode.equals(endNode)) 
             {
-                System.out.println("Found Goal");
+                //System.out.println("Found Goal");
                 return createCoordinatePath(currentNode); //Found goal
             }
             // Search surrounding tiles
@@ -192,7 +201,7 @@ public class TheGrid
         Node current = endNode;
         while (current != null) 
         {
-            path.add(new Coordinate(current.getX() * 50 - lowestX, current.getY() * 50 - lowestY));
+            path.add(new Coordinate(current.getX() * 50 + lowestX, current.getY() * 50 + lowestY));
             current = current.getParent();
         }
         Collections.reverse(path);
