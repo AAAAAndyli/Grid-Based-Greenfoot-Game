@@ -48,14 +48,13 @@ public class Button extends UI
         if(Greenfoot.mousePressed(this)) //when pressed
         {
             isPressed = true;
-            return true;
         } //if press and let go ON BUTTON (activate button)
         else if(Greenfoot.mouseClicked(this) && isPressed){
             isPressed = false;
             if(destination != null){
                 activateButton(destination);
             }
-            return false;
+            return true;
         } //if press and let go OFF BUTTON (cancel button)
         else if(Greenfoot.mouseClicked(null) && isPressed){
             isPressed = false;
