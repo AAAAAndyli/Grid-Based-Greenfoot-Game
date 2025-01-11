@@ -21,7 +21,7 @@ public class MenuWorld extends World
         
         Button play = new Button(1.1, (World)new LevelWorld());
         addObject(play, 900, 200);
-        Button settings = new Button(1.1);
+        Button settings = new Button(1.1, (World)new SettingWorld());
         addObject(settings, 900, 400);
     }
     
