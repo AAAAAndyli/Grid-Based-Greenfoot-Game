@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=SpeechBubble
+comment1.params=text\ duration\ tutorialAvatar
+comment1.target=SpeechBubble(java.lang.String,\ int,\ TutorialAvatar)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=text\ duration
+comment3.target=void\ updateText(java.lang.String,\ int)
+comment4.params=text
+comment4.target=void\ updateImage(java.lang.String)
+numComments=5

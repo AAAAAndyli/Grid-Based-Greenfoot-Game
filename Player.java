@@ -492,6 +492,8 @@ public class Player extends Entity
             if (shield == null) {
                 shield = new Shield();
                 getWorld().addObject(shield, getX(), getY());
+            }else{
+                shield.setLocation(getX(), getY());
             }
 
             if (parryTimer > 0) {
@@ -506,7 +508,7 @@ public class Player extends Entity
             }
 
         
-            cooldown = 60;
+            cooldown = 0;
         } else if (!Greenfoot.isKeyDown("e")) {
             
             if (shield != null) {

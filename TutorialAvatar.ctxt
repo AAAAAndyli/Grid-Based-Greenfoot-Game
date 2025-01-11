@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=TutorialAvatar
+comment0.text=\r\n\ TutorialAvatar\ class.\r\n
+comment1.params=
+comment1.target=TutorialAvatar()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ nextMessage()
+comment4.params=
+comment4.target=void\ moveToTarget()
+comment5.params=text\ duration
+comment5.target=void\ speak(java.lang.String,\ int)
+numComments=6
