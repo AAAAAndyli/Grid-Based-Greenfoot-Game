@@ -12,6 +12,7 @@ comment4.params=
 comment4.target=void\ act()
 comment5.params=
 comment5.target=boolean\ checkButton()
+comment5.text=\r\n\ Method\ to\ check\ when\ a\ button\ has\ been\ pressed\r\n\ \r\n\ @return\ boolean,\ button\ was\ activated\ (pressed\ and\ let\ go\ within\ button\ hitbox)\r\n
 comment6.params=w
 comment6.target=void\ activateButton(greenfoot.World)
 numComments=7

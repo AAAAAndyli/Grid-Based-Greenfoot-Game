@@ -43,6 +43,11 @@ public class Button extends UI
         
     }
     
+    /**
+     * Method to check when a button has been pressed
+     * 
+     * @return boolean, button was activated (pressed and let go within button hitbox)
+     */
     public boolean checkButton()
     {
         if(Greenfoot.mousePressed(this)) //when pressed
@@ -51,21 +56,26 @@ public class Button extends UI
         } //if press and let go ON BUTTON (activate button)
         else if(Greenfoot.mouseClicked(this) && isPressed){
             isPressed = false;
+            //for world changing buttons
             if(destination != null){
                 activateButton(destination);
             }
+            //has been let go and activated
             return true;
         } //if press and let go OFF BUTTON (cancel button)
         else if(Greenfoot.mouseClicked(null) && isPressed){
             isPressed = false;
+            //cancelled button
             return false;
         }
+        //visual feedback of button being pressed
         if(isPressed){
             getImage().scale((int)(0.85 * width), (int)(0.85 * height));
         }
         else{
             getImage().scale(width, height);
         }
+        //any unusual edge cases like issues with mouse
         return false;
     }
     
