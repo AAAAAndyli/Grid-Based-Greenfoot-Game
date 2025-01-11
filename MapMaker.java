@@ -85,11 +85,8 @@ public class MapMaker extends SuperSmoothMover
             if(actTimer != 0)
             {
                 actTimer = 0;
-                rotation++;
-                if(rotation > 3)
-                {
-                    rotation = 0;
-                }
+                rotation = (rotation + 1) % 4; // Cycles through 0 to 3
+                System.out.println("Updated Rotation: " + rotation);
                 refreshOptions(rotation);
             }
         }
@@ -125,7 +122,7 @@ public class MapMaker extends SuperSmoothMover
         {
             page = Integer.parseInt(key) - 1;
             refreshOptions(rotation);
-            System.out.println("Page: " + page);
+            //System.out.println("Page: " + page);
         }
     }
     public void hide()
@@ -169,9 +166,15 @@ public class MapMaker extends SuperSmoothMover
                 tileListOptions.add(new EnemySpawner("EnemySpawner", 0, true, this, triggerID, EnemyID.getEnemy(enemyID)));
                 break;
             case 1:
-                tileListOptions.add(new Tile("FullTile", rotations, false, this));
-                tileListOptions.add(new Tile("DiagonalTile", rotations, false, this));
-                tileListOptions.add(new Tile("Stair", rotations, false, this));
+                tileListOptions.add(new Tile("BackgroundFullTile", rotations, true, this, false));
+                tileListOptions.add(new Tile("BackgroundFullTile2", rotations, true, this, false));
+                tileListOptions.add(new Tile("BackgroundFullTile3", rotations, true, this, false));
+                tileListOptions.add(new Tile("BackgroundFullTile4", rotations, true, this, false));
+                tileListOptions.add(new Tile("BackgroundFullTile5", rotations, true, this, false));
+                tileListOptions.add(new Tile("BackgroundFullTile6", rotations, true, this, false));
+                tileListOptions.add(new Tile("BackgroundFullTile7", rotations, true, this, false));
+                tileListOptions.add(new Tile("BackgroundDiagonalTile", rotations, true, this, false));
+                tileListOptions.add(new Tile("Stair", rotations, true, this, false));
                 break;
         } 
     }
@@ -201,8 +204,9 @@ public class MapMaker extends SuperSmoothMover
     {
         return type;
     }
-    public int getRotations()
+    public int getRotation()
     {
+        System.out.println("getRotations() returning: " + rotation);    
         return rotation;
     }
 }

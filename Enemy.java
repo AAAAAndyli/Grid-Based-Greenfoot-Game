@@ -10,10 +10,17 @@ import java.util.ArrayList;
  */
 public abstract class Enemy extends Entity
 {    
+    //Facing variables
+    protected int xDirection = 1;
+    
     //Attacking Variables
     protected int attackTimer = 0;
     protected int attackCooldown = 120;
     protected int attackFrame;
+    protected boolean isAttacking = false;
+    protected int attackLength = 20;
+    
+    
     
     
     //Ranged attacking Variables
@@ -86,6 +93,18 @@ public abstract class Enemy extends Entity
             time = 0;
             totalVelocityOfTarget = 0;
             averageVelocityOfTarget = 0;
+        }
+    }
+    
+    public void faceTowards(int xPositionToFace)
+    {
+        if(xPositionToFace > getPosition().getX())
+        {
+            xDirection = 1;
+        }
+        else if(xPositionToFace < getPosition().getX())
+        {
+            xDirection = -1;
         }
     }
     
@@ -175,11 +194,11 @@ public abstract class Enemy extends Entity
         }
         public void performAttack()
         {
-            System.out.println("AMONG US");
             hurtBox.createHurtBox();
             getWorld().addObject(hurtBox, getPosition().getX() + direction * xOffset, getPosition().getY() + yOffset);
             hurtBox.setLocation(hurtBox.getPosition().getX()+scrollX, hurtBox.getPosition().getY()+scrollY);
             didHit = hurtBox.collide();
+            hurtBox.removeHurtBox();
         }
         public void changeDirection(int direction)
         {

@@ -24,6 +24,10 @@ public class Tile extends ScrollingActor
     {
         this(type, rotations, isButton, mapMaker, 0, 0, false);
     }
+    public Tile(String type, int rotations, boolean isButton, MapMaker mapMaker, boolean isCollidable)
+    {
+        this(type, rotations, isButton, mapMaker, 0, 0, isCollidable);
+    }
     public Tile(String type, int rotations, boolean isButton, MapMaker mapMaker, int xPosition, int yPosition, boolean isCollidable)
     {
         this.type = type;
@@ -35,6 +39,10 @@ public class Tile extends ScrollingActor
         if(!isButton)
         {
             this.setImage("Tiles/"+type+".png");
+            if(type.contains("Background"))
+            {
+                collidable = false;
+            }
             getImage().scale(50,50);
             getImage().rotate(rotations*90);
         }

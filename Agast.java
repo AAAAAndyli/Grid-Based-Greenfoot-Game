@@ -6,11 +6,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class BurstTurret extends FlyingEnemy
+public class Agast extends FlyingEnemy
 {
     private int numberOfProjectiles = 0;
-    
-    public BurstTurret()
+    private Player player;
+    public Agast()
     {
         attackCooldown = 120;
         health = 20;
@@ -22,6 +22,19 @@ public class BurstTurret extends FlyingEnemy
      */
     public void act()
     {
+        if(player == null)
+        {
+            player = getWorldOfType(LevelWorld.class).getPlayer();
+        }
+        attack();
+        if(path.size() > 0)
+        {
+            moveTowards(path.get(0));
+        }   
+        else
+        {
+            findPath();
+        }
         super.act();
     }
     public void attack()
@@ -55,7 +68,6 @@ public class BurstTurret extends FlyingEnemy
     }
     public void findPath()
     {
-        Player player = getWorld().getObjects(Player.class).get(0);
         if(player != null)
         {
             Coordinate hoverCoordinate = new Coordinate(player.getPosition().getX() + Greenfoot.getRandomNumber(300) - 150, player.getPosition().getY() - 200 + Greenfoot.getRandomNumber(50));

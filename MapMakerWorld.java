@@ -297,6 +297,7 @@ public class MapMakerWorld extends ScrollingWorld
                 else if((mouse.getButton() == 1) && mapMaker.getType() != null)
                 {
                     placeTile(xMapPosition, yMapPosition, mapMaker.getType(), mapMaker.getTriggerID(), EnemyID.getEnemy(mapMaker.getEnemyID()), mapMaker.getRotation());
+                    System.out.println("getRotations() returning: " + mapMaker.getRotation());    
                 }
             }
             if (getObjects(TileSelector.class).isEmpty()) 

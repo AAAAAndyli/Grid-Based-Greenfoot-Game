@@ -11,6 +11,7 @@ public abstract class FlyingEnemy extends Enemy
 {
     protected ArrayList<Coordinate> path = new ArrayList<Coordinate>();
     protected int forcePathfindTimer = 0;
+    protected double xVelocity = 0;
     
     protected int moveIndex;
     protected ArrayList<GreenfootImage> moveAnimR = new ArrayList<GreenfootImage>();
@@ -35,28 +36,6 @@ public abstract class FlyingEnemy extends Enemy
      */
     public void act()
     {
-        attack();
-        if(path.size() > 0)
-        {
-            moveTowards(path.get(0));
-        }   
-        else
-        {
-            findPath();
-        }
-        /*
-        if(forcePathfindTimer > 120)
-        {
-            path = new ArrayList<Coordinate>();
-            findPath();
-            forcePathfindTimer = 0;
-        }
-        else
-        {
-            forcePathfindTimer++;
-        }
-        */
-        //System.out.println("size: " + path.size());
         super.act();
     }
     public void findPath()

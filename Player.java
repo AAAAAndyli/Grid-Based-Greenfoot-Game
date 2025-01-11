@@ -428,11 +428,21 @@ public class Player extends Entity
     
     public void collision()
     {
-        Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity + 5, 0);
-        Tile leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity - 5, 0);
+        Tile rightTouching1 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 50);
+        Tile rightTouching2 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, -50);
+        
+        boolean isRightTouching = rightTouching1 != null && rightTouching2 != null;
+        Tile rightTouching = rightTouching1 != null ? rightTouching1 : rightTouching2;
+        
+        Tile leftTouching1 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 50);
+        Tile leftTouching2 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, -50);
+        
+        boolean isLeftTouching = leftTouching1 != null && leftTouching2 != null;
+        Tile leftTouching = leftTouching1 != null ? leftTouching1 : leftTouching2;
+        
         Tile upLeftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + 5, -getImage().getHeight()/2);
         Tile upRightTouching = getOneTileAtOffset(getImage().getWidth()/2 - 5, -getImage().getHeight()/2);
-        if(rightTouching != null && (xDirection == 1||xVelocity > 0) && !rightTouching.isDiagonal())
+        if(isRightTouching && (xDirection == 1||xVelocity > 0)) //&& !rightTouching.isDiagonal())
         {
             isCollidingRight = true;
             xVelocity = 0;
@@ -442,17 +452,11 @@ public class Player extends Entity
         //{
             //moveOnDiagonal(rightTouching);
         //}
-        else if(rightTouching != null && (xDirection == 1||xVelocity > 0))
-        {
-            isCollidingRight = true;
-            xVelocity = 0;
-            globalPosition.setCoordinate(rightTouching.globalPosition.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, globalPosition.getY());
-        }
         else
         {
             isCollidingRight = false;
         }
-        if(leftTouching != null && (xDirection == -1||xVelocity < 0) && !leftTouching.isDiagonal())
+        if(isLeftTouching && (xDirection == -1||xVelocity < 0))// && !leftTouching.isDiagonal())
         {
             isCollidingLeft = true;
             xVelocity = 0;
@@ -462,12 +466,6 @@ public class Player extends Entity
         //{
             //moveOnDiagonal(leftTouching);
         //}
-        else if(leftTouching != null && (xDirection == -1||xVelocity < 0))
-        {
-            isCollidingLeft = true;
-            xVelocity = 0;
-            globalPosition.setCoordinate(leftTouching.globalPosition.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, globalPosition.getY());
-        }
         else
         {
             isCollidingLeft = false;
@@ -576,5 +574,14 @@ public class Player extends Entity
     public double getYGravity()
     {
         return yGravity;
+    }
+    
+    
+    private class rangedWeapon
+    {
+        public rangedWeapon()
+        {
+            
+        }
     }
 }

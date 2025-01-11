@@ -37,7 +37,7 @@ public class HealthBar extends Actor
     {
         if(player.getHurt())
         {
-            if(player.getHP()/3 < healthBlobCount)
+            if(player.getHP()/3 < healthBlobCount && (double)player.getHP()/3.0 + 1 > 0)
             {
                 healthPods.get(player.getHP()/3).lower(health - player.getHP());
                 health = player.getHP();

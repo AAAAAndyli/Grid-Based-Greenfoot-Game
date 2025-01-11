@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public abstract class GroundedEnemy extends Enemy
 {
     protected double xVelocity = 0;
-    protected int xDirection = 1;
     protected int xSpeed = 10;
     protected int detectionRange = 1080;
     protected int attackRange = 100;
@@ -69,17 +68,6 @@ public abstract class GroundedEnemy extends Enemy
         return false;
     }
     
-    public void faceTowards(int xPositionToFace)
-    {
-        if(xPositionToFace > getPosition().getX())
-        {
-            xDirection = 1;
-        }
-        else if(xPositionToFace < getPosition().getX())
-        {
-            xDirection = -1;
-        }
-    }
     
     public void moveTo(int xPositionToMoveTo)
     {

@@ -23,6 +23,7 @@ public class LevelWorld extends ScrollingWorld
     private Crosshair crosshair = new Crosshair();
     private Camera camera = new Camera(crosshair);
     private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
+    private Player player;
     
     public LevelWorld()
     {
@@ -82,6 +83,7 @@ public class LevelWorld extends ScrollingWorld
                 int yLocation = Integer.parseInt(tokenizer.nextToken());
                 int triggerNumber = -1;
                 int enemyNumber = -1;
+                boolean isCollidable = true;
                 if(tokenizer.hasMoreTokens())
                 {
                     triggerNumber = Integer.parseInt(tokenizer.nextToken());
@@ -95,7 +97,7 @@ public class LevelWorld extends ScrollingWorld
                     switch(type)
                     {
                         case "PlayerSpawnPoint":
-                            Player player = new Player();
+                            player = new Player();
                             addObject(crosshair, xLocation, yLocation);
                             addObject(player, xLocation, yLocation - player.getImage().getHeight()/4);
                             addObject(camera, 0, 0);
@@ -111,7 +113,7 @@ public class LevelWorld extends ScrollingWorld
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
                             break;
                         case "EnemySpawnPoint":
-                            BurstTurret enemy = new BurstTurret();
+                            Agast enemy = new Agast();
                             addObject(enemy, xLocation, yLocation);
                             break;
                         case "EnemySpawner":
@@ -175,5 +177,10 @@ public class LevelWorld extends ScrollingWorld
             map[(tile.getGlobalY() - lowestY)/50][(tile.getGlobalX() - lowestX)/50] = tile;
         }
         return map;
+    }
+    
+    public Player getPlayer()
+    {
+        return player;
     }
 }

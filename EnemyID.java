@@ -23,7 +23,7 @@ public class EnemyID
     public static void loadHash()
     {
         enemyHash.put(0, new WalMare());
-        enemyHash.put(1, new BurstTurret());
+        enemyHash.put(1, new Agast());
         int value = 0;
         for(HashMap.Entry<Integer, Enemy> entry : enemyHash.entrySet())
         {

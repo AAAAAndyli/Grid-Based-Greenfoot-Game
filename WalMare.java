@@ -41,16 +41,7 @@ public class WalMare extends GroundedEnemy
             {
                 xVelocity = 0;
                 pierce.changeDirection(xDirection);
-                if(attackCooldown < attackTimer)
-                {
-                    System.out.println("AMONG US");
-                    pierce.performAttack();
-                    attackTimer = 0;
-                }
-                else
-                {
-                    attackTimer++;
-                }
+                attack();
             }
         }
         else
@@ -68,6 +59,24 @@ public class WalMare extends GroundedEnemy
         }
         super.act();
     }
+    public void attack()
+    {
+        if(attackTimer > attackCooldown + attackLength)
+        {
+            isAttacking = false;
+            attackTimer = 0;
+        }
+        else if(attackCooldown == attackTimer)
+        {
+            isAttacking = true;
+            pierce.performAttack();
+            attackTimer++;
+        }
+        else
+        {
+            attackTimer++;
+        }
+    }
     /**
      * Loads in every frame for every animation
      * 
@@ -77,10 +86,5 @@ public class WalMare extends GroundedEnemy
     {
         loadSingleAnimation(path, idleAnimL, "idle", true);
         loadSingleAnimation(path, idleAnimR, "idle");
-    }
-    
-    public void attack()
-    {
-        
     }
 }
