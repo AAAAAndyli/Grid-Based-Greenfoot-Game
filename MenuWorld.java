@@ -17,8 +17,12 @@ public class MenuWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1); 
-        Button button = new Button(0.5);
-        addObject(button, 500, 500);
+        setBackground("images/menuPlaceholder.png");
+        
+        Button play = new Button(1.1, (World)new LevelWorld());
+        addObject(play, 900, 200);
+        Button settings = new Button(1.1);
+        addObject(settings, 900, 400);
     }
     
     public void act(){

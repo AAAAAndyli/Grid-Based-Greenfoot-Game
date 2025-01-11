@@ -12,6 +12,8 @@ public class Button extends UI
     private GreenfootImage image = new GreenfootImage("button1.png");
     private int count = 0;
     private int width, height;
+    private World destination;
+    
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -29,6 +31,12 @@ public class Button extends UI
         getImage().scale(width, height);
     }
     
+    public Button(double sizeMulti, World dest)
+    {
+        this(sizeMulti);
+        destination = dest;
+    }
+    
     public void act()
     {
         checkButton();
@@ -44,7 +52,10 @@ public class Button extends UI
         } //if press and let go ON BUTTON (activate button)
         else if(Greenfoot.mouseClicked(this) && isPressed){
             isPressed = false;
-
+            if(destination != null){
+                activateButton(destination);
+            }
+                
         } //if press and let go OFF BUTTON (cancel button)
         else if(Greenfoot.mouseClicked(null) && isPressed){
             isPressed = false;
@@ -56,6 +67,10 @@ public class Button extends UI
         else{
             getImage().scale(width, height);
         }
+    }
+    
+    public void activateButton(World w){
+        Greenfoot.setWorld(w);
     }
     
     public boolean getIsPressed()
