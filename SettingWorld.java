@@ -39,7 +39,7 @@ public class SettingWorld extends World
         Button test3 = new Button(0.5);
         addObject(test3, 800, 310);
           
-        ScrollingUI s = new ScrollingUI(0, 0, 200, 450);
+        ScrollingUI s = new ScrollingUI(0, 0, 200, 450, true, Button.class);
         addObject(s, 800, 350);
         
         setPaintOrder(Button.class, ScrollingUI.class);

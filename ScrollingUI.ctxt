@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=ScrollingUI
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ ScrollingUI\ here.\r\n\ \r\n\ @author\ Darren\ T\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=x\ y\ width\ height
-comment1.target=ScrollingUI(int,\ int,\ int,\ int)
+comment1.params=x\ y\ width\ height\ follow\ classFollowName
+comment1.target=ScrollingUI(int,\ int,\ int,\ int,\ boolean,\ java.lang.Class)
 comment2.params=
 comment2.target=void\ scroll()
 comment2.text=\r\n\ Method\ to\ allow\ scrolling\ based\ on\ user\ movement\r\n
