@@ -14,15 +14,14 @@ public class WalMare extends GroundedEnemy
     private int attackCooldown = 60;
     private Attack pierce = new Attack(attackRange + 50, 10, 1, 0 , attackRange/2 + 10, 0);
     private int attackFrame = 6; 
-    private int health = 5;
     private int attackXOffset = 27;
     
-    private int followTimer;
     
     public WalMare()
     {
         super();
         xSpeed = 5;
+        health = 5;
         loadAnimationFrames("images/Enemies/walmare");
     }
     /**

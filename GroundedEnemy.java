@@ -23,7 +23,7 @@ public abstract class GroundedEnemy extends Enemy
     protected int playerDistance;
     
     protected int checkTimer = 0;
-    protected int trackTimer = 0;
+    protected int followTimer = 0;
     
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnimR = new ArrayList<GreenfootImage>();
