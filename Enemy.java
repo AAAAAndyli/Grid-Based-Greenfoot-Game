@@ -20,7 +20,8 @@ public abstract class Enemy extends Entity
     protected boolean isAttacking = false;
     protected int attackLength = 20;
     
-    
+    protected int attackXOffset, attackYOffset;    
+    protected boolean attackAnimOver = true;
     
     
     //Ranged attacking Variables
@@ -187,7 +188,7 @@ public abstract class Enemy extends Entity
             return index;
         }
         setImage(animation.get(index));
-        System.out.println("Index: " + index);
+        //System.out.println("Index: " + index);
         index++;
         if(index > animation.size()-1)
         {

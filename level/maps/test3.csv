@@ -408,7 +408,7 @@ BackgroundFullTile7,0,750,650
 EnemySpawner,1,800,650,0,1
 BackgroundFullTile7,2,850,650
 TriggerTile,0,900,650,0
-BackgroundFullTile7,1,950,650
+BackgroundFullTile7,0,950,650
 BackgroundFullTile5,2,1000,650
 BackgroundFullTile7,2,1050,650
 BackgroundFullTile7,2,1100,650
@@ -433,8 +433,8 @@ BackgroundFullTile6,3,150,700
 BackgroundFullTile6,2,200,700
 BackgroundFullTile7,2,250,700
 BackgroundFullTile7,2,300,700
-BackgroundFullTile7,2,350,700
-BackgroundFullTile7,2,400,700
+BackgroundFullTile7,0,350,700
+BackgroundFullTile7,0,400,700
 BackgroundFullTile7,2,450,700
 BackgroundFullTile7,2,500,700
 BackgroundFullTile7,2,550,700
@@ -466,11 +466,11 @@ FullTile,0,1800,700
 FullTile,0,0,750
 BackgroundFullTile7,2,50,750
 BackgroundFullTile7,2,100,750
-BackgroundFullTile7,2,150,750
+BackgroundFullTile7,0,150,750
 PlayerSpawnPoint,0,200,750
 BackgroundFullTile7,2,250,750
 BackgroundFullTile7,2,300,750
-BackgroundFullTile7,2,350,750
+BackgroundFullTile7,0,350,750
 FullTile,0,400,750
 FullTile,0,450,750
 FullTile,0,500,750
@@ -479,11 +479,11 @@ FullTile,0,600,750
 BackgroundFullTile7,2,650,750
 BackgroundFullTile7,2,700,750
 BackgroundFullTile7,2,750,750
-BackgroundFullTile7,2,800,750
+EnemySpawner,0,800,750,0,0
 BackgroundFullTile7,2,850,750
 TriggerTile,0,900,750,0
 BackgroundFullTile7,2,950,750
-BackgroundFullTile5,2,1000,750
+EnemySpawner,0,1000,750,0,0
 BackgroundFullTile7,2,1050,750
 BackgroundFullTile7,2,1100,750
 BackgroundFullTile7,2,1150,750

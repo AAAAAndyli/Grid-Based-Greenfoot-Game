@@ -538,6 +538,7 @@ public class Player extends Entity
             super.hurt(damage);
             getWorld().getObjects(Camera.class).get(0).screenShake(3, 5);
             isHurt = true;
+            canBeHurt = false;
             invincibilityFrames = 1;
         }
         //Greenfoot.delay(10);

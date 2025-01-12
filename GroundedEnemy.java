@@ -49,7 +49,7 @@ public abstract class GroundedEnemy extends Enemy
         predictFloor();
         
         animationTimer++;
-        idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
+        //idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
         
         globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
         super.act();
@@ -102,8 +102,8 @@ public abstract class GroundedEnemy extends Enemy
     public void predictFloor()
     {
         Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
+        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2, getImage().getHeight()/2+(int)yVelocity);
+        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2, getImage().getHeight()/2+(int)yVelocity);
         
         boolean midWillTouch = predictedMidTile != null;
         boolean leftWillTouch = predictedLeftTile != null;
