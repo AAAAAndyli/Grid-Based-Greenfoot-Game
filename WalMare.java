@@ -115,7 +115,6 @@ public class WalMare extends GroundedEnemy
         }
         else if(isAttacking && !attackAnimOver)
         {
-            System.out.println("attackIndex" + attackIndex);
             int prevAttackIndex = attackIndex;
             attackIndex = animate(xDirection==1 ? attackAnimR : attackAnimL, attackIndex);
             if(prevAttackIndex != attackIndex)
