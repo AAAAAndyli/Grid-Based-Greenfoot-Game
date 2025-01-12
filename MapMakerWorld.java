@@ -38,6 +38,8 @@ public class MapMakerWorld extends ScrollingWorld
     //The primary frame
     private JFrame frame = new JFrame("Save/Load Map");
     
+    private int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
+    
     private StillLabel currentTriggerID = new StillLabel("Trigger ID: ", 40, mapMaker);
     private StillLabel currentEnemyID = new StillLabel("Enemy ID: ", 40, mapMaker);
     
@@ -69,6 +71,7 @@ public class MapMakerWorld extends ScrollingWorld
         editMap();
         if(Greenfoot.isKeyDown("enter"))
         {
+            centerWorldOnLowestPoint();
             showMainMenu();
             printWorld();
         }
@@ -100,18 +103,10 @@ public class MapMakerWorld extends ScrollingWorld
     public Tile[][] toGrid()
     {
         sortWorld();
-        int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
         int highestX = Integer.MIN_VALUE, highestY = Integer.MIN_VALUE;
         for(Tile tile : tileWorld)
         {
-            if(lowestX > tile.getGlobalX())
-            {
-                lowestX = tile.getGlobalX();
-            }
-            if(lowestY > tile.getGlobalY())
-            {
-                lowestY = tile.getGlobalY();
-            }
+            getLowestCoordinates();
             if(highestX < tile.getGlobalX())
             {
                 highestX = tile.getGlobalX();
@@ -130,11 +125,25 @@ public class MapMakerWorld extends ScrollingWorld
         for(Tile tile : tileWorld)
         {
             System.out.println((tile.getGlobalY() + Math.abs(lowestY))/50 + " " + (tile.getGlobalX() + Math.abs(lowestX))/50);
+            //tile.getPosition().setCoordinate(tile.getPosition().getX() - lowestX, tile.getPosition().getY() - lowestY);
             map[(tile.getGlobalY() - lowestY)/50][(tile.getGlobalX() - lowestX)/50] = tile;
         }
         return map;
     }
-    
+    private void getLowestCoordinates()
+    {
+        for(Tile tile : tileWorld)
+        {
+            if(lowestX > tile.getGlobalX())
+            {
+                lowestX = tile.getGlobalX();
+            }
+            if(lowestY > tile.getGlobalY())
+            {
+                lowestY = tile.getGlobalY();
+            }
+        }
+    }
     public void printWorld()
     {
         sortWorld();
@@ -145,6 +154,7 @@ public class MapMakerWorld extends ScrollingWorld
         }
         System.out.println("The World in 2dArray:");
         Tile[][] tile2DArray = toGrid();
+        /*
         for(int i = 0 ; i < tile2DArray.length ; i++)
         {
             System.out.println("Row #" + i);
@@ -160,6 +170,7 @@ public class MapMakerWorld extends ScrollingWorld
                 }
             }
         }
+        */
     }
     
     public void showMainMenu()
@@ -235,12 +246,37 @@ public class MapMakerWorld extends ScrollingWorld
         frame.show();
     }
     
+    public void centerWorldOnLowestPoint()
+    {
+        getLowestCoordinates();
+        for(Tile tile : getObjects(Tile.class))
+        {
+            if(!tile.isButton)
+            {
+                removeObject(tile);
+            }
+        }
+        ArrayList<Tile> newTileList = new ArrayList<Tile>();
+        for(Tile tile : tileWorld)
+        {
+            addObject(tile, tile.getGlobalX() - lowestX, tile.getGlobalY() - lowestY);
+            tile.getPosition().setCoordinate(tile.getGlobalX() - lowestX, tile.getGlobalY() - lowestY);
+            tile.setGlobalX(tile.getGlobalX() - lowestX);
+            tile.setGlobalY(tile.getGlobalY() - lowestY);
+            newTileList.add(tile);
+        }
+        tileWorld.clear();
+        tileWorld = newTileList;
+    }
+    
     public void saveFile()
     {
         sortWorld();
         writeFile(loadedFile,"", false, false);
         for(Tile tile : tileWorld)
         {
+            //tile.getPosition().setCoordinate(tile.getPosition().getX() - lowestX, tile.getPosition().getY() - lowestY);
+            System.out.println(tile.getPosition().toString());
             writeFile(loadedFile, tile.toString(), true, true);
         }
     }
@@ -297,7 +333,6 @@ public class MapMakerWorld extends ScrollingWorld
                 else if((mouse.getButton() == 1) && mapMaker.getType() != null)
                 {
                     placeTile(xMapPosition, yMapPosition, mapMaker.getType(), mapMaker.getTriggerID(), EnemyID.getEnemy(mapMaker.getEnemyID()), mapMaker.getRotation());
-                    System.out.println("getRotations() returning: " + mapMaker.getRotation());    
                 }
             }
             if (getObjects(TileSelector.class).isEmpty()) 

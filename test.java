@@ -29,7 +29,7 @@ public class test extends ScrollingActor
         super.act();
         if(timer > 60)
         {
-            //getWorld().removeObject(this);
+            getWorld().removeObject(this);
         }
         else
         {

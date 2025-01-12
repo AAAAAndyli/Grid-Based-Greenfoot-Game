@@ -84,7 +84,12 @@ public class WalMare extends GroundedEnemy
      */
     public void loadAnimationFrames(String path)
     {
+        //System.out.println("Searching for images in: " + path + "/" + "");
         loadSingleAnimation(path, idleAnimL, "idle", true);
         loadSingleAnimation(path, idleAnimR, "idle");
+        loadSingleAnimation(path, attackAnimL, "attack", true);
+        loadSingleAnimation(path, attackAnimR, "attack");
+        loadSingleAnimation(path, walkAnimL, "walk", true);
+        loadSingleAnimation(path, walkAnimR, "walk");
     }
 }

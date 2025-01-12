@@ -64,6 +64,7 @@ public abstract class Enemy extends Entity
     public void act()
     {
         super.act();
+        animationTimer++;
         barrier();
         if(willDie)
         {
@@ -151,7 +152,7 @@ public abstract class Enemy extends Entity
     
     protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation, String action, boolean isRotated)
     {
-        for(int i = 0; i < new File(path + "/" + action).listFiles().length-1; i++)
+        for(int i = 0; i < new File(path + "/" + action).listFiles().length - 1; i++)
         {
             animation.add(new GreenfootImage(path + "/" + action + "/" + i + ".png"));
             if(isRotated)
@@ -159,14 +160,34 @@ public abstract class Enemy extends Entity
                 animation.get(i).mirrorHorizontally();
             }
         }
+        //debug code
+        /*
+        try
+        {
+            for(int i = 0; i < new File(path + "/" + action).listFiles().length - 1; i++)
+            {
+                animation.add(new GreenfootImage(path + "/" + action + "/" + i + ".png"));
+                if(isRotated)
+                {
+                    animation.get(i).mirrorHorizontally();
+                }
+            }
+            System.out.println("Loaded " + path + "/" + action);
+        }
+        catch(java.lang.NullPointerException e)
+        {
+            System.out.println("Cannot find " + path + "/" + action);
+        }
+        */
     }
 
     protected int animate(ArrayList<GreenfootImage> animation, int index)
     {
-        if(animationTimer < 10){
+        if(animationTimer < 5){
             return index;
         }
         setImage(animation.get(index));
+        System.out.println("Index: " + index);
         index++;
         if(index > animation.size()-1)
         {

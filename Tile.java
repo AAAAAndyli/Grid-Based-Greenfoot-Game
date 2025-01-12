@@ -90,6 +90,14 @@ public class Tile extends ScrollingActor
     {
         return collidable;
     }
+    public void setGlobalX(int x)
+    {
+        this.x = x;
+    }
+    public void setGlobalY(int y)
+    {
+        this.y = y;
+    }
     public int getGlobalX()
     {
         return x;
@@ -112,6 +120,6 @@ public class Tile extends ScrollingActor
     }
     public String toString()
     {
-        return(type + "," + rotations + ","  + x + "," + y);
+        return(type + "," + rotations + ","  + getPosition().getX() + "," + getPosition().getY());
     }
 }

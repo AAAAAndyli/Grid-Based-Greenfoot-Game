@@ -49,6 +49,10 @@ public abstract class FlyingEnemy extends Enemy
                 getWorld().addObject(new test(true), coords.getX(), coords.getY());
             }
         }
+        else
+        {
+            path.clear();
+        }
         //path = TheGrid.findPathAir(this.getPosition(), player.getPosition());
     }
     public void moveTowards(Coordinate location)
@@ -72,7 +76,8 @@ public abstract class FlyingEnemy extends Enemy
             
             int speedX = (int)Math.round(speed * Math.cos(angle));
             int speedY = (int)Math.round(speed * Math.sin(angle));
-             
+            
+            
             globalPosition.setCoordinate(globalPosition.getX() + speedX, globalPosition.getY() + speedY);
             
             if(closeEnoughX)

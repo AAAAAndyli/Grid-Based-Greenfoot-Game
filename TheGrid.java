@@ -95,16 +95,20 @@ public class TheGrid
     */
     public static ArrayList<Coordinate> aStarfindPath(Coordinate start, Coordinate end)
     {
+        System.out.println("A* Pathfinding Start: " + start + ", End: " + end);
+    
+        ArrayList<Coordinate> path = new ArrayList<>();
         // Initialize both open and closed lists
         ArrayList<Node> openList = new ArrayList<>();
         ArrayList<Node> closedList = new ArrayList<>();
     
-        int startXIndex = (start.getX() - lowestX) / 50;
-        int startYIndex = (start.getY() - lowestY) / 50;
-        int endXIndex = (end.getX() - lowestX) / 50;
-        int endYIndex = (end.getY() - lowestY) / 50;
+        
+        int startXIndex = (start.getX()) / 50;
+        int endXIndex = (end.getX()) / 50;
+        int startYIndex = (start.getY()) / 50;
+        int endYIndex = (end.getY()) / 50;
 
-        /*
+        
         System.out.println("Start Index: (" + startXIndex + ", " + startYIndex + ")");
         System.out.println("End Index: (" + endXIndex + ", " + endYIndex + ")");
         
@@ -112,19 +116,19 @@ public class TheGrid
         System.out.println("End Global Coordinates: (" + end.getX() + ", " + end.getY() + ")");
         System.out.println("xSize: " + airGrid[0].length);
         System.out.println("ySize: " + airGrid.length);
-        System.out.println("LowestX: " + lowestX);
-        System.out.println("LowestY: " + lowestY);
+        //System.out.println("LowestX: " + lowestX);
+        //System.out.println("LowestY: " + lowestY);
         System.out.println("startXIndex: " + startXIndex);
         System.out.println("startYIndex: " + startYIndex);
         System.out.println("endXIndex: " + endXIndex);
         System.out.println("endYIndex: " + endYIndex);
-        */
+        
         
     
         if (!isInBounds(startXIndex, startYIndex) || !isInBounds(endXIndex, endYIndex)) 
         {
-            //System.out.println("Path Unobtainable");
-            return new ArrayList<>(); 
+            System.out.println("Path Unobtainable");
+            return new ArrayList<Coordinate>(); 
         }
     
         // Add the start node
@@ -142,7 +146,7 @@ public class TheGrid
             
             if (currentNode.equals(endNode)) 
             {
-                //System.out.println("Found Goal");
+                System.out.println("Found Goal");
                 return createCoordinatePath(currentNode); //Found goal
             }
             // Search surrounding tiles
@@ -169,8 +173,8 @@ public class TheGrid
                 }
             }
         }
-        // Return no path if no path exists
-        return new ArrayList<>();
+        System.out.println("Path Blocked");
+        return path;
     }
     
     private static Node getLowestCostNode(ArrayList<Node> nodeList) 
@@ -201,7 +205,9 @@ public class TheGrid
         Node current = endNode;
         while (current != null) 
         {
-            path.add(new Coordinate(current.getX() * 50 + lowestX, current.getY() * 50 + lowestY));
+            int xCoord = current.getX() * 50;
+            int yCoord = current.getY() * 50;
+            path.add(new Coordinate(xCoord, yCoord));
             current = current.getParent();
         }
         Collections.reverse(path);
@@ -263,73 +269,9 @@ public class TheGrid
         }
     }
     
-
-    /**
-     * Method findPathAir
-     *
-     * @param start The starting tile
-     * @param end The desired end location
-     * @return The list of coordinates to follow
-     * @deprecated
-     */
-    public static ArrayList<Coordinate> findPathAir(Coordinate start, Coordinate end) 
-    {
-        ArrayList<Coordinate> path = new ArrayList<>();
-    
-        int startXIndex = (start.getX() + lowestX) / 50;
-        int startYIndex = (start.getY() + lowestY) / 50;
-        int endXIndex = (end.getX() + lowestX) / 50;
-        int endYIndex = (end.getY() + lowestY) / 50;
-    
-        System.out.println("xSize: " + airGrid[0].length);
-        System.out.println("ySize: " + airGrid.length);
-        System.out.println("LowestX: " + lowestX);
-        System.out.println("LowestY: " + lowestY);
-        System.out.println("startXIndex: " + startXIndex);
-        System.out.println("startYIndex: " + startYIndex);
-        System.out.println("endXIndex: " + endXIndex);
-        System.out.println("endYIndex: " + endYIndex);
-        
-        if (!isInBounds(startXIndex, startYIndex) || !isInBounds(endXIndex, endYIndex)) 
-        {   
-            //System.out.println("Start or end point is out of bounds.");
-            return path;
-        }
-    
-        int currentX = startXIndex;
-        int currentY = startYIndex;
-    
-        while (currentX != endXIndex || currentY != endYIndex) 
-        {
-            if (currentX < endXIndex && !checkOccupiedTile(currentX + 1, currentY)) 
-            {
-                currentX++;
-            } 
-            else if (currentX > endXIndex && !checkOccupiedTile(currentX - 1, currentY)) 
-            {
-                currentX--;
-            } 
-            else if (currentY < endYIndex && !checkOccupiedTile(currentX, currentY + 1)) 
-            {
-                currentY++;
-            } 
-            else if (currentY > endYIndex && !checkOccupiedTile(currentX, currentY - 1)) 
-            {
-                currentY--;
-            } 
-            else 
-            {
-                //System.out.println("Path blocked at (" + currentX + ", " + currentY + ").");
-                break;
-            }
-            path.add(new Coordinate(currentX * 50 - lowestX, currentY * 50 - lowestY));
-        }
-        return path;
-    }
-    
     private static boolean isInBounds(int x, int y) 
     {
-        return x >= 0 && y >= 0 && x < airGrid[0].length && y < airGrid.length;
+        return y >= 0 && y < airGrid.length && x >= 0 && x < airGrid[0].length;
     }
     
     private static boolean checkOccupiedTile(int x, int y) 

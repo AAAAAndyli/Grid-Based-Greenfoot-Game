@@ -78,9 +78,6 @@ public class Player extends Entity
         crosshair = getWorld().getObjects(Crosshair.class).get(0);
     }
     
-    
-    
-    
     public void act()
     {     
         super.act();
@@ -120,8 +117,6 @@ public class Player extends Entity
             die();
         }
     }
-    
-    
     
     public void dash()
     {
@@ -425,17 +420,19 @@ public class Player extends Entity
     
     public void collision()
     {
-        Tile rightTouching1 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 50);
-        Tile rightTouching2 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, -50);
+        Tile rightTouching1 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 20);
+        Tile rightTouching2 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, -20);
+        Tile rightTouching3 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 0);
         
-        boolean isRightTouching = rightTouching1 != null && rightTouching2 != null;
-        Tile rightTouching = rightTouching1 != null ? rightTouching1 : rightTouching2;
+        boolean isRightTouching = rightTouching1 != null || rightTouching2 != null || rightTouching3 != null;
+        Tile rightTouching = rightTouching1 != null ? rightTouching1 : rightTouching2 != null ? rightTouching2 : rightTouching3;
         
-        Tile leftTouching1 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 50);
-        Tile leftTouching2 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, -50);
+        Tile leftTouching1 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 20);
+        Tile leftTouching2 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, -20);
+        Tile leftTouching3 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 0);
         
-        boolean isLeftTouching = leftTouching1 != null && leftTouching2 != null;
-        Tile leftTouching = leftTouching1 != null ? leftTouching1 : leftTouching2;
+        boolean isLeftTouching = leftTouching1 != null || leftTouching2 != null || leftTouching3 != null;
+        Tile leftTouching = leftTouching1 != null ? leftTouching1 : leftTouching2 != null ? leftTouching2 : leftTouching3;
         
         Tile upLeftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + 5, -getImage().getHeight()/2);
         Tile upRightTouching = getOneTileAtOffset(getImage().getWidth()/2 - 5, -getImage().getHeight()/2);

@@ -15,6 +15,7 @@ public class Agast extends FlyingEnemy
         attackCooldown = 120;
         health = 20;
         speed = 10;
+        loadAnimationFrames("images/Enemies/agast");
     }
     /**
      * Act - do whatever the BurstTurret wants to do. This method is called whenever
@@ -22,6 +23,7 @@ public class Agast extends FlyingEnemy
      */
     public void act()
     {
+        idleIndex = animate(idleAnimR, idleIndex);
         if(player == null)
         {
             player = getWorldOfType(LevelWorld.class).getPlayer();
@@ -35,7 +37,6 @@ public class Agast extends FlyingEnemy
         {
             findPath();
         }
-        idleIndex = animate(idleAnimR, idleIndex);
         super.act();
     }
     public void attack()
@@ -96,7 +97,7 @@ public class Agast extends FlyingEnemy
      */
     public void loadAnimationFrames(String path)
     {
-        loadSingleAnimation(path, idleAnimL, "hover", true);
+        //System.out.println("Searching for images in: " + path + "/" + "hover");
         loadSingleAnimation(path, idleAnimR, "hover");
     }
 }
