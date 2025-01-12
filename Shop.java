@@ -9,14 +9,24 @@ public class Shop extends World
 {
     //source - https://www.greenfoot.org/topics/821
     private GreenfootImage image = new GreenfootImage("bg.png");
+    private GreenfootImage[] shopAnimation = new GreenfootImage[35];
+    
     private String sword = "sword";
+    
     private int money;
     private int price = 50;
+    private int imageIndex = 0;
+    
+    SimpleTimer animationTimer = new SimpleTimer();
     
     private boolean clicked;
     
     private Button item1 = new Button();
     private Button item2 = new Button();
+    private Button item3 = new Button();
+    private Button item4 = new Button();
+    private Button item5 = new Button();
+    private Button item6 = new Button();
     /**
      * Constructor for objects of class Shop.
      * 
@@ -25,11 +35,19 @@ public class Shop extends World
     {    
         super(1080, 720, 1); 
         Cursor shopCursor = new Cursor();
-        
+        for(int i = 0; i < shopAnimation.length; i++){
+            shopAnimation[i] = new GreenfootImage("images/ShopBg/shop" + i  + ".png");
+        }
+        setBackground(shopAnimation[0]);
         //addObject(shopCursor, getWidth()/2, getHeight()/2);
         
-        addObject(item1, 200, 300);
-        addObject(item2, 700, 300);
+        addObject(item1, 550, 150);
+        addObject(item2, 550, 300);
+        addObject(item3, 550, 450);
+        addObject(item4, 900, 150);
+        addObject(item5, 900, 300);
+        addObject(item6, 900, 450);
+        
         money = 200;
         
         setPaintOrder(Cursor.class, Button.class, Shop.class);
@@ -38,6 +56,7 @@ public class Shop extends World
     public void act()
     {
         purchase();
+        animate();
     }
     
     public void purchase()
@@ -50,8 +69,21 @@ public class Shop extends World
                 money -= price;
                 System.out.println(sword);
             }
-            System.out.println(money);
+            else
+            {
+                System.out.println("Cannot Purchase, money left: " + money);
+            }
         }
+    }
+    
+    public void animate()
+    {
+        if(animationTimer.millisElapsed() < 100){
+            return;
+        }
+        animationTimer.mark();
+        setBackground(shopAnimation[imageIndex]);
+        imageIndex = (imageIndex + 1) % shopAnimation.length;
     }
 }
 

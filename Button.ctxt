@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Button
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ buttons\ here.\r\n\ \r\n\ @author\ Darren\ T\ and\ Justin\ Y\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ buttons\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=
 comment1.target=Button()
-comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ buttons\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment1.text=\n\ Act\ -\ do\ whatever\ the\ buttons\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment2.params=sizeMulti
 comment2.target=Button(double)
 comment3.params=sizeMulti\ dest
@@ -12,7 +12,7 @@ comment4.params=
 comment4.target=void\ act()
 comment5.params=
 comment5.target=boolean\ checkButton()
-comment5.text=\r\n\ Method\ to\ check\ when\ a\ button\ has\ been\ pressed\r\n\ \r\n\ @return\ boolean,\ button\ was\ activated\ (pressed\ and\ let\ go\ within\ button\ hitbox)\r\n
+comment5.text=\n\ Method\ to\ check\ when\ a\ button\ has\ been\ pressed\n\ \n\ @return\ boolean,\ button\ was\ activated\ (pressed\ and\ let\ go\ within\ button\ hitbox)\n
 comment6.params=w
 comment6.target=void\ activateButton(greenfoot.World)
 numComments=7
