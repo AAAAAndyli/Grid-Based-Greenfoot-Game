@@ -11,7 +11,8 @@ public class ScrollingUI extends UI
 {
     int pastY;
     int currentY;
-    boolean letGo, actorFollow;
+    int yOffset;
+    boolean letGo, actorFollow, belowWorld;
     MouseInfo mouse;
     Class className;
     ArrayList<Class> classList = new ArrayList<Class>();
@@ -87,6 +88,17 @@ public class ScrollingUI extends UI
      */
     public void act()
     {
-        scroll();
+        if(getY() >= 0 && getY() <= getWorld().getHeight()){
+            scroll();
+            belowWorld = getY() >= getWorld().getHeight() ? true : false;
+        }
+        else{
+            yOffset = belowWorld ? -20 : 20;
+            setLocation(getX(), getY() + yOffset);
+            for(Class c : classList){
+                moveActors(yOffset, c);    
+            }
+            
+        }
     }
 }

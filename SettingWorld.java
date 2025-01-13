@@ -35,7 +35,7 @@ public class SettingWorld extends World
         classList.add(Button.class);
         classList.add(SuperTextBox.class);
         
-        ScrollingUI s = new ScrollingUI(0, 0, 400, 900, true, classList);
+        ScrollingUI s = new ScrollingUI(0, 0, 400, 1500, true, classList);
         addObject(s, 800, 350);
         
         int scrollRightEdge = s.getX() + (350 / 2);
