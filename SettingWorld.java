@@ -22,13 +22,13 @@ public class SettingWorld extends World
         super(1080, 720, 1, false); 
         setBackground("images/settingsPlaceholder.png");
         
-        Button keybind = new Button(0.5);
+        Button keybind = new Button("button1.png", 0.5);
         addObject(keybind, 380, 230);
         
-        Button audio = new Button(0.5);
+        Button audio = new Button("button1.png", 0.5);
         addObject(audio, 380, 305);
         
-        Button placeholder = new Button(0.5);
+        Button placeholder = new Button("button1.png", 0.5);
         addObject(placeholder, 380, 380);
         
         ArrayList<Class> classList = new ArrayList<Class>();
@@ -40,13 +40,13 @@ public class SettingWorld extends World
         
         int scrollRightEdge = s.getX() + (350 / 2);
         
-        Button scrollTest = new Button(0.5, "LOL");
+        Button scrollTest = new Button("button1.png", 0.5, "Jump Keybind");
         addObject(scrollTest, scrollRightEdge - 20, 210);
         
-        Button scrollTest2 = new Button(0.5, "LOL");
+        Button scrollTest2 = new Button("button1.png", 0.5, "Attack Keybind");
         addObject(scrollTest2, scrollRightEdge - 20, 310);
         
-        Button scrollTest3 = new Button(0.5, "LOL");
+        Button scrollTest3 = new Button("button1.png", 0.5, "Parry Keybind");
         addObject(scrollTest3, scrollRightEdge - 20, 410);
         
         setPaintOrder(Button.class, ScrollingUI.class);

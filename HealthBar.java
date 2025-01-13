@@ -35,13 +35,10 @@ public class HealthBar extends Actor
      */
     public void act()
     {
-        if(player.getHurt())
+        if(player.getHP()/3 < healthBlobCount && (double)player.getHP()/3.0 + 1 > 0)
         {
-            if(player.getHP()/3 < healthBlobCount && (double)player.getHP()/3.0 + 1 > 0)
-            {
-                healthPods.get(player.getHP()/3).lower(health - player.getHP());
-                health = player.getHP();
-            }
+            healthPods.get(player.getHP()/3).lower(health - player.getHP());
+            health = player.getHP();
         }
     }
     public void raise()

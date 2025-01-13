@@ -11,7 +11,7 @@ public class WalMare extends GroundedEnemy
 {
     //attack variables
     private int attackRange = 100;
-    private int attackCooldown = 60;
+    private int attackCooldown = 25;
     private Attack pierce = new Attack(attackRange + 50, 10, 1, 0 , attackRange/2 + 10, 0);
     private int attackFrame = 6; 
     private int attackXOffset = 27;
@@ -20,7 +20,7 @@ public class WalMare extends GroundedEnemy
     public WalMare()
     {
         super();
-        xSpeed = 5;
+        xSpeed = 8;
         health = 5;
         loadAnimationFrames("images/Enemies/walmare");
     }
@@ -37,18 +37,22 @@ public class WalMare extends GroundedEnemy
             {
                 Player player = (Player)getOneObjectAtOffset(playerDistance, 0, Player.class);
                 //System.out.println("PlayerPos: " + player.getPosition().getX() + ", EnemyPosition: " +  getPosition().getX() + ", AttackRange: " + attackRange + ", DifferenceInRange: " +  Math.abs(player.getPosition().getX() - getPosition().getX()));
-                if(Math.abs(player.getPosition().getX() - getPosition().getX()) > attackRange)
+                if(Math.abs(player.getPosition().getX() - getPosition().getX()) > attackRange && getOneTileAtOffset(getImage().getWidth()/2 * xDirection, 0) == null)
                 {
                     walkIndex = animate(xDirection==1 ? walkAnimR : walkAnimL, walkIndex);
                     moveTo(player.getPosition().getX() - xDirection * attackRange);
                     faceTowards(player.getPosition().getX());
                     followTimer = 0;
                 }
-                else
+                else if(player != null)
                 {
                     xVelocity = 0;
                     pierce.changeDirection(xDirection);
                     attack();
+                }
+                else
+                {
+                    xVelocity = 0;
                 }
             }
             else if(followTimer < 120)
@@ -63,7 +67,7 @@ public class WalMare extends GroundedEnemy
                     followTimer++;
                     walkIndex = animate(xDirection==1 ? walkAnimR : walkAnimL, walkIndex);
                     moveTo(xDirection * 50 + getPosition().getX());
-                    if(getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 25), 0) != null)
+                    if(getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 50), 0) != null)
                     {
                         followTimer = 2000;
                     }
@@ -96,6 +100,7 @@ public class WalMare extends GroundedEnemy
         {
             isAttacking = false;
             getPosition().setCoordinate(getPosition().getX() - attackXOffset * xDirection, getPosition().getY() - attackYOffset);
+            idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
             attackTimer = 0;
         }
         else if(attackCooldown == attackTimer)
