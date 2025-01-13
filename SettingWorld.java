@@ -40,13 +40,13 @@ public class SettingWorld extends World
         
         int scrollRightEdge = s.getX() + (350 / 2);
         
-        Button scrollTest = new Button(0.5, "LOL");
+        Button scrollTest = new Button(0.5, "Jump Keybind");
         addObject(scrollTest, scrollRightEdge - 20, 210);
         
-        Button scrollTest2 = new Button(0.5, "LOL");
+        Button scrollTest2 = new Button(0.5, "Attack Keybind");
         addObject(scrollTest2, scrollRightEdge - 20, 310);
         
-        Button scrollTest3 = new Button(0.5, "LOL");
+        Button scrollTest3 = new Button(0.5, "Parry Keybind");
         addObject(scrollTest3, scrollRightEdge - 20, 410);
         
         setPaintOrder(Button.class, ScrollingUI.class);

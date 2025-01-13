@@ -9,48 +9,55 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Button extends UI
 {
     private boolean isPressed = false;
-    private GreenfootImage image = new GreenfootImage("button1.png");
+    private GreenfootImage image;
     private int count = 0;
     private int width, height;
     private boolean added = false;
     
     private World destination;
     private SuperTextBox textBox;
+    private String text;
     
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Button()
+    public Button(String file)
     {
-        this(1);
+        this(file, 1);
     }
     
-    public Button(double sizeMulti)
+    public Button(String file, double sizeMulti)
     {
+        image = new GreenfootImage(file);
         setImage(image);
         width = (int)(getImage().getWidth() * sizeMulti);
         height = (int)(getImage().getHeight() * sizeMulti);
         getImage().scale(width, height);
     }
     
-    public Button(double sizeMulti, World dest)
+    public Button(String file, double sizeMulti, World dest)
     {
-        this(sizeMulti);
+        this(file, sizeMulti);
         destination = dest;
     }
     
-    public Button(double sizeMulti, String text)
+    public Button(String file, double sizeMulti, String txt)
     {
-        this(sizeMulti);
-        textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 100);
-        
+        this(file, sizeMulti);
+        text = txt;
+        textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
+    }
+    
+    public void addedToWorld(SettingWorld w){
+        //textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 100);
+        //w.addObject(textBox, getX() - 100, getY());
     }
     
     public void act()
     {
-        if(added == false && textBox != null){
-            getWorld().addObject(textBox, getX(), getY());
+        if(!added && textBox != null){
+            getWorld().addObject(textBox, getX() - 250, getY());
             added = true;
         }
         checkButton();
