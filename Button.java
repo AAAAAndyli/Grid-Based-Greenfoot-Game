@@ -12,11 +12,8 @@ public class Button extends UI
     private GreenfootImage image;
     private int count = 0;
     private int width, height;
-    private boolean added = false;
     
     private World destination;
-    private SuperTextBox textBox;
-    private String text;
     
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
@@ -42,24 +39,10 @@ public class Button extends UI
         destination = dest;
     }
     
-    public Button(String file, double sizeMulti, String txt)
-    {
-        this(file, sizeMulti);
-        text = txt;
-        textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
-    }
     
-    public void addedToWorld(SettingWorld w){
-        //textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 100);
-        //w.addObject(textBox, getX() - 100, getY());
-    }
     
     public void act()
     {
-        if(!added && textBox != null){
-            getWorld().addObject(textBox, getX() - 250, getY());
-            added = true;
-        }
         checkButton();
     }
     

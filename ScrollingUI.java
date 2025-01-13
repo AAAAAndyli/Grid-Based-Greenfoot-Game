@@ -45,7 +45,7 @@ public class ScrollingUI extends UI
                 pastY = mouse.getY();
                 letGo = false;
             } //release = stop scrolling
-            if(Greenfoot.mouseClicked(null)){
+            if(Greenfoot.mouseClicked(null) || Greenfoot.mouseClicked(this)){
                 letGo = true;
             } // move up or down based on reference point
             if(!letGo){
@@ -93,7 +93,7 @@ public class ScrollingUI extends UI
             belowWorld = getY() >= getWorld().getHeight() ? true : false;
         }
         else{
-            yOffset = belowWorld ? -20 : 20;
+            yOffset = belowWorld ? -10 : 10;
             setLocation(getX(), getY() + yOffset);
             for(Class c : classList){
                 moveActors(yOffset, c);    
