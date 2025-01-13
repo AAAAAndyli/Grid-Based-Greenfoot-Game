@@ -29,7 +29,7 @@ public class Button extends UI
     
     public Button(String file, double sizeMulti)
     {
-        image = new GreenfootImage(file);
+        image = new GreenfootImage("images/" + file);
         setImage(image);
         width = (int)(getImage().getWidth() * sizeMulti);
         height = (int)(getImage().getHeight() * sizeMulti);

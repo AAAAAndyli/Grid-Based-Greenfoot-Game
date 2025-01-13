@@ -22,7 +22,7 @@ public class SettingWorld extends World
         super(1080, 720, 1, false); 
         setBackground("images/settingsPlaceholder.png");
         
-        Button keybind = new Button(0.5);
+        Button keybind = new Button("button1.png", 0.5);
         addObject(keybind, 380, 230);
         
         Button audio = new Button(0.5);
