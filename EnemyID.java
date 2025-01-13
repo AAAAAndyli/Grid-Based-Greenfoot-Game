@@ -24,6 +24,8 @@ public class EnemyID
     {
         enemyHash.put(0, new WalMare());
         enemyHash.put(1, new Agast());
+        enemyHash.put(2, new Trogun());
+        enemyHash.put(3, new Reaper());
         int value = 0;
         for(HashMap.Entry<Integer, Enemy> entry : enemyHash.entrySet())
         {

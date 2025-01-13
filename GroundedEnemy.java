@@ -128,6 +128,12 @@ public abstract class GroundedEnemy extends Enemy
         }
     }
     
+    public boolean checkFloorAhead()
+    {
+        Tile predictedMidTile = getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 10), getImage().getHeight()/2 + 10);
+        return predictedMidTile != null;
+    }
+    
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
         Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);

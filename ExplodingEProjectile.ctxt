@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=ExplodingEProjectile
+comment0.text=\n\ Write\ a\ description\ of\ class\ ExplodingEProjectile\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=target\ speed\ damage\ spawner\ sprite
+comment1.target=ExplodingEProjectile(Coordinate,\ double,\ int,\ ScrollingActor,\ java.lang.String)
+comment2.params=world
+comment2.target=void\ addedToWorld(greenfoot.World)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ deleteConditions()
+comment5.params=
+comment5.target=void\ collide()
+comment6.params=mouseX\ mouseY
+comment6.target=void\ parried(int,\ int)
+numComments=7
