@@ -11,18 +11,17 @@ public class Byte extends ScrollingActor
 {
     private double xVelocity = 0;
     private int xDirection = 0;
-    
     private double yVelocity = 0;
     private double yGravity = 1;
-    
     private int coyoteTimer = 0;
-
     private final double maximumYVelocity = 40;
-
     private boolean touchingFloor;
     private boolean isCollidingLeft, isCollidingRight, isCollidingUp;
     
     private GreenfootImage image;
+    
+    private Wallet wallet;
+    private boolean started, collected;
     
     public Byte(int x, int y) {
         super(x,y);
@@ -36,7 +35,7 @@ public class Byte extends ScrollingActor
         setImage(image);
         getImage().scale(40,35);
         
-        yVelocity = -( Greenfoot.getRandomNumber(6) + 3 );
+        yVelocity = -( Greenfoot.getRandomNumber(6) + 6 );
         
         int randomXDirection = Greenfoot.getRandomNumber(2);
         if (randomXDirection == 0) {
@@ -46,19 +45,33 @@ public class Byte extends ScrollingActor
             xDirection = -1;
             xVelocity = -( Greenfoot.getRandomNumber(4) + 3 );
         }
+        
+        started = true;
+        collected = false;
     }
 
     public void act()
     {
         super.act();
+        if (started) {
+            ArrayList<Wallet> getWallet = (ArrayList<Wallet>)getWorld().getObjects(Wallet.class);
+            if (getWallet.size() != 0) {
+                wallet = getWallet.get(0);
+            }
+            started = false ;
+        }   
         movement();
         pickUp();
     }
     
     public void pickUp() {
         ArrayList<Player> touchingPlayer = (ArrayList<Player>)getIntersectingObjects(Player.class);
-        if (touchingPlayer.size() == 1) {
-            //wallet.addByte(1);
+        if (touchingPlayer.size() == 1 && !collected) {
+            collected = true;
+            
+            
+            
+            wallet.changeAmount(1);
             getWorld().removeObject(this);
         }
     }

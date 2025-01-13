@@ -35,6 +35,11 @@ public abstract class Projectile extends ScrollingActor
         globalPosition.setCoordinate(globalPosition.getX()+(int)Math.round(speed * Math.cos(Math.toRadians(getRotation()))), globalPosition.getY()+(int)Math.round(speed * Math.sin(Math.toRadians(getRotation()))));
         collide();
         //move(speed);
+        deleteConditions();
+    }
+    
+    public void deleteConditions()
+    {
         if(distance > MAX_DISTANCE)
         {
             getWorld().removeObject(this);
@@ -54,13 +59,5 @@ public abstract class Projectile extends ScrollingActor
     public void changeAim(Coordinate target)
     {
         turnTowards(target.getX(), target.getY());
-    }
-    public void autoAim()
-    {
-        
-    }
-    public void homing()
-    {
-        
     }
 }
