@@ -112,7 +112,7 @@ public abstract class Enemy extends Entity
     
     public void useProjectile(int projectileType, int projectileSpeed, Coordinate target)
     {
-        getWorld().addObject(new EProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
+        getWorld().addObject(new ExplodingEProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
     }
     
     public void aiming(int projectileSpeed)

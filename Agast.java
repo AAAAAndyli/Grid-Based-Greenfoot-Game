@@ -76,7 +76,6 @@ public class Agast extends FlyingEnemy
             for(Coordinate coords : TheGrid.aStarfindPath(getPosition(), hoverCoordinate))
             {
                 path.add(coords);
-                getWorld().addObject(new test(true), coords.getX(), coords.getY());
             }
             if(path.size() == 0)
             {
@@ -84,7 +83,6 @@ public class Agast extends FlyingEnemy
                 for(Coordinate coords : TheGrid.aStarfindPath(getPosition(), hoverCoordinate))
                 {
                     path.add(coords);
-                    getWorld().addObject(new test(false), coords.getX(), coords.getY());
                 }
             }
         }

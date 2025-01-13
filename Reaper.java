@@ -58,6 +58,7 @@ public class Reaper extends FlyingEnemy
     {
         if(attackTimer > attackCooldown + attackLength)
         {
+            idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
             isAttacking = false;
             getPosition().setCoordinate(getPosition().getX() - attackXOffset * xDirection, getPosition().getY() - attackYOffset);
             attackTimer = 0;
@@ -104,7 +105,6 @@ public class Reaper extends FlyingEnemy
             for(Coordinate coords : TheGrid.aStarfindPath(getPosition(),playerOffset))
             {
                 path.add(coords);
-                getWorld().addObject(new test(true), coords.getX(), coords.getY());
             }
         }
         //path = TheGrid.findPathAir(this.getPosition(), player.getPosition());
