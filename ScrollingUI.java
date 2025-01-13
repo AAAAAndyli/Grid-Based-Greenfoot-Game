@@ -14,17 +14,20 @@ public class ScrollingUI extends UI
     boolean letGo, actorFollow;
     MouseInfo mouse;
     Class className;
+    ArrayList<Class> classList = new ArrayList<Class>();
     
-    public ScrollingUI(int x, int y, int width, int height, boolean follow, Class classFollowName){
+    public ScrollingUI(int x, int y, int width, int height, boolean follow, ArrayList<Class> classFollowList){
         //DEBUG get rid of this later, rectangle placeholder
         GreenfootImage dimensions = new GreenfootImage(width, height);
         setImage(dimensions);
         dimensions.drawRect(x, y, width - 1, height - 1);
-        dimensions.fillRect(x, y, width - 1, height - 1);
+        //dimensions.fillRect(x, y, width - 1, height - 1);
         
         actorFollow = follow;
         if(actorFollow){
-            className = classFollowName;    
+            for(Class c : classFollowList){
+                classList.add(c);
+            }  
         }
         
         letGo = true;
@@ -48,7 +51,9 @@ public class ScrollingUI extends UI
                 setLocation(getX(), getY() + mouse.getY() - pastY);
                 //only if ScrollingUI specified to move an actor
                 if(actorFollow){
-                    moveActors(mouse.getY() - pastY, className);    
+                    for(Class c : classList){
+                        moveActors(mouse.getY() - pastY, c);    
+                    }
                 }
                 //update reference point for relative scrolling 
                 //(moves down 10 units if mouse moves 10 units), wont 
