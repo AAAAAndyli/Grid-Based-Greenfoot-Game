@@ -109,7 +109,7 @@ public class LevelWorld extends ScrollingWorld
                             camera.addFollowing(crosshair);
                             camera.setFollowing(player);
                             addObject(new HealthBar(player), 100, 100);
-                            addObject(new Wallet(), 100, 200);
+                            addObject(new Wallet(), 120, 170);
                             break;
                         case "LaserTile":
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
