@@ -61,7 +61,6 @@ public class Button extends UI
             added = true;
         }
         checkButton();
-        
     }
     
     /**

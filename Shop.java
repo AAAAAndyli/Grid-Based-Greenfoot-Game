@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Shop extends World
 {
     //source - https://www.greenfoot.org/topics/821
-    private GreenfootImage image = new GreenfootImage("bg.png");
     private GreenfootImage[] shopAnimation = new GreenfootImage[35];
     
     private String sword = "sword";
@@ -21,12 +20,10 @@ public class Shop extends World
     
     private boolean clicked;
     
-    private Button item1 = new Button();
-    private Button item2 = new Button();
-    private Button item3 = new Button();
-    private Button item4 = new Button();
-    private Button item5 = new Button();
-    private Button item6 = new Button();
+    private Button item1 = new Button("purchaseButton.png");
+    private Button item2 = new Button("purchaseButton.png");
+    private Button item3 = new Button("purchaseButton.png");
+    private Button item4 = new Button("purchaseButton.png");
     /**
      * Constructor for objects of class Shop.
      * 
@@ -42,11 +39,9 @@ public class Shop extends World
         //addObject(shopCursor, getWidth()/2, getHeight()/2);
         
         addObject(item1, 550, 150);
-        addObject(item2, 550, 300);
-        addObject(item3, 550, 450);
-        addObject(item4, 900, 150);
-        addObject(item5, 900, 300);
-        addObject(item6, 900, 450);
+        addObject(item2, 550, 450);
+        addObject(item3, 900, 150);
+        addObject(item4, 900, 450);
         
         money = 200;
         
