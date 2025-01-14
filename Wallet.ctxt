@@ -2,9 +2,13 @@
 comment0.target=Wallet
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Wallet\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
-comment1.target=void\ Wallet()
+comment1.target=Wallet()
 comment2.params=
 comment2.target=void\ act()
-comment3.params=x
-comment3.target=void\ changeAmount(int)
-numComments=4
+comment3.params=
+comment3.target=int\ getAmount()
+comment4.params=x
+comment4.target=void\ setAmount(int)
+comment5.params=x
+comment5.target=void\ changeAmount(int)
+numComments=6

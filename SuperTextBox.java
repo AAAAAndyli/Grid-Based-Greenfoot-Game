@@ -123,7 +123,8 @@ public class SuperTextBox extends Actor
         this.width = width;
         fontSize = font.getSize();
 
-        // Spacing is a factor of font size - Font sizes typically describe the max height of 
+        // Spacing is a factor of 
+        //size - Font sizes typically describe the max height of 
         // the characters in that font. I.e. 24pt font is 24 pixels tall
         vSpace = fontSize / 4; //6
         this.padding = (int)(fontSize / 3.0); // 8

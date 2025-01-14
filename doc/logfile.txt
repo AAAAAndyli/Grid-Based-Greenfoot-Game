@@ -20,18 +20,22 @@ C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\doc
 UTF-8
 -charset
 UTF-8
-C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\Byte.java
+C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\SuperTextBox.java
 <---- end of javadoc command ---->
-Loading source file C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\Byte.java...
-Constructing Javadoc information...
-warning: unknown enum constant Tag.Any
-  reason: class file for threadchecker.Tag not found
-warning: unknown enum constant Tag.Any
-warning: unknown enum constant Tag.Any
-warning: unknown enum constant Tag.Any
-Standard Doclet version 21.0.4+7-LTS
-Building tree for all the packages and classes...
-Generating C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\doc\Byte.html...
-Generating C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\doc\package-summary.html...
-Generating C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\doc\index.html...
-4 warnings
+Loading source file C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\SuperTextBox.java...
+C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\SuperTextBox.java:127: error: not a statement
+        size - Font sizes typically describe the max height of 
+             ^
+C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\SuperTextBox.java:127: error: ';' expected
+        size - Font sizes typically describe the max height of 
+                   ^
+C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\SuperTextBox.java:127: error: ';' expected
+        size - Font sizes typically describe the max height of 
+                                   ^
+C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\SuperTextBox.java:127: error: ';' expected
+        size - Font sizes typically describe the max height of 
+                                                ^
+C:\Users\mrpap\OneDrive\Documents\GitHub\Grid-Based-Greenfoot-Game\SuperTextBox.java:127: error: ';' expected
+        size - Font sizes typically describe the max height of 
+                                                           ^
+5 errors
