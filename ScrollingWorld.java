@@ -25,6 +25,7 @@ public abstract class ScrollingWorld extends World
     }
     public void act()
     {
+        
         for(ScrollingActor actor : getObjects(ScrollingActor.class))
         {
             actor.changeScrollPosition(scrollX, scrollY);
