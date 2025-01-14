@@ -87,7 +87,7 @@ public class Player extends Entity
             mouseX = mouse.getX();
             mouseY = mouse.getY();
         }
-        if(invincibilityFrames == 2)
+        if(invincibilityFrames == 1)
         {
             invincibilityFrames++;
             isHurt = false;
@@ -174,7 +174,7 @@ public class Player extends Entity
             if(Greenfoot.mouseClicked(null))
             {
                 isAiming = false;
-                getWorld().addObject(new PProjectile(mouseTarget, 15, this), getX(), getY());
+                getWorld().addObject(new BombPProjectile(mouseTarget, 25, this), getX(), getY());
             }
         }
         else
@@ -516,8 +516,6 @@ public class Player extends Entity
             
             parryTimer = 10;
         }
-        
-     
     }
     
     public void heal(int regen)
@@ -530,6 +528,12 @@ public class Player extends Entity
         isHeal = true;
         getWorld().getObjects(HealthBar.class).get(0).raise();
     }
+    public void launch(int vertStrength)
+    {
+        touchingFloor = false;
+        yVelocity -= vertStrength;
+        globalPosition.setCoordinate(globalPosition.getX(), globalPosition.getY() + (int)yVelocity);
+    }
     
     public void hurt(int damage)
     {
@@ -541,7 +545,6 @@ public class Player extends Entity
             canBeHurt = false;
             invincibilityFrames = 1;
         }
-        //Greenfoot.delay(10);
     }
     
     private int upperSpriteDirection;

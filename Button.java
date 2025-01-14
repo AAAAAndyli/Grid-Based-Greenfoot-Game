@@ -9,38 +9,31 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Button extends UI
 {
     private boolean isPressed = false;
-    private GreenfootImage image = new GreenfootImage("button1.png");
+    private GreenfootImage image;
     private int count = 0;
     private int width, height;
-    private World destination;
     
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Button()
+    public Button(String file)
     {
-        this(1);
+        this(file, 1);
     }
     
-    public Button(double sizeMulti)
+    public Button(String file, double sizeMulti)
     {
+        image = new GreenfootImage("images/" + file);
         setImage(image);
         width = (int)(getImage().getWidth() * sizeMulti);
         height = (int)(getImage().getHeight() * sizeMulti);
         getImage().scale(width, height);
     }
     
-    public Button(double sizeMulti, World dest)
-    {
-        this(sizeMulti);
-        destination = dest;
-    }
-    
     public void act()
     {
         checkButton();
-        
     }
     
     /**
@@ -56,10 +49,6 @@ public class Button extends UI
         } //if press and let go ON BUTTON (activate button)
         else if(Greenfoot.mouseClicked(this) && isPressed){
             isPressed = false;
-            //for world changing buttons
-            if(destination != null){
-                activateButton(destination);
-            }
             //has been let go and activated
             return true;
         } //if press and let go OFF BUTTON (cancel button)
@@ -77,9 +66,5 @@ public class Button extends UI
         }
         //any unusual edge cases like issues with mouse
         return false;
-    }
-    
-    public void activateButton(World w){
-        Greenfoot.setWorld(w);
     }
 }

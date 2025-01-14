@@ -19,9 +19,9 @@ public class MenuWorld extends World
         super(1080, 720, 1); 
         setBackground("images/menuPlaceholder.png");
         
-        Button play = new Button(1.1, (World)new LevelWorld());
+        Button play = new WorldButton("button1.png", 1.1, (World)new LevelWorld());
         addObject(play, 900, 200);
-        Button settings = new Button(1.1, (World)new SettingWorld());
+        Button settings = new WorldButton("button1.png", 1.1, (World)new SettingWorld());
         addObject(settings, 900, 400);
         
         GreenfootImage test = new GreenfootImage(100, 100);

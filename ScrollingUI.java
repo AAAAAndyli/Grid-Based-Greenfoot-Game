@@ -11,20 +11,24 @@ public class ScrollingUI extends UI
 {
     int pastY;
     int currentY;
-    boolean letGo, actorFollow;
+    int yOffset;
+    boolean letGo, actorFollow, belowWorld;
     MouseInfo mouse;
     Class className;
+    ArrayList<Class> classList = new ArrayList<Class>();
     
-    public ScrollingUI(int x, int y, int width, int height, boolean follow, Class classFollowName){
+    public ScrollingUI(int x, int y, int width, int height, boolean follow, ArrayList<Class> classFollowList){
         //DEBUG get rid of this later, rectangle placeholder
         GreenfootImage dimensions = new GreenfootImage(width, height);
         setImage(dimensions);
         dimensions.drawRect(x, y, width - 1, height - 1);
-        dimensions.fillRect(x, y, width - 1, height - 1);
+        //dimensions.fillRect(x, y, width - 1, height - 1);
         
         actorFollow = follow;
         if(actorFollow){
-            className = classFollowName;    
+            for(Class c : classFollowList){
+                classList.add(c);
+            }  
         }
         
         letGo = true;
@@ -41,14 +45,16 @@ public class ScrollingUI extends UI
                 pastY = mouse.getY();
                 letGo = false;
             } //release = stop scrolling
-            if(Greenfoot.mouseClicked(null)){
+            if(Greenfoot.mouseClicked(null) || Greenfoot.mouseClicked(this)){
                 letGo = true;
             } // move up or down based on reference point
             if(!letGo){
                 setLocation(getX(), getY() + mouse.getY() - pastY);
                 //only if ScrollingUI specified to move an actor
                 if(actorFollow){
-                    moveActors(mouse.getY() - pastY, className);    
+                    for(Class c : classList){
+                        moveActors(mouse.getY() - pastY, c);    
+                    }
                 }
                 //update reference point for relative scrolling 
                 //(moves down 10 units if mouse moves 10 units), wont 
@@ -82,6 +88,17 @@ public class ScrollingUI extends UI
      */
     public void act()
     {
-        scroll();
+        if(getY() >= 0 && getY() <= getWorld().getHeight()){
+            scroll();
+            belowWorld = getY() >= getWorld().getHeight() ? true : false;
+        }
+        else{
+            yOffset = belowWorld ? -10 : 10;
+            setLocation(getX(), getY() + yOffset);
+            for(Class c : classList){
+                moveActors(yOffset, c);    
+            }
+            
+        }
     }
 }

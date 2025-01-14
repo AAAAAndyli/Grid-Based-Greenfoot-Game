@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=WorldButton
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ WorldButton\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=file\ sizeMulti\ dest
+comment1.target=WorldButton(java.lang.String,\ double,\ greenfoot.World)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ WorldButton\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment3.params=w
+comment3.target=void\ activateButton(greenfoot.World)
+numComments=4

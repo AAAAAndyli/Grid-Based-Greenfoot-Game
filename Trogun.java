@@ -49,7 +49,7 @@ public class Trogun extends GroundedEnemy
             }
             else if(followTimer < 120)
             {
-                Player player = (Player)getOneObjectAtOffset(playerDistance, 0, Player.class);
+                Player player = (Player)getOneObjectAtOffset(-playerDistance, 0, Player.class);
                 if(player != null)
                 {
                     faceTowards(player.getPosition().getX());
@@ -59,7 +59,7 @@ public class Trogun extends GroundedEnemy
                     followTimer++;
                     walkIndex = animate(xDirection==1 ? walkAnimR : walkAnimL, walkIndex);
                     moveTo(xDirection * 50 + getPosition().getX());
-                    if(getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 25), 0) != null)
+                    if(getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 50), 0) != null)
                     {
                         followTimer = 2000;
                     }

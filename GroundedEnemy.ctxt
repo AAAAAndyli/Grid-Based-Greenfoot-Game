@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=GroundedEnemy
-comment0.text=\n\ Write\ a\ description\ of\ class\ MeleeEnemy\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ MeleeEnemy\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\n\ Act\ -\ do\ whatever\ the\ MeleeEnemy\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ MeleeEnemy\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment2.params=
 comment2.target=boolean\ checkForPlayer()
 comment3.params=xPositionToMoveTo
@@ -12,8 +12,10 @@ comment4.params=
 comment4.target=boolean\ checkFloor()
 comment5.params=
 comment5.target=void\ predictFloor()
-comment6.params=xOffset\ yOffset
-comment6.target=Tile\ getOneTileAtOffset(int,\ int)
-comment7.params=
-comment7.target=void\ applyGravity()
-numComments=8
+comment6.params=
+comment6.target=boolean\ checkFloorAhead()
+comment7.params=xOffset\ yOffset
+comment7.target=Tile\ getOneTileAtOffset(int,\ int)
+comment8.params=
+comment8.target=void\ applyGravity()
+numComments=9

@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Shop extends World
 {
     //source - https://www.greenfoot.org/topics/821
-    private GreenfootImage image = new GreenfootImage("bg.png");
     private GreenfootImage[] shopAnimation = new GreenfootImage[35];
     
     private String sword = "sword";
@@ -19,14 +18,14 @@ public class Shop extends World
     
     SimpleTimer animationTimer = new SimpleTimer();
     
-    private boolean clicked;
+    private boolean clickedOne;
     
-    private Button item1 = new Button();
-    private Button item2 = new Button();
-    private Button item3 = new Button();
-    private Button item4 = new Button();
-    private Button item5 = new Button();
-    private Button item6 = new Button();
+    private Button item1 = new Button("purchaseButton.png");
+    private Button item2 = new Button("purchaseButton.png");
+    private Button item3 = new Button("purchaseButton.png");
+    private Button item4 = new Button("purchaseButton.png");
+    private Button item5 = new Button("purchaseButton.png");
+    private Button item6 = new Button("purchaseButton.png");
     /**
      * Constructor for objects of class Shop.
      * 
@@ -41,12 +40,12 @@ public class Shop extends World
         setBackground(shopAnimation[0]);
         //addObject(shopCursor, getWidth()/2, getHeight()/2);
         
-        addObject(item1, 550, 150);
-        addObject(item2, 550, 300);
-        addObject(item3, 550, 450);
-        addObject(item4, 900, 150);
-        addObject(item5, 900, 300);
-        addObject(item6, 900, 450);
+        addObject(item1, 250, 300);
+        addObject(item2, 250, 600);
+        addObject(item3, 600, 300);
+        addObject(item4, 600, 600);
+        addObject(item5, 950, 300);
+        addObject(item6, 950, 600);
         
         money = 200;
         
@@ -61,8 +60,8 @@ public class Shop extends World
     
     public void purchase()
     {
-        clicked = item1.checkButton();
-        if(clicked)
+        clickedOne = item1.checkButton();
+        if(clickedOne)
         {
             if(money >= price)
             {
