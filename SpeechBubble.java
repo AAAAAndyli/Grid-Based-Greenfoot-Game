@@ -2,22 +2,17 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot, MouseInfo)
 import java.util.List;
 
 public class SpeechBubble extends Actor {
-    private int duration; 
+    
     private TutorialAvatar tutorialAvatar; 
 
-    public SpeechBubble(String text, int duration, TutorialAvatar tutorialAvatar) {
-        this.duration = duration;
+    public SpeechBubble(String text, TutorialAvatar tutorialAvatar) {
+        
         this.tutorialAvatar = tutorialAvatar;
         updateImage(text);
     }
 
     public void act() {
         
-        if (duration > 0) {
-            duration--;
-        } else {
-            getWorld().removeObject(this);
-        }
 
         
         if (Greenfoot.mouseClicked(this)) {
@@ -25,8 +20,7 @@ public class SpeechBubble extends Actor {
         }
     }
 
-    public void updateText(String text, int duration) {
-        this.duration = duration; 
+    public void updateText(String text) {
         updateImage(text); 
     }
 
