@@ -23,6 +23,7 @@ dependency10.from=TutorialWorld
 dependency10.to=HealthBar
 dependency10.type=UsesDependency
 dependency100.from=Player
+<<<<<<< Updated upstream
 dependency100.to=BombPProjectile
 dependency100.type=UsesDependency
 dependency101.from=Player
@@ -42,6 +43,27 @@ dependency105.to=Player
 dependency105.type=UsesDependency
 dependency106.from=Explosion
 dependency106.to=Camera
+=======
+dependency100.to=MissilePProjectile
+dependency100.type=UsesDependency
+dependency101.from=Player
+dependency101.to=Camera
+dependency101.type=UsesDependency
+dependency102.from=Player
+dependency102.to=HealthBar
+dependency102.type=UsesDependency
+dependency103.from=Explosion
+dependency103.to=Entity
+dependency103.type=UsesDependency
+dependency104.from=Explosion
+dependency104.to=Player
+dependency104.type=UsesDependency
+dependency105.from=Explosion
+dependency105.to=Camera
+dependency105.type=UsesDependency
+dependency106.from=Byte
+dependency106.to=SimpleTimer
+>>>>>>> Stashed changes
 dependency106.type=UsesDependency
 dependency107.from=Byte
 dependency107.to=Wallet
@@ -274,6 +296,7 @@ dependency175.type=UsesDependency
 dependency176.from=Wallet
 dependency176.to=SuperTextBox
 dependency176.type=UsesDependency
+<<<<<<< Updated upstream
 dependency177.from=TheGrid
 dependency177.to=Tile
 dependency177.type=UsesDependency
@@ -282,11 +305,22 @@ dependency178.to=Coordinate
 dependency178.type=UsesDependency
 dependency179.from=EnemyID
 dependency179.to=Enemy
+=======
+dependency177.from=Wallet
+dependency177.to=SimpleTimer
+dependency177.type=UsesDependency
+dependency178.from=TheGrid
+dependency178.to=Tile
+dependency178.type=UsesDependency
+dependency179.from=TheGrid
+dependency179.to=Coordinate
+>>>>>>> Stashed changes
 dependency179.type=UsesDependency
 dependency18.from=TutorialWorld
 dependency18.to=HealthBlob
 dependency18.type=UsesDependency
 dependency180.from=EnemyID
+<<<<<<< Updated upstream
 dependency180.to=WalMare
 dependency180.type=UsesDependency
 dependency181.from=EnemyID
@@ -301,6 +335,25 @@ dependency183.type=UsesDependency
 dependency184.from=TriggerCollection
 dependency184.to=Trigger
 dependency184.type=UsesDependency
+=======
+dependency180.to=Enemy
+dependency180.type=UsesDependency
+dependency181.from=EnemyID
+dependency181.to=WalMare
+dependency181.type=UsesDependency
+dependency182.from=EnemyID
+dependency182.to=Agast
+dependency182.type=UsesDependency
+dependency183.from=EnemyID
+dependency183.to=Trogun
+dependency183.type=UsesDependency
+dependency184.from=EnemyID
+dependency184.to=Reaper
+dependency184.type=UsesDependency
+dependency185.from=TriggerCollection
+dependency185.to=Trigger
+dependency185.type=UsesDependency
+>>>>>>> Stashed changes
 dependency19.from=TutorialWorld
 dependency19.to=HealthPod
 dependency19.type=UsesDependency
@@ -482,6 +535,7 @@ dependency72.from=Enemy
 dependency72.to=Player
 dependency72.type=UsesDependency
 dependency73.from=Enemy
+<<<<<<< Updated upstream
 dependency73.to=AfterImage
 dependency73.type=UsesDependency
 dependency74.from=Enemy
@@ -501,11 +555,33 @@ dependency78.to=Player
 dependency78.type=UsesDependency
 dependency79.from=FlyingEnemy
 dependency79.to=Coordinate
+=======
+dependency73.to=EnemyHurtBox
+dependency73.type=UsesDependency
+dependency74.from=GroundedEnemy
+dependency74.to=Tile
+dependency74.type=UsesDependency
+dependency75.from=GroundedEnemy
+dependency75.to=Player
+dependency75.type=UsesDependency
+dependency76.from=Trogun
+dependency76.to=Player
+dependency76.type=UsesDependency
+dependency77.from=WalMare
+dependency77.to=Player
+dependency77.type=UsesDependency
+dependency78.from=FlyingEnemy
+dependency78.to=Coordinate
+dependency78.type=UsesDependency
+dependency79.from=FlyingEnemy
+dependency79.to=Player
+>>>>>>> Stashed changes
 dependency79.type=UsesDependency
 dependency8.from=TutorialWorld
 dependency8.to=Shield
 dependency8.type=UsesDependency
 dependency80.from=FlyingEnemy
+<<<<<<< Updated upstream
 dependency80.to=Player
 dependency80.type=UsesDependency
 dependency81.from=FlyingEnemy
@@ -534,10 +610,41 @@ dependency88.to=Coordinate
 dependency88.type=UsesDependency
 dependency89.from=Reaper
 dependency89.to=LevelWorld
+=======
+dependency80.to=test
+dependency80.type=UsesDependency
+dependency81.from=FlyingEnemy
+dependency81.to=TheGrid
+dependency81.type=UsesDependency
+dependency82.from=Agast
+dependency82.to=Player
+dependency82.type=UsesDependency
+dependency83.from=Agast
+dependency83.to=Coordinate
+dependency83.type=UsesDependency
+dependency84.from=Agast
+dependency84.to=LevelWorld
+dependency84.type=UsesDependency
+dependency85.from=Agast
+dependency85.to=TheGrid
+dependency85.type=UsesDependency
+dependency86.from=Reaper
+dependency86.to=Player
+dependency86.type=UsesDependency
+dependency87.from=Reaper
+dependency87.to=Coordinate
+dependency87.type=UsesDependency
+dependency88.from=Reaper
+dependency88.to=LevelWorld
+dependency88.type=UsesDependency
+dependency89.from=Reaper
+dependency89.to=TheGrid
+>>>>>>> Stashed changes
 dependency89.type=UsesDependency
 dependency9.from=TutorialWorld
 dependency9.to=FPS
 dependency9.type=UsesDependency
+<<<<<<< Updated upstream
 dependency90.from=Reaper
 dependency90.to=TheGrid
 dependency90.type=UsesDependency
@@ -574,6 +681,44 @@ editor.fx.0.x=0
 editor.fx.0.y=25
 height=806
 package.numDependencies=184
+=======
+dependency90.from=Player
+dependency90.to=Laser
+dependency90.type=UsesDependency
+dependency91.from=Player
+dependency91.to=Coordinate
+dependency91.type=UsesDependency
+dependency92.from=Player
+dependency92.to=Crosshair
+dependency92.type=UsesDependency
+dependency93.from=Player
+dependency93.to=Shield
+dependency93.type=UsesDependency
+dependency94.from=Player
+dependency94.to=LowerPlayerSprites
+dependency94.type=UsesDependency
+dependency95.from=Player
+dependency95.to=UpperPlayerSprites
+dependency95.type=UsesDependency
+dependency96.from=Player
+dependency96.to=Tile
+dependency96.type=UsesDependency
+dependency97.from=Player
+dependency97.to=EProjectile
+dependency97.type=UsesDependency
+dependency98.from=Player
+dependency98.to=PProjectile
+dependency98.type=UsesDependency
+dependency99.from=Player
+dependency99.to=BombPProjectile
+dependency99.type=UsesDependency
+editor.fx.0.height=736
+editor.fx.0.width=813
+editor.fx.0.x=324
+editor.fx.0.y=42
+height=880
+package.numDependencies=185
+>>>>>>> Stashed changes
 package.numTargets=75
 project.charset=UTF-8
 publish.hasSource=false
@@ -702,14 +847,18 @@ target23.width=120
 target23.x=0
 target23.y=0
 target24.height=70
-target24.name=ScrollingActor
+target24.name=Player
 target24.showInterface=false
 target24.type=ClassTarget
 target24.width=120
 target24.x=0
 target24.y=0
 target25.height=70
+<<<<<<< Updated upstream
 target25.name=Player
+=======
+target25.name=ScrollingActor
+>>>>>>> Stashed changes
 target25.showInterface=false
 target25.type=ClassTarget
 target25.width=120
@@ -723,14 +872,18 @@ target26.width=120
 target26.x=0
 target26.y=0
 target27.height=70
-target27.name=test
+target27.name=SimpleTimer
 target27.showInterface=false
 target27.type=ClassTarget
 target27.width=120
 target27.x=0
 target27.y=0
 target28.height=70
+<<<<<<< Updated upstream
 target28.name=SimpleTimer
+=======
+target28.name=test
+>>>>>>> Stashed changes
 target28.showInterface=false
 target28.type=ClassTarget
 target28.width=120
@@ -740,7 +893,11 @@ target29.height=70
 target29.name=ExplodingEProjectile
 target29.showInterface=false
 target29.type=ClassTarget
+<<<<<<< Updated upstream
 target29.width=140
+=======
+target29.width=130
+>>>>>>> Stashed changes
 target29.x=0
 target29.y=0
 target3.height=70
@@ -786,14 +943,18 @@ target34.width=140
 target34.x=0
 target34.y=0
 target35.height=70
-target35.name=TriggerTile
+target35.name=Coordinate
 target35.showInterface=false
 target35.type=ClassTarget
 target35.width=120
 target35.x=0
 target35.y=0
 target36.height=70
+<<<<<<< Updated upstream
 target36.name=Coordinate
+=======
+target36.name=TriggerTile
+>>>>>>> Stashed changes
 target36.showInterface=false
 target36.type=ClassTarget
 target36.width=120
@@ -814,7 +975,7 @@ target38.width=120
 target38.x=0
 target38.y=0
 target39.height=70
-target39.name=SuperTextBox
+target39.name=Agast
 target39.showInterface=false
 target39.type=ClassTarget
 target39.width=120
@@ -835,7 +996,11 @@ target40.width=120
 target40.x=0
 target40.y=0
 target41.height=70
+<<<<<<< Updated upstream
 target41.name=Agast
+=======
+target41.name=SuperTextBox
+>>>>>>> Stashed changes
 target41.showInterface=false
 target41.type=ClassTarget
 target41.width=120
@@ -884,14 +1049,22 @@ target47.width=120
 target47.x=0
 target47.y=0
 target48.height=70
+<<<<<<< Updated upstream
 target48.name=HealthBar
+=======
+target48.name=Crosshair
+>>>>>>> Stashed changes
 target48.showInterface=false
 target48.type=ClassTarget
 target48.width=120
 target48.x=0
 target48.y=0
 target49.height=70
+<<<<<<< Updated upstream
 target49.name=Crosshair
+=======
+target49.name=HealthBar
+>>>>>>> Stashed changes
 target49.showInterface=false
 target49.type=ClassTarget
 target49.width=120
@@ -919,14 +1092,22 @@ target51.width=120
 target51.x=0
 target51.y=0
 target52.height=70
+<<<<<<< Updated upstream
 target52.name=TriggerCollection
+=======
+target52.name=MapMakerWorld
+>>>>>>> Stashed changes
 target52.showInterface=false
 target52.type=ClassTarget
 target52.width=120
 target52.x=0
 target52.y=0
 target53.height=70
+<<<<<<< Updated upstream
 target53.name=MapMakerWorld
+=======
+target53.name=TriggerCollection
+>>>>>>> Stashed changes
 target53.showInterface=false
 target53.type=ClassTarget
 target53.width=120
@@ -1003,14 +1184,22 @@ target62.width=120
 target62.x=0
 target62.y=0
 target63.height=70
+<<<<<<< Updated upstream
 target63.name=Tools
+=======
+target63.name=MapMaker
+>>>>>>> Stashed changes
 target63.showInterface=false
 target63.type=ClassTarget
 target63.width=120
 target63.x=0
 target63.y=0
 target64.height=70
+<<<<<<< Updated upstream
 target64.name=MapMaker
+=======
+target64.name=Tools
+>>>>>>> Stashed changes
 target64.showInterface=false
 target64.type=ClassTarget
 target64.width=120
@@ -1027,7 +1216,11 @@ target66.height=70
 target66.name=OneWayTile
 target66.showInterface=false
 target66.type=ClassTarget
+<<<<<<< Updated upstream
 target66.width=130
+=======
+target66.width=120
+>>>>>>> Stashed changes
 target66.x=0
 target66.y=0
 target67.height=70

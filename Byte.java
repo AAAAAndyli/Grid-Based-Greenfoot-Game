@@ -22,6 +22,7 @@ public class Byte extends ScrollingActor
 
     private SimpleTimer timer = new SimpleTimer();
     private Wallet wallet;
+
     private boolean started, collected;
 
     public Byte(int x, int y) {
@@ -50,7 +51,7 @@ public class Byte extends ScrollingActor
         started = true;
         collected = false;
     }
-    
+
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);
@@ -64,7 +65,8 @@ public class Byte extends ScrollingActor
             if (getWallet.size() != 0) {
                 wallet = getWallet.get(0);
             }
-            started = false ;
+
+            started = false;
         }
         ArrayList<Wallet> touchingWallet = (ArrayList<Wallet>)getIntersectingObjects(Wallet.class);        
         if (touchingWallet.size() == 1 && collected){
@@ -75,25 +77,23 @@ public class Byte extends ScrollingActor
             movement();
             pickUp();
         } 
-        if (collected && timer.millisElapsed() >= 3000) {
+        if (collected && timer.millisElapsed() >= 1500) {
             wallet.changeAmount(1);
             getWorld().removeObject(this);
         }
-        if (collected) {
-            //if (wallet.getX() - getPosition().getX() > 2) 
-            xVelocity += ((double) wallet.getX() - (double) getPosition().getX()) / 150000 * timer.millisElapsed();            
-            yVelocity += ((double) wallet.getY() - (double) getPosition().getY()) / 150000 * timer.millisElapsed();
+        if (collected && getWorld() != null) {
+            //xVelocity += ((double) wallet.getX() - (double) getPosition().getX()) / 500;            
+            yVelocity += ((double) wallet.getY() - (double) getPosition().getY()) / 200;
             globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);            
-        } 
+        }
     }
 
     public void pickUp() {
         ArrayList<Player> touchingPlayer = (ArrayList<Player>)getIntersectingObjects(Player.class);
         if (touchingPlayer.size() == 1) {
             collected = true;
-            yVelocity = 20;
-            xVelocity = 0;
-
+            yVelocity = 15;
+            xVelocity = -20;
             timer.mark();
         }
     }

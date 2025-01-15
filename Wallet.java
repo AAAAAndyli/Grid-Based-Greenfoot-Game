@@ -9,14 +9,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Wallet extends Actor
 {
     private int amount = 0;
+    private int changedAmount = 0;
 
     private GreenfootImage image;
     private SuperTextBox text;
-
-    private boolean added;
+    private SimpleTimer timer = new SimpleTimer();
+    
+    private boolean added, changed;
 
     public Wallet() {
-        text = new SuperTextBox("" + amount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK);
+        text = new SuperTextBox("" + changedAmount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK);
 
         int randomImage = Greenfoot.getRandomNumber(2);
         if (randomImage == 0) { 
@@ -32,6 +34,16 @@ public class Wallet extends Actor
 
     public void act()
     {
+        if (changedAmount != amount && !changed) {
+            timer.mark();
+            setLocation(getX(), getY() + 3);
+            changed = true;
+        }
+        if (changed && timer.millisElapsed() > 50) {
+            changed = false;
+            setLocation(getX(), getY() - 3);
+            changedAmount = amount;
+        }
         if (added) {
             getWorld().addObject(text, 172, 178);
         }
