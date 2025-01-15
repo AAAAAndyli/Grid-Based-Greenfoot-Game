@@ -63,11 +63,16 @@ public class OneWayTile extends Tile
                         else
                         {
                             collidable = true;
-                            if(intersects(player))
+                            if(intersects(player) && !player.getSlamming())
                             {
                                 player.setYVelocity(-1);
                                 player.setGrounded();
                                 player.getPosition().setCoordinate(player.getPosition().getX(), getPosition().getY() - 25 - player.getImage().getHeight()/2);
+                            }
+                            else if(player.getSlamming())
+                            {
+                                System.out.println("panopticon");
+                                collidable = false;
                             }
                         }
                         break;

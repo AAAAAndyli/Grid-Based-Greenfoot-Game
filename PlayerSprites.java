@@ -50,6 +50,7 @@ public class PlayerSprites extends ScrollingActor
         idleIndex = animate(!flipped ? idleAnimR : idleAnimL, idleIndex);
         switch(player.getState())
         {
+            case "slamming":
             case "dashing":
                 getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY), player.getPosition().getX(), player.getPosition().getY());
                 break;
