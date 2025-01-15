@@ -11,6 +11,10 @@ import java.util.Collection;
  */
 public class Player extends Entity
 {
+    private String state;
+    
+    private boolean isOneWaying = false;
+    
     private double xVelocity = 0;
     private int xDirection = 0;
     private final int xSpeed = 10;
@@ -41,8 +45,6 @@ public class Player extends Entity
     private final int dashCooldown = -200;
     private boolean canBeHurt = true;
     
-    private int knockbackX = 0, knockBackY = 0;
-    
     private boolean isHeal = false;
     private boolean isHurt = false;
     private int invincibilityFrames = 0;
@@ -57,6 +59,15 @@ public class Player extends Entity
     private Shield shield = null;
     private int cooldown = 0;
     
+    private ArrayList<RangedWeapon> weaponList = new ArrayList<RangedWeapon>();
+    private RangedWeapon currentWeapon;
+    private boolean shooting;
+    private int weaponIndex = 0;
+    private RangedWeapon missile = new RangedWeapon(60, 2, this, 1);
+    private RangedWeapon bomb = new RangedWeapon(30, 1, this, 1);
+    private RangedWeapon spread = new RangedWeapon(30, 3, this, 1);
+    private RangedWeapon rapid = new RangedWeapon(10, 0, this, 1);
+    
     public Player()
     {
         this(0,0);
@@ -65,9 +76,15 @@ public class Player extends Entity
     public Player(int scrollX, int scrollY)
     {
         super(scrollX, scrollY);
+        state = "idle";
         globalPosition = new Coordinate(0,0);
         health = 15;
         maxHealth = health;
+        weaponList.add(missile);
+        weaponList.add(spread);
+        weaponList.add(rapid);
+        weaponList.add(bomb);
+        currentWeapon = weaponList.get(weaponIndex);
     }
     
     public void addedToWorld(World world)
@@ -82,8 +99,17 @@ public class Player extends Entity
     {     
         super.act();
         MouseInfo mouse = Greenfoot.getMouseInfo();
+        
         if(mouse != null)
         {
+            if (shooting && (Greenfoot.mouseDragEnded(null) || Greenfoot.mouseClicked(null))) 
+            {
+                shooting = false;
+            }
+            if (!shooting && Greenfoot.mousePressed(null)) 
+            {
+                shooting = true;
+            }
             mouseX = mouse.getX();
             mouseY = mouse.getY();
         }
@@ -102,10 +128,26 @@ public class Player extends Entity
         {
             invincibilityFrames++;
         }
+        state = "idle";
         movement();
         shoot();
         parry();
-        
+        currentWeapon.incrementTimer();
+        if(Greenfoot.isKeyDown("1"))
+        {
+            weaponIndex = 0;
+            currentWeapon = weaponList.get(weaponIndex);
+        }
+        else if(Greenfoot.isKeyDown("2"))
+        {
+            weaponIndex = 1;
+            currentWeapon = weaponList.get(weaponIndex);
+        }
+        else if(Greenfoot.isKeyDown("3"))
+        {
+            weaponIndex = 2;
+            currentWeapon = weaponList.get(weaponIndex);
+        }
         if(Greenfoot.isKeyDown("f"))
         {
             aimIsActivated = !aimIsActivated;
@@ -122,6 +164,7 @@ public class Player extends Entity
     {
         if(Greenfoot.isKeyDown("shift") && dashTimer > 0)
         {
+            state = "dashing";
             dashTimer --;
             xVelocity = 40 * xDirection;
             yVelocity = 0;
@@ -174,7 +217,7 @@ public class Player extends Entity
             if(Greenfoot.mouseClicked(null))
             {
                 isAiming = false;
-                getWorld().addObject(new BombPProjectile(mouseTarget, 25, this), getX(), getY());
+                currentWeapon.shoot();
             }
         }
         else
@@ -182,6 +225,11 @@ public class Player extends Entity
             yGravity = normalFallingGravity;
             getWorld().removeObject(sight);
             getWorld().getObjects(Camera.class).get(0).setMultipleFollowing(false);
+        }
+        if(currentWeapon == rapid && shooting)
+        {
+            isAiming = false;
+            currentWeapon.shoot();
         }
     }
     
@@ -201,25 +249,28 @@ public class Player extends Entity
             slam();
         }
         dash();
-        collision();
         globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
+        collision();
     }
     
     public void horizontalMovement()
     {
         if((Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))&&(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")))
         {
+            state = "idle";
             xVelocity = 0;
         }
         else
         {
             if(Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))
             {
+                state = "running";
                 xVelocity = -xSpeed;
                 xDirection = -1;
             }
             else if(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))
             {
+                state = "running";
                 xVelocity = xSpeed;
                 xDirection = 1;
             }
@@ -239,20 +290,12 @@ public class Player extends Entity
         boolean leftTouching = left != null;
         boolean rightTouching = right != null;
         touchingFloor = midTouching || leftTouching || rightTouching;
-        /*
-        if(midTouching)
+        
+        if((midTouching && mid.getOneWayCollidable()) || (leftTouching && left.getOneWayCollidable()) || rightTouching && right.getOneWayCollidable())
         {
-            moveOnDiagonal(mid);
+            yVelocity = 0;
+            touchingFloor = true;
         }
-        if(leftTouching)
-        {
-            moveOnDiagonal(left);
-        }
-        if(rightTouching)
-        {
-            moveOnDiagonal(right);
-        }
-        */
         
         if(!touchingFloor)
         {
@@ -267,29 +310,32 @@ public class Player extends Entity
     
     public void predictFloor()
     {
-        Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
-        
-        boolean midWillTouch = predictedMidTile != null;
-        boolean leftWillTouch = predictedLeftTile != null;
-        boolean rightWillTouch = predictedRightTile != null;
-        
-        if((midWillTouch || leftWillTouch || rightWillTouch))
+        for(int i = 1; i < 10 ; i++)
         {
-            yVelocity = -1;
-            touchingFloor = true;
-            if(midWillTouch)
+            Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity/i);
+            Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity/i);
+            Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity/i);
+            
+            boolean midWillTouch = predictedMidTile != null;
+            boolean leftWillTouch = predictedLeftTile != null;
+            boolean rightWillTouch = predictedRightTile != null;
+    
+            if((midWillTouch || leftWillTouch || rightWillTouch))
             {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedMidTile.globalPosition.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
-            }
-            else if(leftWillTouch)
-            {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedLeftTile.globalPosition.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
-            }
-            else if(rightWillTouch)
-            {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedRightTile.globalPosition.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);
+                yVelocity = -1;
+                touchingFloor = true;
+                if(midWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedMidTile.globalPosition.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
+                }
+                else if(leftWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedLeftTile.globalPosition.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
+                }
+                else if(rightWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedRightTile.globalPosition.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);
+                }
             }
         }
     }
@@ -297,7 +343,7 @@ public class Player extends Entity
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
         Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);
-        if(tile  == null || tile.getButton() || tile.getCollidable() == false)
+        if(tile == null || tile.getButton() || !tile.getCollidable())
         {
             return null;
         }
@@ -347,6 +393,7 @@ public class Player extends Entity
     {
         if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && coyoteTimer < 10 && !isJumpKeyDown)
         {
+            state = "jumping";
             yVelocity -= (jumpSpeed + storedJump);
             coyoteTimer = 100;
             storedJump = 0;
@@ -366,6 +413,7 @@ public class Player extends Entity
         }
         else if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down") || isSlamming))
         {
+            state = "slamming";
             storedJump = 5;
             xVelocity = 0;
             isSlamming = true;
@@ -379,6 +427,7 @@ public class Player extends Entity
     {
         if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && (touchingFloor||isSliding) && !isSlamming)
         {
+            state = "sliding";
             switch(xDirection)
             {
                 case -1:
@@ -420,60 +469,44 @@ public class Player extends Entity
     
     public void collision()
     {
-        Tile rightTouching1 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 20);
-        Tile rightTouching2 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, -20);
-        Tile rightTouching3 = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity, 0);
-        
-        boolean isRightTouching = rightTouching1 != null || rightTouching2 != null || rightTouching3 != null;
-        Tile rightTouching = rightTouching1 != null ? rightTouching1 : rightTouching2 != null ? rightTouching2 : rightTouching3;
-        
-        Tile leftTouching1 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 20);
-        Tile leftTouching2 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, -20);
-        Tile leftTouching3 = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity, 0);
-        
-        boolean isLeftTouching = leftTouching1 != null || leftTouching2 != null || leftTouching3 != null;
-        Tile leftTouching = leftTouching1 != null ? leftTouching1 : leftTouching2 != null ? leftTouching2 : leftTouching3;
+        // Right touching tiles
+        int detectionOffset = getImage().getWidth() / 2;
+        Tile sideTouching1 = getOneTileAtOffset(xDirection * detectionOffset + (int) xVelocity, 20);
+        Tile sideTouching2 = getOneTileAtOffset(xDirection * detectionOffset + (int) xVelocity, -20);
+        Tile sideTouching3 = getOneTileAtOffset(xDirection * detectionOffset + (int) xVelocity, 0);
+        Tile sideTouching4 = getOneTileAtOffset(xDirection * (detectionOffset + 5), 0);
+    
+        boolean isSideTouching = sideTouching1 != null || sideTouching2 != null || sideTouching3 != null || sideTouching4 != null;
+        Tile sideTouching = sideTouching1 != null ? sideTouching1 : sideTouching2 != null ? sideTouching2 : sideTouching3 != null ? sideTouching3 : sideTouching4;
         
         Tile upLeftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + 5, -getImage().getHeight()/2);
         Tile upRightTouching = getOneTileAtOffset(getImage().getWidth()/2 - 5, -getImage().getHeight()/2);
-        if(isRightTouching && (xDirection == 1||xVelocity > 0)) //&& !rightTouching.isDiagonal())
+        
+        boolean isUpTouching = upLeftTouching != null || upRightTouching != null;
+        Tile upTouching = upLeftTouching != null ? upLeftTouching : upRightTouching;
+        // System.out.println("direction: " + xDirection + ", velocity: " + xVelocity);
+        // System.out.println(sideTouching1 != null);
+        // System.out.println(sideTouching2 != null);
+        // System.out.println(sideTouching3 != null);
+        // System.out.println(sideTouching4 != null);
+        if(isSideTouching)
         {
-            isCollidingRight = true;
             xVelocity = 0;
-            globalPosition.setCoordinate(rightTouching.globalPosition.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, globalPosition.getY());
+            globalPosition.setCoordinate(sideTouching.globalPosition.getX() + -xDirection * (getImage().getWidth()/2 + sideTouching.getImage().getWidth()/2), globalPosition.getY());
         }
-        //else if(rightTouching != null && (xDirection == 1||xVelocity > 0) && rightTouching.isDiagonal() && rightTouching.getRotation() == 0)
-        //{
-            //moveOnDiagonal(rightTouching);
-        //}
         else
         {
-            isCollidingRight = false;
+            // getWorld().addObject(new test(false), globalPosition.getX() + xDirection * detectionOffset + (int) xVelocity, globalPosition.getY() + 20);
+            // getWorld().addObject(new test(false), globalPosition.getX() + xDirection * detectionOffset + (int) xVelocity, globalPosition.getY() - 20);
+            // getWorld().addObject(new test(false), globalPosition.getX() + xDirection * detectionOffset + (int) xVelocity, globalPosition.getY());
+            // getWorld().addObject(new test(false), globalPosition.getX() + xDirection * (detectionOffset + 5), globalPosition.getY());
         }
-        if(isLeftTouching && (xDirection == -1||xVelocity < 0))// && !leftTouching.isDiagonal())
+        
+        if(isUpTouching && yVelocity < 0)
         {
-            isCollidingLeft = true;
-            xVelocity = 0;
-            globalPosition.setCoordinate(leftTouching.globalPosition.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, globalPosition.getY());
-        }
-        //else if(leftTouching != null && (xDirection == -1||xVelocity < 0) && leftTouching.isDiagonal() && leftTouching.getRotation() == 1)
-        //{
-            //moveOnDiagonal(leftTouching);
-        //}
-        else
-        {
-            isCollidingLeft = false;
-        }
-        if((upLeftTouching != null || upRightTouching != null) && yVelocity < 0)
-        {
-            isCollidingUp = true;
             yVelocity = 0;
             int ceilingTileBottom = upLeftTouching != null ? upLeftTouching.globalPosition.getY() + getImage().getHeight()/2 + upLeftTouching.getImage().getHeight()/2 : upRightTouching.globalPosition.getY() + getImage().getHeight()/2 + upRightTouching.getImage().getHeight()/2;
             globalPosition.setCoordinate(globalPosition.getX(), ceilingTileBottom);
-        }
-        else
-        {
-            isCollidingUp = false;
         }
     }
     
@@ -494,6 +527,7 @@ public class Player extends Entity
             }
 
             if (parryTimer > 0) {
+                state = "parrying";
                 ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>) getObjectsInRange(100, EProjectile.class);
                 for (EProjectile projectile : projectilesInRange) {
                     projectile.parried(mouseX, mouseY);
@@ -562,7 +596,6 @@ public class Player extends Entity
     {
         lowerSpriteDirection = newDir;
     }
-    
     public boolean getHurt()
     {
         return isHurt;
@@ -575,6 +608,12 @@ public class Player extends Entity
     {
         return health/3;
     }
+    public void setGrounded()
+    {
+        coyoteTimer = 0;
+        isSlamming = false;
+        touchingFloor = true;
+    }
     public boolean getFacing()
     {
         //right = true
@@ -583,6 +622,14 @@ public class Player extends Entity
     public boolean getHurtable()
     {
         return canBeHurt;
+    }
+    public void setXVelocity(double xVelocity)
+    {
+        this.xVelocity = xVelocity;
+    }
+    public void setYVelocity(double yVelocity)
+    {
+        this.yVelocity = yVelocity;
     }
     public double getXVelocity()
     {
@@ -596,13 +643,58 @@ public class Player extends Entity
     {
         return yGravity;
     }
-    
-    
-    private class rangedWeapon
+    public String getState()
     {
-        public rangedWeapon()
+        return state;
+    }
+    
+    
+    private class RangedWeapon
+    {
+        private int cooldown, type, damage;
+        private int cooldownTimer = 0;
+        private Player owner;
+        public RangedWeapon(int cooldown, int type, Player owner, int damage)
         {
-            
+            this.cooldown = cooldown;
+            this.type = type;
+            this.owner = owner;
+            this.damage = damage;
+        }
+        public void shoot()
+        {
+            if(cooldown > cooldownTimer)
+            {
+                return;
+            }
+            cooldownTimer = 0;
+            switch(type)
+            {
+                case 0:
+                    getWorld().addObject(new PProjectile(mouseTarget, 15, owner, damage), getX(), getY());
+                    break;
+                case 1:
+                    getWorld().addObject(new BombPProjectile(mouseTarget, 25, owner), getX(), getY());
+                    break;
+                case 2:
+                    getWorld().addObject(new MissilePProjectile(mouseTarget, 0, owner), getX(), getY());
+                    break;
+                case 3:
+                    Coordinate coord1 = new Coordinate(mouseTarget.getX() + 50, mouseTarget.getY() + 50);
+                    Coordinate coord2 = new Coordinate(mouseTarget.getX() - 50, mouseTarget.getY() - 50);
+                    Coordinate coord3 = new Coordinate(mouseTarget.getX() - 100, mouseTarget.getY() + 100);
+                    Coordinate coord4 = new Coordinate(mouseTarget.getX() + 100, mouseTarget.getY() - 100);
+                    getWorld().addObject(new PProjectile(mouseTarget, 15, owner, damage), getX(), getY());
+                    getWorld().addObject(new PProjectile(coord1, 15, owner, damage), getX(), getY());
+                    getWorld().addObject(new PProjectile(coord2, 15, owner, damage), getX(), getY());
+                    getWorld().addObject(new PProjectile(coord3, 15, owner, damage), getX(), getY());
+                    getWorld().addObject(new PProjectile(coord4, 15, owner, damage), getX(), getY());
+                    break;
+            }
+        }
+        public void incrementTimer()
+        {
+            cooldownTimer++;
         }
     }
 }

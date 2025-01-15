@@ -25,12 +25,14 @@ public class HomingEProjectile extends EProjectile
         }
         else
         {
-            double targetAngle = Math.toDegrees(Math.atan2(target.globalPosition.getY() - globalPosition.getY(), target.globalPosition.getX() - globalPosition.getX()));
-            targetAngle = (targetAngle + 360) % 360;
-            int currentAngle = (getRotation() + 360) % 360;
-            double angleDifference = ((targetAngle - currentAngle + 540) % 360) - 180;
-    
-            turn(angleDifference > 0 ? 5 : -5);
+            if(target != null)
+            {
+                double targetAngle = Math.toDegrees(Math.atan2(target.globalPosition.getY() - globalPosition.getY(), target.globalPosition.getX() - globalPosition.getX()));
+                targetAngle = (targetAngle + 360) % 360;
+                int currentAngle = (getRotation() + 360) % 360;
+                double angleDifference = ((targetAngle - currentAngle + 540) % 360) - 180;
+                turn(angleDifference > 0 ? 5 : -5);
+            }
         }
         super.act();
     }

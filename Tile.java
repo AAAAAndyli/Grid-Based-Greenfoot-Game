@@ -12,6 +12,7 @@ public class Tile extends ScrollingActor
     protected int rotations;
     protected boolean isButton;
     protected boolean collidable = true; //Can Collide by default
+    protected boolean oneWayCollision = false; //Can collide on all sides by default
     protected int x, y;
     
     protected MapMaker mapMaker;
@@ -117,6 +118,10 @@ public class Tile extends ScrollingActor
     public boolean getButton()
     {
         return isButton;
+    }
+    public boolean getOneWayCollidable()
+    {
+        return oneWayCollision;
     }
     public String toString()
     {

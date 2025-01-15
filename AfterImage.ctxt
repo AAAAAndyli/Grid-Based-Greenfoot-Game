@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=AfterImage
+comment0.text=\n\ Write\ a\ description\ of\ class\ AfterImage\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=copy\ x\ y
+comment1.target=AfterImage(greenfoot.GreenfootImage,\ int,\ int)
+comment2.params=world
+comment2.target=void\ addedToWorld(greenfoot.World)
+comment3.params=
+comment3.target=void\ act()
+comment3.text=\n\ Act\ -\ do\ whatever\ the\ AfterImage\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+numComments=4

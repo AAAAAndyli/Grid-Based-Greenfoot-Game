@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class PlayerSprites extends SuperSmoothMover
+public class PlayerSprites extends ScrollingActor
 {
     protected Player player;
     protected boolean flipped = false;
@@ -44,10 +44,17 @@ public class PlayerSprites extends SuperSmoothMover
     {
         if(player.getWorld() != null)
         {
-            setLocation(player.getX() + offsetX, player.getY());
+            getPosition().setCoordinate(player.getPosition().getX() + offsetX, player.getPosition().getY());
         }
         animationTimer++;
         idleIndex = animate(!flipped ? idleAnimR : idleAnimL, idleIndex);
+        switch(player.getState())
+        {
+            case "dashing":
+                getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY), player.getPosition().getX(), player.getPosition().getY());
+                break;
+        }
+        super.act();
     }
     
      /**

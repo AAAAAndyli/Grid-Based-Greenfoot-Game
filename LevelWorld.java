@@ -27,7 +27,7 @@ public class LevelWorld extends ScrollingWorld
 
     public LevelWorld()
     {
-        this("test3.csv");
+        this("test.csv");
     }
 
     /**
@@ -40,6 +40,7 @@ public class LevelWorld extends ScrollingWorld
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
         loadLevel();
+        
         /*
         for(int i = 0; i < toGrid().length; i++)
         {
@@ -50,11 +51,11 @@ public class LevelWorld extends ScrollingWorld
         }
          */
         addObject(new Shield(), 80, 650);
-        addObject(new TutorialAvatar(), 1080, 650);
+        
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class);
-        setActOrder(Tile.class, Player.class, Enemy.class, Actor.class, Camera.class);
+        setActOrder(Player.class, Tile.class, Enemy.class, Actor.class, Camera.class, World.class);
     }
 
     public void loadLevel()
@@ -94,7 +95,7 @@ public class LevelWorld extends ScrollingWorld
                 {
                     enemyNumber = Integer.parseInt(tokenizer.nextToken());
                 }
-                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint") || type.equals("EnemySpawner") || type.equals("TriggerTile"))
+                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint") || type.equals("EnemySpawner") || type.equals("OneWayTile") || type.equals("TriggerTile"))
                 {
                     switch(type)
                     {
@@ -126,6 +127,10 @@ public class LevelWorld extends ScrollingWorld
                         case "TriggerTile":
                             CollisionTrigger trigger = new CollisionTrigger(type, rotation, xLocation, yLocation, triggerNumber);
                             addObject(trigger, xLocation, yLocation);
+                            break;
+                        case "OneWayTile":
+                            OneWayTile oneWayTile = new OneWayTile(type, rotation, xLocation, yLocation);
+                            addObject(oneWayTile, xLocation, yLocation);
                             break;
                     }
                 }

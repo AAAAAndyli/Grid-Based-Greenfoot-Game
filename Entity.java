@@ -35,7 +35,7 @@ public abstract class Entity extends ScrollingActor
     public void hurt(int damage)
     {
         health -= damage;
-        if(health < 0)
+        if(health <= 0)
         {
             willDie = true;
         }

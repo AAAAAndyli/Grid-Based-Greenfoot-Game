@@ -51,8 +51,9 @@ public abstract class Enemy extends Entity
     
     public void die()
     {
-        for (int i = 0; i < bytesOnDeath; i++) {
-            getWorld().addObject(new Byte(getPosition().getX(), getPosition().getY()), 0, 0);
+        for (int i = 0; i < bytesOnDeath; i++) 
+        {
+            getWorld().addObject(new Byte(getPosition().getX(), getPosition().getY()), getPosition().getX(), getPosition().getY());
         }
         
         getWorld().removeObject(this);
@@ -112,7 +113,7 @@ public abstract class Enemy extends Entity
     
     public void useProjectile(int projectileType, int projectileSpeed, Coordinate target)
     {
-        getWorld().addObject(new ExplodingEProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
+        getWorld().addObject(new HomingEProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
     }
     
     public void aiming(int projectileSpeed)

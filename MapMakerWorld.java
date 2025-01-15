@@ -37,6 +37,7 @@ public class MapMakerWorld extends ScrollingWorld
     private String loadedFile;
     //The primary frame
     private JFrame frame = new JFrame("Save/Load Map");
+    private Tile previousTile;
     
     private int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
     
@@ -276,8 +277,8 @@ public class MapMakerWorld extends ScrollingWorld
         for(Tile tile : tileWorld)
         {
             //tile.getPosition().setCoordinate(tile.getPosition().getX() - lowestX, tile.getPosition().getY() - lowestY);
-            System.out.println(tile.getPosition().toString());
             writeFile(loadedFile, tile.toString(), true, true);
+            previousTile = tile;
         }
     }
     
@@ -361,6 +362,10 @@ public class MapMakerWorld extends ScrollingWorld
         {
             tile = new CollisionTrigger(type, rotation, x, y, triggerID);
         }
+        else if(type.equals("OneWayTile"))
+        {
+            tile = new OneWayTile(type, rotation, x, y);
+        }
         else
         {
             tile = new Tile(type, rotation, x, y, true);
@@ -372,7 +377,12 @@ public class MapMakerWorld extends ScrollingWorld
         }
         else
         {
-            if((SAFE_MODE && getObjectsAt(x+scrollX, y+scrollY, Tile.class).size() == 0) || !SAFE_MODE)
+            Tile tileInSpace = null;
+            if(getObjectsAt(x+scrollX, y+scrollY, Tile.class).size() != 0)
+            {
+                tileInSpace = (Tile)(getObjectsAt(x+scrollX, y+scrollY, Tile.class).get(0));
+            }
+            if(SAFE_MODE && (tileInSpace == null || (!tileInSpace.getType().equals(tile.getType()) || tileInSpace.getButton())) || !SAFE_MODE)
             {
                 tileWorld.add(tile);
                 addObject(tile, x, y);

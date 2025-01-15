@@ -12,11 +12,6 @@ public class Button extends UI
     private GreenfootImage image;
     private int count = 0;
     private int width, height;
-    private boolean added = false;
-    
-    private World destination;
-    private SuperTextBox textBox;
-    private String text;
     
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
@@ -36,30 +31,8 @@ public class Button extends UI
         getImage().scale(width, height);
     }
     
-    public Button(String file, double sizeMulti, World dest)
-    {
-        this(file, sizeMulti);
-        destination = dest;
-    }
-    
-    public Button(String file, double sizeMulti, String txt)
-    {
-        this(file, sizeMulti);
-        text = txt;
-        textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
-    }
-    
-    public void addedToWorld(SettingWorld w){
-        //textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 100);
-        //w.addObject(textBox, getX() - 100, getY());
-    }
-    
     public void act()
     {
-        if(!added && textBox != null){
-            getWorld().addObject(textBox, getX() - 250, getY());
-            added = true;
-        }
         checkButton();
     }
     
@@ -76,10 +49,6 @@ public class Button extends UI
         } //if press and let go ON BUTTON (activate button)
         else if(Greenfoot.mouseClicked(this) && isPressed){
             isPressed = false;
-            //for world changing buttons
-            if(destination != null){
-                activateButton(destination);
-            }
             //has been let go and activated
             return true;
         } //if press and let go OFF BUTTON (cancel button)
@@ -97,9 +66,5 @@ public class Button extends UI
         }
         //any unusual edge cases like issues with mouse
         return false;
-    }
-    
-    public void activateButton(World w){
-        Greenfoot.setWorld(w);
     }
 }
