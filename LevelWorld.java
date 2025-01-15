@@ -40,7 +40,7 @@ public class LevelWorld extends ScrollingWorld
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
         loadLevel();
-        
+        saveLevel();
         /*
         for(int i = 0; i < toGrid().length; i++)
         {
@@ -148,6 +148,13 @@ public class LevelWorld extends ScrollingWorld
         {
             laserTile.removeLaser();
             laserTile.createLaser();
+        }
+    }
+    
+    public void saveLevel(){
+        if(Greenfoot.isKeyDown("escape")){
+            System.out.println("Would you like to save the level: ");
+            
         }
     }
     
