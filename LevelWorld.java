@@ -24,12 +24,12 @@ public class LevelWorld extends ScrollingWorld
     private Camera camera = new Camera(crosshair);
     private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
     private Player player;
-    
+
     public LevelWorld()
     {
         this("test.csv");
     }
-    
+
     /**
      * Constructor for objects of class LevelWorld.
      */
@@ -44,12 +44,12 @@ public class LevelWorld extends ScrollingWorld
         /*
         for(int i = 0; i < toGrid().length; i++)
         {
-            for(int j = 0; j < toGrid()[i].length; j++)
-            {
-                System.out.println(toGrid()[i][j].getString());
-            }
+        for(int j = 0; j < toGrid()[i].length; j++)
+        {
+        System.out.println(toGrid()[i][j].getString());
         }
-        */
+        }
+         */
         addObject(new Shield(), 80, 650);
         
         TheGrid.setGrid(toGrid());
@@ -57,6 +57,7 @@ public class LevelWorld extends ScrollingWorld
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class);
         setActOrder(Player.class, Tile.class, Enemy.class, Actor.class, Camera.class, World.class);
     }
+
     public void loadLevel()
     {
         Scanner scan = new Scanner (System.in);
@@ -110,7 +111,7 @@ public class LevelWorld extends ScrollingWorld
                             camera.addFollowing(crosshair);
                             camera.setFollowing(player);
                             addObject(new HealthBar(player), 100, 100);
-                            addObject(new Wallet(), 120, 170);
+                            addObject(new Wallet(), 200, 178);
                             break;
                         case "LaserTile":
                             addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
@@ -150,7 +151,7 @@ public class LevelWorld extends ScrollingWorld
             laserTile.createLaser();
         }
     }
-    
+
     public Tile[][] toGrid()
     {
         int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
@@ -174,18 +175,18 @@ public class LevelWorld extends ScrollingWorld
                 highestY = tile.getGlobalY();
             }
         }
-        
+
         int xTiles = (highestX - lowestX)/50 + 1;
         int yTiles = (highestY - lowestY)/50 + 1;
         Tile[][] map = new Tile[yTiles][xTiles];
-        
+
         for(Tile tile : tileWorld)
         {
             map[(tile.getGlobalY() - lowestY)/50][(tile.getGlobalX() - lowestX)/50] = tile;
         }
         return map;
     }
-    
+
     public Player getPlayer()
     {
         return player;
