@@ -1,10 +1,15 @@
 #BlueJ class context
 comment0.target=PProjectile
 comment0.text=\r\n\ Player\ Projectile\ (Abbreviated\ PProjectile\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=world
-comment1.target=void\ addedToWorld(greenfoot.World)
-comment2.params=
-comment2.target=void\ act()
-comment3.params=
-comment3.target=void\ collide()
-numComments=4
+comment1.params=target\ speed\ spawner
+comment1.target=PProjectile(Coordinate,\ double,\ ScrollingActor)
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ PProjectile\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment2.params=target\ speed\ damage\ spawner\ sprite
+comment2.target=PProjectile(Coordinate,\ double,\ int,\ ScrollingActor,\ java.lang.String)
+comment3.params=world
+comment3.target=void\ addedToWorld(greenfoot.World)
+comment4.params=
+comment4.target=void\ act()
+comment5.params=
+comment5.target=void\ collide()
+numComments=6
