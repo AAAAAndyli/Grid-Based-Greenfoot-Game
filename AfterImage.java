@@ -11,14 +11,21 @@ public class AfterImage extends ScrollingActor
     private int transparency = 150;
     public AfterImage(GreenfootImage copy, int x, int y)
     {
+        this(copy, x, y, 0);
+    }
+    public AfterImage(GreenfootImage copy, int x, int y, int angle)
+    {
         super(x, y);
-        System.out.println("AAA");
         setImage(copy);
         getImage().setTransparency(transparency);
+        setRotation(angle);
     }
     public void addedToWorld(World world)
     {
+        tempScrollX = getWorldOfType(ScrollingWorld.class).getScrollX();
+        tempScrollY = getWorldOfType(ScrollingWorld.class).getScrollY();
         super.addedToWorld(world);
+        setLocation(getPosition().getX() + tempScrollX, getPosition().getY() + tempScrollY);
     }
     /**
      * Act - do whatever the AfterImage wants to do. This method is called whenever

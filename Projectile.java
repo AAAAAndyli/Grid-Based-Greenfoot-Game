@@ -31,6 +31,7 @@ public abstract class Projectile extends ScrollingActor
     public void act()
     {
         distance += speed;
+        getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY, getRotation()), getPosition().getX(), getPosition().getY());
         super.act();
         globalPosition.setCoordinate(globalPosition.getX()+(int)Math.round(speed * Math.cos(Math.toRadians(getRotation()))), globalPosition.getY()+(int)Math.round(speed * Math.sin(Math.toRadians(getRotation()))));
         collide();
