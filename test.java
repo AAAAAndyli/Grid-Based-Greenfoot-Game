@@ -19,6 +19,7 @@ public class test extends ScrollingActor
         {
             setImage("red-draught-king.png");
         }
+        getImage().scale(10,10);
     }
     /**
      * Act - do whatever the test wants to do. This method is called whenever
@@ -27,7 +28,7 @@ public class test extends ScrollingActor
     public void act()
     {
         super.act();
-        if(timer > 60)
+        if(timer > 5)
         {
             getWorld().removeObject(this);
         }

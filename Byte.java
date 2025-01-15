@@ -49,6 +49,11 @@ public class Byte extends ScrollingActor
         started = true;
         collected = false;
     }
+    
+    public void addedToWorld(World world)
+    {
+        super.addedToWorld(world);
+    }
 
     public void act()
     {
