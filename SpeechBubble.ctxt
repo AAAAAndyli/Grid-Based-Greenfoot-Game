@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=SpeechBubble
-comment0.text=\n\ Write\ a\ description\ of\ class\ ScrollingWorld\ here.\n\ \n\ @author\ Allan\ L.\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ ScrollingWorld\ here.\r\n\ \r\n\ @author\ Allan\ L.\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=text\ tutorialAvatar
 comment1.target=SpeechBubble(java.lang.String,\ TutorialAvatar)
 comment2.params=
