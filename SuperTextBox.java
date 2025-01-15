@@ -383,4 +383,13 @@ public class SuperTextBox extends Actor
         return 0;
 
     }
+    
+    public void removeSelf(){
+        System.out.println("remove");
+        getWorld().removeObject(this);
+    }
+    
+    public String[] getText(){
+        return this.text;
+    }
 }
