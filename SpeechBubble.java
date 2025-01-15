@@ -1,22 +1,32 @@
-import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot, MouseInfo)
+import greenfoot.*; 
 import java.util.List;
 
+/**
+ * Write a description of class ScrollingWorld here.
+ * 
+ * @author Allan L.
+ * @version (a version number or a date)
+ */
 public class SpeechBubble extends Actor {
     
     private TutorialAvatar tutorialAvatar; 
+    private boolean spacePressed = false; 
 
     public SpeechBubble(String text, TutorialAvatar tutorialAvatar) {
-        
         this.tutorialAvatar = tutorialAvatar;
         updateImage(text);
     }
 
     public void act() {
         
+        if (Greenfoot.isKeyDown("space") && !spacePressed) {
+            spacePressed = true; 
+            tutorialAvatar.nextMessage(); 
+        }
 
         
-        if (Greenfoot.mouseClicked(this)) {
-            tutorialAvatar.nextMessage(); 
+        if (!Greenfoot.isKeyDown("space")) {
+            spacePressed = false; 
         }
     }
 
@@ -33,7 +43,7 @@ public class SpeechBubble extends Actor {
         bubble.drawRect(0, 0, bubble.getWidth() - 1, bubble.getHeight() - 1); 
 
         bubble.setColor(Color.BLACK); 
-        bubble.setFont(new Font("Arial", 16)); 
+        bubble.setFont(new Font("Arial", 14)); 
 
         
         int textWidth = bubble.getWidth() - 20; 

@@ -24,9 +24,9 @@ public class TutorialAvatar extends SuperSmoothMover {
         moveToTarget(); 
         if (Greenfoot.isKeyDown("space") && speechBubble == null) {
             messageQueue.clear(); 
-            messageQueue.add("Click to continue"); 
-            messageQueue.add("1");
-            messageQueue.add("2");
+            messageQueue.add("Welcome to WORM-E \n Press space to continue"); 
+            messageQueue.add("Use arrow keys/WASD keys to move \n Press space to continue");
+            messageQueue.add("Defeat the enemies! \n Press space to start the level");
             nextMessage(); 
         }
     }
@@ -45,6 +45,8 @@ public class TutorialAvatar extends SuperSmoothMover {
             }
         }else{
             getWorld().removeObject(speechBubble);
+            
+            Greenfoot.setWorld(new LevelWorld("test3.csv"));
             getWorld().removeObject(this);
             
         }
