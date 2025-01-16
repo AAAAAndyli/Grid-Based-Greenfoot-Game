@@ -19,16 +19,17 @@ public class MenuWorld extends World
         super(1080, 720, 1); 
         setBackground("images/menuPlaceholder.png");
         
-        Button play = new WorldButton("button1.png", 1.1, (World)new LevelWorld());
+        Label playLabel = new Label("Play", 40);
+        addObject(playLabel, 900, 200);
+        Label settingsLabel = new Label("Settings", 40);
+        addObject(settingsLabel, 900, 400);
+        
+        Button play = new WorldButton("button1.png", 1.1, (World)new LevelWorld(), playLabel);
         addObject(play, 900, 200);
-        Button settings = new WorldButton("button1.png", 1.1, (World)new SettingWorld());
+        Button settings = new WorldButton("button1.png", 1.1, (World)new SettingWorld(), settingsLabel);
         addObject(settings, 900, 400);
         
-        Label l = new Label("WHYYY", 30, play);
-        addObject(l, 900, 200);
-        
-        GreenfootImage test = new GreenfootImage(100, 100);
-        test.drawRect(5, 5, 50, 50);
+        setPaintOrder(Label.class, Button.class);
         
     }
     

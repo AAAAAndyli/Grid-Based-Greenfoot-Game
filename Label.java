@@ -31,6 +31,14 @@ public class Label extends ScrollingActor
     }
     
     /**
+     * Create a new label, initialise it with the int value to be shown and the font size 
+     */
+    public Label(int value, int fontSize)
+    {
+        this(Integer.toString(value), fontSize);
+    }
+    
+    /**
      * Create a new label, initialise it with the needed text and the font size 
      */
     public Label(String value, int fontSize, Actor actor)
@@ -41,12 +49,24 @@ public class Label extends ScrollingActor
         updateImage();
     }
     
+    /**
+     * Create a new label, initialise it with the needed text and the font size 
+     */
+    public Label(String value, int fontSize)
+    {
+        this.value = value;
+        this.fontSize = fontSize;
+        updateImage();
+    }
+    
     public void act()
     {
-        super.act();
-        if(creator.getWorld() == null)
-        {
-            getWorld().removeObject(this);
+        if(creator != null){
+            super.act();
+            if(creator.getWorld() == null)
+            {
+                getWorld().removeObject(this);
+            }
         }
     }
 

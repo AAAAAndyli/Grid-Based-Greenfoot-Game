@@ -28,6 +28,7 @@ public class ScrollingUI extends UI
         if(actorFollow){
             for(Class c : classFollowList){
                 classList.add(c);
+                System.out.println(c);
             }  
         }
         
@@ -53,7 +54,7 @@ public class ScrollingUI extends UI
                 //only if ScrollingUI specified to move an actor
                 if(actorFollow){
                     for(Class c : classList){
-                        moveActors(mouse.getY() - pastY, c);    
+                        moveActors(mouse.getY() - pastY, c);  
                     }
                 }
                 //update reference point for relative scrolling 

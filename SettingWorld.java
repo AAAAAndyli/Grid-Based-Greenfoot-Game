@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public class SettingWorld extends World
 {
+    private Label test, test2, test3;
+    
     /**
      * Constructor for objects of class SettingWorld.
      * 
@@ -34,26 +36,38 @@ public class SettingWorld extends World
         ArrayList<Class> classList = new ArrayList<Class>();
         classList.add(Button.class);
         classList.add(SuperTextBox.class);
+        classList.add(Label.class);
         
         ScrollingUI s = new ScrollingUI(0, 0, 400, 1500, true, classList);
         addObject(s, 800, 350);
         
         int scrollRightEdge = s.getX() + (350 / 2);
         
-        BindButton scrollTest = new BindButton("button1.png", 0.5, "Jump Keybind");
-        addObject(scrollTest, scrollRightEdge - 20, 210);
+        test = new Label("Default", 40);
+        addObject(test, scrollRightEdge - 20, 210);
         
-        BindButton scrollTest2 = new BindButton("button1.png", 0.5, "Attack Keybind");
+        test2 = new Label("Default", 40);
+        addObject(test2, scrollRightEdge - 20, 310);
+        
+        test3 = new Label("Default", 40);
+        addObject(test3, scrollRightEdge - 20, 410);
+        
+        BindButton scrollTest = new BindButton("button1.png", 0.5, "Jump Keybind", test);
+        addObject(scrollTest, scrollRightEdge - 20, 210);
+    
+        BindButton scrollTest2 = new BindButton("button1.png", 0.5, "Attack Keybind", test2);
         addObject(scrollTest2, scrollRightEdge - 20, 310);
         
-        BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind");
+        BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind", test3);
         addObject(scrollTest3, scrollRightEdge - 20, 410);
         
         setPaintOrder(Label.class, Button.class, ScrollingUI.class);
     }
     
     public void act(){
-        
+        if(Greenfoot.isKeyDown("a")){
+            test2.setLocation(test2.getX(), test2.getY() - 10);
+        }
     }
     
     public void removeBindBox(){

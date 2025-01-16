@@ -18,8 +18,13 @@ public class BindButton extends Button {
         super(file, sizeMulti);
         text = txt;
         textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
-        bindBox = new SuperTextBox("Press a key for " + text, new Font("Arial", false, false, 20), 190, this);
-        keyLabel = new Label("BROOO", 40, this);
+        bindBox = new SuperTextBox("Press a key", new Font("Arial", false, false, 20), 190, this);
+        keyLabel = new Label("Default", 40, this);
+    }
+    
+    public BindButton(String file, double sizeMulti, String txt, Label labelReference){
+        this(file, sizeMulti, txt);
+        keyLabel = labelReference;
     }
 
     public void act(){
@@ -31,9 +36,6 @@ public class BindButton extends Button {
         }
 
         //check if button is pressed
-        if(Greenfoot.isKeyDown("a")){
-            System.out.println(Greenfoot.mouseClicked(keyLabel));
-        }
         pressed = (checkButton() || checkButton(keyLabel));
         
         //if button clicked and not currently active
