@@ -49,6 +49,8 @@ public class StillLabel extends Actor
         }
     }
 
+    
+    
     /**
      * Sets the value  as text
      * 

@@ -148,12 +148,6 @@ public class Player extends Entity
             weaponIndex = 2;
             currentWeapon = weaponList.get(weaponIndex);
         }
-        if(Greenfoot.isKeyDown("f"))
-        {
-            aimIsActivated = !aimIsActivated;
-        }
-        //System.out.println("xVelocity: " + xVelocity + ", yVelocity: " + yVelocity);
-        //System.out.println(globalPosition.getX() + ", " + globalPosition.getY());
         if(willDie)
         {
             die();
@@ -607,6 +601,11 @@ public class Player extends Entity
     public int getHealthBarHP()
     {
         return health/3;
+    }
+    public boolean getSlamming()
+    {
+        System.out.println(isSlamming);
+        return isSlamming;
     }
     public void setGrounded()
     {

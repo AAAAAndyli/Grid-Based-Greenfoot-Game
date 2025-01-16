@@ -199,6 +199,11 @@ public abstract class Enemy extends Entity
         return index;
     }
     
+    protected void createAfterImage()
+    {
+        getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY), getPosition().getX(), getPosition().getY());
+    }
+    
     protected class Attack
     {
         private int width, height;

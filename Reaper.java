@@ -58,9 +58,9 @@ public class Reaper extends FlyingEnemy
     {
         if(attackTimer > attackCooldown + attackLength)
         {
+            getPosition().setCoordinate(getPosition().getX() - attackXOffset * xDirection, getPosition().getY() - attackYOffset);
             idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
             isAttacking = false;
-            getPosition().setCoordinate(getPosition().getX() - attackXOffset * xDirection, getPosition().getY() - attackYOffset);
             attackTimer = 0;
         }
         else if(attackCooldown == attackTimer)
@@ -69,6 +69,7 @@ public class Reaper extends FlyingEnemy
             attackAnimOver = false;
             getPosition().setCoordinate(getPosition().getX() + attackXOffset * xDirection, getPosition().getY() + attackYOffset);
             attackIndex = animate(xDirection==1 ? attackAnimR : attackAnimL, attackIndex);
+            createAfterImage();
             attackIndex = 1;
             attackTimer++;
         }
@@ -79,9 +80,9 @@ public class Reaper extends FlyingEnemy
         }
         else if(isAttacking && !attackAnimOver)
         {
-            System.out.println("attackIndex" + attackIndex);
             int prevAttackIndex = attackIndex;
             attackIndex = animate(xDirection == 1 ? attackAnimR : attackAnimL, attackIndex);
+            createAfterImage();
             if(prevAttackIndex != attackIndex)
             {
                 attackTimer++;

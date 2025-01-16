@@ -17,15 +17,17 @@ public class Byte extends ScrollingActor
     private final double maximumYVelocity = 40;
     private boolean touchingFloor;
     private boolean isCollidingLeft, isCollidingRight, isCollidingUp;
-    
+
     private GreenfootImage image;
-    
+
+    private SimpleTimer timer = new SimpleTimer();
     private Wallet wallet;
+
     private boolean started, collected;
-    
+
     public Byte(int x, int y) {
         super(x,y);
-        
+
         int randomImage = Greenfoot.getRandomNumber(2);
         if (randomImage == 0) {
             image = new GreenfootImage("images/Byte/0.png");
@@ -33,10 +35,10 @@ public class Byte extends ScrollingActor
             image = new GreenfootImage("images/Byte/1.png");
         }
         setImage(image);
-        getImage().scale(40,35);
-        
+        getImage().scale(35,30);
+
         yVelocity = -( Greenfoot.getRandomNumber(6) + 6 );
-        
+
         int randomXDirection = Greenfoot.getRandomNumber(2);
         if (randomXDirection == 0) {
             xDirection = 1;
@@ -45,11 +47,11 @@ public class Byte extends ScrollingActor
             xDirection = -1;
             xVelocity = -( Greenfoot.getRandomNumber(4) + 3 );
         }
-        
+
         started = true;
         collected = false;
     }
-    
+
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);
@@ -63,21 +65,36 @@ public class Byte extends ScrollingActor
             if (getWallet.size() != 0) {
                 wallet = getWallet.get(0);
             }
-            started = false ;
-        }   
-        movement();
-        pickUp();
-    }
-    
-    public void pickUp() {
-        ArrayList<Player> touchingPlayer = (ArrayList<Player>)getIntersectingObjects(Player.class);
-        if (touchingPlayer.size() == 1 && !collected) {
-            collected = true;
-            
-            
-            
+
+            started = false;
+        }
+        ArrayList<Wallet> touchingWallet = (ArrayList<Wallet>)getIntersectingObjects(Wallet.class);        
+        if (touchingWallet.size() == 1 && collected){
             wallet.changeAmount(1);
             getWorld().removeObject(this);
+        }
+        if (!collected) {
+            movement();
+            pickUp();
+        } 
+        if (collected && timer.millisElapsed() >= 1500) {
+            wallet.changeAmount(1);
+            getWorld().removeObject(this);
+        }
+        if (collected && getWorld() != null) {
+            //xVelocity += ((double) wallet.getX() - (double) getPosition().getX()) / 500;            
+            yVelocity += ((double) wallet.getY() - (double) getPosition().getY()) / 200;
+            globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);            
+        }
+    }
+
+    public void pickUp() {
+        ArrayList<Player> touchingPlayer = (ArrayList<Player>)getIntersectingObjects(Player.class);
+        if (touchingPlayer.size() == 1) {
+            collected = true;
+            yVelocity = 15;
+            xVelocity = -20;
+            timer.mark();
         }
     }
 
@@ -91,7 +108,7 @@ public class Byte extends ScrollingActor
         collision();
         globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
     }
-    
+
     public void collision()
     {
         Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity + 5, 0);
@@ -142,17 +159,17 @@ public class Byte extends ScrollingActor
             isCollidingUp = false;
         }
     }
-    
+
     public void predictFloor()
     {
         Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
         Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
         Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
-        
+
         boolean midWillTouch = predictedMidTile != null;
         boolean leftWillTouch = predictedLeftTile != null;
         boolean rightWillTouch = predictedRightTile != null;
-        
+
         if((midWillTouch || leftWillTouch || rightWillTouch))
         {
             yVelocity = -1;
@@ -171,7 +188,7 @@ public class Byte extends ScrollingActor
             }
         }
     }
-    
+
     public boolean checkFloor()
     {
         Tile mid = getOneTileAtOffset(0, getImage().getHeight()/2);
@@ -181,7 +198,7 @@ public class Byte extends ScrollingActor
         boolean leftTouching = left != null;
         boolean rightTouching = right != null;
         touchingFloor = midTouching || leftTouching || rightTouching;
-        
+
         if(!touchingFloor)
         {
             coyoteTimer++;
@@ -192,7 +209,7 @@ public class Byte extends ScrollingActor
         }
         return touchingFloor;
     }
-    
+
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
         Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);
