@@ -10,7 +10,7 @@ public class Shop extends World
     //source - https://www.greenfoot.org/topics/821
     private GreenfootImage[] shopAnimation = new GreenfootImage[35];
     
-    private String sword = "sword";
+    private String health = "You feel refreshed";
     
     private int money;
     private int price = 50;
@@ -26,6 +26,9 @@ public class Shop extends World
     private Button item4 = new Button("purchaseButton.png");
     private Button item5 = new Button("purchaseButton.png");
     private Button item6 = new Button("purchaseButton.png");
+    
+    private Button image1 = new Button("shopIcons/Shield.png",1.5, true);
+    private Button image2 = new Button("shopIcons/fullHealth.png",1,true);
     /**
      * Constructor for objects of class Shop.
      * 
@@ -41,7 +44,11 @@ public class Shop extends World
         //addObject(shopCursor, getWidth()/2, getHeight()/2);
         
         addObject(item1, 250, 300);
+        addObject(image1, 250, 150);
+        
         addObject(item2, 250, 600);
+        addObject(image2, 250, 450);
+        
         addObject(item3, 600, 300);
         addObject(item4, 600, 600);
         addObject(item5, 950, 300);
@@ -66,7 +73,7 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                System.out.println(sword);
+                System.out.println(health);
             }
             else
             {

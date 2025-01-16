@@ -10,6 +10,7 @@ public class Button extends UI
 {
     private boolean isPressed = false;
     private boolean isPressedActor = false;
+    private boolean isShopIcon = false;
     private GreenfootImage image;
     private int count = 0;
     private int width, height;
@@ -31,6 +32,24 @@ public class Button extends UI
         width = (int)(getImage().getWidth() * sizeMulti);
         height = (int)(getImage().getHeight() * sizeMulti);
         getImage().scale(width, height);
+    }
+    
+    public Button(String file, double sizeMulti, boolean isShopItem)
+    {
+        image = new GreenfootImage("images/" + file);
+        isShopIcon = isShopItem;
+        setImage(image);
+        width = (int)(getImage().getWidth() * sizeMulti);
+        height = (int)(getImage().getHeight() * sizeMulti);
+        getImage().scale(width, height);
+    }
+    
+    public void act()
+    {
+        if(!isShopIcon)
+        {
+            checkButton();
+        }
     }
     
     /**
