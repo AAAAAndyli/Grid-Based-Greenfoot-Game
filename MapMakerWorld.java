@@ -45,6 +45,7 @@ public class MapMakerWorld extends ScrollingWorld
     
     private StillLabel currentTriggerID = new StillLabel("Trigger ID: ", 40, mapMaker);
     private StillLabel currentEnemyID = new StillLabel("Enemy ID: ", 40, mapMaker);
+    private StillLabel currentColour = new StillLabel("Firewall Colour: ", 40, mapMaker);
     
     /**
      * Constructor for objects of class MapMakerWorld.
@@ -59,6 +60,7 @@ public class MapMakerWorld extends ScrollingWorld
         addObject(new FPS(), 200, 10);
         addObject(currentTriggerID, 900, 40);
         addObject(currentEnemyID, 900, 80);
+        addObject(currentColour, 850, 120);
         
         
         frame.setSize(500, 300);
@@ -100,7 +102,7 @@ public class MapMakerWorld extends ScrollingWorld
         colourChangeTimer++;
         currentTriggerID.setValue("Trigger ID: " + mapMaker.getTriggerID());
         currentEnemyID.setValue("Enemy ID: " + mapMaker.getEnemyID());
-        currentTriggerID.setValue("Firewall Colour: " + colour);
+        currentColour.setValue("Firewall Colour: " + colour);
     }
     
     /*
