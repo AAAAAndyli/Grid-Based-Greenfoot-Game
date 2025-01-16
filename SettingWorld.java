@@ -65,9 +65,7 @@ public class SettingWorld extends World
     }
     
     public void act(){
-        if(Greenfoot.isKeyDown("a")){
-            test2.setLocation(test2.getX(), test2.getY() - 10);
-        }
+
     }
     
     public void removeBindBox(){

@@ -76,12 +76,10 @@ public class Button extends UI
         if(Greenfoot.mousePressed(actor)) //when pressed
         {
             isPressedActor = true;
-            System.out.println(1);
         } //if press and let go ON BUTTON (activate button)
         else if(Greenfoot.mouseClicked(actor) && isPressedActor){
             isPressedActor = false;
             //has been let go and activated
-            System.out.println(2);
             return true;
         } //if press and let go OFF BUTTON (cancel button)
         else if(Greenfoot.mouseClicked(null) && isPressedActor){
