@@ -26,6 +26,12 @@ public class EnemyID
         enemyHash.put(1, new Agast());
         enemyHash.put(2, new Trogun());
         enemyHash.put(3, new Reaper());
+        enemyHash.put(4, new Cytotoxin());
+        enemyHash.put(5, new Virus());
+        enemyHash.put(6, new Cypr());
+        enemyHash.put(7, new RTP());
+        enemyHash.put(8, new Patch());
+        enemyHash.put(9, new Piramire());
         int value = 0;
         for(HashMap.Entry<Integer, Enemy> entry : enemyHash.entrySet())
         {

@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Piramire
+comment0.text=\n\ Write\ a\ description\ of\ class\ Piramire\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=Piramire()
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ WalMare\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=damage
+comment3.target=void\ hurt(int)
+comment4.params=
+comment4.target=boolean\ checkFloor()
+comment5.params=
+comment5.target=void\ predictFloor()
+comment6.params=
+comment6.target=void\ applyGravity()
+comment7.params=
+comment7.target=void\ attack()
+comment8.params=path
+comment8.target=void\ loadAnimationFrames(java.lang.String)
+comment8.text=\n\ Loads\ in\ every\ frame\ for\ every\ animation\n\ \n\ @param\ path\ -\ The\ file\ path\ for\ the\ unit\n
+numComments=9

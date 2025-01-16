@@ -107,7 +107,12 @@ public class Trogun extends GroundedEnemy
         else if(attackCooldown + attackFrame == attackTimer)
         {
             aiming(projectileSpeed);
-            useProjectile(0, projectileSpeed, target);
+            useProjectile(projectileSpeed, target);
+            attackTimer++;
+        }
+        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        {
+            getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;
         }
         else if(isAttacking && !attackAnimOver)
@@ -127,6 +132,12 @@ public class Trogun extends GroundedEnemy
         {
             attackTimer++;
         }
+    }
+    public void hurt(int damage)
+    {
+        super.hurt(damage);
+        Player player = getWorld().getObjects(Player.class).get(0);
+        faceTowards(player.getPosition().getX());
     }
     
     /**

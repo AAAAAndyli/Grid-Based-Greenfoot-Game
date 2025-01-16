@@ -80,7 +80,7 @@ public abstract class Enemy extends Entity
         {
             //System.out.println("attacking");
             attackTimer = 0;
-            useProjectile(0, projectileSpeed, target);
+            useProjectile(projectileSpeed, target);
         }
         else if(attackTimer < attackCooldown && getObjectsInRange(attackRange, Player.class).size() != 0)
         {
@@ -111,9 +111,17 @@ public abstract class Enemy extends Entity
         }
     }
     
-    public void useProjectile(int projectileType, int projectileSpeed, Coordinate target)
+    public void useProjectile(int projectileSpeed, Coordinate target)
+    {
+        getWorld().addObject(new EProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
+    }
+    public void useHomingProjectile(int projectileSpeed, Coordinate target)
     {
         getWorld().addObject(new HomingEProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
+    }
+    public void useExplosiveProjectile(int projectileSpeed, Coordinate target)
+    {
+        getWorld().addObject(new ExplodingEProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
     }
     
     public void aiming(int projectileSpeed)
@@ -202,6 +210,21 @@ public abstract class Enemy extends Entity
     protected void createAfterImage()
     {
         getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY), getPosition().getX(), getPosition().getY());
+    }
+    public boolean getHurtable()
+    {
+        return canBeHurt;
+    }
+    public int getDistance(Actor actor)
+    {
+        int deltaX = actor.getX() - this.getX();
+        int deltaY = actor.getY() - this.getY();
+    
+        return (int)Math.sqrt(Math.pow(deltaX,2) + Math.pow(deltaY,2));
+    }
+    public void setHurtable(boolean hurtable)
+    {
+        canBeHurt = hurtable;
     }
     
     protected class Attack

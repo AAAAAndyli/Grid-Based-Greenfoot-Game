@@ -34,8 +34,11 @@ public class PProjectile extends Projectile
         if(isTouching(Enemy.class))
         {
             Enemy enemyTarget = (Enemy)getOneIntersectingObject(Enemy.class);
-            enemyTarget.hurt(damage);
-            markedForDeletion = true;
+            if(enemyTarget.getHurtable())
+            {
+                enemyTarget.hurt(damage);
+                markedForDeletion = true;
+            }
         }
     }
 }

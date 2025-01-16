@@ -76,11 +76,12 @@ public class Player extends Entity
     public Player(int scrollX, int scrollY)
     {
         super(scrollX, scrollY);
+        setImage("Hitbox.png");
         state = "idle";
         globalPosition = new Coordinate(0,0);
         health = 15;
         maxHealth = health;
-        weaponList.add(missile);
+        //weaponList.add(missile);
         weaponList.add(spread);
         weaponList.add(rapid);
         weaponList.add(bomb);
@@ -171,6 +172,7 @@ public class Player extends Entity
         }
         else if(dashTimer != 10)
         {
+            invincibilityFrames = 1;
             dashTimer --;
             canBeHurt = true;
         }
@@ -336,15 +338,14 @@ public class Player extends Entity
     
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
-        Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);
-        if(tile == null || tile.getButton() || !tile.getCollidable())
+        for(Tile tile : getObjectsAtOffset(xOffset, yOffset, Tile.class))
         {
-            return null;
+            if(tile != null && tile.getCollidable())
+            {
+                return tile;
+            }
         }
-        else
-        {
-            return tile;
-        }
+        return null;
     }
     
     public void moveOnDiagonal(Tile diagonalTile)

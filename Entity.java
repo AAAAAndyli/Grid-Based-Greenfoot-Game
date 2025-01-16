@@ -10,6 +10,8 @@ public abstract class Entity extends ScrollingActor
 {
     protected boolean willDie = false;
     protected int maxHealth, health, speed;
+    protected boolean canBeHurt = true;
+    protected boolean isImmuneToExplosions = false;
     
     public Entity(int scrollX, int scrollY)
     {
@@ -34,10 +36,17 @@ public abstract class Entity extends ScrollingActor
     }
     public void hurt(int damage)
     {
-        health -= damage;
-        if(health <= 0)
+        hurt(damage, false);
+    }
+    public void hurt(int damage, boolean isExplosion)
+    {
+        if(canBeHurt && !(isImmuneToExplosions && isExplosion))
         {
-            willDie = true;
+            health -= damage;
+            if(health <= 0)
+            {
+                willDie = true;
+            }
         }
     }
     public int getHP()

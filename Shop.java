@@ -10,28 +10,37 @@ public class Shop extends World
     //source - https://www.greenfoot.org/topics/821
     private GreenfootImage[] shopAnimation = new GreenfootImage[35];
     
-    private String health = "You feel refreshed";
+    private String s = "You feel refreshed";
     
     private int money;
-    private int price = 50;
+    private int price;
+    private int health;
+    private int maxHealth;
+    private int shieldLvl = 1;
     private int imageIndex = 0;
     private double speed = 0.4;
     
     SimpleTimer animationTimer = new SimpleTimer();
     
     private boolean clickedOne;
+    private boolean clickedTwo;
+    private boolean clickedThree;
+    private boolean clickedFour;
+    private boolean clickedFive;
+    private boolean clickedSix;
+    
     private boolean movingDown = true;
     
-    private Button item1 = new Button("purchaseButton.png");
-    private Button item2 = new Button("purchaseButton.png");
-    private Button item3 = new Button("purchaseButton.png");
-    private Button item4 = new Button("purchaseButton.png");
-    private Button item5 = new Button("purchaseButton.png");
-    private Button item6 = new Button("purchaseButton.png");
+    private Button item1 = new Button("purchaseButton.png",.7);
+    private Button item2 = new Button("purchaseButton.png",.7);
+    private Button item3 = new Button("purchaseButton.png",.7);
+    private Button item4 = new Button("purchaseButton.png",.7);
+    private Button item5 = new Button("purchaseButton.png",.7);
+    private Button item6 = new Button("purchaseButton.png",.7);
     
-    private Button image1 = new Button("shopIcons/Shield.png",1.5, true);
-    private Button image2 = new Button("shopIcons/fullHealth.png",1, true);
-    private Button image3 = new Button("shopIcons/plusHP.png",.8, true);
+    private Button image1 = new Button("shopIcons/Shield.png",1.5, true,1);
+    private Button image2 = new Button("shopIcons/fullHealth.png",1, true,2);
+    private Button image3 = new Button("shopIcons/plusHP.png",.8, true,3);
     /**
      * Constructor for objects of class Shop.
      * 
@@ -65,9 +74,20 @@ public class Shop extends World
         WorldButton back = new WorldButton("button1.png", 0.5, world, backLabel);
         addObject(back, 85, 50);
         
-        money = 200;
+        money = 20000;
+        health = 1;
+        maxHealth = 10;
         
         setPaintOrder(Cursor.class, Label.class, Button.class, Shop.class);
+    }
+    
+    public boolean isMaxShield()
+    {
+        if(shieldLvl == 11)
+        {
+            return true;
+        }
+        return false;
     }
     
     public void act()
@@ -80,12 +100,43 @@ public class Shop extends World
     public void purchase()
     {
         clickedOne = item1.checkButton();
+        clickedTwo = item2.checkButton();
+        clickedThree = item3.checkButton();
+        clickedFour = item4.checkButton();
+        clickedFive = item5.checkButton();
+        clickedSix = item6.checkButton();
+        
         if(clickedOne)
         {
+            price = 100;
             if(money >= price)
             {
                 money -= price;
-                System.out.println(health);
+                shieldLvl++;
+                if(isMaxShield())
+                {
+                    removeObject(item1);
+                    addObject(new Button("shopIcons/bought.png",.7, true,10),250,300);
+                }
+                System.out.println("purchased, money left: " + money);
+            }
+            else
+            {
+                System.out.println("Cannot Purchase, money left: " + money);
+            }
+        }
+        
+        if(clickedTwo)
+        {
+            price = 25;
+            if(money >= price)
+            {
+                money -= price;
+                health = maxHealth;
+                removeObject(item2);
+                addObject(new Button("shopIcons/bought.png",.7, true,10),250,600);
+                System.out.println("purchased, money left: " + money);
+                System.out.println("health fully regain: " + health);
             }
             else
             {
@@ -102,6 +153,13 @@ public class Shop extends World
         animationTimer.mark();
         setBackground(shopAnimation[imageIndex]);
         imageIndex = (imageIndex + 1) % shopAnimation.length;
+    }
+    
+    public void description()
+    {
+        if (Greenfoot.mouseMoved(image1)) {
+            addObject(image1, 400, 150);
+        }
     }
     
     public void hover()

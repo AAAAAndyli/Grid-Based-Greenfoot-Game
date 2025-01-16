@@ -9,8 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class OneWayTile extends Tile
 {
     private Player player;
-    private int delay = 0;
-    private final int delayTotal = 5;
     private int playerHeight, playerWidth;
     public OneWayTile(String type, int rotations, int xPosition, int yPosition)
     {
@@ -42,7 +40,7 @@ public class OneWayTile extends Tile
         }
         else
         {
-            if(getDistance(player) < 300)
+            if(player.getWorld() != null && getDistance(player) < 100)
             {
                 int displacement;
                 if(collidable)
@@ -119,7 +117,6 @@ public class OneWayTile extends Tile
                         }
                         break;
                 }
-                System.out.println("Direction: " + getRotation() + ", Collidable: " + collidable);
             }
         }
         super.act();
