@@ -36,7 +36,7 @@ public class Shop extends World
      * Constructor for objects of class Shop.
      * 
      */
-    public Shop()
+    public Shop(MenuWorld world)
     {    
         super(1080, 720, 1); 
         Cursor shopCursor = new Cursor();
@@ -60,9 +60,14 @@ public class Shop extends World
         addObject(item5, 950, 300);
         addObject(item6, 950, 600);
         
+        Label backLabel = new Label("Back", 40);
+        addObject(backLabel, 85, 50);
+        WorldButton back = new WorldButton("button1.png", 0.5, world, backLabel);
+        addObject(back, 85, 50);
+        
         money = 200;
         
-        setPaintOrder(Cursor.class, Button.class, Shop.class);
+        setPaintOrder(Cursor.class, Label.class, Button.class, Shop.class);
     }
     
     public void act()
