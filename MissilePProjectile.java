@@ -33,12 +33,12 @@ public class MissilePProjectile extends PProjectile
         }
         else if(isTouching(Tile.class) && ((Tile)getOneIntersectingObject(Tile.class)).getCollidable() == true)
         {
-            getWorld().addObject(new Explosion(), getPosition().getX(), getPosition().getY());
+            getWorld().addObject(new PlayerExplosion(), getPosition().getX(), getPosition().getY());
             getWorld().removeObject(this);
         }
         else if(markedForDeletion)
         {
-            getWorld().addObject(new Explosion(), getPosition().getX(), getPosition().getY());
+            getWorld().addObject(new PlayerExplosion(), getPosition().getX(), getPosition().getY());
             getWorld().removeObject(this);
         }
     }

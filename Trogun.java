@@ -107,7 +107,12 @@ public class Trogun extends GroundedEnemy
         else if(attackCooldown + attackFrame == attackTimer)
         {
             aiming(projectileSpeed);
-            useProjectile(0, projectileSpeed, target);
+            useProjectile(projectileSpeed, target);
+            attackTimer++;
+        }
+        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        {
+            getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;
         }
         else if(isAttacking && !attackAnimOver)

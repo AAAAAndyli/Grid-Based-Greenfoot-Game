@@ -94,6 +94,12 @@ public class WalMare extends GroundedEnemy
         }
         super.act();
     }
+    public void hurt(int damage)
+    {
+        super.hurt(damage);
+        Player player = getWorld().getObjects(Player.class).get(0);
+        faceTowards(player.getPosition().getX());
+    }
     public void attack()
     {
         if(attackTimer > attackCooldown + attackLength)
@@ -105,7 +111,6 @@ public class WalMare extends GroundedEnemy
         }
         else if(attackCooldown == attackTimer)
         {
-            isAttacking = true;
             attackAnimOver = false;
             getPosition().setCoordinate(getPosition().getX() + attackXOffset * xDirection, getPosition().getY() + attackYOffset);
             attackIndex = animate(xDirection==1 ? attackAnimR : attackAnimL, attackIndex);
@@ -115,6 +120,11 @@ public class WalMare extends GroundedEnemy
         else if(attackCooldown + attackFrame == attackTimer)
         {
             pierce.performAttack();
+            attackTimer++;
+        }
+        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        {
+            getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;
         }
         else if(isAttacking && !attackAnimOver)

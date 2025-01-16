@@ -78,6 +78,11 @@ public class Reaper extends FlyingEnemy
             slice.performAttack();
             attackTimer++;
         }
+        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        {
+            getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
+            attackTimer++;
+        }
         else if(isAttacking && !attackAnimOver)
         {
             int prevAttackIndex = attackIndex;

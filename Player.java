@@ -76,6 +76,7 @@ public class Player extends Entity
     public Player(int scrollX, int scrollY)
     {
         super(scrollX, scrollY);
+        setImage("Hitbox.png");
         state = "idle";
         globalPosition = new Coordinate(0,0);
         health = 15;
@@ -171,6 +172,7 @@ public class Player extends Entity
         }
         else if(dashTimer != 10)
         {
+            invincibilityFrames = 1;
             dashTimer --;
             canBeHurt = true;
         }

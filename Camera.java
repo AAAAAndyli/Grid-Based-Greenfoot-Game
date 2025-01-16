@@ -63,7 +63,7 @@ public class Camera extends SuperSmoothMover
         int targetScrollY = world.getScrollY() - (followingActor.getY() - world.getHeight()/2);
         
         int newScrollX = (int) (world.getScrollX() + (targetScrollX - world.getScrollX()) * 0.1);
-        int newScrollY = (int) (world.getScrollY() + (targetScrollY - world.getScrollY()) * 0.1);
+        int newScrollY = (int) (world.getScrollY() + (targetScrollY - world.getScrollY()) * 0.5);
         
         world.setScrollX(newScrollX);
         world.setScrollY(newScrollY); 

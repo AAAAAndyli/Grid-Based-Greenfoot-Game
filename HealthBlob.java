@@ -31,6 +31,24 @@ public class HealthBlob extends Actor
             setImage(nothing);
         }
     }
+    public void set(int health)
+    {
+        switch(health)
+        {
+            case 0:
+                setImage(nothing);
+                break;
+            case 1:
+                setImage(red);
+                break;
+            case 2:
+                setImage(yellow);
+                break;
+            case 3:
+                setImage(green);
+                break;
+        }
+    }
     public void raise()
     {
         if(getImage() == nothing)

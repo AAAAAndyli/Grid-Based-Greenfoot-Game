@@ -12,6 +12,7 @@ public abstract class FlyingEnemy extends Enemy
     protected ArrayList<Coordinate> path = new ArrayList<Coordinate>();
     protected int forcePathfindTimer = 0;
     protected double xVelocity = 0;
+    protected double yVelocity = 0;
     
     protected int moveIndex;
     protected ArrayList<GreenfootImage> moveAnimR = new ArrayList<GreenfootImage>();
@@ -46,7 +47,7 @@ public abstract class FlyingEnemy extends Enemy
             for(Coordinate coords : TheGrid.aStarfindPath(getPosition(), player.getPosition()))
             {
                 path.add(coords);
-                getWorld().addObject(new test(true), coords.getX(), coords.getY());
+                //getWorld().addObject(new test(true), coords.getX(), coords.getY());
             }
         }
         else
@@ -77,14 +78,50 @@ public abstract class FlyingEnemy extends Enemy
             int speedX = (int)Math.round(speed * Math.cos(angle));
             int speedY = (int)Math.round(speed * Math.sin(angle));
             
+            if(speedX < 0)
+            {
+                if(speedX < xVelocity)
+                {
+                    xVelocity --;
+                }
+            }
+            else if(speedX > 0)
+            {
+                if(speedX > xVelocity)
+                {
+                    xVelocity ++;
+                }
+            }
+            if(speedY < 0)
+            {
+                if(speedY < yVelocity)
+                {
+                    yVelocity --;
+                }
+            }
+            else if(speedY > 0)
+            {
+                if(speedY > yVelocity)
+                {
+                    yVelocity ++;
+                }
+            }
             
-            globalPosition.setCoordinate(globalPosition.getX() + speedX, globalPosition.getY() + speedY);
+            globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
             
-            if(closeEnoughX)
+            if(closeEnoughX && path.size() > 1)
+            {
+                path.remove(0);
+            }
+            else if (closeEnoughX)
             {
                 globalPosition.setX(location.getX());
             }
-            if(closeEnoughY)
+            if(closeEnoughY && path.size() > 1)
+            {
+                path.remove(0);
+            }
+            else if (closeEnoughY)
             {
                 globalPosition.setY(location.getY());
             }

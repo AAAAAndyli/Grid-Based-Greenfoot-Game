@@ -22,8 +22,8 @@ public class AfterImage extends ScrollingActor
     }
     public void addedToWorld(World world)
     {
-        tempScrollX = getWorldOfType(ScrollingWorld.class).getScrollX();
-        tempScrollY = getWorldOfType(ScrollingWorld.class).getScrollY();
+        int tempScrollX = getWorldOfType(ScrollingWorld.class).getScrollX();
+        int tempScrollY = getWorldOfType(ScrollingWorld.class).getScrollY();
         super.addedToWorld(world);
         setLocation(getPosition().getX() + tempScrollX, getPosition().getY() + tempScrollY);
     }

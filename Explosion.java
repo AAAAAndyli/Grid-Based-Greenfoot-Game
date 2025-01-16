@@ -30,21 +30,12 @@ public class Explosion extends ScrollingActor
         if(explodeTimer < 15)
         {
             getWorld().getObjects(Camera.class).get(0).screenShake(1, 1);
-            getImage().scale(50 + 15 * explodeTimer,50 + 15 * explodeTimer);
+            getImage().scale(getImage().getWidth() + 15,getImage().getHeight() + 15);
             if(getIntersectingObjects(Entity.class).size() != 0)
             {
                 for(Entity entity : getIntersectingObjects(Entity.class))
                 {
-                    if(entity.getClass() == Player.class)
-                    {
-                        Player player = (Player)entity;
-                        player.hurt(1);
-                        player.launch(5);
-                    }
-                    else
-                    {
-                        entity.hurt(5);
-                    }
+                    hurtEntities(entity);
                 }
             }
         }
@@ -61,5 +52,18 @@ public class Explosion extends ScrollingActor
             }
         }
         super.act();
+    }
+    public void hurtEntities(Entity entity)
+    {
+        if(entity.getClass() == Player.class)
+        {
+            Player player = (Player)entity;
+            player.hurt(1);
+            player.launch(5);
+        }
+        else
+        {
+            entity.hurt(1, true);
+        }
     }
 }

@@ -46,11 +46,16 @@ public class Agast extends FlyingEnemy
             //System.out.println("attacking");
             numberOfProjectiles ++ ;
             attackTimer = 0;
-            useProjectile(0, projectileSpeed, target);
+            useProjectile(projectileSpeed, target);
         }
         else if(attackTimer < attackCooldown - 5 && getObjectsInRange(attackRange, Player.class).size() != 0)
         {
             aiming(projectileSpeed);
+        }
+        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        {
+            getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
+            attackTimer++;
         }
         else if(numberOfProjectiles != 0)
         {
