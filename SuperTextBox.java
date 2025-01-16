@@ -38,6 +38,7 @@ public class SuperTextBox extends Actor
     private int padding;
     private int fontSize;
     private int borderThickness;
+    private BindButton creator;
 
     /**
      *  Simple Constructor - One line text box
@@ -48,6 +49,19 @@ public class SuperTextBox extends Actor
      */
     public SuperTextBox (String line, Font font, int width){
         this (new String[]{line}, font, width);
+    }
+    
+    /**
+     *  Simple Constructor - One line text box
+     *  
+     *  @param line     The line of text to display
+     *  @param font     The font to display
+     *  @param width    The desired width of the text box in pixels
+     *  @param reference The bindButton that created/uses this text box
+     */
+    public SuperTextBox (String line, Font font, int width, BindButton reference){
+        this (new String[]{line}, font, width);
+        creator = reference;
     }
 
     /**
@@ -384,9 +398,8 @@ public class SuperTextBox extends Actor
 
     }
     
-    public void removeSelf(){
-        System.out.println("remove");
-        getWorld().removeObject(this);
+    public BindButton getCreator(){
+        return this.creator;
     }
     
     public String[] getText(){

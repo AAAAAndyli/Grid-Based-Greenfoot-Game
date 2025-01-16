@@ -24,6 +24,9 @@ public class MenuWorld extends World
         Button settings = new WorldButton("button1.png", 1.1, (World)new SettingWorld());
         addObject(settings, 900, 400);
         
+        Label l = new Label("WHYYY", 30, play);
+        addObject(l, 900, 200);
+        
         GreenfootImage test = new GreenfootImage(100, 100);
         test.drawRect(5, 5, 50, 50);
         

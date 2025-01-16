@@ -9,9 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Button extends UI
 {
     private boolean isPressed = false;
+    private boolean isPressedActor = false;
     private GreenfootImage image;
     private int count = 0;
     private int width, height;
+    private Label selfLabel;
     
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
@@ -29,11 +31,6 @@ public class Button extends UI
         width = (int)(getImage().getWidth() * sizeMulti);
         height = (int)(getImage().getHeight() * sizeMulti);
         getImage().scale(width, height);
-    }
-    
-    public void act()
-    {
-        checkButton();
     }
     
     /**
@@ -59,6 +56,41 @@ public class Button extends UI
         }
         //visual feedback of button being pressed
         if(isPressed){
+            getImage().scale((int)(0.85 * width), (int)(0.85 * height));
+        }
+        else{
+            getImage().scale(width, height);
+        }
+        //any unusual edge cases like issues with mouse
+        return false;
+    }
+    
+    /**
+     * Method to check when a button has been pressed
+     * 
+     * @param actor, the actor to check for instead of button (usually Label)
+     * @return boolean, button was activated (pressed and let go within button hitbox)
+     */
+    public boolean checkButton(Actor actor)
+    {
+        if(Greenfoot.mousePressed(actor)) //when pressed
+        {
+            isPressedActor = true;
+            System.out.println(1);
+        } //if press and let go ON BUTTON (activate button)
+        else if(Greenfoot.mouseClicked(actor) && isPressedActor){
+            isPressedActor = false;
+            //has been let go and activated
+            System.out.println(2);
+            return true;
+        } //if press and let go OFF BUTTON (cancel button)
+        else if(Greenfoot.mouseClicked(null) && isPressedActor){
+            isPressedActor = false;
+            //cancelled button
+            return false;
+        }
+        //visual feedback of button being pressed
+        if(isPressedActor){
             getImage().scale((int)(0.85 * width), (int)(0.85 * height));
         }
         else{

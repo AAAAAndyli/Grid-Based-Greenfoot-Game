@@ -49,10 +49,20 @@ public class SettingWorld extends World
         BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind");
         addObject(scrollTest3, scrollRightEdge - 20, 410);
         
-        setPaintOrder(Button.class, ScrollingUI.class);
+        setPaintOrder(Label.class, Button.class, ScrollingUI.class);
     }
     
     public void act(){
         
+    }
+    
+    public void removeBindBox(){
+        for(SuperTextBox b : (ArrayList<SuperTextBox>)getObjectsAt(getWidth() / 2, getHeight() - 50, SuperTextBox.class)){
+            //if a bindingButton was prev activated but a new one
+            //has been activated, turn previous one off
+            b.getCreator().setBindingActive(false);
+            //remove prev text box
+            removeObject(b);
+        }
     }
 }
