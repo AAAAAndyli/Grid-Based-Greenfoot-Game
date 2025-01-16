@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MenuWorld extends World
 {
-
+    Label playLabel = new Label("Play", 40);
     /**
      * Constructor for objects of class MenuWorld.
      * 
@@ -19,14 +19,14 @@ public class MenuWorld extends World
         super(1080, 720, 1); 
         setBackground("images/menuPlaceholder.png");
         
-        Label playLabel = new Label("Play", 40);
+        
         addObject(playLabel, 900, 200);
         Label settingsLabel = new Label("Settings", 40);
         addObject(settingsLabel, 900, 400);
         Label shopLabel = new Label("Shop", 40);
         addObject(shopLabel, 900, 600);
         
-        WorldButton play = new WorldButton("button1.png", 1.1, (World)new LevelWorld(), playLabel);
+        WorldButton play = new WorldButton("button1.png", 1.1, (World)new TutorialWorld(), playLabel);
         addObject(play, 900, 200);
         WorldButton settings = new WorldButton("button1.png", 1.1, (World)new SettingWorld(this), settingsLabel);
         addObject(settings, 900, 400);
@@ -38,7 +38,5 @@ public class MenuWorld extends World
         
     }
     
-    public void act(){
-        
-    }
+    
 }
