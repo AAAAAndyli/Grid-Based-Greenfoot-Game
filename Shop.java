@@ -15,6 +15,7 @@ public class Shop extends World
     private int money;
     private int price = 50;
     private int imageIndex = 0;
+    private double speed = 0.4;
     
     SimpleTimer animationTimer = new SimpleTimer();
     
@@ -55,6 +56,7 @@ public class Shop extends World
         addObject(image3, 600, 150);
         
         addObject(item4, 600, 600);
+        
         addObject(item5, 950, 300);
         addObject(item6, 950, 600);
         
@@ -101,9 +103,9 @@ public class Shop extends World
     {
         if (movingDown)
         {
-            image1.setLocation(image1.getX(), image1.getY() + 1);
-            image2.setLocation(image2.getX(), image2.getY() + 1);
-            image3.setLocation(image3.getX(), image3.getY() + 1);
+            image1.setLocation(image1.getExactX(), image1.getPreciseY() + speed);
+            image2.setLocation(image2.getExactX(), image2.getPreciseY() + speed);
+            image3.setLocation(image3.getExactX(), image3.getPreciseY() + speed);
             if (image1.getY() >= 170) 
             {
                 movingDown = false; 
@@ -111,9 +113,9 @@ public class Shop extends World
         }
         else
         {
-            image1.setLocation(image1.getX(), image1.getY() - 1);
-            image2.setLocation(image2.getX(), image2.getY() - 1);
-            image3.setLocation(image3.getX(), image3.getY() - 1);
+            image1.setLocation(image1.getExactX(), image1.getPreciseY() - speed);
+            image2.setLocation(image2.getExactX(), image2.getPreciseY() - speed);
+            image3.setLocation(image3.getExactX(), image3.getPreciseY() - speed);
             if (image1.getY() <= 150) 
             {
                 movingDown = true;

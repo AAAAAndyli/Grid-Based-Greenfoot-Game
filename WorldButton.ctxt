@@ -1,13 +1,13 @@
 #BlueJ class context
 comment0.target=WorldButton
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ WorldButton\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ WorldButton\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=file\ sizeMulti\ dest
 comment1.target=WorldButton(java.lang.String,\ double,\ greenfoot.World)
 comment2.params=file\ sizeMulti\ dest\ labelReference
 comment2.target=WorldButton(java.lang.String,\ double,\ greenfoot.World,\ Label)
 comment3.params=
 comment3.target=void\ act()
-comment3.text=\r\n\ Act\ -\ do\ whatever\ the\ WorldButton\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment3.text=\n\ Act\ -\ do\ whatever\ the\ WorldButton\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment4.params=w
 comment4.target=void\ activateButton(greenfoot.World)
 numComments=5
