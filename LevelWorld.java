@@ -27,7 +27,7 @@ public class LevelWorld extends ScrollingWorld
     
     public LevelWorld()
     {
-        this("test3.csv");
+        this("test.csv");
     }
     
     /**
@@ -73,29 +73,36 @@ public class LevelWorld extends ScrollingWorld
             world.add(scan.nextLine());
         }
         StringTokenizer tokenizer;
+        String previousTile = "";
         for(String tile : world)
         {
-            tokenizer = new StringTokenizer(tile, ",");
-            int sizeOfString = tokenizer.countTokens();
-            try
+            if(!tile.equals(previousTile))
             {
-                String type = tokenizer.nextToken();
-                int rotation = Integer.parseInt(tokenizer.nextToken());
-                int xLocation = Integer.parseInt(tokenizer.nextToken());
-                int yLocation = Integer.parseInt(tokenizer.nextToken());
-                int triggerNumber = -1;
-                int enemyNumber = -1;
-                boolean isCollidable = true;
-                if(tokenizer.hasMoreTokens())
+                tokenizer = new StringTokenizer(tile, ",");
+                int sizeOfString = tokenizer.countTokens();
+                try
                 {
-                    triggerNumber = Integer.parseInt(tokenizer.nextToken());
-                }
-                if(tokenizer.hasMoreTokens())
-                {
-                    enemyNumber = Integer.parseInt(tokenizer.nextToken());
-                }
-                if(type.equals("PlayerSpawnPoint") || type.equals("LaserTile") || type.equals("EnemySpawnPoint") || type.equals("EnemySpawner") || type.equals("OneWayTile") || type.equals("TriggerTile"))
-                {
+                    String type = tokenizer.nextToken();
+                    int rotation = Integer.parseInt(tokenizer.nextToken());
+                    int xLocation = Integer.parseInt(tokenizer.nextToken());
+                    int yLocation = Integer.parseInt(tokenizer.nextToken());
+                    int triggerNumber = -1;
+                    int enemyNumber = -1;
+                    String colour = "";
+                    boolean isCollidable = true;
+                    if(tokenizer.hasMoreTokens())
+                    {
+                        triggerNumber = Integer.parseInt(tokenizer.nextToken());
+                    }
+                    if(tokenizer.hasMoreTokens())
+                    {
+                        enemyNumber = Integer.parseInt(tokenizer.nextToken());
+                    }
+                    if(tokenizer.hasMoreTokens())
+                    {
+                        colour = tokenizer.nextToken();
+                    }
+
                     switch(type)
                     {
                         case "PlayerSpawnPoint":
@@ -131,18 +138,26 @@ public class LevelWorld extends ScrollingWorld
                             OneWayTile oneWayTile = new OneWayTile(type, rotation, xLocation, yLocation);
                             addObject(oneWayTile, xLocation, yLocation);
                             break;
+                        case "Firewall":
+                            Firewall firewall = new Firewall(type, rotation, xLocation, yLocation, triggerNumber, colour);
+                            addObject(firewall, xLocation, yLocation);
+                            break;
+                        case "Key":
+                            Key key = new Key(type, rotation, xLocation, yLocation, triggerNumber, colour);
+                            addObject(key, xLocation, yLocation);
+                            break;
+                        default:
+                            addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
+                            tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
+                            break;
                     }
                 }
-                else
+                catch(NumberFormatException e)
                 {
-                    addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
-                    tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
+                    System.out.println("Bad File >:(");
                 }
             }
-            catch(NumberFormatException e)
-            {
-                System.out.println("Bad File >:(");
-            }
+            previousTile = tile;
         }
         for(LaserTile laserTile : getObjects(LaserTile.class))
         {

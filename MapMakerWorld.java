@@ -32,6 +32,8 @@ public class MapMakerWorld extends ScrollingWorld
     private String value;
     private int index;
     private int enemyIndex;
+    private String colour = "red";
+    private int colourChangeTimer = 0;
     
     private MapMaker mapMaker = new MapMaker(this);
     private String loadedFile;
@@ -76,8 +78,29 @@ public class MapMakerWorld extends ScrollingWorld
             showMainMenu();
             printWorld();
         }
+        if(Greenfoot.isKeyDown("shift") && colourChangeTimer > 30)
+        {
+            colourChangeTimer = 0;
+            switch(colour)
+            {
+                case "red":
+                    colour = "blue";
+                    break;
+                case "blue":
+                    colour = "pink";
+                    break;
+                case "pink":
+                    colour = "green";
+                    break;
+                case "green":
+                    colour = "red";
+                    break;
+            }
+        }
+        colourChangeTimer++;
         currentTriggerID.setValue("Trigger ID: " + mapMaker.getTriggerID());
         currentEnemyID.setValue("Enemy ID: " + mapMaker.getEnemyID());
+        currentTriggerID.setValue("Firewall Colour: " + colour);
     }
     
     /*
@@ -333,7 +356,7 @@ public class MapMakerWorld extends ScrollingWorld
                 }
                 else if((mouse.getButton() == 1) && mapMaker.getType() != null)
                 {
-                    placeTile(xMapPosition, yMapPosition, mapMaker.getType(), mapMaker.getTriggerID(), EnemyID.getEnemy(mapMaker.getEnemyID()), mapMaker.getRotation());
+                    placeTile(xMapPosition, yMapPosition, mapMaker.getType(), mapMaker.getTriggerID(), EnemyID.getEnemy(mapMaker.getEnemyID()), mapMaker.getRotation(), colour);
                 }
             }
             if (getObjects(TileSelector.class).isEmpty()) 
@@ -347,7 +370,7 @@ public class MapMakerWorld extends ScrollingWorld
         }
     }
 
-    public void placeTile(int x, int y, String type, int triggerID, Enemy enemy, int rotation)
+    public void placeTile(int x, int y, String type, int triggerID, Enemy enemy, int rotation, String colour)
     {
         Tile tile;
         if(type.equals("LasterTile"))
@@ -365,6 +388,14 @@ public class MapMakerWorld extends ScrollingWorld
         else if(type.equals("OneWayTile"))
         {
             tile = new OneWayTile(type, rotation, x, y);
+        }
+        else if(type.equals("Firewall"))
+        {
+            tile = new Firewall(type, rotation, x, y, triggerID, colour);
+        }
+        else if(type.equals("Key"))
+        {
+            tile = new Key(type, rotation, x, y, triggerID, colour);
         }
         else
         {
@@ -425,7 +456,11 @@ public class MapMakerWorld extends ScrollingWorld
                 {
                     enemyNumber = Integer.parseInt(tokenizer.nextToken());
                 }
-                placeTile(xLocation, yLocation, type, triggerNumber, EnemyID.getEnemy(enemyNumber), rotation);
+                if(tokenizer.hasMoreTokens())
+                {
+                    colour = tokenizer.nextToken();
+                }
+                placeTile(xLocation, yLocation, type, triggerNumber, EnemyID.getEnemy(enemyNumber), rotation, colour);
             }
             catch(NumberFormatException e)
             {

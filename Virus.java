@@ -17,9 +17,15 @@ public class Virus extends FlyingEnemy
     protected ArrayList<GreenfootImage> spawnAnim = new ArrayList<GreenfootImage>();
     private boolean hasDuplicated = false;
     private boolean isSpawning = true;
-
+    
     public Virus()
     {
+        this(5);
+    }
+
+    public Virus(int bytes)
+    {
+        bytesOnDeath = bytes;
         attackCooldown = 0;
         health = 20;
         speed = 5;
@@ -89,7 +95,7 @@ public class Virus extends FlyingEnemy
         }
         else
         {
-            getWorld().addObject(new Virus(), getPosition().getX() - 50, getPosition().getY());
+            getWorld().addObject(new Virus(0), getPosition().getX() - 50, getPosition().getY());
             hasDuplicated = true;
         }
     }

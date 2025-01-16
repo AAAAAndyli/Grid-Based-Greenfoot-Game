@@ -133,6 +133,12 @@ public class Trogun extends GroundedEnemy
             attackTimer++;
         }
     }
+    public void hurt(int damage)
+    {
+        super.hurt(damage);
+        Player player = getWorld().getObjects(Player.class).get(0);
+        faceTowards(player.getPosition().getX());
+    }
     
     /**
      * Loads in every frame for every animation

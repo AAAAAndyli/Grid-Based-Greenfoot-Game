@@ -17,6 +17,7 @@ public class Cypr extends GroundedEnemy
     public Cypr()
     {
         super();
+        bytesOnDeath = 3;
         xSpeed = 3;
         health = 5;
         loadAnimationFrames("images/Enemies/cypr");
@@ -142,8 +143,8 @@ public class Cypr extends GroundedEnemy
     public void hurt(int damage)
     {
         super.hurt(damage);
-        //Player player = getWorld().getObjects(Player.class).get(0);
-        //faceTowards(player.getPosition().getX());
+        Player player = getWorld().getObjects(Player.class).get(0);
+        faceTowards(player.getPosition().getX());
     }
     /**
      * Loads in every frame for every animation

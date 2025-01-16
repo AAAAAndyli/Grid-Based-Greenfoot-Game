@@ -12,6 +12,7 @@ public class Agast extends FlyingEnemy
     private Player player;
     public Agast()
     {
+        bytesOnDeath = 5;
         attackCooldown = 120;
         health = 20;
         speed = 10;

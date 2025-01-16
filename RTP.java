@@ -19,6 +19,7 @@ public class RTP extends GroundedEnemy
     public RTP()
     {
         super();
+        bytesOnDeath = 10;
         isImmuneToExplosions = true;
         xSpeed = 5;
         health = 30;
@@ -153,7 +154,7 @@ public class RTP extends GroundedEnemy
             }
             else
             {
-            attackTimer++;
+                attackTimer++;
             }
         }
     }

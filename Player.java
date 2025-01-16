@@ -81,7 +81,7 @@ public class Player extends Entity
         globalPosition = new Coordinate(0,0);
         health = 15;
         maxHealth = health;
-        weaponList.add(missile);
+        //weaponList.add(missile);
         weaponList.add(spread);
         weaponList.add(rapid);
         weaponList.add(bomb);
@@ -338,15 +338,14 @@ public class Player extends Entity
     
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
-        Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);
-        if(tile == null || tile.getButton() || !tile.getCollidable())
+        for(Tile tile : getObjectsAtOffset(xOffset, yOffset, Tile.class))
         {
-            return null;
+            if(tile != null && tile.getCollidable())
+            {
+                return tile;
+            }
         }
-        else
-        {
-            return tile;
-        }
+        return null;
     }
     
     public void moveOnDiagonal(Tile diagonalTile)

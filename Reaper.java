@@ -13,6 +13,7 @@ public class Reaper extends FlyingEnemy
     private Player player;
     public Reaper()
     {
+        bytesOnDeath = 5;
         attackCooldown = 10;
         health = 24;
         speed = 7;

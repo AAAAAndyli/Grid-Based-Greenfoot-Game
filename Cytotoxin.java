@@ -21,6 +21,7 @@ public class Cytotoxin extends FlyingEnemy
     public Cytotoxin()
     {
         attackCooldown = 30;
+        bytesOnDeath = 1;
         health = 1;
         speed = 5;
         attackFrame = 3;

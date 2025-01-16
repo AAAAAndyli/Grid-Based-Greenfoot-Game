@@ -1,4 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
+import java.io.File;
 
 /**
  * Write a description of class Firewall here.
@@ -11,29 +13,32 @@ public class Firewall extends TriggerTile
     private Enemy enemy;
     private int timer = 0;
     private Label triggerNumberDisplay;
+    private ArrayList<GreenfootImage> animation = new ArrayList<GreenfootImage>();
+    private int animationTimer;
+    private int animationIndex;
+    private String colour;
     
     private Label enemyNumberDisplay;
     private StillLabel buttonEnemyNumberDisplay;
     
-    public Firewall(String type, int rotations, int xPosition, int yPosition, int triggerNumber, Enemy enemy)
+    public Firewall(String type, int rotations, int xPosition, int yPosition, int triggerNumber, String colour)
     {
-        this(type, rotations, false, null, xPosition, yPosition, triggerNumber, enemy);
+        this(type, rotations, false, null, xPosition, yPosition, triggerNumber, colour);
     }
-    public Firewall(String type, int rotations, boolean isButton, MapMaker mapMaker, int triggerNumber, Enemy enemy)
+    public Firewall(String type, int rotations, boolean isButton, MapMaker mapMaker, int triggerNumber, String colour)
     {
-        this(type, rotations, isButton, mapMaker, 0, 0, triggerNumber, enemy);
+        this(type, rotations, isButton, mapMaker, 0, 0, triggerNumber, colour);
     }
-    public Firewall(String type, int rotations, boolean isButton, MapMaker mapMaker, int xPosition, int yPosition, int triggerNumber, Enemy enemy)
+    public Firewall(String type, int rotations, boolean isButton, MapMaker mapMaker, int xPosition, int yPosition, int triggerNumber, String colour)
     {
         super(type,rotations,isButton,mapMaker,xPosition,yPosition, triggerNumber);
+        loadSingleAnimation("images/Tiles/" + "firewall/" +  colour + "/", animation);
         this.triggerNumber = triggerNumber;
-        this.enemy = enemy;
-        collidable = false;
-        enemyNumberDisplay = new Label(EnemyID.getID(enemy), 25, this);
-        buttonEnemyNumberDisplay = new StillLabel(EnemyID.getID(enemy), 25, this);
+        this.colour = colour;
     }
     public void addedToWorld(World world)
     {
+        collidable = true;
         super.addedToWorld(world);
         trigger = new Trigger(triggerNumber);
         if(TriggerCollection.searchTrigger(trigger))
@@ -44,19 +49,10 @@ public class Firewall extends TriggerTile
         {
             TriggerCollection.addTrigger(trigger);
         }
-        if(!isButton)
-        {
-            getWorld().addObject(enemyNumberDisplay, getPosition().getX()+15, getPosition().getY()+15);
-        }
-        else
-        {
-            getWorld().addObject(buttonEnemyNumberDisplay, getPosition().getX()+15, getPosition().getY()+15);
-        }
     }
     public void whenTriggered()
     {
-        getWorld().addObject(enemy, getPosition().getX(), getPosition().getY() - enemy.getImage().getHeight()/2);
-        enemy.setLocation(enemy.getPosition().getX() + scrollX, getPosition().getY() - enemy.getImage().getHeight()/2 + scrollY);
+        collidable = false;
         if(timer > 0)
         {
             trigger.permanentlyDeactivateTrigger();
@@ -68,7 +64,7 @@ public class Firewall extends TriggerTile
     }
     public String toString()
     {
-        return(type + "," + rotations + ","  + x + "," + y + "," + triggerNumber + "," + EnemyID.getID(enemy));
+        return(type + "," + rotations + ","  + x + "," + y + "," + triggerNumber + "," + -1 + "," + colour);
     }
     /**
      * Act - do whatever the EnemySpawner wants to do. This method is called whenever
@@ -80,6 +76,37 @@ public class Firewall extends TriggerTile
         {
             whenTriggered();
         }
+        animationIndex = animate(animation, animationIndex);
         super.act();
+    }
+    
+    protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation)
+    {
+        for(int i = 0; i < new File(path + "/" ).listFiles().length - 1; i++)
+        {
+            animation.add(new GreenfootImage(path + "/" + i + ".png"));
+        }
+    }
+    
+    public boolean getCollidable()
+    {
+        return collidable;
+    }
+
+    protected int animate(ArrayList<GreenfootImage> animation, int index)
+    {
+        if(animationTimer < 5)
+        {
+            animationTimer ++;
+            return index;
+        }
+        setImage(animation.get(index));
+        index++;
+        if(index > animation.size()-1)
+        {
+            index = 0;
+        }
+        animationTimer = 0;
+        return index;
     }
 }
