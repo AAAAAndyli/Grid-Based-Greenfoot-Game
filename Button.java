@@ -34,7 +34,7 @@ public class Button extends UI
         getImage().scale(width, height);
     }
     
-    public Button(String file, double sizeMulti, boolean isShopItem)
+    public Button(String file, double sizeMulti, boolean isShopItem, int num)
     {
         image = new GreenfootImage("images/" + file);
         isShopIcon = isShopItem;
