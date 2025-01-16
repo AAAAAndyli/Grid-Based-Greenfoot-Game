@@ -19,6 +19,7 @@ public class Shop extends World
     SimpleTimer animationTimer = new SimpleTimer();
     
     private boolean clickedOne;
+    private boolean movingDown = true;
     
     private Button item1 = new Button("purchaseButton.png");
     private Button item2 = new Button("purchaseButton.png");
@@ -28,7 +29,8 @@ public class Shop extends World
     private Button item6 = new Button("purchaseButton.png");
     
     private Button image1 = new Button("shopIcons/Shield.png",1.5, true);
-    private Button image2 = new Button("shopIcons/fullHealth.png",1,true);
+    private Button image2 = new Button("shopIcons/fullHealth.png",1, true);
+    private Button image3 = new Button("shopIcons/plusHP.png",.8, true);
     /**
      * Constructor for objects of class Shop.
      * 
@@ -50,6 +52,8 @@ public class Shop extends World
         addObject(image2, 250, 450);
         
         addObject(item3, 600, 300);
+        addObject(image3, 600, 150);
+        
         addObject(item4, 600, 600);
         addObject(item5, 950, 300);
         addObject(item6, 950, 600);
@@ -63,6 +67,7 @@ public class Shop extends World
     {
         purchase();
         animate();
+        hover();
     }
     
     public void purchase()
@@ -90,6 +95,30 @@ public class Shop extends World
         animationTimer.mark();
         setBackground(shopAnimation[imageIndex]);
         imageIndex = (imageIndex + 1) % shopAnimation.length;
+    }
+    
+    public void hover()
+    {
+        if (movingDown)
+        {
+            image1.setLocation(image1.getX(), image1.getY() + 1);
+            image2.setLocation(image2.getX(), image2.getY() + 1);
+            image3.setLocation(image3.getX(), image3.getY() + 1);
+            if (image1.getY() >= 170) 
+            {
+                movingDown = false; 
+            }
+        }
+        else
+        {
+            image1.setLocation(image1.getX(), image1.getY() - 1);
+            image2.setLocation(image2.getX(), image2.getY() - 1);
+            image3.setLocation(image3.getX(), image3.getY() - 1);
+            if (image1.getY() <= 150) 
+            {
+                movingDown = true;
+            }
+        }
     }
 }
 
