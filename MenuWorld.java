@@ -24,9 +24,9 @@ public class MenuWorld extends World
         Label settingsLabel = new Label("Settings", 40);
         addObject(settingsLabel, 900, 400);
         
-        Button play = new WorldButton("button1.png", 1.1, (World)new LevelWorld(), playLabel);
+        WorldButton play = new WorldButton("button1.png", 1.1, (World)new LevelWorld(), playLabel);
         addObject(play, 900, 200);
-        Button settings = new WorldButton("button1.png", 1.1, (World)new SettingWorld(), settingsLabel);
+        WorldButton settings = new WorldButton("button1.png", 1.1, (World)new SettingWorld(this), settingsLabel);
         addObject(settings, 900, 400);
         
         setPaintOrder(Label.class, Button.class);

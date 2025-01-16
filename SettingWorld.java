@@ -18,7 +18,7 @@ public class SettingWorld extends World
      * Constructor for objects of class SettingWorld.
      * 
      */
-    public SettingWorld()
+    public SettingWorld(MenuWorld world)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1, false); 
@@ -60,6 +60,11 @@ public class SettingWorld extends World
         
         BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind", test3);
         addObject(scrollTest3, scrollRightEdge - 20, 410);
+        
+        Label backLabel = new Label("Back", 40);
+        addObject(backLabel, 85, 50);
+        WorldButton back = new WorldButton("button1.png", 0.5, world, backLabel);
+        addObject(back, 85, 50);
         
         setPaintOrder(Label.class, Button.class, ScrollingUI.class);
     }

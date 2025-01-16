@@ -28,7 +28,6 @@ public class ScrollingUI extends UI
         if(actorFollow){
             for(Class c : classFollowList){
                 classList.add(c);
-                System.out.println(c);
             }  
         }
         
