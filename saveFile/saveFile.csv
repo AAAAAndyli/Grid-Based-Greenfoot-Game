@@ -1,6 +1,6 @@
 jump,w
-down,s
+down,l
 left,a
 right,d
 dash,shift
-parry,e
+parry,space
