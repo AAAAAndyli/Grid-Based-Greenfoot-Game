@@ -33,11 +33,13 @@ public class SaveFile
     }
     
     public static void loadFile(){
+        info.clear();
         try{
             s = new Scanner(new File("saveFile/saveFile.csv"));
             while(s.hasNext()){
                 info.add(s.nextLine());
             }
+            s.close();
         }
         catch(FileNotFoundException e){
             System.out.println("File Not Found");
@@ -46,8 +48,6 @@ public class SaveFile
     
     public static void setKeyBind(String keyBind, String key){
         int index = 0;
-        
-        System.out.println(info.size());
         
         for(String s : info){
             tokenizer = new StringTokenizer(s, ",");
@@ -60,11 +60,20 @@ public class SaveFile
             index++;
         }       
         
-        for(String s : info){
-            System.out.println(s);
-        }
-        
         save();
+    }
+    
+    public static String getKey(String keyBind){
+        for(String s : info){
+            tokenizer = new StringTokenizer(s, ",");
+            currentToken = tokenizer.nextToken();
+            
+            if(currentToken.equals(keyBind)){
+                return tokenizer.nextToken();
+            }
+        }
+        //keybind not found
+        return null;
     }
     
     public static void save(){

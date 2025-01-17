@@ -20,13 +20,16 @@ public class BindButton extends Button {
         buttonType = type;
         textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
         bindBox = new SuperTextBox("Press a key", new Font("Arial", false, false, 20), 190, this);
-        keyLabel = new Label("Default", 40, this);
+        
+        keyLabel = new Label(SaveFile.getKey(type), 40, this);
     }
     
+    /**
     public BindButton(String file, double sizeMulti, String txt, String type, Label labelReference){
         this(file, sizeMulti, txt, type);
         keyLabel = labelReference;
     }
+    */
 
     public void act(){
         //add textBox when bindButton added to world
@@ -56,7 +59,6 @@ public class BindButton extends Button {
             if(keyBinding != null){
                 keyLabel.setValue(keyBinding);
                 getWorld().removeObject(bindBox);
-                System.out.println(buttonType + " update");
                 SaveFile.setKeyBind(buttonType, keyBinding);
                 bindingActive = false; //disable binding
             }

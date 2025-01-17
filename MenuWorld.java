@@ -19,6 +19,9 @@ public class MenuWorld extends World
         super(1080, 720, 1); 
         setBackground("images/menuPlaceholder.png");
         
+        //load save file for data
+        SaveFile.loadFile();
+        
         Label playLabel = new Label("Play", 40);
         addObject(playLabel, 900, 200);
         Label settingsLabel = new Label("Settings", 40);
@@ -33,9 +36,6 @@ public class MenuWorld extends World
         //temporary
         WorldButton shop = new WorldButton("button1.png", 1.1, (World)new Shop(this), shopLabel);
         addObject(shop, 900, 600);
-        
-        //load save file for data
-        SaveFile.loadFile();
         
         setPaintOrder(Label.class, Button.class);
         

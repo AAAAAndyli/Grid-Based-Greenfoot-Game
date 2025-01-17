@@ -43,22 +43,13 @@ public class SettingWorld extends World
         
         int scrollRightEdge = s.getX() + (350 / 2);
         
-        test = new Label("Default", 40);
-        addObject(test, scrollRightEdge - 20, 210);
-        
-        test2 = new Label("Default", 40);
-        addObject(test2, scrollRightEdge - 20, 310);
-        
-        test3 = new Label("Default", 40);
-        addObject(test3, scrollRightEdge - 20, 410);
-        
-        BindButton scrollTest = new BindButton("button1.png", 0.5, "Jump Keybind", "jump", test);
+        BindButton scrollTest = new BindButton("button1.png", 0.5, "Jump Keybind", "jump");
         addObject(scrollTest, scrollRightEdge - 20, 210);
     
-        BindButton scrollTest2 = new BindButton("button1.png", 0.5, "Dash Keybind", "dash", test2);
+        BindButton scrollTest2 = new BindButton("button1.png", 0.5, "Dash Keybind", "dash");
         addObject(scrollTest2, scrollRightEdge - 20, 310);
         
-        BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind", "parry", test3);
+        BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind", "parry");
         addObject(scrollTest3, scrollRightEdge - 20, 410);
         
         Label backLabel = new Label("Back", 40);
