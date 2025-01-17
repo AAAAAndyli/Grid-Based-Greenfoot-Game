@@ -74,6 +74,7 @@ public class Player extends Entity
     private String jump;
     private String left;
     private String right;
+    private String down;
     private String parry;
     private String dash;
     
@@ -115,8 +116,8 @@ public class Player extends Entity
             dash = SaveFile.getKey("dash");
             left = SaveFile.getKey("left");
             right = SaveFile.getKey("right");
+            down = SaveFile.getKey("down");
             runOnce = true;
-            System.out.println(111);
         }
         
         MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -422,11 +423,11 @@ public class Player extends Entity
     
     public void slam()
     {
-        if(((touchingFloor || getOneTileAtOffset(0, getImage().getHeight()/2+10) != null|| getOneTileAtOffset(getImage().getWidth()/2, getImage().getHeight()/2+10) != null) || getOneTileAtOffset(-getImage().getWidth()/2, getImage().getHeight()/2+10) != null) && !(Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")))
+        if(((touchingFloor || getOneTileAtOffset(0, getImage().getHeight()/2+10) != null|| getOneTileAtOffset(getImage().getWidth()/2, getImage().getHeight()/2+10) != null) || getOneTileAtOffset(-getImage().getWidth()/2, getImage().getHeight()/2+10) != null) && !Greenfoot.isKeyDown(down))
         {
             isSlamming = false;
         }
-        else if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down") || isSlamming))
+        else if((Greenfoot.isKeyDown(down) || isSlamming))
         {
             state = "slamming";
             storedJump = 5;
@@ -440,7 +441,7 @@ public class Player extends Entity
     
     public void slide()
     {
-        if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && (touchingFloor||isSliding) && !isSlamming)
+        if(Greenfoot.isKeyDown(down) && (touchingFloor||isSliding) && !isSlamming)
         {
             state = "sliding";
             switch(xDirection)

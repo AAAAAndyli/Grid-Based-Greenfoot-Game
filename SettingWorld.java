@@ -51,11 +51,14 @@ public class SettingWorld extends World
         
         //movement WASD binds (basic movement)
         BindButton jumpButton = new BindButton("button1.png", 0.5, "Jump Keybind", "jump");
-        addObject(jumpButton, scrollRightEdge - 20, 210);
+        addObject(jumpButton, scrollRightEdge - 20, 110);
+        BindButton downButton = new BindButton("button1.png", 0.5, "Down Keybind", "down");
+        addObject(downButton, scrollRightEdge - 20, 210);
         BindButton leftButton = new BindButton("button1.png", 0.5, "Left Keybind", "left");
         addObject(leftButton, scrollRightEdge - 20, 310);
         BindButton rightButton = new BindButton("button1.png", 0.5, "Right Keybind", "right");
         addObject(rightButton, scrollRightEdge - 20, 410);
+
         
         Label backLabel = new Label("Back", 40);
         addObject(backLabel, 85, 50);

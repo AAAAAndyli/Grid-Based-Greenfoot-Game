@@ -46,7 +46,7 @@ public class BindButton extends Button {
         if(pressed && !bindingActive){
             SettingWorld w = (SettingWorld)getWorld();
             w.removeBindBox();
-            getWorld().addObject(bindBox, getWorld().getWidth() / 2, getWorld().getHeight() - 50);
+            getWorld().addObject(bindBox, getWorld().getWidth() / 2 - 50, getWorld().getHeight() - 50);
             //if user pressed key beforehand, this will take that 
             //pressed key -- prevents incorrect binding 
             keyDummy = Greenfoot.getKey(); 
