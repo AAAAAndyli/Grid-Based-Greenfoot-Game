@@ -10,20 +10,21 @@ import java.util.ArrayList;
 public class BindButton extends Button {
     private SuperTextBox textBox, bindBox;
     private Label keyLabel;
-    private String text;
+    private String text, buttonType;
     private String keyDummy, keyBinding;
     private boolean added, pressed, bindingActive = false;
 
-    public BindButton(String file, double sizeMulti, String txt){
+    public BindButton(String file, double sizeMulti, String txt, String type){
         super(file, sizeMulti);
         text = txt;
+        buttonType = type;
         textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
         bindBox = new SuperTextBox("Press a key", new Font("Arial", false, false, 20), 190, this);
         keyLabel = new Label("Default", 40, this);
     }
     
-    public BindButton(String file, double sizeMulti, String txt, Label labelReference){
-        this(file, sizeMulti, txt);
+    public BindButton(String file, double sizeMulti, String txt, String type, Label labelReference){
+        this(file, sizeMulti, txt, type);
         keyLabel = labelReference;
     }
 
@@ -54,7 +55,9 @@ public class BindButton extends Button {
             keyBinding = Greenfoot.getKey(); //2nd key getting proper value 
             if(keyBinding != null){
                 keyLabel.setValue(keyBinding);
-                getWorld().removeObject(bindBox);                
+                getWorld().removeObject(bindBox);
+                System.out.println(buttonType + " update");
+                SaveFile.setKeyBind(buttonType, keyBinding);
                 bindingActive = false; //disable binding
             }
         }

@@ -34,6 +34,9 @@ public class MenuWorld extends World
         WorldButton shop = new WorldButton("button1.png", 1.1, (World)new Shop(this), shopLabel);
         addObject(shop, 900, 600);
         
+        //load save file for data
+        SaveFile.loadFile();
+        
         setPaintOrder(Label.class, Button.class);
         
     }

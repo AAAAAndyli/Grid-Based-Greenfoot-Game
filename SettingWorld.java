@@ -52,13 +52,13 @@ public class SettingWorld extends World
         test3 = new Label("Default", 40);
         addObject(test3, scrollRightEdge - 20, 410);
         
-        BindButton scrollTest = new BindButton("button1.png", 0.5, "Jump Keybind", test);
+        BindButton scrollTest = new BindButton("button1.png", 0.5, "Jump Keybind", "jump", test);
         addObject(scrollTest, scrollRightEdge - 20, 210);
     
-        BindButton scrollTest2 = new BindButton("button1.png", 0.5, "Attack Keybind", test2);
+        BindButton scrollTest2 = new BindButton("button1.png", 0.5, "Dash Keybind", "dash", test2);
         addObject(scrollTest2, scrollRightEdge - 20, 310);
         
-        BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind", test3);
+        BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind", "parry", test3);
         addObject(scrollTest3, scrollRightEdge - 20, 410);
         
         Label backLabel = new Label("Back", 40);
