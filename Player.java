@@ -115,6 +115,10 @@ public class Player extends Entity
     public void act()
     {     
         if(!runOnce){
+            //if accessing levelworld through debug, load default binds
+            if(SaveFile.getKey("jump") == null){
+                SaveFile.loadFile("saveFile/defaultSaveFile.csv");
+            }
             jump = SaveFile.getKey("jump");
             parry = SaveFile.getKey("parry");
             dash = SaveFile.getKey("dash");
