@@ -86,7 +86,7 @@ public class Shop extends World
         health = 1;
         maxHealth = 10;
         
-        setPaintOrder(Cursor.class, Label.class, Button.class, Shop.class);
+        setPaintOrder(Transition.class, Cursor.class, Label.class, Button.class, Shop.class);
     }
     
     public void act()
