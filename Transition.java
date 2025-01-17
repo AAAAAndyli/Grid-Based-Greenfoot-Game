@@ -6,7 +6,7 @@ import greenfoot.*;
 public class Transition extends Actor
 {
     private int transparency = 0; 
-    private int fadeSpeed = 4;    
+    private int fadeSpeed = 5;    
     private boolean fadingIn = true; 
 
     public Transition() {
@@ -25,6 +25,14 @@ public class Transition extends Actor
                 getImage().setTransparency(transparency);
             } else {
                 fadingIn = false; 
+            }
+        }
+        else {
+            if(transparency > 250){
+                transparency -= fadeSpeed;
+                getImage().setTransparency(transparency);
+            }else{
+                fadingIn = true;
             }
         }
     }

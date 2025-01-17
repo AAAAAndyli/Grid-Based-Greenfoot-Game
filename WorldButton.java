@@ -54,6 +54,7 @@ public class WorldButton extends Button
 
         
         if (currentFrame == transitionFrames / 2) {
+            getWorld().removeObject(transitionEffect);
             Greenfoot.setWorld(destination); 
         }
 
