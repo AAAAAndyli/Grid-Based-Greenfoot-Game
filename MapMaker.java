@@ -158,13 +158,8 @@ public class MapMaker extends SuperSmoothMover
             case 0:
                 tileListOptions.add(new Tile("FullTile", rotations, true, this));
                 tileListOptions.add(new OneWayTile("OneWayTile", rotations, true, this));
-                //tileListOptions.add(new Tile("DiagonalTile", rotations, true, this));
-                //tileListOptions.add(new Tile("Stair", rotations, true, this));
                 tileListOptions.add(new Tile("PlayerSpawnPoint", 0, true, this));
                 tileListOptions.add(new LaserTile("LaserTile", rotations, true, this));
-                //tileListOptions.add(new Tile("EnemySpawnPoint", 0, true, this));
-                tileListOptions.add(new CollisionTrigger("TriggerTile", 0, true, this, triggerID));
-                tileListOptions.add(new EnemySpawner("EnemySpawner", 0, true, this, triggerID, EnemyID.getEnemy(enemyID)));
                 break;
             case 1:
                 tileListOptions.add(new Tile("BackgroundFullTile", rotations, true, this, false));
@@ -176,6 +171,12 @@ public class MapMaker extends SuperSmoothMover
                 tileListOptions.add(new Tile("BackgroundFullTile7", rotations, true, this, false));
                 tileListOptions.add(new Tile("BackgroundDiagonalTile", rotations, true, this, false));
                 tileListOptions.add(new Tile("Stair", rotations, true, this, false));
+                break;
+            case 2:
+                tileListOptions.add(new CollisionTrigger("TriggerTile", 0, true, this, triggerID));
+                tileListOptions.add(new EnemySpawner("EnemySpawner", 0, true, this, triggerID, EnemyID.getEnemy(enemyID)));
+                tileListOptions.add(new Firewall("Firewall", rotations, true, this, triggerID, "red"));
+                tileListOptions.add(new Key("Key", rotations, true, this, triggerID, "red"));
                 break;
         } 
     }

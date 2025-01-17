@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class BombPProjectile extends PProjectile
 {
-    private int gravity = 1, yVelocity = 0;
+    private double gravity = 0.9, yVelocity = 0;
     public BombPProjectile(Coordinate target, double speed, ScrollingActor spawner)
     {
         super(target, speed, 1, spawner, "PlayerDefault");
@@ -25,7 +25,7 @@ public class BombPProjectile extends PProjectile
     {
         yVelocity += gravity;
         distance += speed;
-        globalPosition.setCoordinate(globalPosition.getX()+(int)Math.round(speed * Math.cos(Math.toRadians(getRotation()))), globalPosition.getY()+yVelocity+(int)Math.round(speed * Math.sin(Math.toRadians(getRotation()))));
+        globalPosition.setCoordinate(globalPosition.getX()+(int)Math.round(speed * Math.cos(Math.toRadians(getRotation()))), globalPosition.getY()+(int)yVelocity+(int)Math.round(speed * Math.sin(Math.toRadians(getRotation()))));
         collide();
         System.out.println(speed);
         if(globalPosition != null)
@@ -42,12 +42,12 @@ public class BombPProjectile extends PProjectile
         }
         else if(isTouching(Tile.class) && ((Tile)getOneIntersectingObject(Tile.class)).getCollidable() == true)
         {
-            getWorld().addObject(new Explosion(), getPosition().getX(), getPosition().getY());
+            getWorld().addObject(new PlayerExplosion(), getPosition().getX(), getPosition().getY());
             getWorld().removeObject(this);
         }
         else if(markedForDeletion)
         {
-            getWorld().addObject(new Explosion(), getPosition().getX(), getPosition().getY());
+            getWorld().addObject(new PlayerExplosion(), getPosition().getX(), getPosition().getY());
             getWorld().removeObject(this);
         }
     }

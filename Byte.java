@@ -72,6 +72,7 @@ public class Byte extends ScrollingActor
         if (touchingWallet.size() == 1 && collected){
             wallet.changeAmount(1);
             getWorld().removeObject(this);
+            return;
         }
         if (!collected) {
             movement();
@@ -80,6 +81,7 @@ public class Byte extends ScrollingActor
         if (collected && timer.millisElapsed() >= 1500) {
             wallet.changeAmount(1);
             getWorld().removeObject(this);
+            return;
         }
         if (collected && getWorld() != null) {
             //xVelocity += ((double) wallet.getX() - (double) getPosition().getX()) / 500;            

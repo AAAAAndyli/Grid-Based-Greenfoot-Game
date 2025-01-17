@@ -35,7 +35,7 @@ public class ScrollingActor extends SuperSmoothMover
     {
         if(isFirstAct)
         {
-            setLocation(globalPosition.getX() + tempScrollX, globalPosition.getY() + tempScrollY);
+            setLocation(globalPosition.getX() - tempScrollX, globalPosition.getY() - tempScrollY);
         }
         if(globalPosition != null)
         {

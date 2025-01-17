@@ -1,17 +1,17 @@
 #BlueJ class context
 comment0.target=TutorialAvatar
-comment0.text=\r\n\ TutorialAvatar\ class.\r\n
+comment0.text=\n\ TutorialAvatar\ class.\n
 comment1.params=
 comment1.target=TutorialAvatar()
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
 comment3.target=void\ handleMessages()
-comment3.text=\r\n\ Handles\ displaying\ messages\ and\ switching\ to\ the\ next\ message\ when\ "space"\ is\ pressed.\r\n
+comment3.text=\n\ Handles\ displaying\ messages\ and\ switching\ to\ the\ next\ message\ when\ "space"\ is\ pressed.\n
 comment4.params=
 comment4.target=void\ nextMessage()
-comment4.text=\r\n\ Displays\ the\ next\ message\ in\ the\ queue\ or\ removes\ the\ label\ when\ done.\r\n
+comment4.text=\n\ Displays\ the\ next\ message\ in\ the\ queue\ or\ removes\ the\ label\ when\ done.\n
 comment5.params=
 comment5.target=void\ moveToTarget()
-comment5.text=\r\n\ Smoothly\ moves\ the\ avatar\ to\ the\ target\ location.\r\n
+comment5.text=\n\ Smoothly\ moves\ the\ avatar\ to\ the\ target\ location.\n
 numComments=6
