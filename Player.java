@@ -21,6 +21,7 @@ public class Player extends Entity
     
     private final int slideSpeed = 25;
     private boolean isSliding;
+    private boolean canSlide;
     
     private boolean isSlamming = false;
     private boolean isCollidingLeft, isCollidingRight, isCollidingUp;
@@ -292,13 +293,13 @@ public class Player extends Entity
         {
             if(Greenfoot.isKeyDown(left))
             {
-                state = "running";
+                state = !state.equals("falling") && !state.equals("jumping") && !state.equals("slamming") ? "running" : state;
                 xVelocity = -xSpeed;
                 xDirection = -1;
             }
             else if(Greenfoot.isKeyDown(right))
             {
-                state = "running";
+                state = !state.equals("falling") && !state.equals("jumping") && !state.equals("slamming") ? "running" : state;
                 xVelocity = xSpeed;
                 xDirection = 1;
             }
@@ -437,6 +438,10 @@ public class Player extends Entity
             predictFloor();
             checkFloor();
         }
+        if(touchingFloor || getOneTileAtOffset(0, playerHeight/2+10) != null|| getOneTileAtOffset(playerWidth/2 - 5, playerHeight/2+10) != null || getOneTileAtOffset(-playerWidth/2 + 5, playerHeight/2+10) != null)
+        {
+            state = "idle";
+        }
     }
     
     public void slide()
@@ -528,6 +533,29 @@ public class Player extends Entity
     
     public void parry()
     {
+        if(Greenfoot.isKeyDown(parry) || (parryTimer > 0 && parryTimer != 30)) 
+        {
+            if(parryTimer > 0) 
+            {
+                state = "parrying";
+                ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>) getObjectsInRange(100, EProjectile.class);
+                if(parryTimer < 20)
+                {
+                    for(EProjectile projectile : projectilesInRange) {
+                        projectile.parried(mouseX, mouseY);
+                        Greenfoot.delay(10);
+                        getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
+                        heal(3);
+                    }
+                }
+                parryTimer--;
+            }
+        }
+        else if (!Greenfoot.isKeyDown("e")) 
+        {
+            parryTimer = 30;
+        }
+        /*
         if(cooldown > 0)
         {
             cooldown--;
@@ -567,6 +595,7 @@ public class Player extends Entity
             
             parryTimer = 10;
         }
+        */
     }
     
     public void heal(int regen)
@@ -612,6 +641,10 @@ public class Player extends Entity
     public void setLowerSpriteDirection(int newDir)
     {
         lowerSpriteDirection = newDir;
+    }
+    public int getParryTimer()
+    {
+        return parryTimer;
     }
     public boolean getHurt()
     {

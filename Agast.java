@@ -53,7 +53,7 @@ public class Agast extends FlyingEnemy
         {
             aiming(projectileSpeed);
         }
-        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        else if(attackCooldown + attackFrame - 20 == attackTimer)
         {
             getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;

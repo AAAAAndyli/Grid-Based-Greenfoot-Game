@@ -12,7 +12,7 @@ public class WalMare extends GroundedEnemy
     //attack variables
     private int attackRange = 100;
     private int attackCooldown = 25;
-    private Attack pierce = new Attack(attackRange + 50, 10, 1, 0 , attackRange/2 + 10, 0);
+    private Attack pierce = new Attack(attackRange + 50, 10, 1, 0 , attackRange/2 + 10, 0, this);
     private int attackFrame = 6; 
     private int attackXOffset = 27;
     
@@ -102,6 +102,7 @@ public class WalMare extends GroundedEnemy
     }
     public void attack()
     {
+        isAttacking = true;
         if(attackTimer > attackCooldown + attackLength)
         {
             isAttacking = false;
@@ -122,7 +123,7 @@ public class WalMare extends GroundedEnemy
             pierce.performAttack();
             attackTimer++;
         }
-        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        else if(attackCooldown + attackFrame - 20 == attackTimer)
         {
             getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;

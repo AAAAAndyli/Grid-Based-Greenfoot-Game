@@ -235,13 +235,13 @@ public abstract class Enemy extends Entity
         private EnemyHurtBox hurtBox;
         private boolean didHit;
         private int duration = 0;
-        public Attack(int width, int height,int damage, int direction, int xOffset, int yOffset)
+        public Attack(int width, int height,int damage, int direction, int xOffset, int yOffset, Enemy origin)
         {
             this.damage = damage;
             this.direction = direction;
             this.xOffset = xOffset;
             this.yOffset = yOffset;
-            hurtBox = new EnemyHurtBox(width, height, damage);
+            hurtBox = new EnemyHurtBox(width, height, damage, origin);
         }
         public void performAttack()
         {

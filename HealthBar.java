@@ -18,7 +18,7 @@ public class HealthBar extends Actor
         this.player = player;
         healthBlobCount = player.getHealthBarHP();
         health = player.getHP();
-        setImage("HealthBar/Head.png");
+        setImage("HealthBar/h0.png");
     }
     public void addedToWorld(World world)
     {
