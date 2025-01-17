@@ -68,6 +68,11 @@ public class Player extends Entity
     private RangedWeapon spread = new RangedWeapon(30, 3, this, 1);
     private RangedWeapon rapid = new RangedWeapon(10, 0, this, 1);
     
+    //keybind related info
+    private String jump = SaveFile.getKey("jump");
+    private String parry = SaveFile.getKey("parry");
+    private String dash = SaveFile.getKey("dash");
+    
     public Player()
     {
         this(0,0);
@@ -157,7 +162,7 @@ public class Player extends Entity
     
     public void dash()
     {
-        if(Greenfoot.isKeyDown("shift") && dashTimer > 0)
+        if(Greenfoot.isKeyDown(dash) && dashTimer > 0)
         {
             state = "dashing";
             dashTimer --;
@@ -386,7 +391,7 @@ public class Player extends Entity
     
     public void jump()
     {
-        if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && coyoteTimer < 10 && !isJumpKeyDown)
+        if(Greenfoot.isKeyDown(jump) && coyoteTimer < 10 && !isJumpKeyDown)
         {
             state = "jumping";
             yVelocity -= (jumpSpeed + storedJump);
@@ -394,7 +399,7 @@ public class Player extends Entity
             storedJump = 0;
             isJumpKeyDown = true;
         }
-        else if(!Greenfoot.isKeyDown("w") && !Greenfoot.isKeyDown("up"))
+        else if(!Greenfoot.isKeyDown(jump))
         {
             isJumpKeyDown = false;
         }
@@ -512,7 +517,7 @@ public class Player extends Entity
             cooldown--;
         }
         
-        if (Greenfoot.isKeyDown("e") && cooldown == 0) {
+        if (Greenfoot.isKeyDown(parry) && cooldown == 0) {
         
             if (shield == null) {
                 shield = new Shield();

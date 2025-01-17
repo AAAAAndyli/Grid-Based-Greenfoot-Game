@@ -21,7 +21,7 @@ public class BindButton extends Button {
         textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
         bindBox = new SuperTextBox("Press a key", new Font("Arial", false, false, 20), 190, this);
         
-        keyLabel = new Label(SaveFile.getKey(type), 40, this);
+        keyLabel = new Label(SaveFile.getKey(type), 40);
     }
     
     /**
