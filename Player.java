@@ -334,29 +334,32 @@ public class Player extends Entity
     
     public void predictFloor()
     {
-        Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, playerHeight/2+(int)yVelocity);
-        Tile predictedLeftTile = getOneTileAtOffset(-playerWidth/2+(int)xVelocity + 20, playerHeight/2+(int)yVelocity);
-        Tile predictedRightTile = getOneTileAtOffset(playerWidth/2+(int)xVelocity - 20, playerHeight/2+(int)yVelocity);
-        
-        boolean midWillTouch = predictedMidTile != null;
-        boolean leftWillTouch = predictedLeftTile != null;
-        boolean rightWillTouch = predictedRightTile != null;
-
-        if((midWillTouch || leftWillTouch || rightWillTouch))
+        for(int i = 1 ; i < 10 ; i ++)
         {
-            yVelocity = -1;
-            touchingFloor = true;
-            if(midWillTouch)
+            Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, playerHeight/2+(int)yVelocity/i);
+            Tile predictedLeftTile = getOneTileAtOffset(-playerWidth/2+(int)xVelocity + 20, playerHeight/2+(int)yVelocity/i);
+            Tile predictedRightTile = getOneTileAtOffset(playerWidth/2+(int)xVelocity - 20, playerHeight/2+(int)yVelocity/i);
+            
+            boolean midWillTouch = predictedMidTile != null;
+            boolean leftWillTouch = predictedLeftTile != null;
+            boolean rightWillTouch = predictedRightTile != null;
+    
+            if((midWillTouch || leftWillTouch || rightWillTouch))
             {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedMidTile.globalPosition.getY() - playerHeight/2 - predictedMidTile.getImage().getHeight()/2);
-            }
-            else if(leftWillTouch)
-            {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedLeftTile.globalPosition.getY() - playerHeight/2 - predictedLeftTile.getImage().getHeight()/2);
-            }
-            else if(rightWillTouch)
-            {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedRightTile.globalPosition.getY() - playerHeight/2 - predictedRightTile.getImage().getHeight()/2);
+                yVelocity = -1;
+                touchingFloor = true;
+                if(midWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedMidTile.globalPosition.getY() - playerHeight/2 - predictedMidTile.getImage().getHeight()/2);
+                }
+                else if(leftWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedLeftTile.globalPosition.getY() - playerHeight/2 - predictedLeftTile.getImage().getHeight()/2);
+                }
+                else if(rightWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedRightTile.globalPosition.getY() - playerHeight/2 - predictedRightTile.getImage().getHeight()/2);
+                }
             }
         }
     }
@@ -375,12 +378,16 @@ public class Player extends Entity
     
     public void applyGravity()
     {
-        if(touchingFloor == false)
+        if(touchingFloor == false && coyoteTimer > 10)
         {
             yVelocity += yGravity;
             if(yVelocity > 0)
             {
                 state = "falling";
+            }
+            else
+            {
+                state = "jumping";
             }
         }
         else
@@ -399,7 +406,7 @@ public class Player extends Entity
         {
             state = "jumping";
             System.out.println(yVelocity);
-            yVelocity -= (jumpSpeed + storedJump);
+            launch((int)(jumpSpeed + storedJump));
             coyoteTimer = 100;
             storedJump = 0;
             isJumpKeyDown = true;

@@ -27,7 +27,6 @@ public class BombPProjectile extends PProjectile
         distance += speed;
         globalPosition.setCoordinate(globalPosition.getX()+(int)Math.round(speed * Math.cos(Math.toRadians(getRotation()))), globalPosition.getY()+(int)yVelocity+(int)Math.round(speed * Math.sin(Math.toRadians(getRotation()))));
         collide();
-        System.out.println(speed);
         if(globalPosition != null)
         {
             setLocation(globalPosition.getX() + scrollX, globalPosition.getY() + scrollY);

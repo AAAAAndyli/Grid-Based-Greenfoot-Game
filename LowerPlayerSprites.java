@@ -37,10 +37,11 @@ public class LowerPlayerSprites extends PlayerSprites
             case "running":
                 walkIndex = animate(!flipped ? walkAnimR : walkAnimL, walkIndex);
                 break;
-            case "jump":
+            case "jumping":
                 jumpIndex = animate(!flipped ? jumpAnimR : jumpAnimL, jumpIndex);
                 break;
-            case "fall":
+            case "falling":
+            case "slamming":
                 fallIndex = animate(!flipped ? fallAnimR : fallAnimL, fallIndex);
                 break;
             case "parrying":
