@@ -33,9 +33,13 @@ public class SaveFile
     }
     
     public static void loadFile(){
+        loadFile("saveFile/saveFile.csv");
+    }
+    
+    public static void loadFile(String file){
         info.clear();
         try{
-            s = new Scanner(new File("saveFile/saveFile.csv"));
+            s = new Scanner(new File(file));
             while(s.hasNext()){
                 info.add(s.nextLine());
             }
@@ -91,5 +95,9 @@ public class SaveFile
         catch(IOException e){
             System.out.println("Error: " + e);
         }
+    }
+    
+    public static ArrayList<String> getInfo(){
+        return info;
     }
 }

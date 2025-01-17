@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class buttons here.
@@ -10,11 +11,12 @@ public class Button extends UI
 {
     private boolean isPressed = false;
     private boolean isPressedActor = false;
-    private boolean isShopIcon = false;
+    private boolean isShopIcon, isReset = false;
     private GreenfootImage image;
     private int count = 0;
     private int width, height;
     private Label selfLabel;
+    private ArrayList<Label> bindLabels;
     
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
@@ -36,12 +38,8 @@ public class Button extends UI
     
     public Button(String file, double sizeMulti, boolean isShopItem, int num)
     {
-        image = new GreenfootImage("images/" + file);
+        this(file, sizeMulti);
         isShopIcon = isShopItem;
-        setImage(image);
-        width = (int)(getImage().getWidth() * sizeMulti);
-        height = (int)(getImage().getHeight() * sizeMulti);
-        getImage().scale(width, height);
     }
     
     public void act()
@@ -49,6 +47,12 @@ public class Button extends UI
         if(!isShopIcon)
         {
             checkButton();
+        }
+        if(isReset){
+            if(checkButton()){
+                SaveFile.loadFile("saveFile/defaultSaveFile.csv");
+                
+            }
         }
     }
     
