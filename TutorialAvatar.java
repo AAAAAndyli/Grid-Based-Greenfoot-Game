@@ -13,37 +13,49 @@ public class TutorialAvatar extends SuperSmoothMover {
     private int framesToMove = 80;
     private int currentFrame = 0;
 
-    private Queue<String> messageQueue; // Queue to store messages
-    private StillLabel speechBubble;   // Label to display messages
-    private boolean spacePressed = false; // Tracks if the space key is pressed
-
+    private Queue<String> messageQueue; 
+    private StillLabel speechBubble;   
+    private boolean spacePressed = false; 
+    private StillLabel startLabel;     
+    
     public TutorialAvatar() {
         setImage("TempPlayer.png");
         setLocation(startX, startY);
 
-        // Initialize the message queue with tutorial messages
+        
         messageQueue = new LinkedList<>();
-        messageQueue.add("Welcome to WORM-E\nPress space to continue.");
-        messageQueue.add("Use arrow keys/WASD to move.\nPress space to continue.");
+        messageQueue.add("Use arrow keys/WASD to move.\n Press space to continue.");
         messageQueue.add("Defeat the enemies!\nPress space to start the level.");
     }
 
+    public void addedToWorld(World world) {
+        
+        startLabel = new StillLabel("Welcome to the Tutorial World! \n Press space to continue.", 14, this);
+        world.addObject(startLabel, 1000, 600); 
+    }
+
     public void act() {
-        moveToTarget(); // Handle smooth movement
-        handleMessages(); // Handle message display and switching
+        moveToTarget(); 
+        handleMessages(); 
     }
 
     /**
      * Handles displaying messages and switching to the next message when "space" is pressed.
      */
     private void handleMessages() {
-        // Check if space is pressed and hasn't been processed yet
-        if (Greenfoot.isKeyDown("space") && !spacePressed) {
-            spacePressed = true; // Mark the space key as pressed
-            nextMessage(); // Display the next message
+        
+        if (startLabel != null && Greenfoot.isKeyDown("space")) {
+            getWorld().removeObject(startLabel);
+            startLabel = null; 
         }
 
-        // Reset the spacePressed flag when the key is released
+        
+        if (Greenfoot.isKeyDown("space") && !spacePressed) {
+            spacePressed = true; 
+            nextMessage(); 
+        }
+
+        
         if (!Greenfoot.isKeyDown("space")) {
             spacePressed = false;
         }
@@ -54,24 +66,24 @@ public class TutorialAvatar extends SuperSmoothMover {
      */
     private void nextMessage() {
         if (!messageQueue.isEmpty()) {
-            String nextText = messageQueue.poll(); // Get the next message
+            String nextText = messageQueue.poll(); 
 
-            // Create a new label if none exists or update the existing one
+            
             if (speechBubble == null || speechBubble.getWorld() == null) {
-                speechBubble = new StillLabel(nextText, 18, this); // Create a StillLabel
-                getWorld().addObject(speechBubble, getX(), getY() - 70); // Position above the avatar
+                speechBubble = new StillLabel(nextText, 18, this); 
+                getWorld().addObject(speechBubble, getX() - 30, getY() - 70); 
             } else {
-                speechBubble.setValue(nextText); // Update the text of the existing label
+                speechBubble.setValue(nextText); 
             }
         } else {
-            // If all messages are displayed, remove the label and proceed
+            
             if (speechBubble != null && speechBubble.getWorld() != null) {
                 getWorld().removeObject(speechBubble);
             }
 
-            // Perform any additional actions after the tutorial (e.g., start the level)
-            Greenfoot.setWorld(new LevelWorld("test3.csv")); // Example transition to the next world
-            getWorld().removeObject(this); // Remove the tutorial avatar
+            
+            Greenfoot.setWorld(new LevelWorld("test3.csv")); 
+            getWorld().removeObject(this); 
         }
     }
 

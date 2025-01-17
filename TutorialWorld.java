@@ -56,6 +56,8 @@ public class TutorialWorld extends ScrollingWorld
         addObject(new FPS(), 200, 10);
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class);
         setActOrder(Tile.class, Player.class, Enemy.class, Actor.class, Camera.class);
+        
+        
     }
     public void loadLevel()
     {
