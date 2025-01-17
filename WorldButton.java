@@ -51,19 +51,28 @@ public class WorldButton extends Button
      */
     private void handleTransition() {
         currentFrame++;
-
         
-        if (currentFrame == transitionFrames / 2) {
+        if(Greenfoot.mouseClicked(transitionEffect)){
+            currentFrame = 240;
+            getWorld().removeObject(transitionEffect);
+            
+            Greenfoot.setWorld(destination);
+            
+        }
+        
+        else if (currentFrame == transitionFrames / 2) {
             getWorld().removeObject(transitionEffect);
             Greenfoot.setWorld(destination); 
+            
         }
 
         
-        if (currentFrame >= transitionFrames) {
+        else if (currentFrame >= transitionFrames) {
             transitioning = false; 
             currentFrame = 0; 
             if (transitionEffect != null && transitionEffect.getWorld() != null) {
                 getWorld().removeObject(transitionEffect);
+                
             }
         }
     }

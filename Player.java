@@ -93,8 +93,13 @@ public class Player extends Entity
         setImage("Hitbox.png");
         state = "idle";
         globalPosition = new Coordinate(0,0);
-        health = 15;
-        maxHealth = health;
+        
+        if(SaveFile.get("jump") == null){
+            SaveFile.loadFile("saveFile/defaultSaveFile.csv");
+        }
+        
+        health = Integer.parseInt(SaveFile.get("health"));
+        maxHealth = Integer.parseInt(SaveFile.get("maxHealth"));
         //weaponList.add(missile);
         weaponList.add(spread);
         weaponList.add(rapid);
@@ -117,15 +122,12 @@ public class Player extends Entity
     {     
         if(!runOnce){
             //if accessing levelworld through debug, load default binds
-            if(SaveFile.getKey("jump") == null){
-                SaveFile.loadFile("saveFile/defaultSaveFile.csv");
-            }
-            jump = SaveFile.getKey("jump");
-            parry = SaveFile.getKey("parry");
-            dash = SaveFile.getKey("dash");
-            left = SaveFile.getKey("left");
-            right = SaveFile.getKey("right");
-            down = SaveFile.getKey("down");
+            jump = SaveFile.get("jump");
+            parry = SaveFile.get("parry");
+            dash = SaveFile.get("dash");
+            left = SaveFile.get("left");
+            right = SaveFile.get("right");
+            down = SaveFile.get("down");
             runOnce = true;
         }
         
@@ -701,7 +703,6 @@ public class Player extends Entity
     {
         return state;
     }
-    
     
     private class RangedWeapon
     {
