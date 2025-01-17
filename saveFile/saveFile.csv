@@ -3,4 +3,7 @@ down,l
 left,a
 right,d
 dash,shift
-parry,space
+parry,e
+money,875
+health,15
+maxHealth,15

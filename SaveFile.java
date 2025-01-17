@@ -50,16 +50,16 @@ public class SaveFile
         }
     }
     
-    public static void setKeyBind(String keyBind, String key){
+    public static void setInfo(String infoType, String set){
         int index = 0;
         
         for(String s : info){
             tokenizer = new StringTokenizer(s, ",");
             currentToken = tokenizer.nextToken();
             
-            if(currentToken.equals(keyBind)){
-                String newBind = currentToken + "," + key; 
-                info.set(index, newBind);
+            if(currentToken.equals(infoType)){
+                String newInfo = currentToken + "," + set; 
+                info.set(index, newInfo);
             }
             index++;
         }       
@@ -67,7 +67,7 @@ public class SaveFile
         save();
     }
     
-    public static String getKey(String keyBind){
+    public static String get(String keyBind){
         
         for(String s : info){
             tokenizer = new StringTokenizer(s, ",");

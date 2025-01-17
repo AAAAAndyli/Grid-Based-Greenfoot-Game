@@ -36,8 +36,7 @@ public class ResetButton extends Button
         ArrayList<BindButton> binds = (ArrayList<BindButton>)w.getObjects(BindButton.class);
         SaveFile.loadFile("saveFile/defaultSaveFile.csv");
         for(BindButton b : binds){
-            System.out.println(b.getButtonType());
-            b.getKeyLabel().setValue(SaveFile.getKey(b.getButtonType()));
+            b.getKeyLabel().setValue(SaveFile.get(b.getButtonType()));
         }
     }
 }
