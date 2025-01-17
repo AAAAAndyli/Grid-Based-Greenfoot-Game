@@ -1,3 +1,5 @@
 jump,w
+left,a
+right,d
 dash,shift
 parry,e

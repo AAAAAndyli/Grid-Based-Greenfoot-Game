@@ -72,6 +72,8 @@ public class Player extends Entity
     
     //keybind related info
     private String jump;
+    private String left;
+    private String right;
     private String parry;
     private String dash;
     
@@ -111,6 +113,8 @@ public class Player extends Entity
             jump = SaveFile.getKey("jump");
             parry = SaveFile.getKey("parry");
             dash = SaveFile.getKey("dash");
+            left = SaveFile.getKey("left");
+            right = SaveFile.getKey("right");
             runOnce = true;
             System.out.println(111);
         }
@@ -267,20 +271,20 @@ public class Player extends Entity
     
     public void horizontalMovement()
     {
-        if((Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))&&(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")))
+        if(Greenfoot.isKeyDown(left)&&(Greenfoot.isKeyDown(right)))
         {
             state = "idle";
             xVelocity = 0;
         }
         else
         {
-            if(Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))
+            if(Greenfoot.isKeyDown(left))
             {
                 state = "running";
                 xVelocity = -xSpeed;
                 xDirection = -1;
             }
-            else if(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))
+            else if(Greenfoot.isKeyDown(right))
             {
                 state = "running";
                 xVelocity = xSpeed;

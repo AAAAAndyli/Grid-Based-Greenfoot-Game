@@ -42,15 +42,20 @@ public class SettingWorld extends World
         addObject(s, 800, 350);
         
         int scrollRightEdge = s.getX() + (350 / 2);
-        
-        BindButton scrollTest = new BindButton("button1.png", 0.5, "Jump Keybind", "jump");
-        addObject(scrollTest, scrollRightEdge - 20, 210);
     
-        BindButton scrollTest2 = new BindButton("button1.png", 0.5, "Dash Keybind", "dash");
-        addObject(scrollTest2, scrollRightEdge - 20, 310);
+        BindButton dashButton = new BindButton("button1.png", 0.5, "Dash Keybind", "dash");
+        addObject(dashButton, scrollRightEdge - 20, 510);
         
-        BindButton scrollTest3 = new BindButton("button1.png", 0.5, "Parry Keybind", "parry");
-        addObject(scrollTest3, scrollRightEdge - 20, 410);
+        BindButton parryButton = new BindButton("button1.png", 0.5, "Parry Keybind", "parry");
+        addObject(parryButton, scrollRightEdge - 20, 610);
+        
+        //movement WASD binds (basic movement)
+        BindButton jumpButton = new BindButton("button1.png", 0.5, "Jump Keybind", "jump");
+        addObject(jumpButton, scrollRightEdge - 20, 210);
+        BindButton leftButton = new BindButton("button1.png", 0.5, "Left Keybind", "left");
+        addObject(leftButton, scrollRightEdge - 20, 310);
+        BindButton rightButton = new BindButton("button1.png", 0.5, "Right Keybind", "right");
+        addObject(rightButton, scrollRightEdge - 20, 410);
         
         Label backLabel = new Label("Back", 40);
         addObject(backLabel, 85, 50);
