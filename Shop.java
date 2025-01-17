@@ -2,15 +2,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Shop here.
  * 
- * @author (your name) 
+ * @author (Justin Ye) 
  * @version (a version number or a date)
  */
 public class Shop extends World
 {
     //source - https://www.greenfoot.org/topics/821
     private GreenfootImage[] shopAnimation = new GreenfootImage[35];
-    
-    private String s = "You feel refreshed";
     
     private int money;
     private int price;
@@ -20,17 +18,22 @@ public class Shop extends World
     private int imageIndex = 0;
     private double speed = 0.4;
     
+    //Handles Animation
     SimpleTimer animationTimer = new SimpleTimer();
     
+    //Switches that help implement shop UI
     private boolean clickedOne;
     private boolean clickedTwo;
     private boolean clickedThree;
     private boolean clickedFour;
     private boolean clickedFive;
     private boolean clickedSix;
-    
+    private boolean isHoveringImage1 = false;
+    private boolean isHoveringImage2 = false;
+    private boolean hoverMovement = true;
     private boolean movingDown = true;
     
+    //Buttons and images using a specific button constructor
     private Button item1 = new Button("purchaseButton.png",.7);
     private Button item2 = new Button("purchaseButton.png",.7);
     private Button item3 = new Button("purchaseButton.png",.7);
@@ -41,13 +44,18 @@ public class Shop extends World
     private Button image1 = new Button("shopIcons/Shield.png",1.5, true,1);
     private Button image2 = new Button("shopIcons/fullHealth.png",1, true,2);
     private Button image3 = new Button("shopIcons/plusHP.png",.8, true,3);
+    private Button image1Desc;
+    private Button image2Desc;
+    
     /**
      * Constructor for objects of class Shop.
      * 
      */
     public Shop(MenuWorld world)
     {    
+        //Adds all objects in the shop class, aand takes saved values from a file
         super(1080, 720, 1); 
+        
         Cursor shopCursor = new Cursor();
         for(int i = 0; i < shopAnimation.length; i++){
             shopAnimation[i] = new GreenfootImage("images/ShopBg/shop" + i  + ".png");
@@ -81,6 +89,18 @@ public class Shop extends World
         setPaintOrder(Cursor.class, Label.class, Button.class, Shop.class);
     }
     
+    public void act()
+    {
+        purchase();
+        animate();
+        checkMouseHover();
+        hover();
+    }
+    
+    /**
+     * checks if shield level is max so the program can determine when to stop 
+     * allowing purchase
+     */
     public boolean isMaxShield()
     {
         if(shieldLvl == 11)
@@ -90,15 +110,12 @@ public class Shop extends World
         return false;
     }
     
-    public void act()
-    {
-        purchase();
-        animate();
-        hover();
-    }
-    
+    /**
+     * Handles all UI related interactions around the purchasing of products in Shop class
+     */
     public void purchase()
     {
+        //checks all button statuses at all times
         clickedOne = item1.checkButton();
         clickedTwo = item2.checkButton();
         clickedThree = item3.checkButton();
@@ -106,6 +123,7 @@ public class Shop extends World
         clickedFive = item5.checkButton();
         clickedSix = item6.checkButton();
         
+        // If clicked first button it takes money in exchange to increase Shield level, which increases the amount of times you can parry
         if(clickedOne)
         {
             price = 100;
@@ -126,6 +144,7 @@ public class Shop extends World
             }
         }
         
+        // If clicked second button it takes money in exchange to replenish health to full
         if(clickedTwo)
         {
             price = 25;
@@ -145,6 +164,9 @@ public class Shop extends World
         }
     }
     
+    /**
+     * Animates the background
+     */
     public void animate()
     {
         if(animationTimer.millisElapsed() < 100){
@@ -155,15 +177,11 @@ public class Shop extends World
         imageIndex = (imageIndex + 1) % shopAnimation.length;
     }
     
-    public void description()
-    {
-        if (Greenfoot.mouseMoved(image1)) {
-            addObject(image1, 400, 150);
-        }
-    }
-    
+    /**
+     * For decoration purposes, it Oscillates images back and forth
+     */
     public void hover()
-    {
+    { 
         if (movingDown)
         {
             image1.setLocation(image1.getExactX(), image1.getPreciseY() + speed);
@@ -183,6 +201,38 @@ public class Shop extends World
             {
                 movingDown = true;
             }
+        }
+    }
+    
+    /**
+     * Gives a good description of what each product is by hovering it over the icon
+     */
+    public void checkMouseHover()
+    {
+        // Check if the mouse is over image1
+        if (Greenfoot.mouseMoved(image1)) {
+            hoverMovement = true;
+            if (!isHoveringImage1) {
+                image1Desc = new Button("shopIcons/text1.png", 1, true, 11);
+                addObject(image1Desc, image1.getX() + 150, image1.getY());
+                isHoveringImage1 = true;
+            }
+        } else if (Greenfoot.mouseMoved(null) && isHoveringImage1) {
+            removeObject(image1Desc);
+            isHoveringImage1 = false;
+        }
+    
+        // Check if the mouse is over image2
+        if (Greenfoot.mouseMoved(image2)) {
+            hoverMovement = true;
+            if (!isHoveringImage2) {
+                image2Desc = new Button("shopIcons/text2.png", 1, true, 12);
+                addObject(image2Desc, image2.getX() + 150, image2.getY());
+                isHoveringImage2 = true;
+            }
+        } else if (Greenfoot.mouseMoved(null) && isHoveringImage2) {
+            removeObject(image2Desc);
+            isHoveringImage2 = false;
         }
     }
 }
