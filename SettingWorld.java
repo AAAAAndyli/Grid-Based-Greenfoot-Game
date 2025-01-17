@@ -57,7 +57,7 @@ public class SettingWorld extends World
         WorldButton back = new WorldButton("button1.png", 0.5, world, backLabel);
         addObject(back, 85, 50);
         
-        setPaintOrder(Label.class, Button.class, ScrollingUI.class);
+        setPaintOrder(Transition.class, Label.class, Button.class, ScrollingUI.class);
     }
     
     public void act(){
