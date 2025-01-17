@@ -65,6 +65,10 @@ public class BindButton extends Button {
         }
     }
     
+    public String getButtonType(){
+        return buttonType;
+    }
+    
     public Label getKeyLabel(){
         return keyLabel;
     }

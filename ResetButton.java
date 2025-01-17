@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class ResetButton here.
@@ -8,8 +9,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ResetButton extends Button
 {
-    public ResetButton(String file, double sizeMulti){
+    private boolean isPressed = false;
+    private Label resetLabel;
+    
+    public ResetButton(String file, double sizeMulti, Label label){
         super(file, sizeMulti);
+        resetLabel = label;
     }
     
     /**
@@ -19,5 +24,20 @@ public class ResetButton extends Button
     public void act()
     {
         // Add your action code here.
+        isPressed = checkButton() || checkButton(resetLabel);
+        
+        if(isPressed){
+            resetBindLabels();
+        }
+    }
+    
+    public void resetBindLabels(){
+        SettingWorld w = (SettingWorld)getWorld();
+        ArrayList<BindButton> binds = (ArrayList<BindButton>)w.getObjects(BindButton.class);
+        SaveFile.loadFile("saveFile/defaultSaveFile.csv");
+        for(BindButton b : binds){
+            System.out.println(b.getButtonType());
+            b.getKeyLabel().setValue(SaveFile.getKey(b.getButtonType()));
+        }
     }
 }
