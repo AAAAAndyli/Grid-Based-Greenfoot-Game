@@ -59,6 +59,10 @@ public class SettingWorld extends World
         BindButton rightButton = new BindButton("button1.png", 0.5, "Right Keybind", "right");
         addObject(rightButton, scrollRightEdge - 20, 410);
 
+        ResetButton resetButton = new ResetButton("button1.png", 0.55);
+        Label resetLabel = new Label("Reset Binds", 35);
+        addObject(resetButton, 150, 650);
+        addObject(resetLabel, 150, 650);
         
         Label backLabel = new Label("Back", 40);
         addObject(backLabel, 85, 50);
