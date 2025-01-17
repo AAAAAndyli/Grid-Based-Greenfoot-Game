@@ -40,5 +40,25 @@ public class UpperPlayerSprites extends PlayerSprites
             offsetX = 0;
         }
         super.act();
+        switch(player.getState())
+        {
+            case "idle":
+                idleIndex = animate(!flipped ? idleAnimR : idleAnimL, idleIndex);
+                break;
+            default:
+                setImage("nothingAgain.png");
+        }
+    }
+    /**
+     * Loads in every frame for every animation
+     * 
+     * @param path - The file path for the unit
+     */
+    protected void loadAnimationFrames(String path)
+    {
+        loadSingleAnimation(path, idleAnimL, "idle", true);
+        loadSingleAnimation(path, idleAnimR, "idle");
+        loadSingleAnimation(path, rangedAttackAnimL, "rangedAttack", true);
+        loadSingleAnimation(path, rangedAttackAnimR, "rangedAttack");
     }
 }

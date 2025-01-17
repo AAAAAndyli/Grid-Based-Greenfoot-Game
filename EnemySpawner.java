@@ -11,6 +11,8 @@ public class EnemySpawner extends TriggerTile
     private Enemy enemy;
     private int timer = 0;
     private Label triggerNumberDisplay;
+    private boolean activated = false;
+    private int spawnDelay, spawnDelayTimer = 0;
     
     private Label enemyNumberDisplay;
     private StillLabel buttonEnemyNumberDisplay;
@@ -39,10 +41,12 @@ public class EnemySpawner extends TriggerTile
         if(TriggerCollection.searchTrigger(trigger))
         {
             trigger = TriggerCollection.returnTrigger(trigger);
+            trigger.addSpawner(this);
         }
         else
         {
             TriggerCollection.addTrigger(trigger);
+            trigger.addSpawner(this);
         }
         if(!isButton)
         {
@@ -55,8 +59,7 @@ public class EnemySpawner extends TriggerTile
     }
     public void whenTriggered()
     {
-        getWorld().addObject(enemy, getPosition().getX(), getPosition().getY() - enemy.getImage().getHeight()/2);
-        enemy.setLocation(enemy.getPosition().getX() + scrollX, getPosition().getY() - enemy.getImage().getHeight()/2 + scrollY);
+        activated = true;
         if(timer > 0)
         {
             trigger.permanentlyDeactivateTrigger();
@@ -65,6 +68,16 @@ public class EnemySpawner extends TriggerTile
         {
             timer++;
         }
+    }
+    public void setSpawnDelay(int spawnDelay)
+    {
+        this.spawnDelay = spawnDelay;
+    }
+    public void spawnEnemies()
+    {
+        getWorld().addObject(enemy, getPosition().getX(), getPosition().getY() - enemy.getImage().getHeight()/2);
+        enemy.setLocation(enemy.getPosition().getX() + scrollX, getPosition().getY() - enemy.getImage().getHeight()/2 + scrollY);
+        activated = false;
     }
     public String toString()
     {
@@ -79,6 +92,17 @@ public class EnemySpawner extends TriggerTile
         if(trigger.getTrigger())
         {
             whenTriggered();
+        }
+        if(activated)
+        {
+            spawnDelayTimer++;
+            if(spawnDelay < spawnDelayTimer)
+            {
+                System.out.println(spawnDelayTimer);
+                spawnEnemies();
+                getWorld().removeObject(this);
+                return;
+            }
         }
         super.act();
     }

@@ -95,7 +95,7 @@ public class TheGrid
     */
     public static ArrayList<Coordinate> aStarfindPath(Coordinate start, Coordinate end)
     {
-        System.out.println("A* Pathfinding Start: " + start + ", End: " + end);
+        // System.out.println("A* Pathfinding Start: " + start + ", End: " + end);
     
         ArrayList<Coordinate> path = new ArrayList<>();
         // Initialize both open and closed lists
@@ -109,25 +109,25 @@ public class TheGrid
         int endYIndex = (end.getY()) / 50;
 
         
-        System.out.println("Start Index: (" + startXIndex + ", " + startYIndex + ")");
-        System.out.println("End Index: (" + endXIndex + ", " + endYIndex + ")");
+        // System.out.println("Start Index: (" + startXIndex + ", " + startYIndex + ")");
+        // System.out.println("End Index: (" + endXIndex + ", " + endYIndex + ")");
         
-        System.out.println("Start Global Coordinates: (" + start.getX() + ", " + start.getY() + ")");
-        System.out.println("End Global Coordinates: (" + end.getX() + ", " + end.getY() + ")");
-        System.out.println("xSize: " + airGrid[0].length);
-        System.out.println("ySize: " + airGrid.length);
-        //System.out.println("LowestX: " + lowestX);
-        //System.out.println("LowestY: " + lowestY);
-        System.out.println("startXIndex: " + startXIndex);
-        System.out.println("startYIndex: " + startYIndex);
-        System.out.println("endXIndex: " + endXIndex);
-        System.out.println("endYIndex: " + endYIndex);
+        // System.out.println("Start Global Coordinates: (" + start.getX() + ", " + start.getY() + ")");
+        // System.out.println("End Global Coordinates: (" + end.getX() + ", " + end.getY() + ")");
+        // System.out.println("xSize: " + airGrid[0].length);
+        // System.out.println("ySize: " + airGrid.length);
+        // //System.out.println("LowestX: " + lowestX);
+        // //System.out.println("LowestY: " + lowestY);
+        // System.out.println("startXIndex: " + startXIndex);
+        // System.out.println("startYIndex: " + startYIndex);
+        // System.out.println("endXIndex: " + endXIndex);
+        // System.out.println("endYIndex: " + endYIndex);
         
         
     
         if (!isInBounds(startXIndex, startYIndex) || !isInBounds(endXIndex, endYIndex)) 
         {
-            System.out.println("Path Unobtainable");
+            // System.out.println("Path Unobtainable");
             return new ArrayList<Coordinate>(); 
         }
     
@@ -146,7 +146,7 @@ public class TheGrid
             
             if (currentNode.equals(endNode)) 
             {
-                System.out.println("Found Goal");
+                // System.out.println("Found Goal");
                 return createCoordinatePath(currentNode); //Found goal
             }
             // Search surrounding tiles
@@ -173,7 +173,7 @@ public class TheGrid
                 }
             }
         }
-        System.out.println("Path Blocked");
+        // System.out.println("Path Blocked");
         return path;
     }
     

@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class Trigger here.
@@ -13,6 +14,8 @@ public class Trigger
     private boolean triggerActivated = false;
     private boolean triggerCanBeActivated = true;
     private boolean toBeDeactivated = false;
+    
+    private ArrayList<EnemySpawner> enemySpawnerArrayList = new ArrayList<EnemySpawner>();
     
     /**
      * Constructor for objects of class Trigger
@@ -42,6 +45,11 @@ public class Trigger
         return triggerID;
     }
     
+    public void addSpawner(EnemySpawner spawner)
+    {
+        enemySpawnerArrayList.add(spawner);
+    }
+    
     /**
      * An example of a method - replace this comment with your own
      * 
@@ -53,6 +61,15 @@ public class Trigger
         if(triggerCanBeActivated)
         {
             triggerActivated = true;
+            if(enemySpawnerArrayList.size() != 0)
+            {
+                int delay = 0;
+                for(EnemySpawner spawner : enemySpawnerArrayList)
+                {
+                    spawner.setSpawnDelay(delay);
+                    delay += 15;
+                }
+            }
         }
     }
     public void deactivateTrigger()

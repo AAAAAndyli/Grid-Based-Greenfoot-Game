@@ -69,7 +69,6 @@ public class OneWayTile extends Tile
                             }
                             else if(player.getSlamming())
                             {
-                                System.out.println("panopticon");
                                 collidable = false;
                             }
                         }

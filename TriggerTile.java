@@ -27,7 +27,6 @@ public class TriggerTile extends Tile
     {
         super(type,rotations,isButton,mapMaker,xPosition,yPosition, false);
         this.triggerNumber = triggerNumber;
-        System.out.println(triggerNumber);
         collidable = false;
         triggerNumberDisplay = new Label(triggerNumber, 25, this);
         buttonTriggerNumberDisplay = new StillLabel(triggerNumber, 25, this);

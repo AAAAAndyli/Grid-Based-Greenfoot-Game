@@ -55,7 +55,7 @@ public class LevelWorld extends ScrollingWorld
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class);
-        setActOrder(World.class, Player.class, Tile.class, Enemy.class, Actor.class, Camera.class);
+        setActOrder(PlayerSprites.class, World.class, Player.class, Tile.class, Enemy.class, Actor.class, Camera.class);
     }
     public void loadLevel()
     {
