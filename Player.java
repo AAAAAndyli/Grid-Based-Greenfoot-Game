@@ -68,10 +68,12 @@ public class Player extends Entity
     private RangedWeapon spread = new RangedWeapon(30, 3, this, 1);
     private RangedWeapon rapid = new RangedWeapon(10, 0, this, 1);
     
+    private boolean runOnce = false;
+    
     //keybind related info
-    private String jump = SaveFile.getKey("jump");
-    private String parry = SaveFile.getKey("parry");
-    private String dash = SaveFile.getKey("dash");
+    private String jump;
+    private String parry;
+    private String dash;
     
     public Player()
     {
@@ -91,6 +93,7 @@ public class Player extends Entity
         weaponList.add(rapid);
         weaponList.add(bomb);
         currentWeapon = weaponList.get(weaponIndex);
+        
     }
     
     public void addedToWorld(World world)
@@ -104,6 +107,14 @@ public class Player extends Entity
     public void act()
     {     
         super.act();
+        if(!runOnce){
+            jump = SaveFile.getKey("jump");
+            parry = SaveFile.getKey("parry");
+            dash = SaveFile.getKey("dash");
+            runOnce = true;
+            System.out.println(111);
+        }
+        
         MouseInfo mouse = Greenfoot.getMouseInfo();
         
         if(mouse != null)
