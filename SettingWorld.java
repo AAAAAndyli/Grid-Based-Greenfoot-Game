@@ -33,10 +33,10 @@ public class SettingWorld extends World
         classList.add(Label.class);
         classList.add(Slider.class);
         
-        ScrollingUI s = new ScrollingUI(0, 0, 500, 1500, true, classList);
-        addObject(s, 800, 350);
+        ScrollingUI scroll = new ScrollingUI(0, 0, 500, 1500, true, classList);
+        addObject(scroll, 800, 350);
         
-        int scrollRightEdge = s.getX() + (350 / 2);
+        int scrollRightEdge = scroll.getX() + (350 / 2);
         
         BindButton dashButton = new BindButton("Buttons/keyButton.png", 0.5, "Dash Keybind", "dash");
         addObject(dashButton, scrollRightEdge - 20, 510);
@@ -59,6 +59,9 @@ public class SettingWorld extends World
         
         WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
+        
+        Slider test = new Slider(2000, 1000, scroll, 300, 20, 350);
+        addObject(test, 0, 0);
         
         setPaintOrder(Transition.class, Slider.class, Label.class, Button.class, ScrollingUI.class);
     }

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=EnemySpawner
-comment0.text=\n\ Write\ a\ description\ of\ class\ EnemySpawner\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ EnemySpawner\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=type\ rotations\ xPosition\ yPosition\ triggerNumber\ enemy
 comment1.target=EnemySpawner(java.lang.String,\ int,\ int,\ int,\ int,\ Enemy)
 comment2.params=type\ rotations\ isButton\ mapMaker\ triggerNumber\ enemy
@@ -19,5 +19,5 @@ comment8.params=
 comment8.target=java.lang.String\ toString()
 comment9.params=
 comment9.target=void\ act()
-comment9.text=\n\ Act\ -\ do\ whatever\ the\ EnemySpawner\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment9.text=\r\n\ Act\ -\ do\ whatever\ the\ EnemySpawner\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 numComments=10
