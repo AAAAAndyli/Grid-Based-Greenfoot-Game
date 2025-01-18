@@ -24,7 +24,8 @@ public class TutorialWorld extends ScrollingWorld
     private Camera camera = new Camera(crosshair);
     private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
     private Player player;
-    
+    private SuperTextBox textbox;
+    private SuperTextBox textbox1;
     public TutorialWorld()
     {
         this("tutorial.csv");
@@ -59,6 +60,9 @@ public class TutorialWorld extends ScrollingWorld
         
         
     }
+    
+    
+    
     public void loadLevel()
     {
         Scanner scan = new Scanner (System.in);

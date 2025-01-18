@@ -13,78 +13,55 @@ public class TutorialAvatar extends SuperSmoothMover {
     private int framesToMove = 80;
     private int currentFrame = 0;
 
-    private Queue<String> messageQueue; 
-    private StillLabel speechBubble;   
-    private boolean spacePressed = false; 
-    private StillLabel startLabel;     
+    private String[] tutorialMessages = {
+        "Welcome to the tutorial. Right arrow to continue",
+        "Use WASD or set them in the Settings Menu to move. Right arrow to continue",
+        "Reach as far as possible while not dying. Right arrow to continue",
+        "You can trigger the monster spawns to practice. Right arrow to continue",
+        "Press the right arrow key to start the levels and meet your fate..."
+    };
+
+    private int currentMessage = 0;
+    private SuperTextBox label;
+    private boolean hasDisplayedMessage = false; 
     
     public TutorialAvatar() {
         setImage("TempPlayer.png");
         setLocation(startX, startY);
 
         
-        messageQueue = new LinkedList<>();
-        messageQueue.add("Use arrow keys/WASD to move.\n Press space to continue.");
-        messageQueue.add("Defeat the enemies!\nPress space to start the level.");
+        label = new SuperTextBox(tutorialMessages[currentMessage], new Font("Arial", true, false, 14), 550);
+        
     }
 
     public void addedToWorld(World world) {
         
-        startLabel = new StillLabel("Welcome to the Tutorial World! \n Press space to continue.", 14, this);
-        world.addObject(startLabel, 1000, 600); 
     }
 
     public void act() {
-        moveToTarget(); 
-        handleMessages(); 
-    }
-
-    /**
-     * Handles displaying messages and switching to the next message when "space" is pressed.
-     */
-    private void handleMessages() {
-        
-        if (startLabel != null && Greenfoot.isKeyDown("space")) {
-            getWorld().removeObject(startLabel);
-            startLabel = null; 
-        }
+        moveToTarget();
+        handleKey();
 
         
-        if (Greenfoot.isKeyDown("space") && !spacePressed) {
-            spacePressed = true; 
-            nextMessage(); 
-        }
-
-        
-        if (!Greenfoot.isKeyDown("space")) {
-            spacePressed = false;
+        if (currentFrame >= framesToMove && !hasDisplayedMessage) {
+            hasDisplayedMessage = true; 
+            getWorld().addObject(label, getX() - 250, getY() - 70); 
         }
     }
 
     /**
-     * Displays the next message in the queue or removes the label when done.
+     * Handles displaying messages and switching to the next message when "right arrow" is pressed.
      */
-    private void nextMessage() {
-        if (!messageQueue.isEmpty()) {
-            String nextText = messageQueue.poll(); 
-
-            
-            if (speechBubble == null || speechBubble.getWorld() == null) {
-                speechBubble = new StillLabel(nextText, 18, this); 
-                getWorld().addObject(speechBubble, getX() - 30, getY() - 70); 
-            } else {
-                speechBubble.setValue(nextText); 
-            }
-        } else {
-            
-            if (speechBubble != null && speechBubble.getWorld() != null) {
-                getWorld().removeObject(speechBubble);
-            }
-
-            
-            Greenfoot.setWorld(new LevelWorld("test3.csv")); 
-            getWorld().removeObject(this); 
+    private void handleKey() {
+        if (Greenfoot.isKeyDown("right") && currentMessage < tutorialMessages.length - 1) {
+            currentMessage++;
+            label.update(tutorialMessages[currentMessage]); 
+            Greenfoot.delay(10); 
+        }else if(Greenfoot.isKeyDown("right") && currentMessage >= tutorialMessages.length - 1){
+            Greenfoot.setWorld(new LevelWorld());
         }
+                
+            
     }
 
     /**
@@ -96,7 +73,6 @@ public class TutorialAvatar extends SuperSmoothMover {
             double stepY = (targetY - startY) / (double) framesToMove;
 
             setLocation(getX() + stepX, getY() + stepY);
-
             currentFrame++;
         }
     }
