@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=ResetButton
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ ResetButton\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ ResetButton\ here.\r\n\ \r\n\ @author\ Darren\ T.\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=file\ sizeMulti\ label
 comment1.target=ResetButton(java.lang.String,\ double,\ Label)
 comment2.params=

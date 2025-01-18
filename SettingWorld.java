@@ -24,40 +24,34 @@ public class SettingWorld extends World
         super(1080, 720, 1, false); 
         setBackground("images/settingsPlaceholder.png");
         
-        Button keybind = new Button("button1.png", 0.5);
-        addObject(keybind, 380, 230);
-        
-        Button audio = new Button("button1.png", 0.5);
-        addObject(audio, 380, 305);
-        
-        Button placeholder = new Button("button1.png", 0.5);
-        addObject(placeholder, 380, 380);
-        
         ArrayList<Class> classList = new ArrayList<Class>();
         classList.add(Button.class);
         classList.add(SuperTextBox.class);
         classList.add(Label.class);
+        classList.add(Slider.class);
         
-        ScrollingUI s = new ScrollingUI(0, 0, 400, 1500, true, classList);
-        addObject(s, 800, 350);
+        ScrollingUI scroll = new ScrollingUI(0, 0, 400, 1500, true, classList);
+        addObject(scroll, 800, 350);
         
-        int scrollRightEdge = s.getX() + (350 / 2);
-    
+        int bindRightEdge = scroll.getX() + 175;
+        
+        //combat buttons
         BindButton dashButton = new BindButton("button1.png", 0.5, "Dash Keybind", "dash");
-        addObject(dashButton, scrollRightEdge - 20, 510);
-        
+        addObject(dashButton, bindRightEdge - 20, 510);
         BindButton parryButton = new BindButton("button1.png", 0.5, "Parry Keybind", "parry");
-        addObject(parryButton, scrollRightEdge - 20, 610);
-        
+        addObject(parryButton, bindRightEdge - 20, 610);
         //movement WASD binds (basic movement)
         BindButton jumpButton = new BindButton("button1.png", 0.5, "Jump Keybind", "jump");
-        addObject(jumpButton, scrollRightEdge - 20, 110);
+        addObject(jumpButton, bindRightEdge - 20, 110);
         BindButton downButton = new BindButton("button1.png", 0.5, "Down Keybind", "down");
-        addObject(downButton, scrollRightEdge - 20, 210);
+        addObject(downButton, bindRightEdge - 20, 210);
         BindButton leftButton = new BindButton("button1.png", 0.5, "Left Keybind", "left");
-        addObject(leftButton, scrollRightEdge - 20, 310);
+        addObject(leftButton, bindRightEdge - 20, 310);
         BindButton rightButton = new BindButton("button1.png", 0.5, "Right Keybind", "right");
-        addObject(rightButton, scrollRightEdge - 20, 410);
+        addObject(rightButton, bindRightEdge - 20, 410);
+        
+        Slider test = new Slider(2000, 1000, scroll, 300, 20, 350);
+        addObject(test, 0, 0);
         
         Label resetLabel = new Label("Reset Binds", 35);
         ResetButton resetButton = new ResetButton("button1.png", 0.55, resetLabel);
@@ -66,14 +60,14 @@ public class SettingWorld extends World
         
         Label backLabel = new Label("Back", 40);
         addObject(backLabel, 85, 50);
-        WorldButton back = new WorldButton("button1.png", 0.5, world, backLabel);
-        addObject(back, 85, 50);
+        WorldButton backButton = new WorldButton("button1.png", 0.5, world, backLabel);
+        addObject(backButton, 85, 50);
         
-        setPaintOrder(Transition.class, Label.class, Button.class, ScrollingUI.class);
+        setPaintOrder(Transition.class, Slider.class, Label.class, Button.class, ScrollingUI.class);
     }
     
     public void act(){
-
+        
     }
     
     public void removeBindBox(){

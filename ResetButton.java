@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class ResetButton here.
  * 
- * @author (your name) 
+ * @author Darren T.
  * @version (a version number or a date)
  */
 public class ResetButton extends Button
