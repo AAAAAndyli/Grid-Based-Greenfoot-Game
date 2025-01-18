@@ -28,7 +28,7 @@ public class WorldButton extends Button
      */
     public void act() {
         if (!transitioning) {
-            pressed = (checkButton() || checkButton(label));
+            pressed = (checkButton());
             if (pressed) {
                 startTransition(); 
             }
@@ -51,10 +51,19 @@ public class WorldButton extends Button
      */
     private void handleTransition() {
         currentFrame++;
-        
+        World current = getWorld();
         if(Greenfoot.mouseClicked(transitionEffect)){
             currentFrame = 240;
             getWorld().removeObject(transitionEffect);
+            
+            if(current instanceof MenuWorld){
+                ((MenuWorld)getWorld()).background.stop();
+            }else if(current instanceof SettingWorld){
+                ((SettingWorld)getWorld()).background.stop();
+            }else if(current instanceof Shop){
+                ((Shop)getWorld()).background.stop();
+            }
+
             
             Greenfoot.setWorld(destination);
             
@@ -62,6 +71,15 @@ public class WorldButton extends Button
         
         else if (currentFrame == transitionFrames / 2) {
             getWorld().removeObject(transitionEffect);
+            if(current instanceof MenuWorld){
+                ((MenuWorld)getWorld()).background.stop();
+            }else if(current instanceof SettingWorld){
+                ((SettingWorld)getWorld()).background.stop();
+            }else if(current instanceof Shop){
+                ((Shop)getWorld()).background.stop();
+            }
+
+
             Greenfoot.setWorld(destination); 
             
         }

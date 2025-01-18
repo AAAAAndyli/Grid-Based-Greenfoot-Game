@@ -17,7 +17,8 @@ public class TutorialAvatar extends SuperSmoothMover {
         "Welcome to the tutorial. Right arrow to continue",
         "Use WASD or set them in the Settings Menu to move. Right arrow to continue",
         "Reach as far as possible while not dying. Right arrow to continue",
-        "Press the right arrow key to start the levels and meet the many viruses..."
+        "You can trigger the monster spawns to practice. Right arrow to continue",
+        "Press the right arrow key to start the levels and meet your fate..."
     };
 
     private int currentMessage = 0;

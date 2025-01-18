@@ -16,7 +16,6 @@ public class Button extends UI
     private int count = 0;
     private int width, height;
     private Label selfLabel;
-    private ArrayList<Label> bindLabels;
     
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
@@ -36,7 +35,13 @@ public class Button extends UI
         getImage().scale(width, height);
     }
     
-    public Button(String file, double sizeMulti, boolean isShopItem, int num)
+    public Button(String file, double sizeMulti, Label labelReference)
+    {
+        this(file, sizeMulti);
+        selfLabel = labelReference;
+    }
+    
+    public Button(String file, double sizeMulti, boolean isShopItem)
     {
         this(file, sizeMulti);
         isShopIcon = isShopItem;
@@ -47,11 +52,8 @@ public class Button extends UI
         if(!isShopIcon)
         {
             checkButton();
-        }
-        if(isReset){
-            if(checkButton()){
-                SaveFile.loadFile("saveFile/defaultSaveFile.csv");
-                
+            if(selfLabel != null){
+                checkButton(selfLabel);    
             }
         }
     }
