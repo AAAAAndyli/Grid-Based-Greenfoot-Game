@@ -19,8 +19,13 @@ public class MenuWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1); 
+
+        setBackground("images/menuPlaceholder.png");
+        background = new GreenfootSound("Opening.mp3");
+
         setBackground("images/menu.png");
         
+
         
         //load save file for data
         SaveFile.loadFile();
@@ -44,5 +49,15 @@ public class MenuWorld extends World
         
     }
     
+    public void act(){
+        background.playLoop();
+    }
+    
+    public void stopped(){
+        background.pause();
+    }
+    public void started(){
+        background.playLoop();
+    }
     
 }
