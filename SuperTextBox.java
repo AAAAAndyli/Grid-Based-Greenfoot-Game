@@ -39,7 +39,10 @@ public class SuperTextBox extends Actor
     private int fontSize;
     private int borderThickness;
     private BindButton creator;
-
+    private String text1;
+    
+    
+    
     /**
      *  Simple Constructor - One line text box
      *  
@@ -74,6 +77,7 @@ public class SuperTextBox extends Actor
     public SuperTextBox (String[] text, Font font, int width){
         this (text, Color.BLACK, Color.WHITE, font, false, width, 2, new Color (255, 255, 204));
     }
+
 
     
     /**
