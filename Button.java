@@ -41,7 +41,7 @@ public class Button extends UI
         selfLabel = labelReference;
     }
     
-    public Button(String file, double sizeMulti, boolean isShopItem, int num)
+    public Button(String file, double sizeMulti, boolean isShopItem)
     {
         this(file, sizeMulti);
         isShopIcon = isShopItem;

@@ -28,7 +28,7 @@ public class WorldButton extends Button
      */
     public void act() {
         if (!transitioning) {
-            pressed = (checkButton() || checkButton(label));
+            pressed = (checkButton());
             if (pressed) {
                 startTransition(); 
             }

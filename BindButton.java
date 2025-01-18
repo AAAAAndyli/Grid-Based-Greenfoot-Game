@@ -8,7 +8,8 @@ import java.util.ArrayList;
  */
 
 public class BindButton extends Button {
-    private SuperTextBox textBox, bindBox;
+    private SuperTextBox textBox;
+    private Button bindBox;
     private Label keyLabel;
     private String text, buttonType;
     private String keyDummy, keyBinding;
@@ -19,7 +20,7 @@ public class BindButton extends Button {
         text = txt;
         buttonType = type;
         textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
-        bindBox = new SuperTextBox("Press a key", new Font("Arial", false, false, 20), 190, this);
+        bindBox = new Button("Buttons/pressKeyButton.png",.55,true);
         
         keyLabel = new Label(SaveFile.get(type), 40);
     }
@@ -46,7 +47,7 @@ public class BindButton extends Button {
         if(pressed && !bindingActive){
             SettingWorld w = (SettingWorld)getWorld();
             w.removeBindBox();
-            getWorld().addObject(bindBox, getWorld().getWidth() / 2 - 50, getWorld().getHeight() - 50);
+            getWorld().addObject(bindBox, getWorld().getWidth() / 2 - 110, 650);
             //if user pressed key beforehand, this will take that 
             //pressed key -- prevents incorrect binding 
             keyDummy = Greenfoot.getKey(); 

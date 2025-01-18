@@ -1,7 +1,7 @@
-jump,w
-down,s
-left,a
-right,d
+jump,tab
+down,r
+left,t
+right,h
 dash,shift
 parry,space
 money,875

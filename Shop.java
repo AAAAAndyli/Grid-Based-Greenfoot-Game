@@ -35,16 +35,16 @@ public class Shop extends World
     private boolean purchased = false;
     
     //Buttons and images using a specific button constructor
-    private Button item1 = new Button("purchaseButton.png",.7);
-    private Button item2 = new Button("purchaseButton.png",.7);
-    private Button item3 = new Button("purchaseButton.png",.7);
-    private Button item4 = new Button("purchaseButton.png",.7);
-    private Button item5 = new Button("purchaseButton.png",.7);
-    private Button item6 = new Button("purchaseButton.png",.7);
+    private Button item1 = new Button("Buttons/purchaseButton.png",.7);
+    private Button item2 = new Button("Buttons/purchaseButton.png",.7);
+    private Button item3 = new Button("Buttons/purchaseButton.png",.7);
+    private Button item4 = new Button("Buttons/purchaseButton.png",.7);
+    private Button item5 = new Button("Buttons/purchaseButton.png",.7);
+    private Button item6 = new Button("Buttons/purchaseButton.png",.7);
     
-    private Button image1 = new Button("shopIcons/Shield.png",1.5, true,1);
-    private Button image2 = new Button("shopIcons/fullHealth.png",1, true,2);
-    private Button image3 = new Button("shopIcons/plusHP.png",.8, true,3);
+    private Button image1 = new Button("shopIcons/Shield.png",1.5, true);
+    private Button image2 = new Button("shopIcons/fullHealth.png",1, true);
+    private Button image3 = new Button("shopIcons/plusHP.png",.8, true);
     private Button image1Desc;
     private Button image2Desc;
     
@@ -80,7 +80,7 @@ public class Shop extends World
         
         Label backLabel = new Label("Back", 40);
         addObject(backLabel, 85, 50);
-        WorldButton back = new WorldButton("button1.png", 0.5, world, backLabel);
+        WorldButton back = new WorldButton("Buttons/button1.png", 0.5, world, backLabel);
         addObject(back, 85, 50);
         
         money = Integer.valueOf(SaveFile.get("money"));
@@ -137,7 +137,7 @@ public class Shop extends World
                 if(isMaxShield())
                 {
                     removeObject(item1);
-                    addObject(new Button("shopIcons/bought.png",.7, true,10),250,300);
+                    addObject(new Button("shopIcons/bought.png",.7, true),250,300);
                 }
                 System.out.println("purchased, money left: " + money);
                 purchased = true;
@@ -157,7 +157,7 @@ public class Shop extends World
                 money -= price;
                 health = maxHealth;
                 removeObject(item2);
-                addObject(new Button("shopIcons/bought.png",.7, true,10),250,600);
+                addObject(new Button("shopIcons/bought.png",.7, true),250,600);
                 System.out.println("purchased, money left: " + money);
                 System.out.println("health fully regain: " + health);
                 //remember to add this to each clicked___ condition
@@ -225,7 +225,7 @@ public class Shop extends World
         if (Greenfoot.mouseMoved(image1)) {
             hoverMovement = true;
             if (!isHoveringImage1) {
-                image1Desc = new Button("shopIcons/text1.png", 1, true, 11);
+                image1Desc = new Button("shopIcons/text1.png", 1, true);
                 addObject(image1Desc, image1.getX() + 150, image1.getY());
                 isHoveringImage1 = true;
             }
@@ -238,7 +238,7 @@ public class Shop extends World
         if (Greenfoot.mouseMoved(image2)) {
             hoverMovement = true;
             if (!isHoveringImage2) {
-                image2Desc = new Button("shopIcons/text2.png", 1, true, 12);
+                image2Desc = new Button("shopIcons/text2.png", 1, true);
                 addObject(image2Desc, image2.getX() + 150, image2.getY());
                 isHoveringImage2 = true;
             }

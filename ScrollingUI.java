@@ -21,8 +21,6 @@ public class ScrollingUI extends UI
         //DEBUG get rid of this later, rectangle placeholder
         GreenfootImage dimensions = new GreenfootImage(width, height);
         setImage(dimensions);
-        dimensions.drawRect(x, y, width - 1, height - 1);
-        //dimensions.fillRect(x, y, width - 1, height - 1);
         
         actorFollow = follow;
         if(actorFollow){
@@ -98,7 +96,6 @@ public class ScrollingUI extends UI
             for(Class c : classList){
                 moveActors(yOffset, c);    
             }
-            
         }
     }
 }

@@ -12,9 +12,8 @@ public class ResetButton extends Button
     private boolean isPressed = false;
     private Label resetLabel;
     
-    public ResetButton(String file, double sizeMulti, Label label){
+    public ResetButton(String file, double sizeMulti){
         super(file, sizeMulti);
-        resetLabel = label;
     }
     
     /**
@@ -24,7 +23,7 @@ public class ResetButton extends Button
     public void act()
     {
         // Add your action code here.
-        isPressed = checkButton() || checkButton(resetLabel);
+        isPressed = checkButton();
         
         if(isPressed){
             resetBindLabels();
