@@ -32,6 +32,7 @@ public class Shop extends World
     private boolean isHoveringImage2 = false;
     private boolean hoverMovement = true;
     private boolean movingDown = true;
+    private boolean purchased = false;
     
     //Buttons and images using a specific button constructor
     private Button item1 = new Button("purchaseButton.png",.7);
@@ -82,9 +83,11 @@ public class Shop extends World
         WorldButton back = new WorldButton("button1.png", 0.5, world, backLabel);
         addObject(back, 85, 50);
         
-        money = 20000;
+        money = Integer.valueOf(SaveFile.get("money"));
         health = 1;
-        maxHealth = 10;
+        maxHealth = 15;
+        
+        purchased = false;
         
         setPaintOrder(Transition.class, Cursor.class, Label.class, Button.class, Shop.class);
     }
@@ -137,6 +140,7 @@ public class Shop extends World
                     addObject(new Button("shopIcons/bought.png",.7, true,10),250,300);
                 }
                 System.out.println("purchased, money left: " + money);
+                purchased = true;
             }
             else
             {
@@ -156,11 +160,19 @@ public class Shop extends World
                 addObject(new Button("shopIcons/bought.png",.7, true,10),250,600);
                 System.out.println("purchased, money left: " + money);
                 System.out.println("health fully regain: " + health);
+                //remember to add this to each clicked___ condition
+                purchased = true;
+                SaveFile.setInfo("health", String.valueOf(health));
             }
             else
             {
                 System.out.println("Cannot Purchase, money left: " + money);
             }
+        }
+        
+        if(purchased){
+            purchased = false;
+            SaveFile.setInfo("money", String.valueOf(money));
         }
     }
     
