@@ -16,6 +16,7 @@ public class Shop extends World
     private int maxHealth;
     private int shieldLvl = 1;
     private int imageIndex = 0;
+    private int maxHealthUpgrade = 5;
     private double speed = 0.4;
     
     //Handles Animation
@@ -154,31 +155,53 @@ public class Shop extends World
             }
             else
             {
-                System.out.println("Cannot Purchase, money left: " + money);
+                Button noByte = new Button("Buttons/noBytes.png", .25, true);
+                addObject(noByte, 250, 150);
+                noByte.fadeOut();
             }
         }
         
         // If clicked second button it takes money in exchange to replenish health to full
-        if(clickedTwo)
+        else if(clickedTwo)
         {
-            price = 25;
+            price = 50;
             if(money >= price)
             {
                 money -= price;
                 health = maxHealth;
                 removeObject(item2);
                 addObject(new Button("shopIcons/bought.png",.7, true),250,600);
-                System.out.println("purchased, money left: " + money);
-                System.out.println("health fully regain: " + health);
-                //remember to add this to each clicked___ condition
                 purchased = true;
                 SaveFile.setInfo("health", String.valueOf(health));
             }
             else
             {
-                System.out.println("Cannot Purchase, money left: " + money);
+                Button noByte = new Button("Buttons/noBytes.png", .25, true);
+                addObject(noByte, 250, 450);
+                noByte.fadeOut();
             }
         }
+        else if(clickedThree)
+        {
+            price = 20;
+            if(money >= price)
+            {
+                money -= price;
+                maxHealth++;
+                health++;
+                removeObject(item2);
+                addObject(new Button("shopIcons/bought.png",.7, true),250,600);
+                purchased = true;
+                SaveFile.setInfo("health", String.valueOf(health));
+            }
+            else
+            {
+                Button noByte = new Button("Buttons/noBytes.png", .25, true);
+                addObject(noByte, 600, 150);
+                noByte.fadeOut();
+            }
+        }
+        
         
         if(purchased){
             purchased = false;
@@ -257,5 +280,7 @@ public class Shop extends World
             isHoveringImage2 = false;
         }
     }
+    
+    
 }
 
