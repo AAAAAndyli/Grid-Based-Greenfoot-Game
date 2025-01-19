@@ -58,6 +58,9 @@ public class SettingWorld extends World
         WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
         
+        Button funImage = new Button("settingsScream.png",.4,true);
+        addObject(funImage,300,350);
+        
         Slider audio = new Slider(2000, 1000, null, 350, 20, 350);
         addObject(audio, scroll.getX() + 40, 710);
         

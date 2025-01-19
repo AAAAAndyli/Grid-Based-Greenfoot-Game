@@ -14,13 +14,21 @@ public class TutorialAvatar extends SuperSmoothMover {
     private int currentFrame = 0;
 
     private String[] tutorialMessages = {
-        "Welcome to the tutorial. Right arrow to continue",
-        "Use WASD or set them in the Settings Menu to move. Right arrow to continue",
-        "Reach as far as possible while not dying. Right arrow to continue",
-        "You can trigger the monster spawns to practice. Right arrow to continue",
-        "Press the right arrow key to start the levels and meet your fate..."
+        "Welcome to the tutorial. \n Right arrow to continue",
+        "Use WASD or set them in the Settings Menu \n to move. Right arrow to continue",
+        "Reach as far as possible while not \n dying. Right arrow to continue",
+        "You can trigger the monster spawns to \n practice. Right arrow to continue",
+        "Press the right arrow key to start the \n levels and meet your fate..."
     };
-
+    
+    private String[][] tutorialMessages1 = {{
+        "Welcome to the tutorial. Right arrow to continue"},
+        {"Use WASD or set them in the Settings Menu", "to move. Right arrow to continue"},
+        {"Reach as far as possible while not", "dying. Right arrow to continue"},
+        {"You can trigger the monster spawns to", "practice. Right arrow to continue"},
+        {"Press the right arrow key to start", "the levels and meet your fate..."}
+    };
+    
     private int currentMessage = 0;
     private SuperTextBox label;
     private boolean hasDisplayedMessage = false; 
@@ -30,7 +38,7 @@ public class TutorialAvatar extends SuperSmoothMover {
         setLocation(startX, startY);
 
         
-        label = new SuperTextBox(tutorialMessages[currentMessage], new Font("Arial", true, false, 14), 550);
+        label = new SuperTextBox(tutorialMessages[currentMessage], new Font("Arial", true, false, 18), 400);
         
     }
 
