@@ -30,7 +30,7 @@ public class TutorialAvatar extends SuperSmoothMover {
     private boolean hasDisplayedMessage = false; 
     
     public TutorialAvatar() {
-        setImage("TempPlayer.png");
+        setImage("Tera.png");
         setLocation(startX, startY);
 
         
