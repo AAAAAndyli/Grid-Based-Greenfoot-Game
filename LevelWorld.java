@@ -17,7 +17,6 @@ import java.io.FileNotFoundException;
  */
 public class LevelWorld extends ScrollingWorld
 {
-    private Pause pause = new Pause();
     private String levelName;
     ArrayList<String> world = new ArrayList<String>();
     ArrayList<Tile> tileWorld = new ArrayList<Tile>();
@@ -59,13 +58,9 @@ public class LevelWorld extends ScrollingWorld
         WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
         addObject(new Shield(), 80, 650);
-<<<<<<< HEAD
-        addObject(pause, 1040, 40);
-=======
         addObject(layer1, 0, 300);
         addObject(layer2, 400, 300);
         addObject(layer3, 800, 300);
->>>>>>> 70619ead918ebb3f72123a0efd7c56fb875be3f6
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
