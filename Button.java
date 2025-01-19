@@ -12,6 +12,9 @@ public class Button extends UI
     private boolean isPressed = false;
     private boolean isPressedActor = false;
     private boolean isShopIcon, isReset = false;
+    private boolean isFading = false;
+    private int fadeAmount = 2; 
+    
     private GreenfootImage image;
     private int count = 0;
     private int width, height;
@@ -49,7 +52,10 @@ public class Button extends UI
     
     public void act()
     {
-        if(!isShopIcon)
+        if (isFading) {
+            performFadeOut();
+        }
+        else if(!isShopIcon)
         {
             checkButton();
             if(selfLabel != null){
@@ -121,5 +127,27 @@ public class Button extends UI
         }
         //any unusual edge cases like issues with mouse
         return false;
+    }
+    
+    public void fadeOut() {
+        isFading = true;
+    }
+    
+    public void performFadeOut() {
+        int transparency = getImage().getTransparency(); 
+        if (transparency > 0) {
+            transparency -= fadeAmount; 
+            if (transparency < 0)
+            {
+               transparency = 0; 
+            }
+            // Updates transparency
+            getImage().setTransparency(transparency); 
+        } else {
+            // When fully transparent, remove the button from the world
+            if (getWorld() != null) {
+                getWorld().removeObject(this);
+            }
+        }
     }
 }

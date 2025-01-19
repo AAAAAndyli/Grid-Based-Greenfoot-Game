@@ -43,6 +43,7 @@ public class SuperTextBox extends Actor
     
     
     
+    
     /**
      *  Simple Constructor - One line text box
      *  
@@ -150,7 +151,7 @@ public class SuperTextBox extends Actor
         // System.out.println("Pad: " + padding  + " vSpace " + vSpace + " fontSize: " + fontSize);
 
         // Padding top and bottom, vSpace between rows and bottom to make up for extra space on top
-        height = (padding * 2) + (vSpace * (numLines)) + (fontSize * numLines) + (2 * borderThickness);
+        height = (padding * 2) + (vSpace * (numLines)) + (fontSize * numLines) + (2 * borderThickness) + 40;
 
         //System.out.println("Creating image with a height of " + height);
         image = generateImage(width, height);
