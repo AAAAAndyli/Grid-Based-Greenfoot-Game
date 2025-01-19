@@ -28,7 +28,7 @@ public class LevelWorld extends ScrollingWorld
     private ScrollingBackground layer1 = new ScrollingBackground(new GreenfootImage("Background/tower0.png"), 0.25, 0);
     private ScrollingBackground layer2 = new ScrollingBackground(new GreenfootImage("Background/tower1.png"), 0.5, 400);
     private ScrollingBackground layer3 = new ScrollingBackground(new GreenfootImage("Background/tower2.png"), 0.1, 800);
-
+    private Pause pause = new Pause();
     
     public LevelWorld()
     {
@@ -58,6 +58,7 @@ public class LevelWorld extends ScrollingWorld
         WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
         addObject(new Shield(), 80, 650);
+        addObject(pause, 40, 40);
         addObject(layer1, 0, 300);
         addObject(layer2, 400, 300);
         addObject(layer3, 800, 300);

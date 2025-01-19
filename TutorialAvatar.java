@@ -3,7 +3,10 @@ import java.util.Queue;
 import java.util.LinkedList;
 
 /**
- * TutorialAvatar class.
+ * Write a description of class Pause here.
+ * 
+ * @author Allan L.
+ * @version (a version number or a date)
  */
 public class TutorialAvatar extends SuperSmoothMover {
     private int targetX = 1000;
@@ -21,20 +24,13 @@ public class TutorialAvatar extends SuperSmoothMover {
         "Press the right arrow key to start the \n levels and meet your fate..."
     };
     
-    private String[][] tutorialMessages1 = {{
-        "Welcome to the tutorial. Right arrow to continue"},
-        {"Use WASD or set them in the Settings Menu", "to move. Right arrow to continue"},
-        {"Reach as far as possible while not", "dying. Right arrow to continue"},
-        {"You can trigger the monster spawns to", "practice. Right arrow to continue"},
-        {"Press the right arrow key to start", "the levels and meet your fate..."}
-    };
     
     private int currentMessage = 0;
     private SuperTextBox label;
     private boolean hasDisplayedMessage = false; 
     
     public TutorialAvatar() {
-        setImage("TempPlayer.png");
+        setImage("Tera.png");
         setLocation(startX, startY);
 
         
@@ -42,9 +38,6 @@ public class TutorialAvatar extends SuperSmoothMover {
         
     }
 
-    public void addedToWorld(World world) {
-        
-    }
 
     public void act() {
         moveToTarget();

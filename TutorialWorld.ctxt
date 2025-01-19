@@ -1,6 +1,10 @@
 #BlueJ class context
 comment0.target=TutorialWorld
+<<<<<<< HEAD
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ LevelWorld\ here.\r\n\ \r\n\ @author\ Allan\ L.\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+=======
 comment0.text=\n\ Write\ a\ description\ of\ class\ LevelWorld\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+>>>>>>> 70619ead918ebb3f72123a0efd7c56fb875be3f6
 comment1.params=
 comment1.target=TutorialWorld()
 comment2.params=levelName
