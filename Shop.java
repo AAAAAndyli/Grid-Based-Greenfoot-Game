@@ -48,6 +48,7 @@ public class Shop extends World
     private Button image1Desc;
     private Button image2Desc;
     
+    GreenfootSound background;
     /**
      * Constructor for objects of class Shop.
      * 
@@ -56,6 +57,8 @@ public class Shop extends World
     {    
         //Adds all objects in the shop class, aand takes saved values from a file
         super(1080, 720, 1); 
+        background = new GreenfootSound("Shop.mp3");
+        
         
         Cursor shopCursor = new Cursor();
         for(int i = 0; i < shopAnimation.length; i++){
@@ -78,9 +81,7 @@ public class Shop extends World
         addObject(item5, 950, 300);
         addObject(item6, 950, 600);
         
-        Label backLabel = new Label("Back", 40);
-        addObject(backLabel, 85, 50);
-        WorldButton back = new WorldButton("Buttons/button1.png", 0.5, world, backLabel);
+        WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
         
         money = Integer.valueOf(SaveFile.get("money"));
@@ -98,6 +99,15 @@ public class Shop extends World
         animate();
         checkMouseHover();
         hover();
+        
+        background.playLoop();
+    }
+    
+    public void stopped(){
+        background.pause();
+    }
+    public void started(){
+        background.playLoop();
     }
     
     /**

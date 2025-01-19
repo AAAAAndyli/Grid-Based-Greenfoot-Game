@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class SettingWorld extends World
 {
     private Label test, test2, test3;
-    
+    GreenfootSound background;
     /**
      * Constructor for objects of class SettingWorld.
      * 
@@ -22,6 +22,8 @@ public class SettingWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1, false); 
+        background = new GreenfootSound("Settings.mp3");
+        
         setBackground("images/settings.png");
         Button keybind = new Button("Buttons/keybindButton.png", 0.5);
         addObject(keybind, 280, 230);
@@ -67,7 +69,15 @@ public class SettingWorld extends World
     }
     
     public void act(){
-        
+        background.playLoop();
+    }
+    
+    
+    public void stopped(){
+        background.pause();
+    }
+    public void started(){
+        background.playLoop();
     }
     
     public void removeBindBox(){

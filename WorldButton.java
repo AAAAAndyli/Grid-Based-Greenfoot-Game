@@ -58,7 +58,12 @@ public class WorldButton extends Button
             
             if(current instanceof MenuWorld){
                 ((MenuWorld)getWorld()).background.stop();
+            }else if(current instanceof SettingWorld){
+                ((SettingWorld)getWorld()).background.stop();
+            }else if(current instanceof Shop){
+                ((Shop)getWorld()).background.stop();
             }
+
             
             Greenfoot.setWorld(destination);
             
@@ -68,7 +73,13 @@ public class WorldButton extends Button
             getWorld().removeObject(transitionEffect);
             if(current instanceof MenuWorld){
                 ((MenuWorld)getWorld()).background.stop();
+            }else if(current instanceof SettingWorld){
+                ((SettingWorld)getWorld()).background.stop();
+            }else if(current instanceof Shop){
+                ((Shop)getWorld()).background.stop();
             }
+
+
             Greenfoot.setWorld(destination); 
             
         }
