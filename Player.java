@@ -688,6 +688,9 @@ public class Player extends Entity
     {
         return state;
     }
+    public void setRunOnce(boolean set){
+        runOnce = set;
+    }
     
     private class RangedWeapon
     {

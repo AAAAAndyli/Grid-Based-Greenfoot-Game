@@ -17,7 +17,7 @@ import java.io.FileNotFoundException;
  */
 public class TutorialWorld extends ScrollingWorld
 {
-    Pause pause = new Pause();
+    WorldButton pause;
     private String levelName;
     ArrayList<String> world = new ArrayList<String>();
     ArrayList<Tile> tileWorld = new ArrayList<Tile>();
@@ -38,6 +38,9 @@ public class TutorialWorld extends ScrollingWorld
     public TutorialWorld(String levelName)
     {
         super(1080, 720, 1, false); 
+        
+        pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, TutorialWorld.class));
+        
         TriggerCollection.resetList();
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
@@ -59,8 +62,6 @@ public class TutorialWorld extends ScrollingWorld
         addObject(new FPS(), 200, 10);
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class);
         setActOrder(Tile.class, Player.class, Enemy.class, Actor.class, Camera.class);
-        
-        
     }
     
     

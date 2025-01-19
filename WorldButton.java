@@ -6,6 +6,8 @@ import greenfoot.*;
 public class WorldButton extends Button
 {
     private World destination;
+    private TutorialWorld destinationTutorial;
+    private LevelWorld destinationLevel;
     private Label label;
     private boolean pressed;
     private boolean transitioning = false; 
@@ -16,6 +18,17 @@ public class WorldButton extends Button
     public WorldButton(String file, double sizeMulti, World dest) {
         super(file, sizeMulti);
         destination = dest;
+    }
+    
+    public WorldButton(String file, double sizeMulti, World dest, Class worldClass) {
+        this(file, sizeMulti, dest);
+        
+        if(worldClass == TutorialWorld.class){
+            destinationTutorial = (TutorialWorld)dest;
+        }
+        else if(worldClass == LevelWorld.class){
+            destinationLevel = (LevelWorld)dest;   
+        }
     }
 
     public WorldButton(String file, double sizeMulti, World dest, Label labelReference) {
@@ -59,6 +72,15 @@ public class WorldButton extends Button
             if(current instanceof MenuWorld){
                 ((MenuWorld)getWorld()).background.stop();
             }else if(current instanceof SettingWorld){
+                //update binds/volume level
+                SaveFile.loadFile();
+                if(destinationLevel != null){
+                    destinationLevel.getPlayer().setRunOnce(false);
+                }
+                if(destinationTutorial != null){
+                    destinationTutorial.getPlayer().setRunOnce(false);
+                }
+                
                 ((SettingWorld)getWorld()).background.stop();
             }else if(current instanceof Shop){
                 ((Shop)getWorld()).background.stop();
