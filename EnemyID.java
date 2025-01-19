@@ -32,6 +32,7 @@ public class EnemyID
         enemyHash.put(7, new RTP());
         enemyHash.put(8, new Patch());
         enemyHash.put(9, new Piramire());
+        enemyHash.put(10, new Ram());
         int value = 0;
         for(HashMap.Entry<Integer, Enemy> entry : enemyHash.entrySet())
         {

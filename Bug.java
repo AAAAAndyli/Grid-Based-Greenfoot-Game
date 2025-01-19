@@ -37,6 +37,7 @@ public class Bug extends Bosses
     public Bug()
     {
         currentAttackDone = true;
+        attackCooldown = 180;
         totalAttackCooldown = 60;
         bytesOnDeath = 200;
         health = 500;
@@ -76,6 +77,7 @@ public class Bug extends Bosses
                 }
                 else if(currentAttackDone)
                 {
+                    followPlayer();
                     attackCooldown--;
                     state = -1;
                 }
@@ -129,7 +131,6 @@ public class Bug extends Bosses
                         }
                     }
                 }
-                followPlayer();
                 if(closeToPlayer)
                 {
                     retreatHead();
@@ -176,12 +177,12 @@ public class Bug extends Bosses
     }
     public boolean summonUnderLegs(int x, int y)
     {
-        getWorld().addObject(new BugLeg(x, y, true), 100000, 100000);
+        getWorld().addObject(new BugLeg(x, y, true, camera), 100000, 100000);
         return true;
     }
     public boolean summonSideLegs(int x, int y)
     {
-        getWorld().addObject(new BugLeg(x, y, false), 100000, 100000);
+        getWorld().addObject(new BugLeg(x, y, false, camera), 100000, 100000);
         return true;
     }
     public boolean summonCoverMapUnderLegs(int y, boolean isLeftToRight)
@@ -194,7 +195,7 @@ public class Bug extends Bosses
         fullSweepTimer = 0;
         if(isLeftToRight)
         {
-            getWorld().addObject(new BugLeg(lowestAttackXCoordinate + fullSweepIndex * 30, y, true), 100000, 100000);
+            getWorld().addObject(new BugLeg(lowestAttackXCoordinate + fullSweepIndex * 30, y, true, camera), 100000, 100000);
             if(fullSweepIndex > fullSweepSize)
             {
                 fullSweepIndex = 0;
@@ -207,7 +208,7 @@ public class Bug extends Bosses
         }
         else
         {
-            getWorld().addObject(new BugLeg(highestAttackXCoordinate - fullSweepIndex * 30, y, true), 100000, 100000);
+            getWorld().addObject(new BugLeg(highestAttackXCoordinate - fullSweepIndex * 30, y, true, camera), 100000, 100000);
             if(fullSweepIndex > fullSweepSize)
             {
                 fullSweepIndex = 0;

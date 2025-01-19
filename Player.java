@@ -255,10 +255,10 @@ public class Player extends Entity
     
     public void movement()
     {
+        predictFloor();
         if(dashTimer == 10 || dashTimer < 0)
         {
             slide();
-            predictFloor();
             checkFloor();
             jump();
             applyGravity();
@@ -269,8 +269,8 @@ public class Player extends Entity
             slam();
         }
         dash();
-        globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
         collision();
+        globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
     }
     
     public void horizontalMovement()

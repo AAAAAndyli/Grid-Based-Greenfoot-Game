@@ -32,7 +32,7 @@ public class LevelWorld extends ScrollingWorld
     
     public LevelWorld()
     {
-        this("BugEntrance.csv");
+        this("level1.csv");
     }
     
     /**

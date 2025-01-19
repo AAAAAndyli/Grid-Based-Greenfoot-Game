@@ -11,14 +11,16 @@ public class BugLeg extends Enemy
     private int attackTimer = 0;
     private int x, y;
     private int direction;
+    private static Camera camera;
     private boolean isVertical;
     private static GreenfootImage vertLeg = new GreenfootImage("images/Enemies/bug/legs/attackLeg.png");
     private static GreenfootImage leftLeg = new GreenfootImage("images/Enemies/bug/legs/rattackLeg.png");
     private static GreenfootImage rightLeg = new GreenfootImage("images/Enemies/bug/legs/lattackLeg.png");
     private Attack vertStab = new Attack(30, 700, 1, 0 , 0, 0, this);
     private Attack horStab = new Attack(1080, 30, 1, 0 , 0, 0, this);
-    public BugLeg(int x, int y, boolean isVertical)
+    public BugLeg(int x, int y, boolean isVertical, Camera camera)
     {
+        this.camera = camera;
         this.x = x;
         this.y = y;
         health = 1000;

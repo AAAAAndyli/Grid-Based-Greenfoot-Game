@@ -15,6 +15,9 @@ public class WorldOrder
     public static void createArrayList()
     {
         worldList.clear();
+        worldList.add("level1.csv");
+        worldList.add("wa.csv");
+        worldList.add("level2.csv");
         worldList.add("BugEntrance.csv");
         worldList.add("ba.csv");
     }
