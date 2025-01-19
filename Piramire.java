@@ -12,7 +12,7 @@ public class Piramire extends GroundedEnemy
     //attack variables
     private int attackRange = 100;
     private int attackCooldown = 0;
-    private Attack stab = new Attack(50, 150, 3, 0 , 0, 75);
+    private Attack stab = new Attack(50, 150, 3, 0 , 0, 75, this);
     private int attackFrame = 4; 
     private int attackFrameHang = 0;
     private final int constantAttackFrameHang = 15;
@@ -98,7 +98,7 @@ public class Piramire extends GroundedEnemy
             attackIndex = 1;
             attackTimer++;
         }
-        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        else if(attackCooldown + attackFrame - 20 == attackTimer)
         {
             getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;

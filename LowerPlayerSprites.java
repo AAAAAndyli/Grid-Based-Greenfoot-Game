@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class LowerPlayerSprites extends PlayerSprites
 {
+    private String previousState = "";
     public LowerPlayerSprites(Player player)
     {
         super(player);
@@ -28,8 +29,19 @@ public class LowerPlayerSprites extends PlayerSprites
             player.setLowerSpriteDirection(1);
         }
         super.act();
-        
-        switch(player.getState())
+        String playerState = player.getState();
+        if(!playerState.equals(previousState))
+        {
+            idleIndex = 0;
+            walkIndex = 0;
+            jumpIndex = 0;
+            fallIndex = 0;
+            parry = 0;
+            slideIndex = 0;
+            meleeAttackIndex = 0;
+            dashIndex = 0;
+        }
+        switch(playerState)
         {
             case "idle":
                 idleIndex = animate(!flipped ? idleAnimR : idleAnimL, idleIndex);
@@ -57,6 +69,8 @@ public class LowerPlayerSprites extends PlayerSprites
                 dashIndex = animate(!flipped ? dashAnimR : dashAnimL, dashIndex);
                 break;
         }
+        previousState = playerState;
+        
     }
     /**
      * Loads in every frame for every animation

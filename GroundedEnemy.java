@@ -44,14 +44,17 @@ public abstract class GroundedEnemy extends Enemy
      */
     public void act()
     {
-        applyGravity();
-        checkFloor();
-        predictFloor();
+        if(!isAttacking)
+        {
+            applyGravity();
+            checkFloor();
+            predictFloor();
+            globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
+        }
         
         animationTimer++;
         //idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
         
-        globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
         super.act();
     }
     
@@ -130,8 +133,9 @@ public abstract class GroundedEnemy extends Enemy
     
     public boolean checkFloorAhead()
     {
-        Tile predictedMidTile = getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 10), getImage().getHeight()/2 + 10);
-        return predictedMidTile != null;
+        Tile predictedMidTile = getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 10), getImage().getHeight()/2 + 20);
+        Tile predictedAheadTile = getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 20), 0);
+        return predictedMidTile != null && predictedAheadTile == null;
     }
     
     public Tile getOneTileAtOffset(int xOffset, int yOffset)

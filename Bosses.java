@@ -8,12 +8,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public abstract class Bosses extends Enemy
 {
-    /**
-     * Act - do whatever the Bosses wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
+    protected int state;
+    protected boolean currentAttackDone, bossActive;
+    protected int attackCooldown, totalAttackCooldown;
+    protected int maxHealth;
+    protected BossBar bossbar = new BossBar(health, maxHealth, null, 40, 600, 0, Color.WHITE, Color.BLACK, false, Color.GREEN, 10);
+    
+    public int getState()
     {
-        // Add your action code here.
+        return state;
+    }
+    public int getFacing()
+    {
+        return xDirection;
     }
 }

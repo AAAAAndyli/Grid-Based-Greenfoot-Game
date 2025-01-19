@@ -68,14 +68,14 @@ public class Trogun extends GroundedEnemy
             else
             {
                 xVelocity = 0;
-                if(checkTimer > 60)
+                if(checkFloorAhead() == false)
                 {
                     xDirection *= -1;
-                    checkTimer = 0;
                 }
                 else
                 {
-                    checkTimer++;
+                    moveTo(xDirection * 50 + getPosition().getX());
+                    walkIndex = animate(xDirection==1 ? walkAnimR : walkAnimL, walkIndex);
                 }
             }
             idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
@@ -110,7 +110,7 @@ public class Trogun extends GroundedEnemy
             useProjectile(projectileSpeed, target);
             attackTimer++;
         }
-        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        else if(attackCooldown + attackFrame - 20 == attackTimer)
         {
             getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;

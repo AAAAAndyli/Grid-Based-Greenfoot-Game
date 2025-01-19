@@ -21,6 +21,7 @@ public class Player extends Entity
     
     private final int slideSpeed = 25;
     private boolean isSliding;
+    private boolean canSlide;
     
     private boolean isSlamming = false;
     private boolean isCollidingLeft, isCollidingRight, isCollidingUp;
@@ -47,7 +48,6 @@ public class Player extends Entity
     private boolean canBeHurt = true;
     
     private boolean isHeal = false;
-    private boolean isHurt = false;
     private int invincibilityFrames = 0;
     private final int totalInvincibilityFrames = 30;
     
@@ -99,7 +99,7 @@ public class Player extends Entity
         
         health = Integer.parseInt(SaveFile.get("health"));
         maxHealth = Integer.parseInt(SaveFile.get("maxHealth"));
-        //weaponList.add(missile);
+        weaponList.add(missile);
         weaponList.add(spread);
         weaponList.add(rapid);
         weaponList.add(bomb);
@@ -146,20 +146,11 @@ public class Player extends Entity
             mouseX = mouse.getX();
             mouseY = mouse.getY();
         }
-        if(invincibilityFrames == 1)
+
+        invincibilityFrames++;
+        if(invincibilityFrames > 30)
         {
-            invincibilityFrames++;
-            isHurt = false;
-            canBeHurt = false;
-        }
-        else if(invincibilityFrames > totalInvincibilityFrames)
-        {
-            invincibilityFrames = 0;
             canBeHurt = true;
-        }
-        else if(invincibilityFrames != 0)
-        {
-            invincibilityFrames++;
         }
         state = "idle";
         movement();
@@ -196,18 +187,19 @@ public class Player extends Entity
             dashTimer --;
             xVelocity = 40 * xDirection;
             yVelocity = 0;
+            invincibilityFrames = 0;
             canBeHurt = false;
         }
         else if(dashTimer == -100)
         {
             isDashing = false;
-            dashTimer = 10;
+            dashTimer = 30;
             canBeHurt = true;
         }
         else if(dashTimer != 10)
         {
             isDashing = false;
-            invincibilityFrames = 1;
+            invincibilityFrames = 30;
             dashTimer --;
             canBeHurt = true;
         }
@@ -228,7 +220,6 @@ public class Player extends Entity
                 {
                     yGravity = normalFallingGravity;
                 }
-                world.getObjects(Camera.class).get(0).setMultipleFollowing(true);
                 isAiming = true;
                 world.addObject(sight, getX(), getY());
                 
@@ -254,7 +245,6 @@ public class Player extends Entity
         {
             yGravity = normalFallingGravity;
             world.removeObject(sight);
-            world.getObjects(Camera.class).get(0).setMultipleFollowing(false);
         }
         if(currentWeapon == rapid && shooting)
         {
@@ -294,13 +284,13 @@ public class Player extends Entity
         {
             if(Greenfoot.isKeyDown(left))
             {
-                state = "running";
+                state = !state.equals("falling") && !state.equals("jumping") && !state.equals("slamming") ? "running" : state;
                 xVelocity = -xSpeed;
                 xDirection = -1;
             }
             else if(Greenfoot.isKeyDown(right))
             {
-                state = "running";
+                state = !state.equals("falling") && !state.equals("jumping") && !state.equals("slamming") ? "running" : state;
                 xVelocity = xSpeed;
                 xDirection = 1;
             }
@@ -340,7 +330,7 @@ public class Player extends Entity
     
     public void predictFloor()
     {
-        for(int i = 1 ; i < 10 ; i ++)
+        for(int i = 1 ; i < 20 ; i ++)
         {
             Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, playerHeight/2+(int)yVelocity/i);
             Tile predictedLeftTile = getOneTileAtOffset(-playerWidth/2+(int)xVelocity + 20, playerHeight/2+(int)yVelocity/i);
@@ -439,6 +429,10 @@ public class Player extends Entity
             predictFloor();
             checkFloor();
         }
+        if((touchingFloor || getOneTileAtOffset(0, playerHeight/2+10) != null|| getOneTileAtOffset(playerWidth/2 - 5, playerHeight/2+10) != null || getOneTileAtOffset(-playerWidth/2 + 5, playerHeight/2+10) != null) && state.equals("slamming"))
+        {
+            state = "idle";
+        }
     }
     
     public void slide()
@@ -530,6 +524,29 @@ public class Player extends Entity
     
     public void parry()
     {
+        if(Greenfoot.isKeyDown(parry) || (parryTimer > 0 && parryTimer != 30)) 
+        {
+            if(parryTimer > 0) 
+            {
+                state = "parrying";
+                ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>) getObjectsInRange(100, EProjectile.class);
+                if(parryTimer < 20)
+                {
+                    for(EProjectile projectile : projectilesInRange) {
+                        projectile.parried(mouseX, mouseY);
+                        Greenfoot.delay(10);
+                        getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
+                        heal(1);
+                    }
+                }
+                parryTimer--;
+            }
+        }
+        else if (!Greenfoot.isKeyDown("e")) 
+        {
+            parryTimer = 30;
+        }
+        /*
         if(cooldown > 0)
         {
             cooldown--;
@@ -569,6 +586,7 @@ public class Player extends Entity
             
             parryTimer = 10;
         }
+        */
     }
     
     public void heal(int regen)
@@ -590,13 +608,13 @@ public class Player extends Entity
     
     public void hurt(int damage)
     {
-        if(canBeHurt)
+        if(invincibilityFrames > 30)
         {
             super.hurt(damage);
             getWorld().getObjects(Camera.class).get(0).screenShake(3, 5);
-            isHurt = true;
             canBeHurt = false;
-            invincibilityFrames = 1;
+            launch(5);
+            invincibilityFrames = 0;
         }
     }
     
@@ -615,9 +633,9 @@ public class Player extends Entity
     {
         lowerSpriteDirection = newDir;
     }
-    public boolean getHurt()
+    public int getParryTimer()
     {
-        return isHurt;
+        return parryTimer;
     }
     public boolean getHeal()
     {

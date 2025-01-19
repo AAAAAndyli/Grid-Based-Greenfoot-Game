@@ -11,7 +11,7 @@ public class RTP extends GroundedEnemy
     //attack variables
     private int attackRange = 500;
     private int attackCooldown = 60;
-    private Attack pierce = new Attack(400, 100, 1, 0 , xDirection, 0);
+    private Attack pierce = new Attack(400, 100, 1, 0 , xDirection, 0, this);
     private int attackFrame = 6; 
     private int attackXOffset = 100;
     private Player player;    
@@ -115,7 +115,7 @@ public class RTP extends GroundedEnemy
                 pierce.performAttack();
                 attackTimer++;
             }
-            else if(attackCooldown + attackFrame - 10 == attackTimer)
+            else if(attackCooldown + attackFrame - 20 == attackTimer)
             {
                 getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
                 attackTimer++;

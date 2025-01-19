@@ -11,6 +11,7 @@ public class Camera extends SuperSmoothMover
     private Actor followingActor;
     private ArrayList<Actor> followingActors = new ArrayList<Actor>();
     private boolean followingMultipleActors = false;
+    private boolean lowerViewOfPlayer = false;
     private int numberOfFollowingActors = 2;
     
     private int screenShakeLength = 0;
@@ -60,13 +61,18 @@ public class Camera extends SuperSmoothMover
         ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
         
         int targetScrollX = world.getScrollX() - (followingActor.getX() - world.getWidth()/2);
-        int targetScrollY = world.getScrollY() - (followingActor.getY() - world.getHeight()/2);
+        int targetScrollY = world.getScrollY() - (followingActor.getY() - (lowerViewOfPlayer ? 500 : world.getHeight()/2));
         
         int newScrollX = (int) (world.getScrollX() + (targetScrollX - world.getScrollX()) * 0.1);
         int newScrollY = (int) (world.getScrollY() + (targetScrollY - world.getScrollY()) * 0.5);
         
         world.setScrollX(newScrollX);
         world.setScrollY(newScrollY); 
+    }
+    
+    public void activateBossMode()
+    {
+        lowerViewOfPlayer = true;
     }
     
     public void followMultipleTargets()
@@ -85,7 +91,7 @@ public class Camera extends SuperSmoothMover
         int targetScrollX = world.getScrollX() - (totalX - world.getWidth()/2);
         int targetScrollY = world.getScrollY() - (totalY - world.getHeight()/2);
         
-        int newScrollX = (int) (world.getScrollX() + (targetScrollX - world.getScrollX()) * 0.5);
+        int newScrollX = (int) (world.getScrollX() + (targetScrollX - world.getScrollX()) * 0.1);
         int newScrollY = (int) (world.getScrollY() + (targetScrollY - world.getScrollY()) * 0.5);
         
         world.setScrollX(newScrollX);
@@ -128,6 +134,9 @@ public class Camera extends SuperSmoothMover
     }
     public void removeFollowing(Actor newFollowingActor)
     {
-        followingActors.remove(followingActors.indexOf(newFollowingActor));
+        if(followingActors.indexOf(newFollowingActor) != -1)
+        {
+            followingActors.remove(followingActors.indexOf(newFollowingActor));
+        }
     }
 }

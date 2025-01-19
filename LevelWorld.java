@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
  */
 public class LevelWorld extends ScrollingWorld
 {
+    private Pause pause = new Pause();
     private String levelName;
     ArrayList<String> world = new ArrayList<String>();
     ArrayList<Tile> tileWorld = new ArrayList<Tile>();
@@ -25,9 +26,14 @@ public class LevelWorld extends ScrollingWorld
     private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
     private Player player;
     
+    private ScrollingBackground layer1 = new ScrollingBackground(new GreenfootImage("Background/tower0.png"), 0.25, 0);
+    private ScrollingBackground layer2 = new ScrollingBackground(new GreenfootImage("Background/tower1.png"), 0.5, 400);
+    private ScrollingBackground layer3 = new ScrollingBackground(new GreenfootImage("Background/tower2.png"), 0.1, 800);
+
+    
     public LevelWorld()
     {
-        this("test.csv");
+        this("BugEntrance.csv");
     }
     
     /**
@@ -50,12 +56,20 @@ public class LevelWorld extends ScrollingWorld
             }
         }
         */
+        WorldOrder.createArrayList();
+        WorldOrder.setIndex(levelName);
         addObject(new Shield(), 80, 650);
-        
+<<<<<<< HEAD
+        addObject(pause, 1040, 40);
+=======
+        addObject(layer1, 0, 300);
+        addObject(layer2, 400, 300);
+        addObject(layer3, 800, 300);
+>>>>>>> 70619ead918ebb3f72123a0efd7c56fb875be3f6
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
-        setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class);
-        setActOrder(PlayerSprites.class, World.class, Player.class, Tile.class, Enemy.class, Actor.class, Camera.class);
+        setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
+        setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
     }
     public void loadLevel()
     {
@@ -114,7 +128,7 @@ public class LevelWorld extends ScrollingWorld
                             camera.addFollowing(player);
                             camera.addFollowing(player);
                             camera.addFollowing(player);
-                            camera.addFollowing(crosshair);
+                            camera.addFollowing(player);
                             camera.setFollowing(player);
                             addObject(new HealthBar(player), 100, 100);
                             addObject(new Wallet(), 120, 170);
@@ -145,6 +159,14 @@ public class LevelWorld extends ScrollingWorld
                         case "Key":
                             Key key = new Key(type, rotation, xLocation, yLocation, triggerNumber, colour);
                             addObject(key, xLocation, yLocation);
+                            break;
+                        case "BossSpawner":
+                            BossSpawner BossSpawner = new BossSpawner(type, rotation, xLocation, yLocation, triggerNumber, enemyNumber);
+                            addObject(BossSpawner, xLocation, yLocation);
+                            break;
+                        case "NextWorld":
+                            NextWorld nextWorld = new NextWorld(type, rotation, xLocation, yLocation, triggerNumber);
+                            addObject(nextWorld, xLocation, yLocation);
                             break;
                         default:
                             addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);

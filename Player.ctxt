@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Player\ here.\r\n\ \r\n\ @author\ Andy\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ Player\ here.\n\ \n\ @author\ Andy\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=
 comment1.target=Player()
 comment10.params=
@@ -34,7 +34,7 @@ comment22.target=void\ setUpperSpriteDirection(int)
 comment23.params=newDir
 comment23.target=void\ setLowerSpriteDirection(int)
 comment24.params=
-comment24.target=boolean\ getHurt()
+comment24.target=int\ getParryTimer()
 comment25.params=
 comment25.target=boolean\ getHeal()
 comment26.params=

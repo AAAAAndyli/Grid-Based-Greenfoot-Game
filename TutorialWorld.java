@@ -12,11 +12,12 @@ import java.io.FileNotFoundException;
 /**
  * Write a description of class LevelWorld here.
  * 
- * @author (your name) 
+ * @author Allan L. 
  * @version (a version number or a date)
  */
 public class TutorialWorld extends ScrollingWorld
 {
+    Pause pause = new Pause();
     private String levelName;
     ArrayList<String> world = new ArrayList<String>();
     ArrayList<Tile> tileWorld = new ArrayList<Tile>();
@@ -51,6 +52,7 @@ public class TutorialWorld extends ScrollingWorld
             }
         }
         */
+        addObject(pause, 1040, 40);
         addObject(new Shield(), 80, 650);
         addObject(tutorial, 1080, 650);
         TheGrid.setGrid(toGrid());

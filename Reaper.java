@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Reaper extends FlyingEnemy
 {
     private int attackRange = 100;
-    private Attack slice = new Attack(attackRange + 50, 70, 2, 0 , attackRange/2 + 10, 0);
+    private Attack slice = new Attack(attackRange + 50, 70, 2, 0 , attackRange/2 + 10, 0, this);
     private Player player;
     public Reaper()
     {
@@ -79,7 +79,7 @@ public class Reaper extends FlyingEnemy
             slice.performAttack();
             attackTimer++;
         }
-        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        else if(attackCooldown + attackFrame - 20 == attackTimer)
         {
             getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;

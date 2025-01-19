@@ -11,7 +11,6 @@ public class Cypr extends GroundedEnemy
     //attack variables
     private int attackRange = 600;
     private int attackCooldown = 60;
-    private Attack pierce = new Attack(attackRange + 50, 10, 1, 0 , attackRange/2 + 10, 0);
     private int attackFrame = 4; 
     
     public Cypr()
@@ -45,7 +44,6 @@ public class Cypr extends GroundedEnemy
                 else if(player != null)
                 {
                     xVelocity = 0;
-                    pierce.changeDirection(xDirection);
                     attack();
                 }
                 else
@@ -117,7 +115,7 @@ public class Cypr extends GroundedEnemy
             
             getWorld().addObject(EnemyID.getEnemy(enemySpawned), getPosition().getX(), getPosition().getY());
         }
-        else if(attackCooldown + attackFrame - 10 == attackTimer)
+        else if(attackCooldown + attackFrame - 20 == attackTimer)
         {
             getWorld().addObject(new AttackIndicator(scrollX, scrollY), getPosition().getX(), getPosition().getY() - getImage().getHeight()/2);
             attackTimer++;
