@@ -88,7 +88,6 @@ public class SettingWorld extends World
         
         currentVolume = (int)(musicLevel * SaveFile.getInt("musicVolume") / 100.0);
         if(previousVolume != currentVolume){
-            System.out.println(11);
             background.setVolume(currentVolume);
             previousVolume = currentVolume;
         }

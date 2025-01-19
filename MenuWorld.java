@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import greenfoot.GreenfootSound;
+import java.util.ArrayList;
 
 /**
  * Write a description of class MenuWorld here.
@@ -10,6 +11,8 @@ import greenfoot.GreenfootSound;
 public class MenuWorld extends World
 {
     GreenfootSound background;
+    GreenfootSound[] musicList, effectList;
+    int previousMusicVolume, previousEffectVolume;
     /**
      * Constructor for objects of class MenuWorld.
      * 
@@ -19,10 +22,23 @@ public class MenuWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1); 
         background = new GreenfootSound("Opening.mp3");
+        
         setBackground("images/menu.png");
         
         //load save file for data
         SaveFile.loadFile();
+        
+        //update bgm volume
+        previousMusicVolume = SaveFile.getInt("musicVolume");
+        // ** IMPORTANT **
+        //make sure to set a volume value for ALL sounds, otherwise it defaults to 0 even if sound plays
+        background.setVolume(50); 
+        //make sure to update the volume with values from savefile!
+        SaveFile.updateVolume(background, "musicVolume");
+        
+        //make sure to update sound effects volume as shown above
+        previousEffectVolume = SaveFile.getInt("effectVolume");
+        
         Label shopLabel = new Label("Shop", 30);
         addObject(shopLabel, 900, 600);
         
@@ -39,6 +55,25 @@ public class MenuWorld extends World
     }
     
     public void act(){
+        if(previousMusicVolume != SaveFile.getInt("musicVolume")){
+            //update the list with each new music
+            musicList = new GreenfootSound[]
+            {
+                background
+            };
+            SaveFile.updateVolume(musicList, "musicVolume");
+            previousMusicVolume = SaveFile.getInt("musicVolume");
+        }
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            //update the list with each new effect
+            effectList = new GreenfootSound[]
+            {
+                
+            };
+            //UNCOMMENT WHEN EFFECTS ADDED
+            //SaveFile.updateVolume(effectList, "effectVolume");
+            //previousEffectVolume = SaveFile.getInt("musicVolume");
+        }
         background.playLoop();
     }
     

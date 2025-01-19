@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.StringTokenizer;
+import greenfoot.*;
 
 /**
  * Write a description of class SaveFile here.
@@ -84,6 +85,16 @@ public class SaveFile
         //keybind not found
         System.out.println("Keybind not found: " + keyBind);
         return null;
+    }
+    
+    public static void updateVolume(GreenfootSound reference, String type){
+        reference.setVolume((int)(reference.getVolume() * SaveFile.getInt(type) / 100.0));
+    }
+    
+    public static void updateVolume(GreenfootSound[] references, String type){
+        for(GreenfootSound s : references){
+            s.setVolume((int)(s.getVolume() * SaveFile.getInt(type) / 100.0));   
+        }
     }
     
     public static int getInt(String keyBind){

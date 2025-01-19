@@ -28,7 +28,7 @@ public class WorldButton extends Button
      */
     public void act() {
         if (!transitioning) {
-            pressed = (checkButton());
+            pressed = checkButton();
             if (pressed) {
                 startTransition(); 
             }
@@ -64,7 +64,6 @@ public class WorldButton extends Button
                 ((Shop)getWorld()).background.stop();
             }
 
-            
             Greenfoot.setWorld(destination);
             
         }

@@ -33,13 +33,10 @@ public class ResetButton extends Button
     public void resetSettings(){
         SettingWorld w = (SettingWorld)getWorld();
         ArrayList<BindButton> binds = (ArrayList<BindButton>)w.getObjects(BindButton.class);
-        ArrayList<Slider> sliders = (ArrayList<Slider>)w.getObjects(Slider.class);
         SaveFile.loadFile("saveFile/defaultSaveFile.csv");
         for(BindButton b : binds){
             b.getKeyLabel().setValue(SaveFile.getString(b.getButtonType()));
         }
-        for(Slider s : sliders){
-            s.update(10 * SaveFile.getInt(s.getSliderType()));
-        }
+
     }
 }
