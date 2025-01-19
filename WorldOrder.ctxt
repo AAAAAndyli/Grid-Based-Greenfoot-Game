@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=WorldOrder
+comment0.text=\n\ Write\ a\ description\ of\ class\ WorldOrder\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=void\ createArrayList()
+comment2.params=worldName
+comment2.target=void\ setIndex(java.lang.String)
+comment3.params=index
+comment3.target=void\ setIndex(int)
+comment4.params=
+comment4.target=java.lang.String\ nextWorld()
+numComments=5

@@ -175,8 +175,10 @@ public class MapMaker extends SuperSmoothMover
             case 2:
                 tileListOptions.add(new CollisionTrigger("TriggerTile", 0, true, this, triggerID));
                 tileListOptions.add(new EnemySpawner("EnemySpawner", 0, true, this, triggerID, EnemyID.getEnemy(enemyID)));
+                tileListOptions.add(new BossSpawner("BossSpawner", 0, true, this, triggerID, enemyID));
                 tileListOptions.add(new Firewall("Firewall", rotations, true, this, triggerID, "red"));
                 tileListOptions.add(new Key("Key", rotations, true, this, triggerID, "red"));
+                tileListOptions.add(new NextWorld("NextWorld", 0, true, this, triggerID));
                 break;
         } 
     }

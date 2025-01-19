@@ -358,7 +358,7 @@ public class MapMakerWorld extends ScrollingWorld
                 }
                 else if((mouse.getButton() == 1) && mapMaker.getType() != null)
                 {
-                    placeTile(xMapPosition, yMapPosition, mapMaker.getType(), mapMaker.getTriggerID(), EnemyID.getEnemy(mapMaker.getEnemyID()), mapMaker.getRotation(), colour);
+                    placeTile(xMapPosition, yMapPosition, mapMaker.getType(), mapMaker.getTriggerID(), EnemyID.getEnemy(mapMaker.getEnemyID()), mapMaker.getRotation(), colour, mapMaker.getEnemyID());
                 }
             }
             if (getObjects(TileSelector.class).isEmpty()) 
@@ -372,7 +372,7 @@ public class MapMakerWorld extends ScrollingWorld
         }
     }
 
-    public void placeTile(int x, int y, String type, int triggerID, Enemy enemy, int rotation, String colour)
+    public void placeTile(int x, int y, String type, int triggerID, Enemy enemy, int rotation, String colour, int bossID)
     {
         Tile tile;
         if(type.equals("LasterTile"))
@@ -387,6 +387,10 @@ public class MapMakerWorld extends ScrollingWorld
         {
             tile = new CollisionTrigger(type, rotation, x, y, triggerID);
         }
+        else if(type.equals("NextWorld"))
+        {
+            tile = new NextWorld(type, rotation, x, y, triggerID);
+        }
         else if(type.equals("OneWayTile"))
         {
             tile = new OneWayTile(type, rotation, x, y);
@@ -398,6 +402,10 @@ public class MapMakerWorld extends ScrollingWorld
         else if(type.equals("Key"))
         {
             tile = new Key(type, rotation, x, y, triggerID, colour);
+        }
+        else if(type.equals("BossSpawner"))
+        {
+            tile = new BossSpawner(type, rotation, x, y, triggerID, bossID);
         }
         else
         {
@@ -462,7 +470,7 @@ public class MapMakerWorld extends ScrollingWorld
                 {
                     colour = tokenizer.nextToken();
                 }
-                placeTile(xLocation, yLocation, type, triggerNumber, EnemyID.getEnemy(enemyNumber), rotation, colour);
+                placeTile(xLocation, yLocation, type, triggerNumber, EnemyID.getEnemy(enemyNumber), rotation, colour, enemyNumber);
             }
             catch(NumberFormatException e)
             {
