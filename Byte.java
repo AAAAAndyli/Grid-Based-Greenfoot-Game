@@ -17,6 +17,7 @@ public class Byte extends ScrollingActor
     private final double maximumYVelocity = 40;
     private boolean touchingFloor;
     private boolean isCollidingLeft, isCollidingRight, isCollidingUp;
+    private int value = 1;
 
     private GreenfootImage image;
 
@@ -68,9 +69,20 @@ public class Byte extends ScrollingActor
 
             started = false;
         }
+        if(touchingFloor)
+        {
+            if(isTouching(Byte.class))
+            {
+                Byte touchingByte = (Byte)getOneIntersectingObject(Byte.class);
+                int byteValue = touchingByte.getValue();
+                value += byteValue;
+                getWorld().removeObject(touchingByte);
+                touchingByte = null;
+            }
+        }
         ArrayList<Wallet> touchingWallet = (ArrayList<Wallet>)getIntersectingObjects(Wallet.class);        
         if (touchingWallet.size() == 1 && collected){
-            wallet.changeAmount(1);
+            wallet.changeAmount(value);
             getWorld().removeObject(this);
             return;
         }
@@ -79,7 +91,7 @@ public class Byte extends ScrollingActor
             pickUp();
         } 
         if (collected && timer.millisElapsed() >= 1500) {
-            wallet.changeAmount(1);
+            wallet.changeAmount(value);
             getWorld().removeObject(this);
             return;
         }
@@ -109,6 +121,11 @@ public class Byte extends ScrollingActor
         applyGravity();
         collision();
         globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
+    }
+    
+    public int getValue()
+    {
+        return value;
     }
 
     public void collision()

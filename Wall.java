@@ -125,6 +125,11 @@ public class Wall extends Bosses
             yVelocity = jumpStrength;
             firstJumpFrame = false;
         }
+        if(getOneTileAtOffset(100 * xDirection, 0) != null)
+        {
+            xDirection = -xDirection;
+            camera.screenShake(3, 10);
+        }
         xVelocity = xDirection * playerDistance / 60;
         yVelocity += gravity;
         hitbox.performAttack();
