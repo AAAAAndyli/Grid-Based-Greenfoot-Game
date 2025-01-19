@@ -89,6 +89,10 @@ public class BossSpawner extends TriggerTile
         {
             return 1;
         }
+        else if(boss.getClass() == Scorch.class)
+        {
+            return 1;
+        }
         return -1;
     }
     public Bosses getBoss()
@@ -101,6 +105,11 @@ public class BossSpawner extends TriggerTile
         {
             return new Bug();
         }
+        else if(bossID == 2)
+        {
+            return new Scorch();
+        }
+
         return null;
     }
     public String toString()

@@ -22,7 +22,7 @@ public class HealthBar extends Actor
     }
     public void addedToWorld(World world)
     {
-        for(int i = 0 ; i < healthBlobCount ; i++)
+        for(int i = 0 ; i < healthBlobCount + 1 ; i++)
         {
             HealthPod healthPod = new HealthPod();
             healthPods.add(healthPod);

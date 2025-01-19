@@ -28,12 +28,12 @@ public class ScrollingBackground extends ScrollingActor
         }
         if (getX() < -720) 
         {
-            trueX = 2160;
+            trueX += -2160;
             setLocation(trueX, getY());
         }
         if (getX() > 1440) 
         {
-            trueX = -1080;
+            trueX += 1080;
             setLocation(-1080, getY());
         }
     }

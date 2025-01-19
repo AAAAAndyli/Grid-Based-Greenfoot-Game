@@ -64,7 +64,7 @@ public class Player extends Entity
     private RangedWeapon currentWeapon;
     private boolean shooting;
     private int weaponIndex = 0;
-    private RangedWeapon missile = new RangedWeapon(60, 2, this, 1);
+    private RangedWeapon missile = new RangedWeapon(0, 2, this, 1);
     private RangedWeapon bomb = new RangedWeapon(30, 1, this, 1);
     private RangedWeapon spread = new RangedWeapon(30, 3, this, 1);
     private RangedWeapon rapid = new RangedWeapon(10, 0, this, 1);
@@ -180,7 +180,7 @@ public class Player extends Entity
     
     public void dash()
     {
-        if(Greenfoot.isKeyDown(dash) && dashTimer > 0)
+        if(Greenfoot.isKeyDown(dash) && dashTimer > 0 && dashTimer <= 10)
         {
             state = "dashing";
             isDashing = true;
@@ -256,7 +256,7 @@ public class Player extends Entity
     public void movement()
     {
         predictFloor();
-        if(dashTimer == 10 || dashTimer < 0)
+        if(dashTimer >= 10 || dashTimer < 0)
         {
             slide();
             checkFloor();
@@ -613,7 +613,6 @@ public class Player extends Entity
             super.hurt(damage);
             getWorld().getObjects(Camera.class).get(0).screenShake(3, 5);
             canBeHurt = false;
-            launch(5);
             invincibilityFrames = 0;
         }
     }
