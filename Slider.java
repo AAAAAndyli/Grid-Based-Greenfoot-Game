@@ -38,4 +38,6 @@ public class Slider extends SuperStatBar
             getWorld().addObject(text, getX(), getY() + 30);
         }
     }
+    
+    //public 
 }
