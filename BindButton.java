@@ -22,7 +22,7 @@ public class BindButton extends Button {
         textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
         bindBox = new Button("Buttons/pressKeyButton.png",.55,true);
         
-        keyLabel = new Label(SaveFile.get(type), 40);
+        keyLabel = new Label(SaveFile.getString(type), 40);
     }
     
     /**

@@ -1,10 +1,6 @@
 #BlueJ class context
 comment0.target=TutorialAvatar
-<<<<<<< HEAD
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Pause\ here.\r\n\ \r\n\ @author\ Allan\ L.\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-=======
-comment0.text=\n\ TutorialAvatar\ class.\n
->>>>>>> 70619ead918ebb3f72123a0efd7c56fb875be3f6
 comment1.params=
 comment1.target=TutorialAvatar()
 comment2.params=
@@ -13,15 +9,6 @@ comment3.params=
 comment3.target=void\ handleKey()
 comment3.text=\r\n\ Handles\ displaying\ messages\ and\ switching\ to\ the\ next\ message\ when\ "right\ arrow"\ is\ pressed.\r\n
 comment4.params=
-<<<<<<< HEAD
 comment4.target=void\ moveToTarget()
 comment4.text=\r\n\ Smoothly\ moves\ the\ avatar\ to\ the\ target\ location.\r\n
 numComments=5
-=======
-comment4.target=void\ handleKey()
-comment4.text=\n\ Handles\ displaying\ messages\ and\ switching\ to\ the\ next\ message\ when\ "right\ arrow"\ is\ pressed.\n
-comment5.params=
-comment5.target=void\ moveToTarget()
-comment5.text=\n\ Smoothly\ moves\ the\ avatar\ to\ the\ target\ location.\n
-numComments=6
->>>>>>> 70619ead918ebb3f72123a0efd7c56fb875be3f6

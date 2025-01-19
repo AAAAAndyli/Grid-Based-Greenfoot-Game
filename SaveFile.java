@@ -67,7 +67,11 @@ public class SaveFile
         save();
     }
     
-    public static String get(String keyBind){
+    public static void setInfo(String infoType, int set){
+        setInfo(infoType, Integer.toString(set));
+    }
+    
+    public static String getString(String keyBind){
         
         for(String s : info){
             tokenizer = new StringTokenizer(s, ",");
@@ -78,7 +82,23 @@ public class SaveFile
             }
         }
         //keybind not found
+        System.out.println("Keybind not found");
         return null;
+    }
+    
+    public static int getInt(String keyBind){
+        
+        for(String s : info){
+            tokenizer = new StringTokenizer(s, ",");
+            currentToken = tokenizer.nextToken();
+            
+            if(currentToken.equals(keyBind)){
+                return Integer.parseInt(tokenizer.nextToken());
+            }
+        }
+        //keybind not found
+        System.out.println("Keybind not found");
+        return -1;
     }
     
     public static void save(){

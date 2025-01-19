@@ -3,16 +3,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Slider here.
  * 
- * @author Andy Li
+ * @author Andy Li & Darren T.
  * @version (a version number or a date)
  */
 public class Slider extends SuperStatBar
 {
     private Label text = new Label("Volume", 30);
+    private int previous;
+    private String sliderType;
     
-    public Slider (int maxVal, int currVal, Actor owner, int width, int height, int offset)
+    public Slider (int maxVal, int currVal, Actor owner, int width, int height, int offset, String type)
     {
         super (maxVal, currVal, owner, width, height, offset, Color.GREEN, Color.RED, false, Color.BLACK, 2);
+        sliderType = type;
     }
     
     public void addedToWorld()
@@ -28,6 +31,10 @@ public class Slider extends SuperStatBar
     {
         mouseSet();
         getWorld().addObject(text, getX(), getY() + 30);
+        if(getCurrent() != previous){
+            previous = getCurrent() / 10;
+            SaveFile.setInfo(sliderType, previous);
+        }
     }
     
     public void mouseSet()
@@ -39,5 +46,7 @@ public class Slider extends SuperStatBar
         }
     }
     
-    //public 
+    public int getCurrent(){
+        return currVals[0];
+    }
 }

@@ -1,11 +1,11 @@
 #BlueJ class context
 comment0.target=BossSprites
-comment0.text=\n\ Write\ a\ description\ of\ class\ MovingGraphic\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ MovingGraphic\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=boss
 comment1.target=BossSprites(Bosses)
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\n\ Act\ -\ do\ whatever\ the\ MovingGraphic\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ MovingGraphic\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment3.params=path\ animation\ action
 comment3.target=void\ loadSingleAnimation(java.lang.String,\ java.util.ArrayList,\ java.lang.String)
 comment4.params=path\ animation\ action\ isRotated

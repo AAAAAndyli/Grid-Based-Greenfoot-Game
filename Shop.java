@@ -85,7 +85,7 @@ public class Shop extends World
         WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
         
-        money = Integer.valueOf(SaveFile.get("money"));
+        money = SaveFile.getInt("money");
         health = 1;
         maxHealth = 15;
         

@@ -93,12 +93,12 @@ public class Player extends Entity
         state = "idle";
         globalPosition = new Coordinate(0,0);
         
-        if(SaveFile.get("jump") == null){
+        if(SaveFile.getString("jump") == null){
             SaveFile.loadFile("saveFile/defaultSaveFile.csv");
         }
         
-        health = Integer.parseInt(SaveFile.get("health"));
-        maxHealth = Integer.parseInt(SaveFile.get("maxHealth"));
+        health = SaveFile.getInt("health");
+        maxHealth = SaveFile.getInt("maxHealth");
         weaponList.add(missile);
         weaponList.add(spread);
         weaponList.add(rapid);
@@ -121,12 +121,12 @@ public class Player extends Entity
     {     
         if(!runOnce){
             //if accessing levelworld through debug, load default binds
-            jump = SaveFile.get("jump");
-            parry = SaveFile.get("parry");
-            dash = SaveFile.get("dash");
-            left = SaveFile.get("left");
-            right = SaveFile.get("right");
-            down = SaveFile.get("down");
+            jump = SaveFile.getString("jump");
+            parry = SaveFile.getString("parry");
+            dash = SaveFile.getString("dash");
+            left = SaveFile.getString("left");
+            right = SaveFile.getString("right");
+            down = SaveFile.getString("down");
             runOnce = true;
         }
         

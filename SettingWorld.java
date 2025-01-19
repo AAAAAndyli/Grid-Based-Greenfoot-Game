@@ -61,8 +61,11 @@ public class SettingWorld extends World
         Button funImage = new Button("settingsScream.png",.4,true);
         addObject(funImage,300,350);
         
-        Slider audio = new Slider(2000, 1000, null, 350, 20, 350);
-        addObject(audio, scroll.getX() + 40, 710);
+        Slider musicVolume = new Slider(1000, SaveFile.getInt("musicVolume") * 10, null, 350, 20, 350, "musicVolume");
+        addObject(musicVolume, scroll.getX() + 40, 710);
+        
+        Slider effectVolume = new Slider(1000, SaveFile.getInt("effectVolume") * 10, null, 350, 20, 350, "effectVolume");
+        addObject(effectVolume, scroll.getX() + 40, 810);
         
         for(int i = 0; i < 14; i++){   
             BinaryString binary = new BinaryString();
