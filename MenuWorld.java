@@ -21,8 +21,6 @@ public class MenuWorld extends World
         background = new GreenfootSound("Opening.mp3");
         setBackground("images/menu.png");
         
-
-        
         //load save file for data
         SaveFile.loadFile();
         Label shopLabel = new Label("Shop", 30);

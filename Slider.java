@@ -8,13 +8,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Slider extends SuperStatBar
 {
-    private Label text = new Label("Volume", 30);
+    private Label text;
     private int previous;
     private String sliderType;
     
-    public Slider (int maxVal, int currVal, Actor owner, int width, int height, int offset, String type)
+    public Slider (int maxVal, int currVal, Actor owner, int width, int height, int offset, String type, String labelText)
     {
         super (maxVal, currVal, owner, width, height, offset, Color.GREEN, Color.RED, false, Color.BLACK, 2);
+        text = new Label(labelText, 30);
         sliderType = type;
     }
     
@@ -48,5 +49,9 @@ public class Slider extends SuperStatBar
     
     public int getCurrent(){
         return currVals[0];
+    }
+    
+    public String getSliderType(){
+        return sliderType;
     }
 }

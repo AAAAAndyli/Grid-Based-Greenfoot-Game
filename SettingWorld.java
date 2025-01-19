@@ -14,6 +14,11 @@ public class SettingWorld extends World
 {
     private Label test, test2, test3;
     GreenfootSound background;
+    //volume level of music
+    private int musicLevel = 50;
+    //to compare previous vs current volume level
+    private int previousVolume, currentVolume;
+    
     /**
      * Constructor for objects of class SettingWorld.
      * 
@@ -23,6 +28,7 @@ public class SettingWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1, false); 
         background = new GreenfootSound("Settings.mp3");
+        background.setVolume(musicLevel);
         
         setBackground("images/settings.png");
         ArrayList<Class> classList = new ArrayList<Class>();
@@ -61,12 +67,13 @@ public class SettingWorld extends World
         Button funImage = new Button("settingsScream.png",.4,true);
         addObject(funImage,300,350);
         
-        Slider musicVolume = new Slider(1000, SaveFile.getInt("musicVolume") * 10, null, 350, 20, 350, "musicVolume");
+        Slider musicVolume = new Slider(1000, SaveFile.getInt("musicVolume") * 10, null, 350, 20, 350, "musicVolume", "Music Volume");
         addObject(musicVolume, scroll.getX() + 40, 710);
         
-        Slider effectVolume = new Slider(1000, SaveFile.getInt("effectVolume") * 10, null, 350, 20, 350, "effectVolume");
+        Slider effectVolume = new Slider(1000, SaveFile.getInt("effectVolume") * 10, null, 350, 20, 350, "effectVolume", "SFX Volume");
         addObject(effectVolume, scroll.getX() + 40, 810);
         
+        //create binary strings as decoration
         for(int i = 0; i < 14; i++){   
             BinaryString binary = new BinaryString();
             int ySpawn = binary.getDirection() == 1 ? -100 - Greenfoot.getRandomNumber(100) : Greenfoot.getRandomNumber(100) + 100 + getHeight();
@@ -78,8 +85,14 @@ public class SettingWorld extends World
     
     public void act(){
         background.playLoop();
+        
+        currentVolume = (int)(musicLevel * SaveFile.getInt("musicVolume") / 100.0);
+        if(previousVolume != currentVolume){
+            System.out.println(11);
+            background.setVolume(currentVolume);
+            previousVolume = currentVolume;
+        }
     }
-    
     
     public void stopped(){
         background.pause();
