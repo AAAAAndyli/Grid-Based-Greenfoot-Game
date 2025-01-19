@@ -42,6 +42,11 @@ public class BossSprites extends ScrollingActor
         this.loadSingleAnimation(path, animation, action, false);
     }
     
+    protected void createAfterImage()
+    {
+        getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY), getPosition().getX(), getPosition().getY());
+    }
+    
     protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation, String action, boolean isRotated)
     {
         for(int i = 0; i < new File(path + "/" + action).listFiles().length-1; i++)

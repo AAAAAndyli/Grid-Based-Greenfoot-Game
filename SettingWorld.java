@@ -23,7 +23,16 @@ public class SettingWorld extends World
      * Constructor for objects of class SettingWorld.
      * 
      */
-    public SettingWorld(MenuWorld world)
+    public SettingWorld(World world)
+    {    
+        this(world, null);
+    }
+    
+    /**
+     * Constructor for objects of class SettingWorld.
+     * 
+     */
+    public SettingWorld(World world, Class backType)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1, false); 
@@ -61,8 +70,14 @@ public class SettingWorld extends World
         ResetButton resetButton = new ResetButton("Buttons/resetButton.png", 0.55);
         addObject(resetButton, 150, 650);
         
-        WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
-        addObject(back, 85, 50);
+        if(backType == null){
+            WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
+            addObject(back, 85, 50);
+        }
+        else{
+            WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world, backType);
+            addObject(back, 85, 50);   
+        }
         
         Button funImage = new Button("settingsScream.png",.4,true);
         addObject(funImage,300,350);

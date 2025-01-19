@@ -28,11 +28,11 @@ public class LevelWorld extends ScrollingWorld
     private ScrollingBackground layer1 = new ScrollingBackground(new GreenfootImage("Background/tower0.png"), 0.25, 0);
     private ScrollingBackground layer2 = new ScrollingBackground(new GreenfootImage("Background/tower1.png"), 0.5, 400);
     private ScrollingBackground layer3 = new ScrollingBackground(new GreenfootImage("Background/tower2.png"), 0.1, 800);
-    private Pause pause = new Pause();
+    private WorldButton pause;
     
     public LevelWorld()
     {
-        this("level1.csv");
+        this("sa.csv");
     }
     
     /**
@@ -41,6 +41,9 @@ public class LevelWorld extends ScrollingWorld
     public LevelWorld(String levelName)
     {
         super(1080, 720, 1, false); 
+        
+        pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class));
+        
         TriggerCollection.resetList();
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
