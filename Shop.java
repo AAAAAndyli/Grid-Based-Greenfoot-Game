@@ -49,7 +49,7 @@ public class Shop extends World
     private Button image1Desc;
     private Button image2Desc;
     
-    GreenfootSound background;
+    GreenfootSound shopMusic;
     /**
      * Constructor for objects of class Shop.
      * 
@@ -58,8 +58,9 @@ public class Shop extends World
     {    
         //Adds all objects in the shop class, aand takes saved values from a file
         super(1080, 720, 1); 
-        background = new GreenfootSound("Shop.mp3");
-        
+        shopMusic = new GreenfootSound("Shop.mp3");
+        shopMusic.setVolume(10);
+        SaveFile.updateVolume(shopMusic, "musicVolume");
         
         Cursor shopCursor = new Cursor();
         for(int i = 0; i < shopAnimation.length; i++){
@@ -86,6 +87,8 @@ public class Shop extends World
         addObject(back, 85, 50);
         
         money = SaveFile.getInt("money");
+        
+        //money = 1000;
         health = 1;
         maxHealth = 15;
         
@@ -101,14 +104,14 @@ public class Shop extends World
         checkMouseHover();
         hover();
         
-        background.playLoop();
+        shopMusic.playLoop();
     }
     
     public void stopped(){
-        background.pause();
+        shopMusic.pause();
     }
     public void started(){
-        background.playLoop();
+        shopMusic.playLoop();
     }
     
     /**
@@ -150,7 +153,6 @@ public class Shop extends World
                     removeObject(item1);
                     addObject(new Button("shopIcons/bought.png",.7, true),250,300);
                 }
-                System.out.println("purchased, money left: " + money);
                 purchased = true;
             }
             else
@@ -189,8 +191,8 @@ public class Shop extends World
                 money -= price;
                 maxHealth++;
                 health++;
-                removeObject(item2);
-                addObject(new Button("shopIcons/bought.png",.7, true),250,600);
+                removeObject(item3);
+                addObject(new Button("shopIcons/bought.png",.7, true),600,300);
                 purchased = true;
                 SaveFile.setInfo("health", String.valueOf(health));
             }
@@ -280,7 +282,5 @@ public class Shop extends World
             isHoveringImage2 = false;
         }
     }
-    
-    
 }
 

@@ -20,6 +20,8 @@ public class Button extends UI
     private int width, height;
     private Label selfLabel;
     
+    private GreenfootSound clickSound;
+    
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -36,6 +38,9 @@ public class Button extends UI
         width = (int)(getImage().getWidth() * sizeMulti);
         height = (int)(getImage().getHeight() * sizeMulti);
         getImage().scale(width, height);
+        clickSound = new GreenfootSound("click.wav");
+        clickSound.setVolume(80);
+        SaveFile.updateVolume(clickSound, "effectVolume");
     }
     
     public Button(String file, double sizeMulti, Label labelReference)
@@ -52,6 +57,9 @@ public class Button extends UI
     
     public void act()
     {
+        if (Greenfoot.mouseClicked(this)) {
+            clickSound.play();
+        }
         if (isFading) {
             performFadeOut();
         }

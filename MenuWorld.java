@@ -11,7 +11,10 @@ import java.util.ArrayList;
 public class MenuWorld extends World
 {
     GreenfootSound background;
+    GreenfootSound clickSound;
+    
     GreenfootSound[] musicList, effectList;
+    
     int previousMusicVolume, previousEffectVolume;
     /**
      * Constructor for objects of class MenuWorld.
@@ -22,6 +25,8 @@ public class MenuWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1); 
         background = new GreenfootSound("Opening.mp3");
+        clickSound = new GreenfootSound("click.wav");
+        
         
         setBackground("images/menu.png");
         
@@ -32,9 +37,11 @@ public class MenuWorld extends World
         previousMusicVolume = SaveFile.getInt("musicVolume");
         // ** IMPORTANT **
         //make sure to set a volume value for ALL sounds, otherwise it defaults to 0 even if sound plays
-        background.setVolume(50); 
+        background.setVolume(20); 
+        clickSound.setVolume(80);
         //make sure to update the volume with values from savefile!
         SaveFile.updateVolume(background, "musicVolume");
+        SaveFile.updateVolume(clickSound, "effectVolume");
         
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");
@@ -68,7 +75,7 @@ public class MenuWorld extends World
             //update the list with each new effect
             effectList = new GreenfootSound[]
             {
-                
+                clickSound
             };
             //UNCOMMENT WHEN EFFECTS ADDED
             //SaveFile.updateVolume(effectList, "effectVolume");

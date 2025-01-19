@@ -11,11 +11,15 @@ public class WorldButton extends Button
     private boolean transitioning = false; 
     private Transition transitionEffect;   
     private int transitionFrames = 240;    
-    private int currentFrame = 0;          
+    private int currentFrame = 0;    
 
+    private GreenfootSound clickSound;
     public WorldButton(String file, double sizeMulti, World dest) {
         super(file, sizeMulti);
         destination = dest;
+        clickSound = new GreenfootSound("click.wav");
+        clickSound.setVolume(80);
+        SaveFile.updateVolume(clickSound, "effectVolume");
     }
 
     public WorldButton(String file, double sizeMulti, World dest, Label labelReference) {
@@ -27,13 +31,12 @@ public class WorldButton extends Button
      * Act - do whatever the WorldButton wants to do.
      */
     public void act() {
-        if (!transitioning) {
-            pressed = checkButton();
-            if (pressed) {
-                startTransition(); 
-            }
-        } else {
-            handleTransition(); 
+        if (Greenfoot.mouseClicked(this)) {
+            clickSound.play();
+            startTransition();
+        }
+        if (transitioning) {
+            handleTransition();
         }
     }
 
@@ -61,7 +64,7 @@ public class WorldButton extends Button
             }else if(current instanceof SettingWorld){
                 ((SettingWorld)getWorld()).background.stop();
             }else if(current instanceof Shop){
-                ((Shop)getWorld()).background.stop();
+                ((Shop)getWorld()).shopMusic.stop();
             }
 
             Greenfoot.setWorld(destination);
@@ -75,7 +78,7 @@ public class WorldButton extends Button
             }else if(current instanceof SettingWorld){
                 ((SettingWorld)getWorld()).background.stop();
             }else if(current instanceof Shop){
-                ((Shop)getWorld()).background.stop();
+                ((Shop)getWorld()).shopMusic.stop();
             }
 
 
