@@ -24,7 +24,7 @@ public class Pause extends SuperSmoothMover
     {
         //Switches to the MenuWorld if clicked
         if(Greenfoot.mouseClicked(this)){
-            Greenfoot.setWorld(new SettingWorld(new MenuWorld()));
+            Greenfoot.setWorld(new SettingWorld(getWorld()));
         }
     }
 }

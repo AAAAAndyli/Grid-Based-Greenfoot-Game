@@ -23,7 +23,7 @@ public class SettingWorld extends World
      * Constructor for objects of class SettingWorld.
      * 
      */
-    public SettingWorld(MenuWorld world)
+    public SettingWorld(World world)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1, false); 
