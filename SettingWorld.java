@@ -25,10 +25,6 @@ public class SettingWorld extends World
         background = new GreenfootSound("Settings.mp3");
         
         setBackground("images/settings.png");
-        Button keybind = new Button("Buttons/keybindButton.png", 0.5);
-        addObject(keybind, 280, 230);
-        Button audio = new Button("Buttons/audioButton.png", 0.5);
-        addObject(audio, 280, 335);
         ArrayList<Class> classList = new ArrayList<Class>();
         classList.add(Button.class);
         classList.add(SuperTextBox.class);
@@ -62,10 +58,16 @@ public class SettingWorld extends World
         WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
         
-        Slider test = new Slider(2000, 1000, scroll, 300, 20, 350);
-        addObject(test, 0, 0);
+        Slider audio = new Slider(2000, 1000, null, 350, 20, 350);
+        addObject(audio, scroll.getX() + 40, 710);
         
-        setPaintOrder(Transition.class, Slider.class, Label.class, Button.class, ScrollingUI.class);
+        for(int i = 0; i < 14; i++){   
+            BinaryString binary = new BinaryString();
+            int ySpawn = binary.getDirection() == 1 ? -100 - Greenfoot.getRandomNumber(100) : Greenfoot.getRandomNumber(100) + 100 + getHeight();
+            addObject(binary, Greenfoot.getRandomNumber(800) + 100, ySpawn);
+        }
+        
+        setPaintOrder(Transition.class, Slider.class, Label.class, Button.class, ScrollingUI.class, SuperTextBox.class, BinaryString.class);
     }
     
     public void act(){
