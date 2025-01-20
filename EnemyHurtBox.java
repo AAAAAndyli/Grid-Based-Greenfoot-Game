@@ -28,6 +28,7 @@ public class EnemyHurtBox extends HurtBox
             else if(player.getState().equals("parrying") && player.getParryTimer() < 20)
             {
                 parried();
+                Greenfoot.delay(5);
                 getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
                 getWorld().removeObject(this);
                 return false;

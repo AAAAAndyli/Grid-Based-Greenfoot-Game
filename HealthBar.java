@@ -36,19 +36,12 @@ public class HealthBar extends Actor
      */
     public void act()
     {
-        if(health/3 < healthBlobCount && (double)player.getHP()/3.0 + 1 > 0)
-        {
-            healthPods.get(health/3).lower(health - player.getHP());
-        }
         health = player.getHP();
-    }
-    public void raise()
-    {
-        int calcHealth = health;
-        for(int i = 0 ; i < player.getHP() - calcHealth ; i++)
+        for (int i = 0; i < healthPods.size(); i++) 
         {
-            healthPods.get(health/3).raise();
-            health++;
+            int podHealth = Math.min(3, health - (i * 3));
+            podHealth = Math.max(0, podHealth);
+            healthPods.get(i).setHealth(podHealth);
         }
     }
 }

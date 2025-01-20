@@ -17,22 +17,30 @@ import java.io.FileNotFoundException;
  */
 public class LevelWorld extends ScrollingWorld
 {
-    private String levelName;
+    protected String levelName;
     ArrayList<String> world = new ArrayList<String>();
     ArrayList<Tile> tileWorld = new ArrayList<Tile>();
-    private Crosshair crosshair = new Crosshair();
-    private Camera camera = new Camera(crosshair);
-    private ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
-    private Player player;
+    protected Crosshair crosshair = new Crosshair();
+    protected Camera camera = new Camera(crosshair);
+    protected ArrayList<ArrayList<Tile>> pathfindingTile = new ArrayList<ArrayList<Tile>>();
+    protected Player player;
+    protected Transition enterWorld = new Transition(false);
+    protected Transition playerDeath = new Transition(true);
+    
+    protected GreenfootSound music;
+    
+    protected GreenfootSound[] musicList, effectList;
+    
+    protected int previousMusicVolume, previousEffectVolume;
     
     private ScrollingBackground layer1 = new ScrollingBackground(new GreenfootImage("Background/tower0.png"), 0.25, 0);
     private ScrollingBackground layer2 = new ScrollingBackground(new GreenfootImage("Background/tower1.png"), 0.5, 400);
     private ScrollingBackground layer3 = new ScrollingBackground(new GreenfootImage("Background/tower2.png"), 0.1, 800);
-    private WorldButton pause;
+    protected WorldButton pause;
     
     public LevelWorld()
     {
-        this("sa.csv");
+        this("level1.csv");
     }
     
     /**
@@ -42,7 +50,7 @@ public class LevelWorld extends ScrollingWorld
     {
         super(1080, 720, 1, false); 
         
-        //pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class));
+        pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class));
         
         TriggerCollection.resetList();
         this.levelName = levelName;
@@ -58,14 +66,25 @@ public class LevelWorld extends ScrollingWorld
             }
         }
         */
+        addObject(enterWorld, 540, 360);
         WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
-        addObject(new Shield(), 80, 650);
-        //addObject(pause, 40, 40);
+        //addObject(new Shield(), 80, 650);
+        addObject(pause, 40, 40);
         loadParallax();
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
-        setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
+        
+        //make sure to update the volume with values from savefile!
+        previousMusicVolume = SaveFile.getInt("musicVolume");
+        //make sure to update sound effects volume as shown above
+        previousEffectVolume = SaveFile.getInt("effectVolume");
+    
+        music = new GreenfootSound("goofyAh.mp3");
+        music.setVolume(60);
+        SaveFile.updateVolume(music, "musicVolume");
+        
+        setPaintOrder(Transition.class, HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
         setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
     }
     public void loadParallax()
@@ -73,6 +92,41 @@ public class LevelWorld extends ScrollingWorld
         addObject(layer1, 0, 300);
         addObject(layer2, 400, 300);
         addObject(layer3, 800, 300);
+    }
+    public void act()
+    {
+        if(previousMusicVolume != SaveFile.getInt("musicVolume")){
+            //update the list with each new music
+            musicList = new GreenfootSound[]
+            {
+                music,
+            };
+            SaveFile.updateVolume(musicList, "musicVolume");
+            previousMusicVolume = SaveFile.getInt("musicVolume");
+        }
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            //update the list with each new effect
+            effectList = new GreenfootSound[]
+            {
+                
+            };
+            //UNCOMMENT WHEN EFFECTS ADDED
+            //SaveFile.updateVolume(effectList, "effectVolume");
+            //previousEffectVolume = SaveFile.getInt("musicVolume");
+        }
+        if(enterWorld.fadedOnce())
+        {
+            removeObject(enterWorld);
+        }
+        if(player.getWorld() == null)
+        {
+            addObject(playerDeath, 540, 360);
+            if(playerDeath.fadedOnce())
+            {
+                Greenfoot.setWorld(new GameOver());
+            }
+        }
+        super.act();
     }
     public void loadLevel()
     {
