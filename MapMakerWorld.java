@@ -26,8 +26,8 @@ public class MapMakerWorld extends ScrollingWorld
     //Safe mode prevents overlapping tiles
     private final static boolean SAFE_MODE = true;
     
-    ArrayList<String> world = new ArrayList<String>();
-    ArrayList<Tile> tileWorld = new ArrayList<Tile>();
+    private ArrayList<String> world = new ArrayList<String>();
+    private ArrayList<Tile> tileWorld = new ArrayList<Tile>();
     private String[][] grid2D;
     private String value;
     private int index;
