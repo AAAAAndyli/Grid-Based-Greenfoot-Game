@@ -179,26 +179,18 @@ public class Shop extends World
         // If clicked first button it takes money in exchange to increase Shield level, which increases the amount of times you can parry
         if(clickedOne)
         {
-            if(maxDamageUpgrade > 0)
+            price = 100;
+            if(money >= price)
             {
-                price = 100;
-                if(money >= price)
-                {
-                    money -= price;
-                    maxDamageUpgrade--;
-                    purchased = true;
-                }
-                else
-                {
-                    Button noByte = new Button("Buttons/noBytes.png", .25, true);
-                    addObject(noByte, 250, 150);
-                    noByte.fadeOut();
-                }
+                money -= price;
+                maxDamageUpgrade--;
+                purchased = true;
             }
             else
             {
-                removeObject(item1);
-                addObject(new Button("shopIcons/bought.png",.7, true),250,300);
+                Button noByte = new Button("Buttons/noBytes.png", .25, true);
+                addObject(noByte, 250, 150);
+                noByte.fadeOut();
             }
         }
         
@@ -213,7 +205,7 @@ public class Shop extends World
                 removeObject(item2);
                 addObject(new Button("shopIcons/bought.png",.7, true),250,600);
                 purchased = true;
-                SaveFile.setInfo("health", String.valueOf(health));
+                SaveFile.setInfo("health", health);
             }
             else
             {
@@ -232,8 +224,10 @@ public class Shop extends World
                     money -= price;
                     maxHealthUpgrade--;
                     maxHealth += 3;
+                    health += 3;
                     purchased = true;
-                    SaveFile.setInfo("health", String.valueOf(health));
+                    SaveFile.setInfo("health", health);
+                    SaveFile.setInfo("maxHealth", maxHealth);
                 }
                 else
                 {
@@ -254,10 +248,10 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                
                 removeObject(item4);
                 addObject(new Button("shopIcons/bought.png",.7, true),600,600);
                 purchased = true;
+                SaveFile.setInfo("hasMissile", 1);
             }
             else
             {
@@ -275,6 +269,7 @@ public class Shop extends World
                 removeObject(item5);
                 addObject(new Button("shopIcons/bought.png",.7, true),950,300);
                 purchased = true;
+                SaveFile.setInfo("hasSpread", 1);
             }
             else
             {
@@ -292,6 +287,7 @@ public class Shop extends World
                 removeObject(item6);
                 addObject(new Button("shopIcons/bought.png",.7, true),950,600);
                 purchased = true;
+                SaveFile.setInfo("hasBomb", 1);
             }
             else
             {

@@ -65,13 +65,13 @@ public class Player extends Entity
     private RangedWeapon currentWeapon;
     private boolean shooting;
     private int weaponIndex = 0;
-    private RangedWeapon missile = new RangedWeapon(60, 2, this, 1);
-    private RangedWeapon bomb = new RangedWeapon(60, 1, this, 1);
-    private RangedWeapon spread = new RangedWeapon(30, 3, this, 1);
-    private RangedWeapon rapid = new RangedWeapon(10, 0, this, 1);
+    private RangedWeapon missile;
+    private RangedWeapon bomb;
+    private RangedWeapon spread;
+    private RangedWeapon rapid;
     
     private World world;
-    
+    private int damage = 1;
     protected boolean runOnce = false;
     
     //keybind related info
@@ -100,12 +100,28 @@ public class Player extends Entity
         
         health = SaveFile.getInt("health");
         maxHealth = SaveFile.getInt("maxHealth");
+
+        rapid = new RangedWeapon(10, 0, this, SaveFile.getInt("damage"));
+        bomb = new RangedWeapon(60, 1, this, SaveFile.getInt("damage"));
+        missile = new RangedWeapon(60, 2, this, SaveFile.getInt("damage"));
+        spread = new RangedWeapon(30, 3, this, SaveFile.getInt("damage"));
         
-        weaponList.add(missile);
-        weaponList.add(spread);
         weaponList.add(rapid);
-        weaponList.add(bomb);
+        
         currentWeapon = weaponList.get(weaponIndex);
+        
+        if(SaveFile.getInt("hasBomb") == 1)
+        {
+            weaponList.add(bomb);
+        }
+        if(SaveFile.getInt("hasMissile") == 1)
+        {
+            weaponList.add(missile);
+        }
+        if(SaveFile.getInt("hasSpread") == 1)
+        {
+            weaponList.add(spread);
+        }
     }
     
     public void addedToWorld(World world)
