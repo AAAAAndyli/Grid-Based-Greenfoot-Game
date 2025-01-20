@@ -13,7 +13,7 @@ public class BindButton extends Button {
     private Label keyLabel;
     private String text, buttonType;
     private String keyDummy, keyBinding;
-    private boolean added, pressed, bindingActive = false;
+    private boolean added, pressed, pressedButton, pressedLabel, bindingActive = false;
 
     public BindButton(String file, double sizeMulti, String txt, String type){
         super(file, sizeMulti);
@@ -42,7 +42,7 @@ public class BindButton extends Button {
         }
 
         //check if button is pressed
-        pressed = (checkButton() || checkButton(keyLabel));
+        pressed = checkButton() || checkButton(keyLabel);
         
         //if button clicked and not currently active
         if(pressed && !bindingActive){

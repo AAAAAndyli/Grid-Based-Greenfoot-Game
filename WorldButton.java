@@ -41,7 +41,13 @@ public class WorldButton extends Button
      */
     public void act() {
         super.click();
-        if (Greenfoot.mouseClicked(this)) {
+        if(label == null){
+            pressed = checkButton();
+        }
+        else{
+            pressed = checkButton() || checkButton(label);
+        }
+        if (pressed) {
             startTransition();
         }
         if (transitioning) {

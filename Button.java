@@ -99,29 +99,7 @@ public class Button extends UI
      */
     public boolean checkButton()
     {
-        if(Greenfoot.mousePressed(this)) //when pressed
-        {
-            isPressed = true;
-        } //if press and let go ON BUTTON (activate button)
-        else if(Greenfoot.mouseClicked(this) && isPressed){
-            isPressed = false;
-            //has been let go and activated
-            return true;
-        } //if press and let go OFF BUTTON (cancel button)
-        else if(Greenfoot.mouseClicked(null) && isPressed){
-            isPressed = false;
-            //cancelled button
-            return false;
-        }
-        //visual feedback of button being pressed
-        if(isPressed){
-            getImage().scale((int)(0.85 * width), (int)(0.85 * height));
-        }
-        else{
-            getImage().scale(width, height);
-        }
-        //any unusual edge cases like issues with mouse
-        return false;
+        return checkButton(this);
     }
     
     /**

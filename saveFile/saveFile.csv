@@ -1,8 +1,8 @@
-jump,w
-down,s
-left,a
-right,d
-dash,shift
+jump,a
+down,d
+left,x
+right,h
+dash,k
 parry,e
 money,1000
 health,15
