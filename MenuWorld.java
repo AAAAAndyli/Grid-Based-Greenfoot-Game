@@ -43,6 +43,7 @@ public class MenuWorld extends World
         
         //load save file for data
         SaveFile.loadFile();
+        resetStats();
         
         //update bgm volume
         previousMusicVolume = SaveFile.getInt("musicVolume");
@@ -67,7 +68,6 @@ public class MenuWorld extends World
         addObject(shop, 900, 600);
         
         setPaintOrder(Transition.class, Label.class, Button.class);
-        
     }
     
     public void act(){
@@ -124,5 +124,17 @@ public class MenuWorld extends World
                 movingDown = true;
             }
         }
+    }
+    
+    public void resetStats()
+    {
+        SaveFile.setInfo("money", 0);
+        SaveFile.setInfo("health", 15);
+        SaveFile.setInfo("maxHealth", 15);
+        SaveFile.setInfo("level", 0);
+        SaveFile.setInfo("damage", 1);
+        SaveFile.setInfo("hasBomb", 0);
+        SaveFile.setInfo("hasMissile", 0);
+        SaveFile.setInfo("hasSpread", 0);
     }
 }
