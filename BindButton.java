@@ -20,7 +20,7 @@ public class BindButton extends Button {
         text = txt;
         buttonType = type;
         textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
-        bindBox = new Button("Buttons/pressKeyButton.png",.55,true);
+        bindBox = new Button("Buttons/pressKeyButton.png", 0.55, this);
         
         keyLabel = new Label(SaveFile.getString(type), 40);
     }
@@ -33,6 +33,7 @@ public class BindButton extends Button {
     */
 
     public void act(){
+        super.click();
         //add textBox when bindButton added to world
         if(!added){
             getWorld().addObject(textBox, getX() - 250, getY());

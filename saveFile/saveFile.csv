@@ -1,11 +1,11 @@
-jump,r
-down,f
-left,d
-right,g
+jump,w
+down,s
+left,a
+right,d
 dash,shift
 parry,e
 money,1000
 health,15
 maxHealth,15
-musicVolume,75
-effectVolume,100
+musicVolume,45
+effectVolume,14

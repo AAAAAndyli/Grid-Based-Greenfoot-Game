@@ -15,13 +15,9 @@ public class WorldButton extends Button
     private int transitionFrames = 240;    
     private int currentFrame = 0;    
 
-    private GreenfootSound clickSound;
     public WorldButton(String file, double sizeMulti, World dest) {
         super(file, sizeMulti);
         destination = dest;
-        clickSound = new GreenfootSound("click.wav");
-        clickSound.setVolume(80);
-        SaveFile.updateVolume(clickSound, "effectVolume");
     }
     
     public WorldButton(String file, double sizeMulti, World dest, Class worldClass) {
@@ -44,8 +40,8 @@ public class WorldButton extends Button
      * Act - do whatever the WorldButton wants to do.
      */
     public void act() {
+        super.click();
         if (Greenfoot.mouseClicked(this)) {
-            clickSound.play();
             startTransition();
         }
         if (transitioning) {

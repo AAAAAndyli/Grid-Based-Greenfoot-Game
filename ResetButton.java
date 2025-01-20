@@ -23,6 +23,7 @@ public class ResetButton extends Button
     public void act()
     {
         // Add your action code here.
+        super.click();
         isPressed = checkButton();
         
         if(isPressed){
