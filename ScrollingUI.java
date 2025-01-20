@@ -18,7 +18,6 @@ public class ScrollingUI extends UI
     ArrayList<Class> classList = new ArrayList<Class>();
     
     public ScrollingUI(int x, int y, int width, int height, boolean follow, ArrayList<Class> classFollowList){
-        //DEBUG get rid of this later, rectangle placeholder
         GreenfootImage dimensions = new GreenfootImage(width, height);
         setImage(dimensions);
         

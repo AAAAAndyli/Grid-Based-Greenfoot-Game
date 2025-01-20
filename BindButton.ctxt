@@ -1,17 +1,15 @@
 #BlueJ class context
 comment0.target=BindButton
-comment0.text=\n\ Write\ a\ description\ of\ class\ BindButton\ here.\n\ \n\ @author\ Darren\ T.\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ BindButton\ here.\r\n\ \r\n\ @author\ Darren\ T.\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=file\ sizeMulti\ txt\ type
 comment1.target=BindButton(java.lang.String,\ double,\ java.lang.String,\ java.lang.String)
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\n\ \ \ \ public\ BindButton(String\ file,\ double\ sizeMulti,\ String\ txt,\ String\ type,\ Label\ labelReference){\n\ \ \ \ \ \ \ \ this(file,\ sizeMulti,\ txt,\ type);\n\ \ \ \ \ \ \ \ keyLabel\ \=\ labelReference;\n\ \ \ \ }\n
+comment2.text=\r\n\ \ \ \ public\ BindButton(String\ file,\ double\ sizeMulti,\ String\ txt,\ String\ type,\ Label\ labelReference){\r\n\ \ \ \ \ \ \ \ this(file,\ sizeMulti,\ txt,\ type);\r\n\ \ \ \ \ \ \ \ keyLabel\ \=\ labelReference;\r\n\ \ \ \ }\r\n
 comment3.params=
 comment3.target=java.lang.String\ getButtonType()
 comment4.params=
-comment4.target=Label\ getKeyLabel()
-comment5.params=
-comment5.target=java.lang.String\ getKeyBinding()
-comment6.params=active
-comment6.target=void\ setBindingActive(boolean)
-numComments=7
+comment4.target=java.lang.String\ getKeyBinding()
+comment5.params=active
+comment5.target=void\ setBindingActive(boolean)
+numComments=6
