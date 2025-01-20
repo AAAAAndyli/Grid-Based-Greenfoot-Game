@@ -64,6 +64,14 @@ public class PlayerSprites extends ScrollingActor
         {
             getPosition().setCoordinate(player.getPosition().getX() + offsetX, player.getPosition().getY());
         }
+        else
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                getWorld().addObject(new DeathEffects(), getPosition().getX(), getPosition().getY());
+            }
+            getWorld().removeObject(this);
+        }
         animationTimer++;
         //afterImage creation
         switch(player.getState())

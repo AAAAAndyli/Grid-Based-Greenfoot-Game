@@ -76,6 +76,7 @@ public class EnemySpawner extends TriggerTile
     public void spawnEnemies()
     {
         getWorld().addObject(enemy, getPosition().getX(), getPosition().getY() - enemy.getImage().getHeight()/2);
+        getWorld().addObject(new SpawnEffects(), getPosition().getX(), getPosition().getY() - enemy.getImage().getHeight()/2);
         enemy.setLocation(enemy.getPosition().getX() + scrollX, getPosition().getY() - enemy.getImage().getHeight()/2 + scrollY);
         activated = false;
     }
