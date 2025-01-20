@@ -10,15 +10,15 @@ import java.util.ArrayList;
  */
 public class MenuWorld extends World
 {
-    GreenfootSound background;
-    GreenfootSound clickSound;
+    public GreenfootSound background;
+    public GreenfootSound clickSound;
     
     private boolean movingDown = true;
     private double speed = 0.4;
     
-    GreenfootSound[] musicList, effectList;
+    private GreenfootSound[] musicList, effectList;
     
-    int previousMusicVolume, previousEffectVolume;
+    private int previousMusicVolume, previousEffectVolume;
     
     private Button title;
     private WorldButton play;

@@ -100,6 +100,7 @@ public class Player extends Entity
         
         health = SaveFile.getInt("health");
         maxHealth = SaveFile.getInt("maxHealth");
+        
         weaponList.add(missile);
         weaponList.add(spread);
         weaponList.add(rapid);

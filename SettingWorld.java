@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class SettingWorld extends World
 {
     private Label test, test2, test3;
-    GreenfootSound background;
+    public GreenfootSound background;
     //volume level of music
     private int musicLevel = 50;
     //to compare previous vs current volume level
