@@ -108,7 +108,7 @@ public class SaveFile
             }
         }
         //keybind not found
-        System.out.println("Keybind not found");
+        System.out.println("Keybind not found: " + keyBind);
         return -1;
     }
     

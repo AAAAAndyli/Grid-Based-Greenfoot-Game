@@ -36,7 +36,7 @@ public class ArSYSStartingWorld extends ScrollingWorld
         addObject(new Mail(), 100, 360);
         addObject(transition1, 540,360);
         
-        background = new GreenfootSound("ObWiOp0.mp3");
+        background = new GreenfootSound("ArSYS/-1.mp3");
         
         
         setBackground("images/menu.png");

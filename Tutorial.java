@@ -35,8 +35,8 @@ public class Tutorial extends LevelWorld
         setBackground("black.png");
         TutorialAvatar tutorial = new TutorialAvatar();
         
-        pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, TutorialWorld.class));
-        addObject(pause, 1040, 40);
+        //pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, TutorialWorld.class));
+        //addObject(pause, 1040, 40);
         
         addObject(tutorial, 1080, 650);
         
@@ -60,26 +60,8 @@ public class Tutorial extends LevelWorld
     }
     
     public void act(){
-        if(previousMusicVolume != SaveFile.getInt("musicVolume")){
-            //update the list with each new music
-            musicList = new GreenfootSound[]
-            {
-                tutorialMusic,
-            };
-            SaveFile.updateVolume(musicList, "musicVolume");
-            previousMusicVolume = SaveFile.getInt("musicVolume");
-        }
-        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
-            //update the list with each new effect
-            effectList = new GreenfootSound[]
-            {
-                
-            };
-            //UNCOMMENT WHEN EFFECTS ADDED
-            //SaveFile.updateVolume(effectList, "effectVolume");
-            //previousEffectVolume = SaveFile.getInt("musicVolume");
-        }
         tutorialMusic.playLoop();
+        super.act();
     }
     
 }

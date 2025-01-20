@@ -63,6 +63,7 @@ public class TutorialAvatar extends SuperSmoothMover {
             label.update(tutorialMessages[currentMessage]); 
             Greenfoot.delay(10); 
         }else if(Greenfoot.isKeyDown("right") && currentMessage >= tutorialMessages.length - 1){
+            getWorld().stopped();
             Greenfoot.setWorld(new LevelWorld());
         }
                 

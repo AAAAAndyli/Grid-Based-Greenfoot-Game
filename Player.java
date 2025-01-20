@@ -81,7 +81,7 @@ public class Player extends Entity
     protected String down;
     protected String parry;
     protected String dash;
-    
+
     public Player()
     {
         this(0,0, 0, 0);
@@ -182,17 +182,17 @@ public class Player extends Entity
             weaponIndex = 0;
             currentWeapon = weaponList.get(weaponIndex);
         }
-        else if(Greenfoot.isKeyDown("2"))
+        else if(Greenfoot.isKeyDown("2") && weaponList.size() > 1)
         {
             weaponIndex = 1;
             currentWeapon = weaponList.get(weaponIndex);
         }
-        else if(Greenfoot.isKeyDown("3"))
+        else if(Greenfoot.isKeyDown("3") && weaponList.size() > 2)
         {
             weaponIndex = 2;
             currentWeapon = weaponList.get(weaponIndex);
         }
-        else if(Greenfoot.isKeyDown("4"))
+        else if(Greenfoot.isKeyDown("4") && weaponList.size() > 3)
         {
             weaponIndex = 3;
             currentWeapon = weaponList.get(weaponIndex);
@@ -202,6 +202,12 @@ public class Player extends Entity
             die();
         }
         super.act();
+    }
+    
+    public void die()
+    {
+        
+        super.die();
     }
     
     public void dash()
@@ -513,7 +519,7 @@ public class Player extends Entity
         Tile sideTouching2 = getOneTileAtOffset(xDirection * playerWidth/2 + (int) xVelocity, -20);
         Tile sideTouching3 = getOneTileAtOffset(xDirection * playerWidth/2 + (int) xVelocity, 0);
         Tile sideTouching4 = getOneTileAtOffset(xDirection * (playerWidth/2 + 5), 0);
-    
+        
         boolean isSideTouching = sideTouching1 != null || sideTouching2 != null || sideTouching3 != null || sideTouching4 != null;
         Tile sideTouching = sideTouching1 != null ? sideTouching1 : sideTouching2 != null ? sideTouching2 : sideTouching3 != null ? sideTouching3 : sideTouching4;
         
@@ -624,7 +630,6 @@ public class Player extends Entity
             health = maxHealth;
         }
         isHeal = true;
-        getWorld().getObjects(HealthBar.class).get(0).raise();
     }
     public void launch(int vertStrength)
     {

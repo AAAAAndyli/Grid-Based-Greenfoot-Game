@@ -22,4 +22,10 @@ public abstract class Bosses extends Enemy
     {
         return xDirection;
     }
+    public void die()
+    {
+        Coordinate playerPosition = getWorld().getObjects(Player.class).get(0).getPosition();
+        getWorld().addObject(new NextWorld("NextWorld", 0, playerPosition.getX(), playerPosition.getY(), 100), playerPosition.getX(), playerPosition.getY());
+        super.die();
+    }
 }
