@@ -68,6 +68,10 @@ public class Shop extends World
     private Button image6Desc;
     
     GreenfootSound shopMusic;
+    
+    GreenfootSound[] musicList, effectList;
+    
+    int previousMusicVolume, previousEffectVolume;
     /**
      * Constructor for objects of class Shop.
      * 
@@ -76,8 +80,9 @@ public class Shop extends World
     {    
         //Adds all objects in the shop class, aand takes saved values from a file
         super(1080, 720, 1); 
+        
         shopMusic = new GreenfootSound("Shop.mp3");
-        shopMusic.setVolume(10);
+        shopMusic.setVolume(40);
         SaveFile.updateVolume(shopMusic, "musicVolume");
         
         Cursor shopCursor = new Cursor();
@@ -115,6 +120,11 @@ public class Shop extends World
         
         purchased = false;
         
+        //make sure to update the volume with values from savefile!
+        previousMusicVolume = SaveFile.getInt("musicVolume");
+        //make sure to update sound effects volume as shown above
+        previousEffectVolume = SaveFile.getInt("effectVolume");
+        
         setPaintOrder(Transition.class, Cursor.class, Label.class, Button.class, Shop.class);
     }
     
@@ -124,6 +134,25 @@ public class Shop extends World
         animate();
         checkMouseHover();
         hover();
+        if(previousMusicVolume != SaveFile.getInt("musicVolume")){
+            //update the list with each new music
+            musicList = new GreenfootSound[]
+            {
+                shopMusic,
+            };
+            SaveFile.updateVolume(musicList, "musicVolume");
+            previousMusicVolume = SaveFile.getInt("musicVolume");
+        }
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            //update the list with each new effect
+            effectList = new GreenfootSound[]
+            {
+                
+            };
+            //UNCOMMENT WHEN EFFECTS ADDED
+            //SaveFile.updateVolume(effectList, "effectVolume");
+            //previousEffectVolume = SaveFile.getInt("musicVolume");
+        }
         shopMusic.playLoop();
     }
     

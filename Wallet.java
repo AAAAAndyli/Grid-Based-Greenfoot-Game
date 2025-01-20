@@ -18,7 +18,7 @@ public class Wallet extends Actor
     private boolean added, changed;
 
     public Wallet() {
-        text = new SuperTextBox("" + changedAmount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK);
+        text = new SuperTextBox("" + changedAmount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK, 0);
 
         int randomImage = Greenfoot.getRandomNumber(2);
         if (randomImage == 0) { 

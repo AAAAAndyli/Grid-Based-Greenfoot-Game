@@ -79,7 +79,8 @@ public class WorldButton extends Button
             
             if(current instanceof MenuWorld){
                 ((MenuWorld)getWorld()).background.stop();
-            }else if(current instanceof SettingWorld){
+            }
+            else if(current instanceof SettingWorld){
                 //update binds/volume level
                 SaveFile.loadFile();
                 if(destinationLevel != null){
@@ -90,8 +91,12 @@ public class WorldButton extends Button
                 }
                 
                 ((SettingWorld)getWorld()).background.stop();
-            }else if(current instanceof Shop){
+            }
+            else if(current instanceof Shop){
                 ((Shop)getWorld()).shopMusic.stop();
+            }
+            else if(current instanceof TutorialWorld){
+                ((TutorialWorld)getWorld()).tutorialMusic.stop();
             }
 
             Greenfoot.setWorld(destination);
@@ -102,10 +107,15 @@ public class WorldButton extends Button
             getWorld().removeObject(transitionEffect);
             if(current instanceof MenuWorld){
                 ((MenuWorld)getWorld()).background.stop();
-            }else if(current instanceof SettingWorld){
+            }
+            else if(current instanceof SettingWorld){
                 ((SettingWorld)getWorld()).background.stop();
-            }else if(current instanceof Shop){
+            }
+            else if(current instanceof Shop){
                 ((Shop)getWorld()).shopMusic.stop();
+            }
+            else if(current instanceof TutorialWorld){
+                ((TutorialWorld)getWorld()).tutorialMusic.stop();
             }
 
 
