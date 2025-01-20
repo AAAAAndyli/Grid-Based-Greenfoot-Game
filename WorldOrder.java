@@ -21,6 +21,12 @@ public class WorldOrder
         worldList.add("BugEntrance.csv");
         worldList.add("ba.csv");
     }
+    public static void createArSYSList()
+    {
+        worldList.clear();
+        worldList.add("0.csv");
+        worldList.add("1.csv");
+    }
     public static void setIndex(String worldName)
     {
         worldIndex = worldList.indexOf(worldName);

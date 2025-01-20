@@ -12,6 +12,7 @@ import java.util.Collection;
 public class Player extends Entity
 {
     private String state;
+    private int actTimer = 60;
     
     private int playerHeight, playerWidth;
     
@@ -64,34 +65,34 @@ public class Player extends Entity
     private RangedWeapon currentWeapon;
     private boolean shooting;
     private int weaponIndex = 0;
-    private RangedWeapon missile = new RangedWeapon(0, 2, this, 1);
-    private RangedWeapon bomb = new RangedWeapon(30, 1, this, 1);
+    private RangedWeapon missile = new RangedWeapon(60, 2, this, 1);
+    private RangedWeapon bomb = new RangedWeapon(60, 1, this, 1);
     private RangedWeapon spread = new RangedWeapon(30, 3, this, 1);
     private RangedWeapon rapid = new RangedWeapon(10, 0, this, 1);
     
     private World world;
     
-    private boolean runOnce = false;
+    protected boolean runOnce = false;
     
     //keybind related info
-    private String jump;
-    private String left;
-    private String right;
-    private String down;
-    private String parry;
-    private String dash;
+    protected String jump;
+    protected String left;
+    protected String right;
+    protected String down;
+    protected String parry;
+    protected String dash;
     
     public Player()
     {
-        this(0,0);
+        this(0,0, 0, 0);
     }
     
-    public Player(int scrollX, int scrollY)
+    public Player(int scrollX, int scrollY, int globalX, int globalY)
     {
         super(scrollX, scrollY);
         setImage("Hitbox.png");
         state = "idle";
-        globalPosition = new Coordinate(0,0);
+        globalPosition = new Coordinate(globalX,globalY);
         
         if(SaveFile.getString("jump") == null){
             SaveFile.loadFile("saveFile/defaultSaveFile.csv");
@@ -129,8 +130,10 @@ public class Player extends Entity
             down = SaveFile.getString("down");
             runOnce = true;
         }
-        
-        super.act();
+        if(actTimer > 0)
+        {
+            //setLocation(super.act
+        }
         MouseInfo mouse = Greenfoot.getMouseInfo();
         
         if(mouse != null)
@@ -176,6 +179,7 @@ public class Player extends Entity
         {
             die();
         }
+        super.act();
     }
     
     public void dash()
@@ -642,7 +646,7 @@ public class Player extends Entity
     }
     public int getHealthBarHP()
     {
-        return health/3;
+        return (int)Math.ceil(health/3);
     }
     public boolean getSlamming()
     {

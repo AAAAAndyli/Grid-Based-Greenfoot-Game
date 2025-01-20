@@ -62,13 +62,17 @@ public class LevelWorld extends ScrollingWorld
         WorldOrder.setIndex(levelName);
         addObject(new Shield(), 80, 650);
         addObject(pause, 40, 40);
-        addObject(layer1, 0, 300);
-        addObject(layer2, 400, 300);
-        addObject(layer3, 800, 300);
+        loadParallax();
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
         setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
+    }
+    public void loadParallax()
+    {
+        addObject(layer1, 0, 300);
+        addObject(layer2, 400, 300);
+        addObject(layer3, 800, 300);
     }
     public void loadLevel()
     {

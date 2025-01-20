@@ -31,7 +31,7 @@ public abstract class Entity extends ScrollingActor
     {
         if(isTouching(Laser.class) && ((Laser)getOneIntersectingObject(Laser.class)).getVariant() == 2)
         {
-            willDie = true;
+            hurt(1);
         }
     }
     public void hurt(int damage)

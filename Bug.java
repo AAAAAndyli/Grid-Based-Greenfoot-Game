@@ -59,7 +59,7 @@ public class Bug extends Bosses
                 player = getWorldOfType(LevelWorld.class).getPlayer();
                 camera = getWorld().getObjects(Camera.class).get(0);
                 camera.activateBossMode();
-                getWorld().addObject(bossbar, 980, 300);
+                getWorld().addObject(bossbar, 980, 360);
                 getWorld().addObject(new BugLegSprite(this), getPosition().getX(), getPosition().getY());
                 getWorld().addObject(new BugBody(this), getPosition().getX(), getPosition().getY());
                 lowestAttackXCoordinate = getPosition().getX() - 720;

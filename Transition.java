@@ -8,8 +8,23 @@ public class Transition extends Actor
     private int transparency = 0; 
     private int fadeSpeed = 5;    
     private boolean fadingIn = true; 
+    private int fadeCount = 0;
 
-    public Transition() {
+    public Transition()
+    {
+        this(true);
+    }
+    
+    public Transition(boolean fadingIn) {
+        this.fadingIn = fadingIn;
+        if(fadingIn)
+        {
+            transparency = 0;
+        }
+        else
+        {
+            transparency = 255;
+        }
         GreenfootImage image = new GreenfootImage(1080, 720);
         image.setColor(Color.BLACK);
         image.fill();
@@ -25,15 +40,32 @@ public class Transition extends Actor
                 getImage().setTransparency(transparency);
             } else {
                 fadingIn = false; 
+                fadeCount++;
             }
         }
         else {
-            if(transparency > 250){
+            if(transparency > 0){
                 transparency -= fadeSpeed;
                 getImage().setTransparency(transparency);
             }else{
                 fadingIn = true;
+                fadeCount++;
             }
         }
+    }
+    
+    public void resetFadeCount()
+    {
+        fadeCount = 0;
+    }
+    
+    public int getFadeCount()
+    {
+        return fadeCount;
+    }
+    
+    public boolean fadedOnce()
+    {
+        return fadeCount != 0;
     }
 }

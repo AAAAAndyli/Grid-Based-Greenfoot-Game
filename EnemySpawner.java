@@ -14,7 +14,7 @@ public class EnemySpawner extends TriggerTile
     private boolean activated = false;
     private int spawnDelay, spawnDelayTimer = 0;
     
-    private Label enemyNumberDisplay;
+    //private Label enemyNumberDisplay;
     private StillLabel buttonEnemyNumberDisplay;
     
     public EnemySpawner(String type, int rotations, int xPosition, int yPosition, int triggerNumber, Enemy enemy)
@@ -31,7 +31,7 @@ public class EnemySpawner extends TriggerTile
         this.triggerNumber = triggerNumber;
         this.enemy = enemy;
         collidable = false;
-        enemyNumberDisplay = new Label(EnemyID.getID(enemy), 25, this);
+        //enemyNumberDisplay = new Label(EnemyID.getID(enemy), 25, this);
         buttonEnemyNumberDisplay = new StillLabel(EnemyID.getID(enemy), 25, this);
     }
     public void addedToWorld(World world)
@@ -50,7 +50,7 @@ public class EnemySpawner extends TriggerTile
         }
         if(!isButton)
         {
-            getWorld().addObject(enemyNumberDisplay, getPosition().getX()+15, getPosition().getY()+15);
+            //getWorld().addObject(enemyNumberDisplay, getPosition().getX()+15, getPosition().getY()+15);
         }
         else
         {

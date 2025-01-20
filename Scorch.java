@@ -66,6 +66,7 @@ public class Scorch extends Bosses
                         state = 2;
                     }
                     currentAttackDone = false;
+                    playerDistance = getDistance(player);
                     faceTowards(player.getPosition().getX());
                     return;
                 }
@@ -105,11 +106,15 @@ public class Scorch extends Bosses
                     }
                 }
             }
-            if(health < 50)
+            if(health < 100)
+            {
+                totalAttackCooldown = 0;
+            }
+            else if(health < 250)
             {
                 totalAttackCooldown = 10;
             }
-            else if(health < 100)
+            else if(health < 400)
             {
                 totalAttackCooldown = 30;
             }
@@ -217,9 +222,10 @@ public class Scorch extends Bosses
             }
             else
             {
-                followPlayer(0.1, 0);
+                int playerPredictedX = (int)player.getXVelocity() * ((int)getDistance(player)/50);
+                followPlayer(0.1, Math.abs(playerPredictedX));
             }
-            if(getY() > player.getY() - 20 && getY() < player.getY() + 20)
+            if((getY() > player.getY() - 26 && getY() < player.getY() + 26) || attackTimer > attackCooldown + 270)
             {
                 attackTimer = 0;
                 return true;
@@ -227,9 +233,9 @@ public class Scorch extends Bosses
         }
         else
         {
-            hoverFarAbove(0.1);
-            followPlayer(0.1, 0);
+            hoverFarAbove(0.5);
             faceTowards(player.getPosition().getX());
+            followPlayer(0.05, 0);
             attackTimer++;
         }
         return false;

@@ -11,6 +11,7 @@ public class HomingEProjectile extends EProjectile
     private Player target;
     public HomingEProjectile(Coordinate target, double speed, int damage, ScrollingActor spawner, String sprite)
     {
+        
         super(target, speed, damage, spawner, sprite);
     }
     public void addedToWorld(World world)

@@ -12,7 +12,7 @@ public class TriggerTile extends Tile
     protected Trigger trigger;
     protected boolean collidable = false;
     
-    private Label triggerNumberDisplay;
+    //private Label triggerNumberDisplay;
     private StillLabel buttonTriggerNumberDisplay;
     
     public TriggerTile(String type, int rotations, int xPosition, int yPosition, int triggerNumber)
@@ -28,7 +28,7 @@ public class TriggerTile extends Tile
         super(type,rotations,isButton,mapMaker,xPosition,yPosition, false);
         this.triggerNumber = triggerNumber;
         collidable = false;
-        triggerNumberDisplay = new Label(triggerNumber, 25, this);
+        //triggerNumberDisplay = new Label(triggerNumber, 25, this);
         buttonTriggerNumberDisplay = new StillLabel(triggerNumber, 25, this);
     }
     public void addedToWorld(World world)
@@ -37,7 +37,7 @@ public class TriggerTile extends Tile
         //trigger.setTrigger(triggerNumber);
         if(!isButton)
         {
-            getWorld().addObject(triggerNumberDisplay, getPosition().getX()-15, getPosition().getY()-15);
+            //getWorld().addObject(triggerNumberDisplay, getPosition().getX()-15, getPosition().getY()-15);
         }
         else
         {

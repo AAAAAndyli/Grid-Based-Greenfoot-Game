@@ -136,14 +136,10 @@ public class BossBar extends SuperStatBar
         for (int i = 0; i < barCount; i++) 
         {
             currPercentVal = (double) currVals[i] / maxVals[i];
-            int filledBarHeight = (int) (currPercentVal * (height - (borderThickness * 2))); // Height of the filled part
-            int missingBarHeight = height - (borderThickness * 2) - filledBarHeight; // Remaining height
-    
-            // Draw the filled portion (grows upwards)
+            int filledBarHeight = (int) (currPercentVal * (height - (borderThickness * 2))); 
+            int missingBarHeight = height - (borderThickness * 2) - filledBarHeight; 
             bar.setColor(filledColor[i]);
             bar.fillRect(borderThickness + (i * barHeight), borderThickness + missingBarHeight, width - (2 * borderThickness), filledBarHeight);
-    
-            // Draw the missing portion (stays at the top)
             bar.setColor(missingColor[i]);
             bar.fillRect(borderThickness + (i * barHeight), borderThickness, width - (2 * borderThickness), missingBarHeight);
         }

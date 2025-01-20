@@ -11,7 +11,7 @@ public class BombPProjectile extends PProjectile
     private double gravity = 0.9, yVelocity = 0;
     public BombPProjectile(Coordinate target, double speed, ScrollingActor spawner)
     {
-        super(target, speed, 1, spawner, "PlayerDefault");
+        super(target, speed, 1, spawner, "PlayerBomb");
     }
     public BombPProjectile(Coordinate target, double speed, int damage, ScrollingActor spawner, String sprite)
     {

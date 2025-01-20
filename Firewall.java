@@ -18,7 +18,7 @@ public class Firewall extends TriggerTile
     private int animationIndex;
     private String colour;
     
-    private Label enemyNumberDisplay;
+    //private Label enemyNumberDisplay;
     private StillLabel buttonEnemyNumberDisplay;
     
     public Firewall(String type, int rotations, int xPosition, int yPosition, int triggerNumber, String colour)

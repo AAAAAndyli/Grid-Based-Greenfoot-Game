@@ -180,6 +180,16 @@ public class MapMaker extends SuperSmoothMover
                 tileListOptions.add(new Key("Key", rotations, true, this, triggerID, "red"));
                 tileListOptions.add(new NextWorld("NextWorld", 0, true, this, triggerID));
                 break;
+            case 3:
+                tileListOptions.add(new Tile("OWOFlat", rotations, true, this));
+                tileListOptions.add(new Tile("OWOCorner", rotations, true, this));
+                tileListOptions.add(new Tile("OWOEdge", rotations, true, this));
+                tileListOptions.add(new Tile("OWOTile", rotations, true, this));
+                tileListOptions.add(new Tile("OWOStrip", rotations, true, this));
+                tileListOptions.add(new Tile("OWOEdgeCorner", rotations, true, this));
+                tileListOptions.add(new Tile("OWOBlank", rotations, true, this));
+                tileListOptions.add(new Tile("Blank", rotations, true, this));
+                break;
         } 
     }
     public void displayOptions()

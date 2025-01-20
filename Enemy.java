@@ -64,12 +64,15 @@ public abstract class Enemy extends Entity
      */
     public void act()
     {
-        super.act();
         animationTimer++;
         barrier();
         if(willDie)
         {
             die();
+        }
+        else
+        {
+            super.act();
         }
     }
     
@@ -110,17 +113,24 @@ public abstract class Enemy extends Entity
         }
     }
     
+    public void barrier()
+    {
+        if(isTouching(Laser.class) && ((Laser)getOneIntersectingObject(Laser.class)).getVariant() == 2)
+        {
+            willDie = true;
+        }
+    }
     public void useProjectile(int projectileSpeed, Coordinate target)
     {
         getWorld().addObject(new EProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
     }
     public void useHomingProjectile(int projectileSpeed, Coordinate target)
     {
-        getWorld().addObject(new HomingEProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
+        getWorld().addObject(new HomingEProjectile(target, projectileSpeed, 1, this, "HomingEnemyProjectile"), getX(), getY());
     }
     public void useExplosiveProjectile(int projectileSpeed, Coordinate target)
     {
-        getWorld().addObject(new ExplodingEProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
+        getWorld().addObject(new ExplodingEProjectile(target, projectileSpeed, 1, this, "ExplosiveEnemyProjectile"), getX(), getY());
     }
     
     public void aiming(int projectileSpeed)

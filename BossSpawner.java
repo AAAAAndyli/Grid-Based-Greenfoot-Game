@@ -15,7 +15,7 @@ public class BossSpawner extends TriggerTile
     private boolean activated = false;
     private int spawnDelay, spawnDelayTimer = 0;
     
-    private Label enemyNumberDisplay;
+    //private Label enemyNumberDisplay;
     private StillLabel buttonEnemyNumberDisplay;
     
     public BossSpawner(String type, int rotations, int xPosition, int yPosition, int triggerNumber, int enemyNumber)
@@ -32,7 +32,7 @@ public class BossSpawner extends TriggerTile
         this.triggerNumber = triggerNumber;
         bossID = enemyNumber;
         collidable = false;
-        enemyNumberDisplay = new Label(enemyNumber, 25, this);
+        //enemyNumberDisplay = new Label(enemyNumber, 25, this);
         buttonEnemyNumberDisplay = new StillLabel(enemyNumber, 25, this);
     }
     public void addedToWorld(World world)
@@ -49,7 +49,7 @@ public class BossSpawner extends TriggerTile
         }
         if(!isButton)
         {
-            getWorld().addObject(enemyNumberDisplay, getPosition().getX()+15, getPosition().getY()+15);
+            //getWorld().addObject(enemyNumberDisplay, getPosition().getX()+15, getPosition().getY()+15);
         }
         else
         {

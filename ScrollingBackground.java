@@ -24,17 +24,15 @@ public class ScrollingBackground extends ScrollingActor
     {
         if(globalPosition != null)
         {
-            setLocation(trueX + scrollX * scrollMultiplier, getY());
+            setLocation(trueX + (int)(scrollX * scrollMultiplier), getY());
         }
-        if (getX() < -720) 
+        if(getX() <= -getImage().getWidth() / 2) 
         {
-            trueX += -2160;
-            setLocation(trueX, getY());
+            trueX += 2160;
         }
-        if (getX() > 1440) 
+        else if(getX() >= 1080 + getImage().getWidth() / 2) 
         {
-            trueX += 1080;
-            setLocation(-1080, getY());
+            trueX -= 2160;
         }
     }
 }

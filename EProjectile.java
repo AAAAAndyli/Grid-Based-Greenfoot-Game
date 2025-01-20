@@ -12,6 +12,10 @@ public class EProjectile extends Projectile
     {
         super(target, speed, damage, spawner, sprite);
     }
+    public EProjectile(Coordinate target, double speed, int damage, String sprite)
+    {
+        super(target, speed, damage, sprite);
+    }
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);
@@ -31,10 +35,15 @@ public class EProjectile extends Projectile
                 markedForDeletion = true;
             }
         }
+        else if(isTouching(Mail.class))
+        {
+            Mail player = (Mail)getOneIntersectingObject(Mail.class);
+            player.hurt(damage);
+        }
     }
     public void parried(int mouseX, int mouseY)
     {
-        if(spawner.getWorld() != null)
+        if(spawner != null && spawner.getWorld() != null)
         {
             Coordinate spawnerLocalCoordinate = new Coordinate(spawner.getX(), spawner.getY());
             getWorld().addObject(new PProjectile(spawnerLocalCoordinate, speed, 1, this, "ParriedProjectile"), getX(), getY());

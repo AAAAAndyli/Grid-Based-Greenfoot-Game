@@ -23,9 +23,23 @@ public abstract class Projectile extends ScrollingActor
         this.spawner = spawner;
         setImage("Projectiles/" + sprite + ".png");
     }
+    public Projectile(Coordinate target, double speed, int damage, String sprite)
+    {
+        this.target = target;
+        this.speed = speed;
+        this.damage = damage;
+        setImage("Projectiles/" + sprite + ".png");
+    }
     public void addedToWorld(World world)
     {
-        globalPosition = new Coordinate(spawner.globalPosition.getX(), spawner.globalPosition.getY());
+        if(spawner != null)
+        {
+            globalPosition = new Coordinate(spawner.globalPosition.getX(), spawner.globalPosition.getY());
+        }
+        else
+        {
+            globalPosition = new Coordinate(getX(), getY());
+        }
         turnTowards(target.getX(), target.getY());
     }
     public void act()

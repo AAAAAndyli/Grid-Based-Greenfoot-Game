@@ -40,7 +40,7 @@ public class Tile extends ScrollingActor
         if(!isButton)
         {
             this.setImage("Tiles/"+type+".png");
-            if(type.contains("Background"))
+            if(type.contains("Background") || type.contains("Blank"))
             {
                 collidable = false;
             }
