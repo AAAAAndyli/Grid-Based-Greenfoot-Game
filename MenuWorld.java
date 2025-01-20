@@ -67,6 +67,9 @@ public class MenuWorld extends World
         WorldButton shop = new WorldButton("Buttons/button1.png", 1.1, (World)new Shop(this), shopLabel);
         addObject(shop, 900, 600);
         
+        WorldButton stat = new WorldButton("Buttons/stats.png", 1.1, (World)new StatWorld(this));
+        addObject(stat, 500, 600);
+        
         setPaintOrder(Transition.class, Label.class, Button.class);
     }
     

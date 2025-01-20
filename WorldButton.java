@@ -8,6 +8,7 @@ public class WorldButton extends Button
     private World destination;
     private TutorialWorld destinationTutorial;
     private LevelWorld destinationLevel;
+    private MenuWorld destinationMenu;
     private Label label;
     private boolean pressed;
     private boolean transitioning = false; 
@@ -28,6 +29,9 @@ public class WorldButton extends Button
         }
         else if(worldClass == LevelWorld.class){
             destinationLevel = (LevelWorld)dest;   
+        }
+        else if(worldClass == MenuWorld.class){
+            destinationMenu = (MenuWorld)dest;   
         }
     }
 
@@ -81,15 +85,7 @@ public class WorldButton extends Button
                 ((MenuWorld)getWorld()).background.stop();
             }
             else if(current instanceof SettingWorld){
-                //update binds/volume level
-                SaveFile.loadFile();
-                if(destinationLevel != null){
-                    destinationLevel.getPlayer().setRunOnce(false);
-                }
-                if(destinationTutorial != null){
-                    destinationTutorial.getPlayer().setRunOnce(false);
-                }
-                
+                updateBinds();
                 ((SettingWorld)getWorld()).background.stop();
             }
             else if(current instanceof Shop){
@@ -110,6 +106,7 @@ public class WorldButton extends Button
                 ((MenuWorld)getWorld()).background.stop();
             }
             else if(current instanceof SettingWorld){
+                updateBinds();
                 ((SettingWorld)getWorld()).background.stop();
             }
             else if(current instanceof Shop){
@@ -132,6 +129,17 @@ public class WorldButton extends Button
                 getWorld().removeObject(transitionEffect);
                 
             }
+        }
+    }
+    
+    public void updateBinds(){
+        //update binds/volume level
+        SaveFile.loadFile();
+        if(destinationLevel != null){
+            destinationLevel.getPlayer().setRunOnce(false);
+        }
+        if(destinationTutorial != null){
+            destinationTutorial.getPlayer().setRunOnce(false);
         }
     }
 }
