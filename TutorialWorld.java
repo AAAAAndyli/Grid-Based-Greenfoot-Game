@@ -27,6 +27,12 @@ public class TutorialWorld extends ScrollingWorld
     private Player player;
     private SuperTextBox textbox;
     private SuperTextBox textbox1;
+    
+    GreenfootSound tutorialMusic;
+    
+    GreenfootSound[] musicList, effectList;
+    
+    int previousMusicVolume, previousEffectVolume;
     public TutorialWorld()
     {
         this("tutorial.csv");
@@ -62,9 +68,47 @@ public class TutorialWorld extends ScrollingWorld
         addObject(new FPS(), 200, 10);
         setPaintOrder(HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class);
         setActOrder(Tile.class, Player.class, Enemy.class, Actor.class, Camera.class);
+        
+        //make sure to update the volume with values from savefile!
+        previousMusicVolume = SaveFile.getInt("musicVolume");
+        //make sure to update sound effects volume as shown above
+        previousEffectVolume = SaveFile.getInt("effectVolume");
+    
+        tutorialMusic = new GreenfootSound("goofyAh.mp3");
+        tutorialMusic.setVolume(60);
+        SaveFile.updateVolume(tutorialMusic, "musicVolume");
     }
     
+    public void stopped(){
+        tutorialMusic.pause();
+    }
     
+    public void started(){
+        tutorialMusic.playLoop();
+    }
+    
+    public void act(){
+        if(previousMusicVolume != SaveFile.getInt("musicVolume")){
+            //update the list with each new music
+            musicList = new GreenfootSound[]
+            {
+                tutorialMusic,
+            };
+            SaveFile.updateVolume(musicList, "musicVolume");
+            previousMusicVolume = SaveFile.getInt("musicVolume");
+        }
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            //update the list with each new effect
+            effectList = new GreenfootSound[]
+            {
+                
+            };
+            //UNCOMMENT WHEN EFFECTS ADDED
+            //SaveFile.updateVolume(effectList, "effectVolume");
+            //previousEffectVolume = SaveFile.getInt("musicVolume");
+        }
+        tutorialMusic.playLoop();
+    }
     
     public void loadLevel()
     {

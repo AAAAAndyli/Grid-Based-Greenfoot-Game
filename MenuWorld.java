@@ -13,9 +13,17 @@ public class MenuWorld extends World
     GreenfootSound background;
     GreenfootSound clickSound;
     
+    private boolean movingDown = true;
+    private double speed = 0.4;
+    
     GreenfootSound[] musicList, effectList;
     
     int previousMusicVolume, previousEffectVolume;
+    
+    private Button title;
+    private WorldButton play;
+    private WorldButton settings;
+    
     /**
      * Constructor for objects of class MenuWorld.
      * 
@@ -29,6 +37,9 @@ public class MenuWorld extends World
         
         
         setBackground("images/menu.png");
+        
+        title = new Button("title.png",.9,true);
+        addObject(title,getWidth()/3, 150);
         
         //load save file for data
         SaveFile.loadFile();
@@ -47,9 +58,9 @@ public class MenuWorld extends World
         Label shopLabel = new Label("Shop", 30);
         addObject(shopLabel, 900, 600);
         
-        WorldButton play = new WorldButton("Buttons/playButton.png", 1.1, (World)new TutorialWorld());
+        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new TutorialWorld());
         addObject(play, 900, 300);
-        WorldButton settings = new WorldButton("Buttons/settingsButton.png", 1.1, (World)new SettingWorld(this));
+        settings = new WorldButton("Buttons/settingsButton.png", 1.1, (World)new SettingWorld(this));
         addObject(settings, 900, 450);
         //temporary
         WorldButton shop = new WorldButton("Buttons/button1.png", 1.1, (World)new Shop(this), shopLabel);
@@ -64,7 +75,7 @@ public class MenuWorld extends World
             //update the list with each new music
             musicList = new GreenfootSound[]
             {
-                background
+                background,
             };
             SaveFile.updateVolume(musicList, "musicVolume");
             previousMusicVolume = SaveFile.getInt("musicVolume");
@@ -80,6 +91,7 @@ public class MenuWorld extends World
             //previousEffectVolume = SaveFile.getInt("musicVolume");
         }
         background.playLoop();
+        hover();
     }
     
     public void stopped(){
@@ -88,5 +100,29 @@ public class MenuWorld extends World
     
     public void started(){
         background.playLoop();
+    }
+    
+    public void hover()
+    { 
+        if (movingDown)
+        {
+            title.setLocation(title.getExactX(), title.getPreciseY() + speed);
+            play.setLocation(play.getExactX(), play.getPreciseY() + speed);
+            settings.setLocation(settings.getExactX(), settings.getPreciseY() + speed);
+            if (title.getY() >= 170) 
+            {
+                movingDown = false; 
+            }
+        }
+        else
+        {
+            title.setLocation(title.getExactX(), title.getPreciseY() - speed);
+            play.setLocation(play.getExactX(), play.getPreciseY() - speed);
+            settings.setLocation(settings.getExactX(), settings.getPreciseY() - speed);
+            if (title.getY() <= 150) 
+            {
+                movingDown = true;
+            }
+        }
     }
 }
