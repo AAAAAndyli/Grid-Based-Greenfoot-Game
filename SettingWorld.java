@@ -37,7 +37,7 @@ public class SettingWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1080, 720, 1, false); 
         background = new GreenfootSound("Settings.mp3");
-        background.setVolume(musicLevel);
+        background.setVolume((int)(musicLevel * SaveFile.getInt("musicVolume") / 100.0));
         
         setBackground("images/settings.png");
         ArrayList<Class> classList = new ArrayList<Class>();
@@ -116,7 +116,7 @@ public class SettingWorld extends World
     }
     
     public void removeBindBox(){
-        for(SuperTextBox b : (ArrayList<SuperTextBox>)getObjectsAt(getWidth() / 2, getHeight() - 50, SuperTextBox.class)){
+        for(Button b : (ArrayList<Button>)getObjectsAt(430, 650, Button.class)){
             //if a bindingButton was prev activated but a new one
             //has been activated, turn previous one off
             b.getCreator().setBindingActive(false);

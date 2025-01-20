@@ -38,10 +38,8 @@ public class MenuWorld extends World
         // ** IMPORTANT **
         //make sure to set a volume value for ALL sounds, otherwise it defaults to 0 even if sound plays
         background.setVolume(20); 
-        clickSound.setVolume(80);
         //make sure to update the volume with values from savefile!
         SaveFile.updateVolume(background, "musicVolume");
-        SaveFile.updateVolume(clickSound, "effectVolume");
         
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");

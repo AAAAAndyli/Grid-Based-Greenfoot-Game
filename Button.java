@@ -21,6 +21,9 @@ public class Button extends UI
     private Label selfLabel;
     
     private GreenfootSound clickSound;
+    private int musicLevel = 80;
+    private int previousVolume, currentVolume;
+    private BindButton creator;
     
     /**
      * Act - do whatever the buttons wants to do. This method is called whenever
@@ -38,8 +41,9 @@ public class Button extends UI
         width = (int)(getImage().getWidth() * sizeMulti);
         height = (int)(getImage().getHeight() * sizeMulti);
         getImage().scale(width, height);
+        
         clickSound = new GreenfootSound("click.wav");
-        clickSound.setVolume(80);
+        clickSound.setVolume(musicLevel);
         SaveFile.updateVolume(clickSound, "effectVolume");
     }
     
@@ -55,11 +59,15 @@ public class Button extends UI
         isShopIcon = isShopItem;
     }
     
+    public Button(String file, double sizeMulti, BindButton actor)
+    {
+        this(file, sizeMulti);
+        creator = actor;
+    }
+    
     public void act()
     {
-        if (Greenfoot.mouseClicked(this)) {
-            clickSound.play();
-        }
+        click();
         if (isFading) {
             performFadeOut();
         }
@@ -69,6 +77,18 @@ public class Button extends UI
             if(selfLabel != null){
                 checkButton(selfLabel);    
             }
+        }
+    }
+    
+    public void click(){
+        if (Greenfoot.mouseClicked(this)) {
+            clickSound.play();
+        }
+        
+        currentVolume = (int)(musicLevel * SaveFile.getInt("musicVolume") / 100.0);
+        if(previousVolume != currentVolume){
+            clickSound.setVolume(currentVolume);
+            previousVolume = currentVolume;
         }
     }
     
@@ -157,5 +177,9 @@ public class Button extends UI
                 getWorld().removeObject(this);
             }
         }
+    }
+    
+    public BindButton getCreator(){
+        return creator;
     }
 }
