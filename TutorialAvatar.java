@@ -38,7 +38,7 @@ public class TutorialAvatar extends SuperSmoothMover {
         setLocation(startX, startY);
 
         
-        label = new SuperTextBox(tutorialMessages[currentMessage], new Font("Arial", true, false, 18), 400);
+        label = new SuperTextBox(tutorialMessages[currentMessage], new Font("Arial", true, false, 18), 400, 40);
         
     }
 
