@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=WorldButton
-comment0.text=\r\n\ WorldButton\ class\ that\ creates\ a\ fade-in\ and\ fade-out\ transition\ when\ pressed.\r\n
+comment0.text=\n\ WorldButton\ class\ that\ creates\ a\ fade-in\ and\ fade-out\ transition\ when\ pressed.\n
 comment1.params=file\ sizeMulti\ dest
 comment1.target=WorldButton(java.lang.String,\ double,\ greenfoot.World)
 comment2.params=file\ sizeMulti\ dest\ worldClass
@@ -9,11 +9,11 @@ comment3.params=file\ sizeMulti\ dest\ labelReference
 comment3.target=WorldButton(java.lang.String,\ double,\ greenfoot.World,\ Label)
 comment4.params=
 comment4.target=void\ act()
-comment4.text=\r\n\ Act\ -\ do\ whatever\ the\ WorldButton\ wants\ to\ do.\r\n
+comment4.text=\n\ Act\ -\ do\ whatever\ the\ WorldButton\ wants\ to\ do.\n
 comment5.params=
 comment5.target=void\ startTransition()
-comment5.text=\r\n\ Starts\ the\ transition\ effect\ when\ the\ button\ is\ pressed.\r\n
+comment5.text=\n\ Starts\ the\ transition\ effect\ when\ the\ button\ is\ pressed.\n
 comment6.params=
 comment6.target=void\ handleTransition()
-comment6.text=\r\n\ Handles\ the\ fade-in\ and\ fade-out\ transition\ logic.\r\n
+comment6.text=\n\ Handles\ the\ fade-in\ and\ fade-out\ transition\ logic.\n
 numComments=7
