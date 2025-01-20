@@ -40,6 +40,10 @@ public class Transition extends Actor
                 getImage().setTransparency(transparency);
             } else {
                 fadingIn = false; 
+                if(getWorld() != null)
+                {
+                    //getWorld().removeObject(this);
+                }
                 fadeCount++;
             }
         }
@@ -49,6 +53,10 @@ public class Transition extends Actor
                 getImage().setTransparency(transparency);
             }else{
                 fadingIn = true;
+                if(getWorld() != null)
+                {
+                    //getWorld().removeObject(this);
+                }
                 fadeCount++;
             }
         }

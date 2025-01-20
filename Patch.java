@@ -42,7 +42,10 @@ public class Patch extends GroundedEnemy
             attackTimer = 0;
             for(Enemy enemy: getObjectsInRange(600, Enemy.class))
             {
-                enemy.setHurtable(false);
+                if(enemy.getClass() != Patch.class)
+                {
+                    enemy.setHurtable(false);
+                }
             }
         }
         else

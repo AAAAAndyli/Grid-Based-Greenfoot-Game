@@ -98,7 +98,7 @@ public class WorldButton extends Button
             
         }
         
-        else if (currentFrame == transitionFrames / 2) {
+        else if (transitionEffect.fadedOnce()) {
             getWorld().removeObject(transitionEffect);
             if(current instanceof MenuWorld){
                 ((MenuWorld)getWorld()).background.stop();

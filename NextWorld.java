@@ -35,7 +35,14 @@ public class NextWorld extends CollisionTrigger
         if(isTouching(Player.class) && Greenfoot.isKeyDown("space"))
         {
             trigger.activateTrigger();
-            Greenfoot.setWorld(new LevelWorld(WorldOrder.nextWorld()));
+            if(WorldOrder.isArSYS())
+            {
+                Greenfoot.setWorld(new ArsysWorld(WorldOrder.nextWorld()));
+            }
+            else
+            {
+                Greenfoot.setWorld(new LevelWorld(WorldOrder.nextWorld()));
+            }
         }
     }
     public String toString()
