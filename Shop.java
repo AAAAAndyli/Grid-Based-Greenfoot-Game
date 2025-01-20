@@ -79,7 +79,7 @@ public class Shop extends World
      * Constructor for objects of class Shop.
      * 
      */
-    public Shop(MenuWorld world)
+    public Shop(World world)
     {    
         //Adds all objects in the shop class, aand takes saved values from a file
         super(1080, 720, 1); 

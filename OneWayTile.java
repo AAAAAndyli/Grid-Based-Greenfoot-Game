@@ -21,7 +21,7 @@ public class OneWayTile extends Tile
     public OneWayTile(String type, int rotations, boolean isButton, MapMaker mapMaker, int xPosition, int yPosition)
     {
         super(type,rotations,isButton,mapMaker,xPosition,yPosition, false);
-        oneWayCollision = false;
+        oneWayCollision = true;
     }
     public void addedToWorld(World world)
     {

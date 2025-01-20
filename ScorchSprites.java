@@ -52,11 +52,9 @@ public class ScorchSprites extends BossSprites
                 break;
             case 0:
                 slash1Index = animateAndEnd(slash1AnimR, slash1AnimL, slash1Index);
-                createAfterImage();
                 break;
             case 1:
                 slash2Index = animateAndEnd(slash2AnimR, slash2AnimL, slash2Index);
-                createAfterImage();
                 break;
             case 2:
                 slash1Index = animateAndEnd(slash1AnimR, slash1AnimL, slash1Index);
@@ -82,7 +80,6 @@ public class ScorchSprites extends BossSprites
                     diveIndex = 6;
                 }
                 diveIndex = animate(xDirection==1 ? diveAnimR : diveAnimL, diveIndex);
-                createAfterImage();
                 break;
         }
         previousState = state;
@@ -104,6 +101,21 @@ public class ScorchSprites extends BossSprites
             attackIsOver = false;
         }
         return animate(xDirection==1 ? rightAnim : leftAnim, index);
+    }
+    protected int animate(ArrayList<GreenfootImage> animation, int index)
+    {
+        if(animationTimer < 5){
+            return index;
+        }
+        setImage(animation.get(index));
+        createAfterImage();
+        index++;
+        if(index > animation.size()-1)
+        {
+            index = 0;
+        }
+        animationTimer = 0;
+        return index;
     }
     /**
      * Loads in every frame for every animation

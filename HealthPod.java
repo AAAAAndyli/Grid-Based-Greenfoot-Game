@@ -17,6 +17,10 @@ public class HealthPod extends Actor
     {
         getWorld().addObject(healthBlob, getX(), getY());
     }
+    public void setHealth(int health)
+    {
+        healthBlob.set(health);
+    }
     public void lower(int hpLost)
     {
         for(int i = 0; i < hpLost ; i++)

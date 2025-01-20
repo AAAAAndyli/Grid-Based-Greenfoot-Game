@@ -22,7 +22,7 @@ public abstract class HurtBox extends ScrollingActor
     public void createHurtBox() 
     {
         hitBox = new GreenfootImage(width, height);
-        hitBox.setColor(new Color(0, 255, 0, 255));
+        hitBox.setColor(new Color(0, 255, 0, 0));
         hitBox.fillRect(0, 0, width, height);
         setImage(hitBox);
     }
