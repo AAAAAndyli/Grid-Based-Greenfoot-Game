@@ -20,8 +20,8 @@ public class Button extends UI
     private int width, height;
     private Label selfLabel;
     
-    private GreenfootSound clickSound;
-    private int musicLevel = 80;
+    protected GreenfootSound clickSound;
+    private int musicLevel = 90;
     private int previousVolume, currentVolume;
     private BindButton creator;
     
@@ -67,7 +67,10 @@ public class Button extends UI
     
     public void act()
     {
-        click();
+        if (Greenfoot.mouseClicked(this)) {
+            clickSound.play();
+        }
+        checkClick();
         if (isFading) {
             performFadeOut();
         }
@@ -80,12 +83,8 @@ public class Button extends UI
         }
     }
     
-    public void click(){
-        if (Greenfoot.mouseClicked(this)) {
-            clickSound.play();
-        }
-        
-        currentVolume = (int)(musicLevel * SaveFile.getInt("musicVolume") / 100.0);
+    public void checkClick(){    
+        currentVolume = (int)(musicLevel * SaveFile.getInt("effectVolume") / 100.0);
         if(previousVolume != currentVolume){
             clickSound.setVolume(currentVolume);
             previousVolume = currentVolume;
@@ -99,7 +98,29 @@ public class Button extends UI
      */
     public boolean checkButton()
     {
-        return checkButton(this);
+        if(Greenfoot.mousePressed(this)) //when pressed
+        {
+            isPressed = true;
+        } //if press and let go ON BUTTON (activate button)
+        else if(Greenfoot.mouseClicked(this) && isPressed){
+            isPressed = false;
+            //has been let go and activated
+            return true;
+        } //if press and let go OFF BUTTON (cancel button)
+        else if(Greenfoot.mouseClicked(null) && isPressed){
+            isPressed = false;
+            //cancelled button
+            return false;
+        }
+        //visual feedback of button being pressed
+        if(isPressed || isPressedActor){
+            getImage().scale((int)(0.85 * width), (int)(0.85 * height));
+        }
+        else{
+            getImage().scale(width, height);
+        }
+        //any unusual edge cases like issues with mouse
+        return false;
     }
     
     /**
@@ -113,23 +134,19 @@ public class Button extends UI
         if(Greenfoot.mousePressed(actor)) //when pressed
         {
             isPressedActor = true;
+            System.out.println(11);
         } //if press and let go ON BUTTON (activate button)
         else if(Greenfoot.mouseClicked(actor) && isPressedActor){
             isPressedActor = false;
+            System.out.println(12);
             //has been let go and activated
             return true;
         } //if press and let go OFF BUTTON (cancel button)
         else if(Greenfoot.mouseClicked(null) && isPressedActor){
             isPressedActor = false;
+            System.out.println(13);
             //cancelled button
             return false;
-        }
-        //visual feedback of button being pressed
-        if(isPressedActor){
-            getImage().scale((int)(0.85 * width), (int)(0.85 * height));
-        }
-        else{
-            getImage().scale(width, height);
         }
         //any unusual edge cases like issues with mouse
         return false;

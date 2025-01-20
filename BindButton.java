@@ -13,7 +13,7 @@ public class BindButton extends Button {
     private Label keyLabel;
     private String text, buttonType;
     private String keyDummy, keyBinding;
-    private boolean added, pressed, pressedButton, pressedLabel, bindingActive = false;
+    private boolean added, pressedButton, pressedLabel, bindingActive = false;
 
     public BindButton(String file, double sizeMulti, String txt, String type){
         super(file, sizeMulti);
@@ -33,21 +33,30 @@ public class BindButton extends Button {
     */
 
     public void act(){
-        super.click();
+        super.checkClick();   
+        if(Greenfoot.mouseClicked(this) || Greenfoot.mouseClicked(keyLabel)){
+            super.clickSound.play();
+        }    
+        
         //add textBox when bindButton added to world
         if(!added){
             getWorld().addObject(textBox, getX() - 250, getY());
             getWorld().addObject(keyLabel, getX(), getY());
             added = true;
         }
-
-        //check if button is pressed
-        pressed = checkButton() || checkButton(keyLabel);
         
-        //if button clicked and not currently active
-        if(pressed && !bindingActive){
+        boolean test = checkButton();
+        boolean test2 = checkButton(keyLabel);
+        
+        if(Greenfoot.isKeyDown("a")){
+            System.out.println("test: " + test + ", test2: " + test2);
+            System.out.println("bindingActive: " + bindingActive);
+        }
+        
+        if((test || test2) && !bindingActive){
             SettingWorld w = (SettingWorld)getWorld();
             w.removeBindBox();
+            System.out.println(123);
             getWorld().addObject(bindBox, getWorld().getWidth() / 2 - 110, 650);
             //if user pressed key beforehand, this will take that 
             //pressed key -- prevents incorrect binding 

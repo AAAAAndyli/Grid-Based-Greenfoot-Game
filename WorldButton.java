@@ -40,7 +40,10 @@ public class WorldButton extends Button
      * Act - do whatever the WorldButton wants to do.
      */
     public void act() {
-        super.click();
+        super.checkClick();
+        if(Greenfoot.mouseClicked(this)){
+            super.clickSound.play();
+        }
         if(label == null){
             pressed = checkButton();
         }

@@ -23,7 +23,10 @@ public class ResetButton extends Button
     public void act()
     {
         // Add your action code here.
-        super.click();
+        super.checkClick();
+        if(Greenfoot.mouseClicked(this)){
+            super.clickSound.play();
+        }
         isPressed = checkButton();
         
         if(isPressed){
