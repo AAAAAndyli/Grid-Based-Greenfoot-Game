@@ -13,6 +13,7 @@ public class HealthBar extends Actor
     private Player player;
     private ArrayList<HealthPod> healthPods = new ArrayList<HealthPod>();
     private int healthBlobCount, health;
+    private int currentHealthBarHealth;
     public HealthBar(Player player)
     {
         this.player = player;
@@ -35,11 +36,11 @@ public class HealthBar extends Actor
      */
     public void act()
     {
-        if(player.getHP()/3 < healthBlobCount && (double)player.getHP()/3.0 + 1 > 0)
+        if(health/3 < healthBlobCount && (double)player.getHP()/3.0 + 1 > 0)
         {
-            healthPods.get(player.getHP()/3).lower(health - player.getHP());
-            health = player.getHP();
+            healthPods.get(health/3).lower(health - player.getHP());
         }
+        health = player.getHP();
     }
     public void raise()
     {
