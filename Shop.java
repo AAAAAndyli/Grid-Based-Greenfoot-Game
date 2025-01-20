@@ -184,7 +184,21 @@ public class Shop extends World
         clickedFour = item4.checkButton();
         clickedFive = item5.checkButton();
         clickedSix = item6.checkButton();
-        
+        if(SaveFile.getInt("hasMissile") == 1)
+        {
+            removeObject(item4);
+            addObject(new Button("shopIcons/bought.png",.7, true),600,600);
+        }
+        if(SaveFile.getInt("hasSpread") == 1)
+        {
+            removeObject(item5);
+            addObject(new Button("shopIcons/bought.png",.7, true),950,300);
+        }
+        if(SaveFile.getInt("hasBomb") == 1)
+        {
+            removeObject(item6);
+            addObject(new Button("shopIcons/bought.png",.7, true),950,600);
+        }
         // If clicked first button it takes money in exchange to increase Shield level, which increases the amount of times you can parry
         if(clickedOne)
         {
@@ -257,8 +271,6 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                removeObject(item4);
-                addObject(new Button("shopIcons/bought.png",.7, true),600,600);
                 purchased = true;
                 SaveFile.setInfo("hasMissile", 1);
             }
@@ -275,8 +287,6 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                removeObject(item5);
-                addObject(new Button("shopIcons/bought.png",.7, true),950,300);
                 purchased = true;
                 SaveFile.setInfo("hasSpread", 1);
             }
@@ -293,8 +303,6 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                removeObject(item6);
-                addObject(new Button("shopIcons/bought.png",.7, true),950,600);
                 purchased = true;
                 SaveFile.setInfo("hasBomb", 1);
             }
@@ -310,7 +318,7 @@ public class Shop extends World
         if(purchased){
             purchased = false;
             moneyInt.setValue(money);
-            SaveFile.setInfo("money", String.valueOf(money));
+            SaveFile.setInfo("money", money);
         }
     }
     
