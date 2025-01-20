@@ -65,7 +65,6 @@ BackgroundFullTile3,0,450,450
 BackgroundFullTile3,1,500,450
 BackgroundFullTile3,0,550,450
 Firewall,0,550,450,2,-1,red
-Firewall,0,550,450,2,-1,red
 BackgroundFullTile3,1,600,450
 BackgroundFullTile4,2,650,450
 FullTile,0,700,450
@@ -191,17 +190,12 @@ BackgroundFullTile3,3,200,700
 BackgroundFullTile3,3,250,700
 BackgroundFullTile3,3,300,700
 BackgroundFullTile3,1,350,700
-BackgroundFullTile3,1,350,700
-TriggerTile,1,350,700,0
 TriggerTile,1,350,700,0
 BackgroundFullTile3,3,400,700
 BackgroundFullTile3,3,450,700
 BackgroundFullTile3,0,500,700
-BackgroundFullTile3,0,500,700
-OneWayTile,0,500,700
 OneWayTile,0,500,700
 BackgroundFullTile3,0,550,700
-OneWayTile,0,550,700
 OneWayTile,0,550,700
 BackgroundFullTile3,0,600,700
 OneWayTile,0,600,700
@@ -220,7 +214,6 @@ BackgroundFullTile3,0,1200,700
 BackgroundFullTile3,0,1250,700
 BackgroundFullTile3,0,1300,700
 BackgroundFullTile3,0,1350,700
-OneWayTile,1,1350,700
 BackgroundFullTile3,0,1400,700
 BackgroundFullTile3,0,1450,700
 BackgroundFullTile4,2,1500,700
@@ -256,7 +249,6 @@ BackgroundFullTile3,0,1300,750
 OneWayTile,1,1350,750
 BackgroundFullTile3,0,1350,750
 OneWayTile,1,1350,750
-OneWayTile,1,1350,750
 BackgroundFullTile3,0,1400,750
 BackgroundFullTile3,0,1450,750
 BackgroundFullTile4,2,1500,750
@@ -269,7 +261,6 @@ BackgroundFullTile3,0,200,800
 BackgroundFullTile3,0,250,800
 BackgroundFullTile3,0,300,800
 BackgroundFullTile3,0,350,800
-TriggerTile,0,350,800,0
 TriggerTile,0,350,800,0
 BackgroundFullTile3,0,400,800
 TriggerTile,0,400,800,0
@@ -295,7 +286,6 @@ BackgroundFullTile3,0,1300,800
 BackgroundFullTile3,0,1350,800
 OneWayTile,1,1350,800
 BackgroundFullTile3,0,1400,800
-Key,0,1400,800,2,-1,red
 Key,0,1400,800,2,-1,red
 BackgroundFullTile3,0,1450,800
 BackgroundFullTile4,2,1500,800
@@ -349,9 +339,7 @@ EnemySpawner,0,100,900,0,0
 EnemySpawner,0,100,900,0,0
 BackgroundFullTile3,0,150,900
 EnemySpawner,0,150,900,0,0
-EnemySpawner,0,150,900,0,0
 BackgroundFullTile3,0,200,900
-EnemySpawner,0,200,900,0,0
 EnemySpawner,0,200,900,0,0
 BackgroundFullTile3,3,250,900
 OneWayTile,0,300,900
@@ -362,7 +350,6 @@ OneWayTile,0,350,900
 BackgroundFullTile3,0,400,900
 OneWayTile,0,400,900
 BackgroundFullTile3,0,450,900
-OneWayTile,0,450,900
 OneWayTile,0,450,900
 BackgroundFullTile3,0,500,900
 BackgroundFullTile3,0,550,900
@@ -382,7 +369,6 @@ BackgroundFullTile3,0,1200,900
 BackgroundFullTile3,0,1250,900
 BackgroundFullTile3,0,1300,900
 BackgroundFullTile3,0,1350,900
-OneWayTile,1,1350,900
 OneWayTile,1,1350,900
 BackgroundFullTile3,0,1400,900
 BackgroundFullTile3,0,1450,900
@@ -571,8 +557,6 @@ BackgroundFullTile3,0,100,1250
 BackgroundFullTile3,0,150,1250
 PlayerSpawnPoint,0,150,1250
 BackgroundFullTile3,0,200,1250
-BackgroundFullTile3,0,200,1250
-BackgroundFullTile3,0,250,1250
 BackgroundFullTile3,0,250,1250
 BackgroundFullTile3,0,300,1250
 BackgroundFullTile3,0,350,1250
@@ -603,7 +587,6 @@ BackgroundFullTile6,3,50,1300
 BackgroundFullTile4,3,100,1300
 BackgroundFullTile4,3,150,1300
 BackgroundFullTile4,3,200,1300
-BackgroundFullTile4,3,200,1300
 BackgroundFullTile4,3,250,1300
 BackgroundFullTile4,3,300,1300
 BackgroundFullTile4,3,350,1300
@@ -611,7 +594,6 @@ BackgroundFullTile4,3,400,1300
 BackgroundFullTile4,3,450,1300
 BackgroundFullTile4,3,500,1300
 BackgroundFullTile4,3,550,1300
-BackgroundFullTile4,3,600,1300
 BackgroundFullTile4,3,600,1300
 BackgroundFullTile4,3,650,1300
 BackgroundFullTile4,3,700,1300
