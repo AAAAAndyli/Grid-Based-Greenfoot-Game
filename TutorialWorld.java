@@ -39,8 +39,6 @@ public class TutorialWorld extends ScrollingWorld
     {
         super(1080, 720, 1, false); 
         
-        pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, TutorialWorld.class));
-        
         TriggerCollection.resetList();
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
@@ -55,6 +53,8 @@ public class TutorialWorld extends ScrollingWorld
             }
         }
         */
+       
+        pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, TutorialWorld.class));
         addObject(pause, 1040, 40);
         addObject(new Shield(), 80, 650);
         addObject(tutorial, 1080, 650);

@@ -35,7 +35,8 @@ public class SettingWorld extends World
     public SettingWorld(World world, Class backType)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1080, 720, 1, false); 
+        super(1080, 720, 1, false);
+        
         background = new GreenfootSound("Settings.mp3");
         background.setVolume((int)(musicLevel * SaveFile.getInt("musicVolume") / 100.0));
         
@@ -79,7 +80,7 @@ public class SettingWorld extends World
             addObject(back, 85, 50);   
         }
         
-        Button funImage = new Button("settingsScream.png",.4,true);
+        Button funImage = new Button("settingsScream.png",0.4,true);
         addObject(funImage,300,350);
         
         Slider musicVolume = new Slider(1000, SaveFile.getInt("musicVolume") * 10, null, 350, 20, 350, "musicVolume", "Music Volume");
@@ -94,7 +95,7 @@ public class SettingWorld extends World
             int ySpawn = binary.getDirection() == 1 ? -100 - Greenfoot.getRandomNumber(100) : Greenfoot.getRandomNumber(100) + 100 + getHeight();
             addObject(binary, Greenfoot.getRandomNumber(800) + 100, ySpawn);
         }
-        
+
         setPaintOrder(Transition.class, Slider.class, Label.class, Button.class, ScrollingUI.class, SuperTextBox.class, BinaryString.class);
     }
     
