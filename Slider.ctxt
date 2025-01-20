@@ -1,13 +1,13 @@
 #BlueJ class context
 comment0.target=Slider
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Slider\ here.\r\n\ \r\n\ @author\ Andy\ Li\ &\ Darren\ T.\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ Slider\ here.\n\ \n\ @author\ Andy\ Li\ &\ Darren\ T.\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=maxVal\ currVal\ owner\ width\ height\ offset\ type\ labelText
 comment1.target=Slider(int,\ int,\ greenfoot.Actor,\ int,\ int,\ int,\ java.lang.String,\ java.lang.String)
 comment2.params=
 comment2.target=void\ addedToWorld()
 comment3.params=
 comment3.target=void\ act()
-comment3.text=\r\n\ Act\ -\ do\ whatever\ the\ Slider\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment3.text=\n\ Act\ -\ do\ whatever\ the\ Slider\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment4.params=
 comment4.target=void\ mouseSet()
 comment5.params=

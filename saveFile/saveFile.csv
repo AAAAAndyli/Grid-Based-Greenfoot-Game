@@ -4,8 +4,8 @@ left,a
 right,d
 dash,shift
 parry,e
-money,1000
-health,15
+money,0
+health,16
 maxHealth,15
 musicVolume,16
 effectVolume,87

@@ -4,6 +4,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author (Justin Ye) 
  * @version (a version number or a date)
+ * Credits for a few shopIcons:
+ * -https://www.vecteezy.com/vector-art/5450129-shotgun-pixel-art - Spreadshot
+ * -https://www.vecteezy.com/free-vector/pixel-bomb - Bombshot
+ * -https://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style - Rocketshot
+
  */
 public class Shop extends World
 {
@@ -14,8 +19,8 @@ public class Shop extends World
     private int price;
     private int health;
     private int maxHealth;
-    private int shieldLvl = 1;
     private int imageIndex = 0;
+    private int maxDamageUpgrade = 5;
     private int maxHealthUpgrade = 5;
     private double speed = 0.4;
     
@@ -29,8 +34,14 @@ public class Shop extends World
     private boolean clickedFour;
     private boolean clickedFive;
     private boolean clickedSix;
+    
     private boolean isHoveringImage1 = false;
     private boolean isHoveringImage2 = false;
+    private boolean isHoveringImage3 = false;
+    private boolean isHoveringImage4 = false;
+    private boolean isHoveringImage5 = false;
+    private boolean isHoveringImage6 = false;
+    
     private boolean hoverMovement = true;
     private boolean movingDown = true;
     private boolean purchased = false;
@@ -43,11 +54,18 @@ public class Shop extends World
     private Button item5 = new Button("Buttons/purchaseButton.png",.7);
     private Button item6 = new Button("Buttons/purchaseButton.png",.7);
     
-    private Button image1 = new Button("shopIcons/Shield.png",1.5, true);
+    private Button image1 = new Button("shopIcons/plusDamage.png",1.5, true);
     private Button image2 = new Button("shopIcons/fullHealth.png",1, true);
     private Button image3 = new Button("shopIcons/plusHP.png",.8, true);
+    private Button image4 = new Button("shopIcons/rocketShot.png",.8, true);
+    private Button image5 = new Button("shopIcons/spreadShot.png",.8, true);
+    private Button image6 = new Button("shopIcons/bombShot.png",.8, true);
     private Button image1Desc;
     private Button image2Desc;
+    private Button image3Desc;
+    private Button image4Desc;
+    private Button image5Desc;
+    private Button image6Desc;
     
     GreenfootSound shopMusic;
     /**
@@ -79,16 +97,19 @@ public class Shop extends World
         addObject(image3, 600, 150);
         
         addObject(item4, 600, 600);
+        addObject(image4, 600, 450);
         
         addObject(item5, 950, 300);
+        addObject(image5, 950, 150);
+        
         addObject(item6, 950, 600);
+        addObject(image6, 950, 450);
         
         WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
         
         money = SaveFile.getInt("money");
         
-        //money = 1000;
         health = 1;
         maxHealth = 15;
         
@@ -103,7 +124,6 @@ public class Shop extends World
         animate();
         checkMouseHover();
         hover();
-        
         shopMusic.playLoop();
     }
     
@@ -112,19 +132,6 @@ public class Shop extends World
     }
     public void started(){
         shopMusic.playLoop();
-    }
-    
-    /**
-     * checks if shield level is max so the program can determine when to stop 
-     * allowing purchase
-     */
-    public boolean isMaxShield()
-    {
-        if(shieldLvl == 11)
-        {
-            return true;
-        }
-        return false;
     }
     
     /**
@@ -143,23 +150,26 @@ public class Shop extends World
         // If clicked first button it takes money in exchange to increase Shield level, which increases the amount of times you can parry
         if(clickedOne)
         {
-            price = 100;
-            if(money >= price)
+            if(maxDamageUpgrade > 0)
             {
-                money -= price;
-                shieldLvl++;
-                if(isMaxShield())
+                price = 100;
+                if(money >= price)
                 {
-                    removeObject(item1);
-                    addObject(new Button("shopIcons/bought.png",.7, true),250,300);
+                    money -= price;
+                    maxDamageUpgrade--;
+                    purchased = true;
                 }
-                purchased = true;
+                else
+                {
+                    Button noByte = new Button("Buttons/noBytes.png", .25, true);
+                    addObject(noByte, 250, 150);
+                    noByte.fadeOut();
+                }
             }
             else
             {
-                Button noByte = new Button("Buttons/noBytes.png", .25, true);
-                addObject(noByte, 250, 150);
-                noByte.fadeOut();
+                removeObject(item1);
+                addObject(new Button("shopIcons/bought.png",.7, true),250,300);
             }
         }
         
@@ -185,21 +195,79 @@ public class Shop extends World
         }
         else if(clickedThree)
         {
-            price = 20;
+            if(maxHealthUpgrade > 0)
+            {
+                price = 20;
+                if(money >= price)
+                {
+                    money -= price;
+                    maxHealthUpgrade--;
+                    maxHealth += 3;
+                    purchased = true;
+                    SaveFile.setInfo("health", String.valueOf(health));
+                }
+                else
+                {
+                    Button noByte = new Button("Buttons/noBytes.png", .25, true);
+                    addObject(noByte, 600, 150);
+                    noByte.fadeOut();
+                }
+            }
+            else 
+            {
+                removeObject(item3);
+                addObject(new Button("shopIcons/bought.png",.7, true),600,300);
+            }
+        }
+        else if(clickedFour)
+        {
+            price = 150;
             if(money >= price)
             {
                 money -= price;
-                maxHealth++;
-                health++;
-                removeObject(item3);
-                addObject(new Button("shopIcons/bought.png",.7, true),600,300);
+                
+                removeObject(item4);
+                addObject(new Button("shopIcons/bought.png",.7, true),600,600);
                 purchased = true;
-                SaveFile.setInfo("health", String.valueOf(health));
             }
             else
             {
                 Button noByte = new Button("Buttons/noBytes.png", .25, true);
-                addObject(noByte, 600, 150);
+                addObject(noByte, 600, 450);
+                noByte.fadeOut();
+            }
+        }
+        else if(clickedFive)
+        {
+            price = 50;
+            if(money >= price)
+            {
+                money -= price;
+                removeObject(item5);
+                addObject(new Button("shopIcons/bought.png",.7, true),950,300);
+                purchased = true;
+            }
+            else
+            {
+                Button noByte = new Button("Buttons/noBytes.png", .25, true);
+                addObject(noByte, 950, 150);
+                noByte.fadeOut();
+            }
+        }
+        else if(clickedSix)
+        {
+            price = 150;
+            if(money >= price)
+            {
+                money -= price;
+                removeObject(item6);
+                addObject(new Button("shopIcons/bought.png",.7, true),950,600);
+                purchased = true;
+            }
+            else
+            {
+                Button noByte = new Button("Buttons/noBytes.png", .25, true);
+                addObject(noByte, 950, 450);
                 noByte.fadeOut();
             }
         }
@@ -234,6 +302,9 @@ public class Shop extends World
             image1.setLocation(image1.getExactX(), image1.getPreciseY() + speed);
             image2.setLocation(image2.getExactX(), image2.getPreciseY() + speed);
             image3.setLocation(image3.getExactX(), image3.getPreciseY() + speed);
+            image4.setLocation(image4.getExactX(), image4.getPreciseY() + speed);
+            image5.setLocation(image5.getExactX(), image5.getPreciseY() + speed);
+            image6.setLocation(image6.getExactX(), image6.getPreciseY() + speed);
             if (image1.getY() >= 170) 
             {
                 movingDown = false; 
@@ -244,6 +315,9 @@ public class Shop extends World
             image1.setLocation(image1.getExactX(), image1.getPreciseY() - speed);
             image2.setLocation(image2.getExactX(), image2.getPreciseY() - speed);
             image3.setLocation(image3.getExactX(), image3.getPreciseY() - speed);
+            image4.setLocation(image4.getExactX(), image4.getPreciseY() - speed);
+            image5.setLocation(image5.getExactX(), image5.getPreciseY() - speed);
+            image6.setLocation(image6.getExactX(), image6.getPreciseY() - speed);
             if (image1.getY() <= 150) 
             {
                 movingDown = true;
@@ -280,6 +354,54 @@ public class Shop extends World
         } else if (Greenfoot.mouseMoved(null) && isHoveringImage2) {
             removeObject(image2Desc);
             isHoveringImage2 = false;
+        }
+        
+        if (Greenfoot.mouseMoved(image3)) {
+            hoverMovement = true;
+            if (!isHoveringImage3) {
+                image3Desc = new Button("shopIcons/text3.png", 1, true);
+                addObject(image3Desc, image3.getX() + 150, image3.getY());
+                isHoveringImage3 = true;
+            }
+        } else if (Greenfoot.mouseMoved(null) && isHoveringImage3) {
+            removeObject(image3Desc);
+            isHoveringImage3 = false;
+        }
+        
+        if (Greenfoot.mouseMoved(image4)) {
+            hoverMovement = true;
+            if (!isHoveringImage4) {
+                image4Desc = new Button("shopIcons/text4.png", 1, true);
+                addObject(image4Desc, image4.getX() + 150, image4.getY());
+                isHoveringImage4 = true;
+            }
+        } else if (Greenfoot.mouseMoved(null) && isHoveringImage4) {
+            removeObject(image4Desc);
+            isHoveringImage4 = false;
+        }
+        
+        if (Greenfoot.mouseMoved(image5)) {
+            hoverMovement = true;
+            if (!isHoveringImage5) {
+                image5Desc = new Button("shopIcons/text5.png", 1, true);
+                addObject(image5Desc, image5.getX() - 150, image5.getY());
+                isHoveringImage5 = true;
+            }
+        } else if (Greenfoot.mouseMoved(null) && isHoveringImage5) {
+            removeObject(image5Desc);
+            isHoveringImage5 = false;
+        }
+        
+        if (Greenfoot.mouseMoved(image6)) {
+            hoverMovement = true;
+            if (!isHoveringImage6) {
+                image6Desc = new Button("shopIcons/text6.png", 1, true);
+                addObject(image6Desc, image6.getX() - 150, image6.getY());
+                isHoveringImage6 = true;
+            }
+        } else if (Greenfoot.mouseMoved(null) && isHoveringImage6) {
+            removeObject(image6Desc);
+            isHoveringImage6 = false;
         }
     }
 }
