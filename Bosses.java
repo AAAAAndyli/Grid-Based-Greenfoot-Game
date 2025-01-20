@@ -12,7 +12,7 @@ public abstract class Bosses extends Enemy
     protected boolean currentAttackDone, bossActive;
     protected int attackCooldown, totalAttackCooldown;
     protected int maxHealth;
-    protected BossBar bossbar = new BossBar(health, maxHealth, null, 40, 600, 0, Color.WHITE, Color.BLACK, false, Color.GREEN, 10);
+    protected SuperStatBar bossbar = new SuperStatBar(health, maxHealth, null, 1000, 40, 0, Color.WHITE, Color.BLACK, false, Color.GREEN, 10);
     
     public int getState()
     {

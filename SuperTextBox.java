@@ -51,8 +51,8 @@ public class SuperTextBox extends Actor
      *  @param font     The font to display
      *  @param width    The desired width of the text box in pixels
      */
-    public SuperTextBox (String line, Font font, int width){
-        this (new String[]{line}, font, width);
+    public SuperTextBox (String line, Font font, int width, int height){
+        this (new String[]{line}, font, width, height);
     }
     
     /**
@@ -63,8 +63,8 @@ public class SuperTextBox extends Actor
      *  @param width    The desired width of the text box in pixels
      *  @param reference The bindButton that created/uses this text box
      */
-    public SuperTextBox (String line, Font font, int width, BindButton reference){
-        this (new String[]{line}, font, width);
+    public SuperTextBox (String line, Font font, int width, BindButton reference, int height){
+        this (new String[]{line}, font, width, height);
         creator = reference;
     }
 
@@ -75,8 +75,8 @@ public class SuperTextBox extends Actor
      *  @param font     The font to display
      *  @param width    The desired width of the text box in pixels
      */
-    public SuperTextBox (String[] text, Font font, int width){
-        this (text, Color.BLACK, Color.WHITE, font, false, width, 2, new Color (255, 255, 204));
+    public SuperTextBox (String[] text, Font font, int width, int height){
+        this (text, Color.BLACK, Color.WHITE, font, false, width, 2, new Color (255, 255, 204), height);
     }
 
 
@@ -90,7 +90,7 @@ public class SuperTextBox extends Actor
      *  @param centered Set to true to center the text (performance cost)
      */
     public SuperTextBox (String[] text, Font font, int width, boolean centered){
-        this (text, Color.BLACK, Color.WHITE, font, centered, width, 2, new Color (255, 255, 204));
+        this (text, Color.BLACK, Color.WHITE, font, centered, width, 2, new Color (255, 255, 204), 0);
     }
 
     /**
@@ -106,8 +106,8 @@ public class SuperTextBox extends Actor
      * @param borderThickness   The thickness of the border. Setting this to zero will make a borderless text box
      * @param borderColor   The color of the border
      */
-    public SuperTextBox(String line, Color backColor, Color foreColor, Font font, boolean centered, int width, int borderThickness, Color borderColor){
-        this(new String[]{line}, backColor, foreColor, font, centered, width, borderThickness, borderColor);
+    public SuperTextBox(String line, Color backColor, Color foreColor, Font font, boolean centered, int width, int borderThickness, Color borderColor, int height) {
+        this(new String[]{line}, backColor, foreColor, font, centered, width, borderThickness, borderColor, height);
     }
 
     /**
@@ -123,7 +123,7 @@ public class SuperTextBox extends Actor
      * @param borderThickness   The thickness of the border. Setting this to zero will make a borderless text box
      * @param borderColor   The color of the border
      */
-    public SuperTextBox(String[] text, Color backColor, Color foreColor, Font font, boolean centered, int width, int borderThickness, Color borderColor){
+    public SuperTextBox(String[] text, Color backColor, Color foreColor, Font font, boolean centered, int width, int borderThickness, Color borderColor, int height){
         this.numLines = text.length;
   
         centeredXs = new int[numLines];
@@ -151,7 +151,7 @@ public class SuperTextBox extends Actor
         // System.out.println("Pad: " + padding  + " vSpace " + vSpace + " fontSize: " + fontSize);
 
         // Padding top and bottom, vSpace between rows and bottom to make up for extra space on top
-        height = (padding * 2) + (vSpace * (numLines)) + (fontSize * numLines) + (2 * borderThickness) + 40;
+        height = (padding * 2) + (vSpace * (numLines)) + (fontSize * numLines) + (2 * borderThickness) + height;
 
         //System.out.println("Creating image with a height of " + height);
         image = generateImage(width, height);
@@ -162,7 +162,6 @@ public class SuperTextBox extends Actor
 
     }
 
-    
     
     private GreenfootImage generateImage (int width, int vSpace, int padding, int borderThickness, int fontSize,  int numLines){
         height = (padding * 2) + (vSpace * (numLines)) + (fontSize * numLines) + (2 * borderThickness);

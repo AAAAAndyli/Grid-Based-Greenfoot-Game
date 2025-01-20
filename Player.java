@@ -175,6 +175,11 @@ public class Player extends Entity
             weaponIndex = 2;
             currentWeapon = weaponList.get(weaponIndex);
         }
+        else if(Greenfoot.isKeyDown("4"))
+        {
+            weaponIndex = 3;
+            currentWeapon = weaponList.get(weaponIndex);
+        }
         if(willDie)
         {
             die();
@@ -188,6 +193,7 @@ public class Player extends Entity
         {
             state = "dashing";
             isDashing = true;
+            touchingFloor = true;
             dashTimer --;
             xVelocity = 40 * xDirection;
             yVelocity = 0;
@@ -204,7 +210,7 @@ public class Player extends Entity
         {
             isDashing = false;
             invincibilityFrames = 30;
-            dashTimer --;
+            dashTimer--;
             canBeHurt = true;
         }
     }

@@ -19,7 +19,7 @@ public class EnemyHurtBox extends HurtBox
         if(isTouching(Player.class))
         {
             Player player = (Player)getOneIntersectingObject(Player.class);
-            if(player.getHurtable() && !player.getState().equals("parrying"))
+            if(player.getHurtable() && !(player.getState().equals("parrying") && player.getParryTimer() < 20))
             {
                 player.hurt(damage);
                 getWorld().removeObject(this);

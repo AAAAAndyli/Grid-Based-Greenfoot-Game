@@ -26,6 +26,12 @@ public class WorldOrder
         worldList.clear();
         worldList.add("0.csv");
         worldList.add("1.csv");
+        worldList.add("2.csv");
+        worldList.add("3.csv");
+    }
+    public static boolean isArSYS()
+    {
+        return worldList.get(0).equals("0.csv");
     }
     public static void setIndex(String worldName)
     {

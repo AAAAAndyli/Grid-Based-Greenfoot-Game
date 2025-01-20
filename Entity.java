@@ -20,12 +20,16 @@ public abstract class Entity extends ScrollingActor
     
     public void act()
     {
-        barrier();
-        super.act();
+        if(getWorld() != null)
+        {
+            barrier();
+            super.act();
+        }
     }
     public void die()
     {
         getWorld().removeObject(this);
+        return;
     }
     public void barrier()
     {

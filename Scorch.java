@@ -52,7 +52,7 @@ public class Scorch extends Bosses
                 player = getWorldOfType(LevelWorld.class).getPlayer();
                 camera = getWorld().getObjects(Camera.class).get(0);
                 camera.activateBossMode();
-                getWorld().addObject(bossbar, 980, 360);
+                getWorld().addObject(bossbar, 520, 680);
                 getWorld().addObject(scorchSprite, getPosition().getX(), getPosition().getY());
             }
             else if(player.getWorld() != null)

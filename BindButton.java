@@ -25,7 +25,7 @@ public class BindButton extends Button {
         super(file, sizeMulti);
         text = txt;
         buttonType = type;
-        textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180);
+        textBox = new SuperTextBox(text, new Font("Arial", false, false, 20), 180, 0);
         bindBox = new Button("Buttons/pressKeyButton.png", 0.55, this);
         keyLabel = new Label(SaveFile.getString(type), 40);
     }
