@@ -42,7 +42,7 @@ public class LevelWorld extends ScrollingWorld
     {
         super(1080, 720, 1, false); 
         
-        //pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class));
+        pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class));
         
         TriggerCollection.resetList();
         this.levelName = levelName;
@@ -61,7 +61,7 @@ public class LevelWorld extends ScrollingWorld
         WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
         addObject(new Shield(), 80, 650);
-        //addObject(pause, 40, 40);
+        addObject(pause, 40, 40);
         loadParallax();
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
