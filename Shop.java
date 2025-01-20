@@ -67,6 +67,9 @@ public class Shop extends World
     private Button image5Desc;
     private Button image6Desc;
     
+    private Label moneyLabel;
+    private Label moneyInt;
+    
     GreenfootSound shopMusic;
     
     GreenfootSound[] musicList, effectList;
@@ -85,12 +88,20 @@ public class Shop extends World
         shopMusic.setVolume(40);
         SaveFile.updateVolume(shopMusic, "musicVolume");
         
-        Cursor shopCursor = new Cursor();
+        money = SaveFile.getInt("money");
+        
         for(int i = 0; i < shopAnimation.length; i++){
             shopAnimation[i] = new GreenfootImage("images/ShopBg/shop" + i  + ".png");
         }
         setBackground(shopAnimation[0]);
-        //addObject(shopCursor, getWidth()/2, getHeight()/2);
+        
+        moneyLabel = new Label("Money:",30);
+        moneyLabel.setLineColor(Color.WHITE);
+        addObject(moneyLabel, 300, 50);
+        
+        moneyInt = new Label(money,30);
+        moneyInt.setLineColor(Color.WHITE);
+        addObject(moneyInt, 400, 50);
         
         addObject(item1, 250, 300);
         addObject(image1, 250, 150);
@@ -112,8 +123,6 @@ public class Shop extends World
         
         WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
-        
-        money = SaveFile.getInt("money");
         
         health = 1;
         maxHealth = 15;
@@ -175,7 +184,21 @@ public class Shop extends World
         clickedFour = item4.checkButton();
         clickedFive = item5.checkButton();
         clickedSix = item6.checkButton();
-        
+        if(SaveFile.getInt("hasMissile") == 1)
+        {
+            removeObject(item4);
+            addObject(new Button("shopIcons/bought.png",.7, true),600,600);
+        }
+        if(SaveFile.getInt("hasSpread") == 1)
+        {
+            removeObject(item5);
+            addObject(new Button("shopIcons/bought.png",.7, true),950,300);
+        }
+        if(SaveFile.getInt("hasBomb") == 1)
+        {
+            removeObject(item6);
+            addObject(new Button("shopIcons/bought.png",.7, true),950,600);
+        }
         // If clicked first button it takes money in exchange to increase Shield level, which increases the amount of times you can parry
         if(clickedOne)
         {
@@ -248,8 +271,6 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                removeObject(item4);
-                addObject(new Button("shopIcons/bought.png",.7, true),600,600);
                 purchased = true;
                 SaveFile.setInfo("hasMissile", 1);
             }
@@ -266,8 +287,6 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                removeObject(item5);
-                addObject(new Button("shopIcons/bought.png",.7, true),950,300);
                 purchased = true;
                 SaveFile.setInfo("hasSpread", 1);
             }
@@ -284,8 +303,6 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                removeObject(item6);
-                addObject(new Button("shopIcons/bought.png",.7, true),950,600);
                 purchased = true;
                 SaveFile.setInfo("hasBomb", 1);
             }
@@ -300,7 +317,8 @@ public class Shop extends World
         
         if(purchased){
             purchased = false;
-            SaveFile.setInfo("money", String.valueOf(money));
+            moneyInt.setValue(money);
+            SaveFile.setInfo("money", money);
         }
     }
     

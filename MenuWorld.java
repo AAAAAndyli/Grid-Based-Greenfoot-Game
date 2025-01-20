@@ -43,6 +43,7 @@ public class MenuWorld extends World
         
         //load save file for data
         SaveFile.loadFile();
+        resetStats();
         
         //update bgm volume
         previousMusicVolume = SaveFile.getInt("musicVolume");
@@ -58,7 +59,7 @@ public class MenuWorld extends World
         Label shopLabel = new Label("Shop", 30);
         addObject(shopLabel, 900, 600);
         
-        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new Tutorial());
+        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new TutorialWorld());
         addObject(play, 900, 300);
         settings = new WorldButton("Buttons/settingsButton.png", 1.1, (World)new SettingWorld(this));
         addObject(settings, 900, 450);
@@ -67,7 +68,6 @@ public class MenuWorld extends World
         addObject(shop, 900, 600);
         
         setPaintOrder(Transition.class, Label.class, Button.class);
-        
     }
     
     public void act(){
@@ -124,5 +124,17 @@ public class MenuWorld extends World
                 movingDown = true;
             }
         }
+    }
+    
+    public void resetStats()
+    {
+        SaveFile.setInfo("money", 1000); // 0
+        SaveFile.setInfo("health", 15);
+        SaveFile.setInfo("maxHealth", 15);
+        SaveFile.setInfo("level", 0);
+        SaveFile.setInfo("damage", 1); // 0
+        SaveFile.setInfo("hasBomb", 1); // 0
+        SaveFile.setInfo("hasMissile", 1); // 0
+        SaveFile.setInfo("hasSpread", 1); // 0
     }
 }
