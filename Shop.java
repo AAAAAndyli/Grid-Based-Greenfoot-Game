@@ -67,6 +67,9 @@ public class Shop extends World
     private Button image5Desc;
     private Button image6Desc;
     
+    private Label moneyLabel;
+    private Label moneyInt;
+    
     GreenfootSound shopMusic;
     
     GreenfootSound[] musicList, effectList;
@@ -85,12 +88,20 @@ public class Shop extends World
         shopMusic.setVolume(40);
         SaveFile.updateVolume(shopMusic, "musicVolume");
         
-        Cursor shopCursor = new Cursor();
+        money = SaveFile.getInt("money");
+        
         for(int i = 0; i < shopAnimation.length; i++){
             shopAnimation[i] = new GreenfootImage("images/ShopBg/shop" + i  + ".png");
         }
         setBackground(shopAnimation[0]);
-        //addObject(shopCursor, getWidth()/2, getHeight()/2);
+        
+        moneyLabel = new Label("Money:",30);
+        moneyLabel.setLineColor(Color.WHITE);
+        addObject(moneyLabel, 300, 50);
+        
+        moneyInt = new Label(money,30);
+        moneyInt.setLineColor(Color.WHITE);
+        addObject(moneyInt, 400, 50);
         
         addObject(item1, 250, 300);
         addObject(image1, 250, 150);
@@ -112,8 +123,6 @@ public class Shop extends World
         
         WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
-        
-        money = SaveFile.getInt("money");
         
         health = 1;
         maxHealth = 15;
@@ -300,6 +309,7 @@ public class Shop extends World
         
         if(purchased){
             purchased = false;
+            moneyInt.setValue(money);
             SaveFile.setInfo("money", String.valueOf(money));
         }
     }
