@@ -35,11 +35,7 @@ public class TutorialWorld extends LevelWorld
         setBackground("black.png");
         TutorialAvatar tutorial = new TutorialAvatar();
         
-        pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, TutorialWorld.class));
-        addObject(pause, 1040, 40);
-        
         addObject(tutorial, 1080, 650);
-        
         
         //make sure to update the volume with values from savefile!
         previousMusicVolume = SaveFile.getInt("musicVolume");
