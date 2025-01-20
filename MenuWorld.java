@@ -58,7 +58,7 @@ public class MenuWorld extends World
         Label shopLabel = new Label("Shop", 30);
         addObject(shopLabel, 900, 600);
         
-        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new TutorialWorld());
+        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new Tutorial());
         addObject(play, 900, 300);
         settings = new WorldButton("Buttons/settingsButton.png", 1.1, (World)new SettingWorld(this));
         addObject(settings, 900, 450);

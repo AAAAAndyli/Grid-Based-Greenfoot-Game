@@ -6,7 +6,7 @@ import greenfoot.*;
 public class WorldButton extends Button
 {
     private World destination;
-    private TutorialWorld destinationTutorial;
+    private Tutorial destinationTutorial;
     private LevelWorld destinationLevel;
     private Label label;
     private boolean pressed;
@@ -23,8 +23,8 @@ public class WorldButton extends Button
     public WorldButton(String file, double sizeMulti, World dest, Class worldClass) {
         this(file, sizeMulti, dest);
         
-        if(worldClass == TutorialWorld.class){
-            destinationTutorial = (TutorialWorld)dest;
+        if(worldClass == Tutorial.class){
+            destinationTutorial = (Tutorial)dest;
         }
         else if(worldClass == LevelWorld.class){
             destinationLevel = (LevelWorld)dest;   

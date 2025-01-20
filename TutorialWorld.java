@@ -35,7 +35,7 @@ public class TutorialWorld extends ScrollingWorld
     int previousMusicVolume, previousEffectVolume;
     public TutorialWorld()
     {
-        this("tutorial.csv");
+        this("Tutorial/tutorial.csv");
     }
     
     /**
