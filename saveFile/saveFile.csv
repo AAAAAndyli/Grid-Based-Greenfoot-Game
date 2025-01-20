@@ -1,10 +1,10 @@
 jump,w
-down,s
-left,a
+down,left
+left,b
 right,d
 dash,shift
 parry,e
-money,0
+money,1000
 health,15
 maxHealth,15
 musicVolume,48

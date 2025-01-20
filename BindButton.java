@@ -13,7 +13,8 @@ public class BindButton extends Button {
     private Label keyLabel;
     private String text, buttonType;
     private String keyDummy, keyBinding;
-    private boolean added, pressedButton, pressedLabel, bindingActive = false;
+    private boolean added, bindingActive = false;
+    private int errorTimer = -1;
 
     public BindButton(String file, double sizeMulti, String txt, String type){
         super(file, sizeMulti);
@@ -24,16 +25,18 @@ public class BindButton extends Button {
         
         keyLabel = new Label(SaveFile.getString(type), 40);
     }
-    
-    /**
-    public BindButton(String file, double sizeMulti, String txt, String type, Label labelReference){
-        this(file, sizeMulti, txt, type);
-        keyLabel = labelReference;
-    }
-    */
 
     public void act(){
         super.checkClick();   
+
+        if(errorTimer != -1){
+            errorTimer++;
+        }
+        if(errorTimer > 60){
+            errorTimer = -1;
+            textBox.update(text);
+        }
+        
         if(Greenfoot.mouseClicked(this) || Greenfoot.mouseClicked(keyLabel)){
             super.clickSound.play();
         }    
@@ -45,18 +48,9 @@ public class BindButton extends Button {
             added = true;
         }
         
-        boolean test = checkButton();
-        boolean test2 = checkButton(keyLabel);
-        
-        if(Greenfoot.isKeyDown("a")){
-            System.out.println("test: " + test + ", test2: " + test2);
-            System.out.println("bindingActive: " + bindingActive);
-        }
-        
-        if((test || test2) && !bindingActive){
+        if((checkButton() || checkButton(keyLabel)) && !bindingActive){
             SettingWorld w = (SettingWorld)getWorld();
             w.removeBindBox();
-            System.out.println(123);
             getWorld().addObject(bindBox, getWorld().getWidth() / 2 - 110, 650);
             //if user pressed key beforehand, this will take that 
             //pressed key -- prevents incorrect binding 
@@ -68,6 +62,11 @@ public class BindButton extends Button {
         if(bindingActive){
             keyBinding = Greenfoot.getKey(); //2nd key getting proper value 
             if(keyBinding != null){
+                if(keyBinding.equals(",") || keyBinding.equals("right")){
+                    textBox.update("Key not allowed"); 
+                    errorTimer++;
+                    return;
+                }
                 keyLabel.setValue(keyBinding);
                 getWorld().removeObject(bindBox);
                 SaveFile.setInfo(buttonType, keyBinding);
