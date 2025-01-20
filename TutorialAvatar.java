@@ -19,9 +19,10 @@ public class TutorialAvatar extends SuperSmoothMover {
     private String[] tutorialMessages = {
         "Welcome to the tutorial. \n Right arrow to continue",
         "Use WASD or set them in the Settings Menu \n to move. Right arrow to continue",
-        "Use E to parry, changeable in Settings \n Right arrow to continue",
-        "Defeat monsters to collect cash for \n upgrades Right arrow to continue",
-        "To switch weapons, press 1/2/3/4 Right \n arrow to continue",
+        "Use E to parry, changeable in Settings. \n Right arrow to continue",
+        "Defeat monsters to collect cash for \n upgrades. Right arrow to continue",
+        "To switch weapons, press 1/2/3/4. Right \n arrow to continue",
+        "Hotkey 1 is a rocket projectile, 2 is \n a shotgun, 3 is automatic",
         "Reach as far as possible while not \n dying. Right arrow to continue",
         "You can trigger the monster spawns to \n practice. Right arrow to continue",
         "Press the right arrow key to start the \n levels and meet your fate..."
