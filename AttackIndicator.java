@@ -11,12 +11,13 @@ public class AttackIndicator extends ScrollingActor
     private int transparency = 250;
     public AttackIndicator(int x, int y)
     {
-        this(x, y, 0);
+        this(x, y, 0, 0);
     }
-    public AttackIndicator(int x, int y, int angle)
+    public AttackIndicator(int x, int y, int angle, int direction)
     {
         super(x, y);
-        setImage("attackIndicator.png");
+        String fileName = "attackIndicator" + (direction == -1 ? "R" : direction == 1 ? "L" : "") + ".png";
+        setImage(fileName);
         getImage().setTransparency(transparency);
         setRotation(angle);
     }

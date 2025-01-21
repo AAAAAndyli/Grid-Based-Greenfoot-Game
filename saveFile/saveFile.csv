@@ -9,7 +9,7 @@ bomb,2
 missile,3
 spread,4
 money,300
-totalMoney,300
+totalMoney,0
 health,42
 maxHealth,42
 musicVolume,70

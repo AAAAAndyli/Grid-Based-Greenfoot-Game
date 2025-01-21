@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class DeathEffects extends ScrollingActor
+public class DeathEffects extends Effect
 {
     private GreenfootImage deathSprite1 = new GreenfootImage("DeathEffects/0.png");
     private GreenfootImage deathSprite2 = new GreenfootImage("DeathEffects/1.png");
@@ -38,26 +38,6 @@ public class DeathEffects extends ScrollingActor
         explodeTimer++;
         int speed = explodeTimer / 2 + 5;
         globalPosition.setCoordinate(globalPosition.getX()+(int)Math.round(speed * Math.cos(Math.toRadians(getRotation()))), globalPosition.getY()+(int)Math.round(speed * Math.sin(Math.toRadians(getRotation()))));
-        if(explodeTimer < 60)
-        {
-            setRotation(getRotation()+Greenfoot.getRandomNumber(3)-1);
-        }
-        else
-        {
-            if(getImage().getTransparency() - (explodeTimer - 15) * 10 > 0)
-            {
-                getImage().setTransparency(getImage().getTransparency() - (explodeTimer - 15) * 10);
-                if(getImage().getWidth() - 15 > 0)
-                {
-                    getImage().scale(getImage().getWidth() - 15,getImage().getHeight() - 15);
-                }
-            }
-            else
-            {
-                getWorld().removeObject(this);
-                return;
-            }
-        }
         super.act();
     }
 }
