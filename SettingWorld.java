@@ -68,6 +68,16 @@ public class SettingWorld extends World
         BindButton rightButton = new BindButton("Buttons/keyButton.png", 0.5, "Right Keybind", "right");
         addObject(rightButton, scrollRightEdge - 20, 410);
         
+        //hotkey binds (weapons)
+        BindButton rapidButton = new BindButton("Buttons/keyButton.png", 0.5, "Rapidfire Weapon", "rapid");
+        addObject(rapidButton, scrollRightEdge - 20, 710);
+        BindButton bombButton = new BindButton("Buttons/keyButton.png", 0.5, "Bomb Weapon", "bomb");
+        addObject(bombButton, scrollRightEdge - 20, 810);
+        BindButton missileButton = new BindButton("Buttons/keyButton.png", 0.5, "Missile Weapon", "missile");
+        addObject(missileButton, scrollRightEdge - 20, 910);
+        BindButton spreadButton = new BindButton("Buttons/keyButton.png", 0.5, "Spreadshot Weapon", "spread");
+        addObject(spreadButton, scrollRightEdge - 20, 1010);
+        
         ResetButton resetButton = new ResetButton("Buttons/resetButton.png", 0.55);
         addObject(resetButton, 150, 650);
         
@@ -84,10 +94,10 @@ public class SettingWorld extends World
         addObject(funImage,300,350);
         
         Slider musicVolume = new Slider(1000, SaveFile.getInt("musicVolume") * 10, null, 350, 20, 350, "musicVolume", "Music Volume");
-        addObject(musicVolume, scroll.getX() + 40, 710);
+        addObject(musicVolume, scroll.getX() + 40, 1110);
         
         Slider effectVolume = new Slider(1000, SaveFile.getInt("effectVolume") * 10, null, 350, 20, 350, "effectVolume", "SFX Volume");
-        addObject(effectVolume, scroll.getX() + 40, 810);
+        addObject(effectVolume, scroll.getX() + 40, 1210);
         
         //create binary strings as decoration
         for(int i = 0; i < 14; i++){   

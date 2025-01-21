@@ -27,7 +27,6 @@ public class Hotkey extends Actor
             unlockedOnce = true;
         }
         else{
-            System.out.println(type);
             icon = new GreenfootImage("images/HotkeyIcons/" + imagePath + "Locked.png");
             setImageOnce = true;
         }
