@@ -28,11 +28,13 @@ public class SettingWorld extends World
         this(world, null);
     }
     
-    public SettingWorld(World world, Class backType, MenuWorld menu){
+    public SettingWorld(World world, Class backType, boolean menu){
         this(world, backType);
         
-        WorldButton menuButton = new WorldButton("Buttons/menuButton.png", 0.5, menu);
-        addObject(menuButton, 250, 50);
+        if(menu){
+            WorldButton menuButton = new WorldButton("Buttons/menuButton.png", 0.5, new MenuWorld());
+            addObject(menuButton, 250, 50);
+        }
     }
     
     /**

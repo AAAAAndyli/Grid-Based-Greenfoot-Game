@@ -200,7 +200,7 @@ public class LevelWorld extends ScrollingWorld
     {
         super.act();
         if(!runOnce){
-            pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, mainMenu));
+            pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, true));
             addObject(pause, 40, 40);
             runOnce = true;
         }
@@ -234,7 +234,7 @@ public class LevelWorld extends ScrollingWorld
             super.act();
             
             if(!runOnce){
-                pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, new MenuWorld()));
+                pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, true));
                 addObject(pause, 40, 40);
                 runOnce = true;
             }

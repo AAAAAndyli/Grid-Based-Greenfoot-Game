@@ -21,7 +21,7 @@ public class Shop extends World
     private int health;
     private int maxHealth;
     private int imageIndex = 0;
-    private int maxHealthUpgrade = 5;
+    private int maxHealthUpgrade = 2;
     private double speed = 0.4;
     
     //Handles Animation
@@ -235,7 +235,7 @@ public class Shop extends World
         {
             if(maxHealthUpgrade > 0)
             {
-                price = 20;
+                price = 50;
                 if(money >= price)
                 {
                     wallet.changeAmount(-price);
