@@ -97,6 +97,12 @@ public class SaveFile
         }
     }
     
+    // public static void updateVolume(ArrayList<GreenfootSound> references, String type){
+        // for(GreenfootSound s : references){
+            // s.setVolume((int)(s.getVolume() * SaveFile.getInt(type) / 100.0));   
+        // }
+    // }
+    
     public static int getInt(String keyBind){
         
         for(String s : info){

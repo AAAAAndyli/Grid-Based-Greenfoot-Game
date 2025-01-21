@@ -53,6 +53,7 @@ public class Scorch extends Bosses
                 camera = getWorld().getObjects(Camera.class).get(0);
                 camera.activateBossMode();
                 getWorld().addObject(bossbar, 520, 680);
+                getWorldOfType(LevelWorld.class).setMusic("ScorchedEarth.mp3");
                 getWorld().addObject(scorchSprite, getPosition().getX(), getPosition().getY());
             }
             else if(player.getWorld() != null)

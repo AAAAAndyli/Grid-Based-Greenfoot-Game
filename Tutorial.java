@@ -24,7 +24,7 @@ public class Tutorial extends LevelWorld
     public Tutorial(String levelName)
     {
         super("Tutorial/" + levelName); 
-        WorldOrder.createArSYSList();
+        WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
         setBackground("black.png");
         TutorialAvatar tutorial = new TutorialAvatar();

@@ -20,8 +20,9 @@ public class ArsysWorld extends LevelWorld
     public ArsysWorld()
     {
         this("0.csv");
+        currentMusic.stop();
     }
-    
+
     /**
      * Constructor for objects of class ArsysWorld.
      */
@@ -31,28 +32,11 @@ public class ArsysWorld extends LevelWorld
         WorldOrder.createArSYSList();
         WorldOrder.setIndex(levelName);
         setBackground("black.png");
+        currentMusic = new GreenfootSound("Arsys/" + WorldOrder.getIndex() + ".wav");
     }
+
     public void act()
     {
-        if(previousMusicVolume != SaveFile.getInt("musicVolume")){
-            //update the list with each new music
-            musicList = new GreenfootSound[]
-            {
-                currentMusic,
-            };
-            SaveFile.updateVolume(musicList, "musicVolume");
-            previousMusicVolume = SaveFile.getInt("musicVolume");
-        }
-        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
-            //update the list with each new effect
-            effectList = new GreenfootSound[]
-            {
-                
-            };
-            //UNCOMMENT WHEN EFFECTS ADDED
-            //SaveFile.updateVolume(effectList, "effectVolume");
-            //previousEffectVolume = SaveFile.getInt("musicVolume");
-        }
         if(enterWorld.fadedOnce())
         {
             removeObject(enterWorld);

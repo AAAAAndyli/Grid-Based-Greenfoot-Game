@@ -29,27 +29,38 @@ public class NextWorld extends CollisionTrigger
     public void act()
     {
         super.act();
-        activateTrigger();
     }
     public void activateTrigger()
     {
-        if (isTouching(Player.class) && Greenfoot.isKeyDown("space")) {
-            trigger.activateTrigger();
+        if (isTouching(Player.class) && Greenfoot.isKeyDown("space")) 
+        {
             getWorld().addObject(transition, 540, 360);
         }
-        if (transition.fadedOnce()) {
+        if (transition.fadedOnce()) 
+        {
+            getWorldOfType(LevelWorld.class).stopMusic();
             // Stop the music before transitioning
-            if (getWorld() instanceof ArSYSStartingWorld) {
-                ((ArSYSStartingWorld) getWorld()).background.stop(); // Stop ArSYSStartingWorld music
-            } else if (getWorld() instanceof Tutorial) {
-                ((Tutorial) getWorld()).currentMusic.stop(); // Stop Tutorial music
-            }
-            
+            // if (getWorld() instanceof ArSYSStartingWorld) {
+                // ((ArSYSStartingWorld) getWorld()).background.stop(); // Stop ArSYSStartingWorld music
+            // } else if (getWorld() instanceof Tutorial) {
+                // ((Tutorial) getWorld()).currentMusic.stop(); // Stop Tutorial music
+            // }
             // Transition to the next world
+            if(WorldOrder.nextWorld().equals("Arsys"))
+            {
+                Greenfoot.setWorld(new Shop(new CutsceneWorld(new ArSYSStartingWorld())));
+                return;
+            }
+            if(WorldOrder.nextWorld().equals("Win"))
+            {
+                Greenfoot.setWorld(new CutsceneWorld(new MenuWorld()));
+                return;
+            }
             if (WorldOrder.isArSYS()) {
                 Greenfoot.setWorld(new ArsysWorld(WorldOrder.nextWorld()));
             } else {
-                Greenfoot.setWorld(new Shop(new LevelWorld(WorldOrder.nextWorld())));
+                WorldOrder.setIndex(getWorldOfType(LevelWorld.class).getLevelName());
+                Greenfoot.setWorld(new Shop(new CutsceneWorld(new LevelWorld(WorldOrder.nextWorld()))));
             }
         }
     }

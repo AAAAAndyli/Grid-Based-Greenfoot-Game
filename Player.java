@@ -62,7 +62,7 @@ public class Player extends Entity
     private Shield shield = null;
     private int cooldown = 0;
     
-    private ArrayList<RangedWeapon> weaponList = new ArrayList<RangedWeapon>();
+    private RangedWeapon[] weaponList = new RangedWeapon[4];
     private RangedWeapon currentWeapon;
     private boolean shooting;
     private int weaponIndex = 0;
@@ -109,16 +109,24 @@ public class Player extends Entity
         rapid = new RangedWeapon(10, 0, this, SaveFile.getInt("damage"));
         bomb = new RangedWeapon(60, 1, this, SaveFile.getInt("damage"));
         missile = new RangedWeapon(60, 2, this, SaveFile.getInt("damage"));
-        spread = new RangedWeapon(30, 3, this, SaveFile.getInt("damage"));
+        spread = new RangedWeapon(0, 3, this, SaveFile.getInt("damage"));
         
-        weaponList.add(rapid);
-        weaponList.add(bomb);
-        weaponList.add(missile);
-        weaponList.add(spread);
+        weaponList[0] = rapid;
         
-        currentWeapon = weaponList.get(weaponIndex);
+        currentWeapon = weaponList[weaponIndex];
         
-        
+        if(SaveFile.getInt("hasBomb") == 1)
+        {
+            weaponList[1] = bomb;
+        }
+        if(SaveFile.getInt("hasMissile") == 1)
+        {
+            weaponList[2] = missile;
+        }
+        if(SaveFile.getInt("hasSpread") == 1)
+        {
+            weaponList[3] = spread;
+        }
     }
     
     public void addedToWorld(World world)
@@ -176,22 +184,24 @@ public class Player extends Entity
         currentWeapon.incrementTimer();
         if(weaponIndex == 0)
         {
-            currentWeapon = weaponList.get(weaponIndex);
+            weaponIndex = 0;
+            currentWeapon = weaponList[weaponIndex];
             gun = new GreenfootSound("sounds/Laser.wav");
         }
-        else if(weaponIndex == 1)
+        else if(Greenfoot.isKeyDown("2") && weaponList[1] != null)
         {
             weaponIndex = 1;
-            currentWeapon = weaponList.get(weaponIndex);
-            
+            currentWeapon = weaponList[weaponIndex];
         }
-        else if(weaponIndex == 2)
+        else if(Greenfoot.isKeyDown("3") && weaponList[2] != null)
         {
-            currentWeapon = weaponList.get(weaponIndex);
+            weaponIndex = 2;
+            currentWeapon = weaponList[weaponIndex];
         }
-        else if(weaponIndex == 3)
+        else if(Greenfoot.isKeyDown("4") && weaponList[3] != null)
         {
-            currentWeapon = weaponList.get(weaponIndex);
+            weaponIndex = 3;
+            currentWeapon = weaponList[weaponIndex];
         }
         if(willDie)
         {
