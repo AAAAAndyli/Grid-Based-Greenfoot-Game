@@ -77,7 +77,8 @@ public class MenuWorld extends World
     public void act(){
         if(resetData.checkButton())
         {
-            SaveFile.setInfo("money", 1000); // 0
+            SaveFile.setInfo("totalMoney", 0);
+            SaveFile.setInfo("money", 0); // 0
             SaveFile.setInfo("health", 15);
             SaveFile.setInfo("maxHealth", 15);
             SaveFile.setInfo("level", 0);
