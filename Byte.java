@@ -80,8 +80,9 @@ public class Byte extends ScrollingActor
                 touchingByte = null;
             }
         }
+        ArrayList<HealthPod> touchingHealth = (ArrayList<HealthPod>)getIntersectingObjects(HealthPod.class);        
         ArrayList<Wallet> touchingWallet = (ArrayList<Wallet>)getIntersectingObjects(Wallet.class);        
-        if (touchingWallet.size() == 1 && collected){
+        if ((touchingWallet.size() > 0 || touchingHealth.size() > 0)&& collected){
             wallet.changeAmount(value);
             getWorld().removeObject(this);
             return;

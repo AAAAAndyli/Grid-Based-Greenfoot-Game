@@ -297,6 +297,12 @@ public class Player extends Entity
             //Just play the sound
             gun.play();
         }
+        if(currentWeapon == bomb && shooting){
+            isAiming = false;
+            currentWeapon.shoot();
+            explosion.play();
+        }
+        
     }
     
     public void movement()
