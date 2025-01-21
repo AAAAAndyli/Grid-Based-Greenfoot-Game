@@ -18,7 +18,7 @@ public class BindButton extends Button {
     private ArrayList<String> keybinds;
     private String[] keybindNames = new String[]{
         "jump", "down", "left", "right", "dash",
-        "parry"
+        "parry", "rapid", "bomb", "missile", "spread"
     };
 
     public BindButton(String file, double sizeMulti, String txt, String type){
