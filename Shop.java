@@ -68,7 +68,7 @@ public class Shop extends World
     
     private Wallet wallet;
     
-    GreenfootSound shopMusic;
+    GreenfootSound shopMusic, purchaseSound, brokeMusic, brokeSound;
     
     GreenfootSound[] musicList, effectList;
     
@@ -85,6 +85,18 @@ public class Shop extends World
         shopMusic = new GreenfootSound("Shop.mp3");
         shopMusic.setVolume(40);
         SaveFile.updateVolume(shopMusic, "musicVolume");
+        
+        brokeMusic = new GreenfootSound("Error.mp3");
+        brokeMusic.setVolume(100);
+        SaveFile.updateVolume(brokeMusic, "musicVolume");
+        
+        brokeSound = new GreenfootSound("errorSound.mp3");
+        brokeSound.setVolume(70);
+        SaveFile.updateVolume(brokeSound, "effectVolume");
+        
+        purchaseSound = new GreenfootSound("purchaseSound.mp3");
+        purchaseSound.setVolume(70);
+        SaveFile.updateVolume(purchaseSound, "effectVolume");
         
         health = SaveFile.getInt("health");
         maxHealth = SaveFile.getInt("maxHealth");
@@ -139,6 +151,7 @@ public class Shop extends World
             musicList = new GreenfootSound[]
             {
                 shopMusic,
+                brokeMusic,
             };
             SaveFile.updateVolume(musicList, "musicVolume");
             previousMusicVolume = SaveFile.getInt("musicVolume");
@@ -147,11 +160,12 @@ public class Shop extends World
             //update the list with each new effect
             effectList = new GreenfootSound[]
             {
-                
+                purchaseSound,
+                brokeSound,
             };
             //UNCOMMENT WHEN EFFECTS ADDED
-            //SaveFile.updateVolume(effectList, "effectVolume");
-            //previousEffectVolume = SaveFile.getInt("musicVolume");
+            SaveFile.updateVolume(effectList, "effectVolume");
+            previousEffectVolume = SaveFile.getInt("musicVolume");
         }
         shopMusic.playLoop();
     }
@@ -193,11 +207,12 @@ public class Shop extends World
         // If clicked first button it takes money in exchange to increase Shield level, which increases the amount of times you can parry
         if(clickedOne)
         {
+            
             price = 100;
             if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
-                
+                purchaseSound.play();
                 purchased = true;
                 
                 SaveFile.setInfo("damage", SaveFile.getInt("damage") + 1);
@@ -207,16 +222,19 @@ public class Shop extends World
                 Button noByte = new Button("Buttons/noBytes.png", .25, true);
                 addObject(noByte, 250, 150);
                 noByte.fadeOut();
+                playBroke();
             }
         }
         
         // If clicked second button it takes money in exchange to replenish health to full
         else if(clickedTwo)
         {
+            
             price = 50;
             if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
+                purchaseSound.play();
                 health = maxHealth;
                 removeObject(item2);
                 addObject(new Button("shopIcons/bought.png",.7, true),250,600);
@@ -228,16 +246,19 @@ public class Shop extends World
                 Button noByte = new Button("Buttons/noBytes.png", .25, true);
                 addObject(noByte, 250, 450);
                 noByte.fadeOut();
+                playBroke();
             }
         }
         else if(clickedThree)
         {
             if(maxHealthUpgrade > 0)
             {
+
                 price = 50;
                 if(wallet.getAmount() >= price)
                 {
                     wallet.changeAmount(-price);
+                    purchaseSound.play();
                     maxHealthUpgrade--;
                     maxHealth += 3;
                     health += 3;
@@ -250,6 +271,7 @@ public class Shop extends World
                     Button noByte = new Button("Buttons/noBytes.png", .25, true);
                     addObject(noByte, 600, 150);
                     noByte.fadeOut();
+                    playBroke();
                 }
             }
             else 
@@ -264,6 +286,7 @@ public class Shop extends World
             if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
+                purchaseSound.play();
                 purchased = true;
                 SaveFile.setInfo("hasMissile", 1);
             }
@@ -272,6 +295,7 @@ public class Shop extends World
                 Button noByte = new Button("Buttons/noBytes.png", .25, true);
                 addObject(noByte, 600, 450);
                 noByte.fadeOut();
+                playBroke();
             }
         }
         else if(clickedFive)
@@ -280,6 +304,7 @@ public class Shop extends World
             if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
+                purchaseSound.play();
                 purchased = true;
                 SaveFile.setInfo("hasSpread", 1);
             }
@@ -288,6 +313,7 @@ public class Shop extends World
                 Button noByte = new Button("Buttons/noBytes.png", .25, true);
                 addObject(noByte, 950, 150);
                 noByte.fadeOut();
+                playBroke();
             }
         }
         else if(clickedSix)
@@ -296,11 +322,13 @@ public class Shop extends World
             if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
+                purchaseSound.play();
                 purchased = true;
                 SaveFile.setInfo("hasBomb", 1);
             }
             else
             {
+                playBroke();
                 Button noByte = new Button("Buttons/noBytes.png", .25, true);
                 addObject(noByte, 950, 450);
                 noByte.fadeOut();
@@ -312,7 +340,20 @@ public class Shop extends World
             purchased = false;
         }
     }
-    
+    /**
+     * Plays one of two sound effect if the bytes aren't sufficient for a purchase
+     */
+    public void playBroke()
+    {
+        if(Greenfoot.getRandomNumber(6) == 5)
+        {
+            brokeMusic.play();
+        }
+        else
+        {
+            brokeSound.play();
+        }
+    }
     /**
      * Animates the background
      */

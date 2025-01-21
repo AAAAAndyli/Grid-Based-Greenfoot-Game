@@ -89,6 +89,9 @@ public class Player extends Entity
     private GreenfootSound explosion = new GreenfootSound("sounds/Explosion.wav");
     private int actCounter1 = 60;
     
+    private GreenfootSound parrySound = new GreenfootSound("sounds/parrySound.mp3");
+    private int previousEffectVolume = SaveFile.getInt("musicVolume");
+    
     private GreenfootSound shotgun = new GreenfootSound("sounds/Shotgun.wav");
     private int actCounter3 = 30;
     
@@ -104,6 +107,9 @@ public class Player extends Entity
         getImage().setTransparency(0);
         state = "idle";
         globalPosition = new Coordinate(globalX,globalY);
+        
+        parrySound.setVolume(60);
+        SaveFile.updateVolume(parrySound, "effectVolume");
         
         if(SaveFile.getString("jump") == null){
             SaveFile.loadFile("saveFile/defaultSaveFile.csv");
@@ -217,7 +223,12 @@ public class Player extends Entity
         {
             die();
         }
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            SaveFile.updateVolume(parrySound, "effectVolume");
+            previousEffectVolume = SaveFile.getInt("musicVolume");
+        }
         super.act();
+        
     }
     
     public void die()
@@ -641,6 +652,7 @@ public class Player extends Entity
                 {
                     for(EProjectile projectile : projectilesInRange) {
                         projectile.parried(mouseX, mouseY);
+                        parrySound.play();
                         Greenfoot.delay(10);
                         getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
                         heal(1);

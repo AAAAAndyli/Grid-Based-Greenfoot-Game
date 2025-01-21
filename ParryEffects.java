@@ -13,6 +13,7 @@ public class ParryEffects extends Effect
     {
         setImage(sprite);
         speed = 5;
+        setRotation(Greenfoot.getRandomNumber(360));
         getImage().scale(75,75);
     }
     public void addedToWorld(World world)
@@ -26,5 +27,9 @@ public class ParryEffects extends Effect
     public void act()
     {
         super.act();
+        if(timer > 0)
+        {
+            getWorld().removeObject(this);
+        }
     }
 }
