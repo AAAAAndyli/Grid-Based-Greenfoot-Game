@@ -9,3 +9,9 @@ health,15
 maxHealth,15
 musicVolume,100
 effectVolume,100
+deaths,0
+level,0
+damage,1
+hasBomb,0
+hasMissile,0
+hasSpread,0

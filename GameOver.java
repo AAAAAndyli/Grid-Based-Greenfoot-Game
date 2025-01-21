@@ -29,6 +29,7 @@ public class GameOver extends World
         }
         if(transision.fadedOnce())
         {
+            SaveFile.setInfo("deaths", SaveFile.getInt("deaths") + 1);
             Greenfoot.setWorld(new MenuWorld());
         }
     }

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=CollisionTrigger
-comment0.text=\n\ Write\ a\ description\ of\ class\ KillBorder\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ KillBorder\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=type\ rotations\ xPosition\ yPosition\ triggerNumber
 comment1.target=CollisionTrigger(java.lang.String,\ int,\ int,\ int,\ int)
 comment2.params=type\ rotations\ isButton\ mapMaker\ triggerNumber

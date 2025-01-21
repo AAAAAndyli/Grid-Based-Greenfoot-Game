@@ -9,13 +9,14 @@ import java.util.ArrayList;
  */
 public class ScrollingUI extends UI
 {
-    int pastY;
-    int currentY;
-    int yOffset;
-    boolean letGo, actorFollow, belowWorld;
-    MouseInfo mouse;
-    Class className;
-    ArrayList<Class> classList = new ArrayList<Class>();
+    private int pastY;
+    private int currentY;
+    private int yOffset;
+    private boolean letGo, actorFollow, belowWorld;
+    private MouseInfo mouse;
+    private Class className;
+    private ArrayList<Class> classList = new ArrayList<Class>();
+    private SuperTextBox actor;
     
     public ScrollingUI(int x, int y, int width, int height, boolean follow, ArrayList<Class> classFollowList){
         GreenfootImage dimensions = new GreenfootImage(width, height);
@@ -31,18 +32,36 @@ public class ScrollingUI extends UI
         letGo = true;
     }
     
+    public ScrollingUI(int x, int y, int width, int height, boolean follow, Color color, ArrayList<Class> classFollowList, SuperTextBox secondary){
+        GreenfootImage dimensions = new GreenfootImage(width, height);
+        dimensions.setColor(color);
+        dimensions.fill();
+        
+        setImage(dimensions);
+        
+        actor = secondary;
+        actorFollow = follow;
+        if(actorFollow){
+            for(Class c : classFollowList){
+                classList.add(c);
+            }  
+        }
+        
+        letGo = true;
+    }
+    
     /**
      * Method to allow scrolling based on user movement
      */
-    public void scroll(){
+    public void scroll(Actor actor){
         mouse = Greenfoot.getMouseInfo();
         if(mouse != null){
             //if player clicks mouse, get original y position as reference point
-            if(Greenfoot.mousePressed(this) && letGo){
+            if(Greenfoot.mousePressed(actor) && letGo){
                 pastY = mouse.getY();
                 letGo = false;
             } //release = stop scrolling
-            if(Greenfoot.mouseClicked(null) || Greenfoot.mouseClicked(this)){
+            if(Greenfoot.mouseClicked(null) || Greenfoot.mouseClicked(actor)){
                 letGo = true;
             } // move up or down based on reference point
             if(!letGo){
@@ -86,7 +105,10 @@ public class ScrollingUI extends UI
     public void act()
     {
         if(getY() >= 0 && getY() <= getWorld().getHeight()){
-            scroll();
+            scroll(this);
+            if(actor != null){
+                scroll(actor);
+            }
             belowWorld = getY() >= getWorld().getHeight() ? true : false;
         }
         else{
