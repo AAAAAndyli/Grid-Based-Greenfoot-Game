@@ -12,4 +12,6 @@ comment4.params=
 comment4.target=void\ started()
 comment5.params=
 comment5.target=void\ hover()
-numComments=6
+comment6.params=
+comment6.target=void\ resetStats()
+numComments=7

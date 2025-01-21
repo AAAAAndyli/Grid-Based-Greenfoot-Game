@@ -27,7 +27,7 @@ public class LevelWorld extends ScrollingWorld
     protected Transition enterWorld = new Transition(false);
     protected Transition playerDeath = new Transition(true);
     
-    protected GreenfootSound music;
+    protected GreenfootSound currentMusic;
     
     protected GreenfootSound[] musicList, effectList;
     
@@ -74,15 +74,36 @@ public class LevelWorld extends ScrollingWorld
         loadParallax();
         TheGrid.setGrid(toGrid());
         addObject(new FPS(), 200, 10);
-        
+        if(currentMusic != null)
+        {
+            currentMusic.stop();
+        }
         //make sure to update the volume with values from savefile!
         previousMusicVolume = SaveFile.getInt("musicVolume");
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");
-    
-        music = new GreenfootSound("goofyAh.mp3");
-        music.setVolume(60);
-        SaveFile.updateVolume(music, "musicVolume");
+        
+        if(levelName.equals("Tutorial/tutorial.csv"))
+        {
+            currentMusic = new GreenfootSound("goofyAh.mp3");
+            currentMusic.setVolume(60);
+        }
+        else if(levelName.equals("wa.csv"))
+        {
+            currentMusic = new GreenfootSound("fireWall.mp3");
+            currentMusic.setVolume(60);
+        }
+        else if(levelName.equals("ba.csv"))
+        {
+            currentMusic = new GreenfootSound("bugMenace");
+            currentMusic.setVolume(60);
+        }
+        else
+        {
+            currentMusic = new GreenfootSound("hunting.mp3");
+            currentMusic.setVolume(60);
+        }
+        SaveFile.updateVolume(currentMusic, "musicVolume");
         
         setPaintOrder(Transition.class, HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
         setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
@@ -99,7 +120,7 @@ public class LevelWorld extends ScrollingWorld
             //update the list with each new music
             musicList = new GreenfootSound[]
             {
-                music,
+                currentMusic
             };
             SaveFile.updateVolume(musicList, "musicVolume");
             previousMusicVolume = SaveFile.getInt("musicVolume");
@@ -126,6 +147,7 @@ public class LevelWorld extends ScrollingWorld
                 Greenfoot.setWorld(new GameOver());
             }
         }
+        currentMusic.playLoop();
         super.act();
     }
     public void loadLevel()
@@ -290,5 +312,14 @@ public class LevelWorld extends ScrollingWorld
     public Player getPlayer()
     {
         return player;
+    }
+    
+    public void stopped(){
+        currentMusic.pause();
+    }
+    
+    
+    public void started(){
+        currentMusic.playLoop();
     }
 }

@@ -38,7 +38,7 @@ public class ArsysWorld extends LevelWorld
             //update the list with each new music
             musicList = new GreenfootSound[]
             {
-                music,
+                currentMusic,
             };
             SaveFile.updateVolume(musicList, "musicVolume");
             previousMusicVolume = SaveFile.getInt("musicVolume");
