@@ -103,9 +103,8 @@ public class MenuWorld extends World
             {
                 clickSound
             };
-            //UNCOMMENT WHEN EFFECTS ADDED
-            //SaveFile.updateVolume(effectList, "effectVolume");
-            //previousEffectVolume = SaveFile.getInt("musicVolume");
+            SaveFile.updateVolume(effectList, "effectVolume");
+            previousEffectVolume = SaveFile.getInt("musicVolume");
         }
         background.playLoop();
         hover();
