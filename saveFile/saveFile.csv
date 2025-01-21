@@ -8,14 +8,14 @@ rapid,1
 bomb,2
 missile,3
 spread,4
-money,0
+money,500
 health,30
 maxHealth,30
 musicVolume,70
 effectVolume,22
 deaths,0
 level,0
-damage,3
+damage,4
 hasRapid,1
 hasBomb,1
 hasMissile,1

@@ -144,6 +144,10 @@ public class Shop extends World
         animate();
         checkMouseHover();
         hover();
+        if(money != SaveFile.getInt("money")){
+            money = SaveFile.getInt("money");
+            moneyInt.setValue(money);
+        }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
             musicList = new GreenfootSound[]
