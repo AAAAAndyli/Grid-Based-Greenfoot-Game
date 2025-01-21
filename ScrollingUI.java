@@ -112,7 +112,7 @@ public class ScrollingUI extends UI
             belowWorld = getY() >= getWorld().getHeight() ? true : false;
         }
         else{
-            yOffset = belowWorld ? -10 : 10;
+            yOffset = belowWorld ? -50 : 50;
             setLocation(getX(), getY() + yOffset);
             for(Class c : classList){
                 moveActors(yOffset, c);    
