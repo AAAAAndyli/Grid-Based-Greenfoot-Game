@@ -33,7 +33,7 @@ public class TutorialAvatar extends SuperSmoothMover {
     private int currentMessage = 0;
     private SuperTextBox label;
     private boolean hasDisplayedMessage = false; 
-    
+    private int actCounter = 10;
     public TutorialAvatar() {
         setImage("Tera.png");
         setLocation(startX, startY);
@@ -60,15 +60,19 @@ public class TutorialAvatar extends SuperSmoothMover {
      */
     private void handleKey() {
         if (Greenfoot.isKeyDown("right") && currentMessage < tutorialMessages.length - 1) {
-            currentMessage++;
-            label.update(tutorialMessages[currentMessage]); 
-            Greenfoot.delay(10); 
+            if(actCounter == 10){
+                currentMessage++;
+                label.update(tutorialMessages[currentMessage]);
+                actCounter = 0;
+            }
+            actCounter++;
         }else if(Greenfoot.isKeyDown("right") && currentMessage >= tutorialMessages.length - 1){
             getWorld().stopped();
             getWorld().removeObject(label);
             getWorld().removeObject(this);
+            
         }
-                
+        
             
     }
 

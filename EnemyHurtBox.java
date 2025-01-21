@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class EnemyHurtBox extends HurtBox
 {
     private Enemy origin;
-    private boolean hitstop;
+    private boolean hitstop = true;
     public EnemyHurtBox(int width, int height, int damage, Enemy origin)
     {
         this(width, height, damage, origin, true);
@@ -36,6 +36,7 @@ public class EnemyHurtBox extends HurtBox
                 parried();
                 if(hitstop)
                 {
+                    getWorld().addObject(new ParryEffects(), getX(), getY());
                     Greenfoot.delay(5);
                 }
                 getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
