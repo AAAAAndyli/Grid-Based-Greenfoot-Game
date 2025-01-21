@@ -761,7 +761,7 @@ public class Player extends Entity
     }
     public int getHealthBarHP()
     {
-        return (int)Math.ceil(SaveFile.getInt("health")/3);
+        return (int)Math.ceil(maxHealth/3);
     }
     public boolean getSlamming()
     {
