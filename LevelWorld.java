@@ -29,8 +29,6 @@ public class LevelWorld extends ScrollingWorld
     protected Transition enterWorld = new Transition(false);
     protected Transition playerDeath = new Transition(true);
     
-    protected final boolean PERFORMANCE_MODE = true;
-    
     protected GreenfootSound currentMusic;
     
     protected GreenfootSound[] musicList, effectList;
@@ -127,7 +125,7 @@ public class LevelWorld extends ScrollingWorld
         }
         else if(levelName.equals("wa.csv"))
         {
-            currentMusic = new GreenfootSound("fireWall.mp3");
+            currentMusic = new GreenfootSound("Firewall.mp3");
             currentMusic.setVolume(60);
         }
         else if(levelName.equals("ba.csv"))
@@ -152,7 +150,7 @@ public class LevelWorld extends ScrollingWorld
             }
             else if(levelName.equals("wa.csv"))
             {
-                currentMusic = new GreenfootSound("fireWall.mp3");
+                currentMusic = new GreenfootSound("Firewall.mp3");
                 currentMusic.setVolume(60);
                 SaveFile.updateVolume(currentMusic, "musicVolume");
             }
@@ -199,11 +197,6 @@ public class LevelWorld extends ScrollingWorld
     public void act()
     {
         super.act();
-        if(!runOnce){
-            pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, true));
-            addObject(pause, 40, 40);
-            runOnce = true;
-        }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
             musicList = new GreenfootSound[]
@@ -234,7 +227,7 @@ public class LevelWorld extends ScrollingWorld
             super.act();
             
             if(!runOnce){
-                pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, true));
+                pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, new MenuWorld()));
                 addObject(pause, 40, 40);
                 runOnce = true;
             }
@@ -262,10 +255,7 @@ public class LevelWorld extends ScrollingWorld
                 Greenfoot.setWorld(new GameOver());
             }
         }
-        if(currentMusic != null)
-        {
-            currentMusic.playLoop();
-        }
+        currentMusic.playLoop();
     }
     public void loadLevel()
     {
@@ -318,65 +308,62 @@ public class LevelWorld extends ScrollingWorld
                     {
                         colour = tokenizer.nextToken();
                     }
-                    
-                    if(!PERFORMANCE_MODE || !type.contains("Background"))
+
+                    switch(type)
                     {
-                        switch(type)
-                        {
-                            case "PlayerSpawnPoint":
-                                player = new Player();
-                                addObject(crosshair, xLocation, yLocation);
-                                addObject(player, xLocation, yLocation - player.getImage().getHeight()/4);
-                                addObject(camera, 0, 0);
-                                camera.addFollowing(player);
-                                camera.addFollowing(player);
-                                camera.addFollowing(player);
-                                camera.addFollowing(player);
-                                camera.addFollowing(player);
-                                camera.setFollowing(player);
-                                addObject(new HealthBar(player), 100, 100);
-                                addObject(new Wallet(), 195, 178);
-                                break;
-                            case "LaserTile":
-                                addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
-                                break;
-                            case "EnemySpawnPoint":
-                                Agast enemy = new Agast();
-                                addObject(enemy, xLocation, yLocation);
-                                break;
-                            case "EnemySpawner":
-                                EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, EnemyID.getEnemy(enemyNumber));
-                                addObject(enemySpawner, xLocation, yLocation);
-                                break;
-                            case "TriggerTile":
-                                CollisionTrigger trigger = new CollisionTrigger(type, rotation, xLocation, yLocation, triggerNumber);
-                                addObject(trigger, xLocation, yLocation);
-                                break;
-                            case "OneWayTile":
-                                OneWayTile oneWayTile = new OneWayTile(type, rotation, xLocation, yLocation);
-                                addObject(oneWayTile, xLocation, yLocation);
-                                break;
-                            case "Firewall":
-                                Firewall firewall = new Firewall(type, rotation, xLocation, yLocation, triggerNumber, colour);
-                                addObject(firewall, xLocation, yLocation);
-                                break;
-                            case "Key":
-                                Key key = new Key(type, rotation, xLocation, yLocation, triggerNumber, colour);
-                                addObject(key, xLocation, yLocation);
-                                break;
-                            case "BossSpawner":
-                                BossSpawner BossSpawner = new BossSpawner(type, rotation, xLocation, yLocation, triggerNumber, enemyNumber);
-                                addObject(BossSpawner, xLocation, yLocation);
-                                break;
-                            case "NextWorld":
-                                NextWorld nextWorld = new NextWorld(type, rotation, xLocation, yLocation, triggerNumber);
-                                addObject(nextWorld, xLocation, yLocation);
-                                break;
-                            default:
-                                addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
-                                tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
-                                break;
-                        }
+                        case "PlayerSpawnPoint":
+                            player = new Player();
+                            addObject(crosshair, xLocation, yLocation);
+                            addObject(player, xLocation, yLocation - player.getImage().getHeight()/4);
+                            addObject(camera, 0, 0);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.addFollowing(player);
+                            camera.setFollowing(player);
+                            addObject(new HealthBar(player), 100, 100);
+                            addObject(new Wallet(), 195, 178);
+                            break;
+                        case "LaserTile":
+                            addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                            break;
+                        case "EnemySpawnPoint":
+                            Agast enemy = new Agast();
+                            addObject(enemy, xLocation, yLocation);
+                            break;
+                        case "EnemySpawner":
+                            EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, EnemyID.getEnemy(enemyNumber));
+                            addObject(enemySpawner, xLocation, yLocation);
+                            break;
+                        case "TriggerTile":
+                            CollisionTrigger trigger = new CollisionTrigger(type, rotation, xLocation, yLocation, triggerNumber);
+                            addObject(trigger, xLocation, yLocation);
+                            break;
+                        case "OneWayTile":
+                            OneWayTile oneWayTile = new OneWayTile(type, rotation, xLocation, yLocation);
+                            addObject(oneWayTile, xLocation, yLocation);
+                            break;
+                        case "Firewall":
+                            Firewall firewall = new Firewall(type, rotation, xLocation, yLocation, triggerNumber, colour);
+                            addObject(firewall, xLocation, yLocation);
+                            break;
+                        case "Key":
+                            Key key = new Key(type, rotation, xLocation, yLocation, triggerNumber, colour);
+                            addObject(key, xLocation, yLocation);
+                            break;
+                        case "BossSpawner":
+                            BossSpawner BossSpawner = new BossSpawner(type, rotation, xLocation, yLocation, triggerNumber, enemyNumber);
+                            addObject(BossSpawner, xLocation, yLocation);
+                            break;
+                        case "NextWorld":
+                            NextWorld nextWorld = new NextWorld(type, rotation, xLocation, yLocation, triggerNumber);
+                            addObject(nextWorld, xLocation, yLocation);
+                            break;
+                        default:
+                            addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
+                            tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
+                            break;
                     }
                 }
                 catch(NumberFormatException e)
