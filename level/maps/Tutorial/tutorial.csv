@@ -192,11 +192,11 @@ TriggerTile,1,350,700,0
 BackgroundFullTile3,3,400,700
 BackgroundFullTile3,3,450,700
 BackgroundFullTile3,0,500,700
-OneWayTile,0,500,700
+OneWayTile,2,500,700
 BackgroundFullTile3,0,550,700
-OneWayTile,0,550,700
-BackgroundFullTile3,0,600,700
-OneWayTile,0,600,700
+OneWayTile,2,550,700
+BackgroundFullTile3,2,600,700
+OneWayTile,2,600,700
 FullTile,0,650,700
 FullTile,0,700,700
 BackgroundFullTile4,0,750,700
@@ -301,7 +301,6 @@ BackgroundFullTile3,0,350,850
 TriggerTile,0,350,850,0
 BackgroundFullTile3,0,400,850
 TriggerTile,0,400,850,0
-TriggerTile,0,400,850,0
 BackgroundFullTile3,3,450,850
 BackgroundFullTile3,0,500,850
 BackgroundFullTile3,0,550,850
@@ -339,7 +338,6 @@ BackgroundFullTile3,3,250,900
 OneWayTile,0,300,900
 BackgroundFullTile3,0,300,900
 BackgroundFullTile3,1,350,900
-OneWayTile,0,350,900
 OneWayTile,0,350,900
 BackgroundFullTile3,0,400,900
 OneWayTile,0,400,900
@@ -557,7 +555,6 @@ BackgroundFullTile3,0,450,1250
 BackgroundFullTile3,0,500,1250
 BackgroundFullTile3,0,550,1250
 BackgroundFullTile3,0,600,1250
-TriggerTile,0,600,1250,0
 TriggerTile,0,600,1250,0
 BackgroundFullTile3,0,650,1250
 TriggerTile,0,650,1250,0

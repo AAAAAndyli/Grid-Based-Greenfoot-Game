@@ -22,9 +22,10 @@ public class Wallet extends Actor
     public Wallet() {
         text = new SuperTextBox("" + changedAmount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK, 0);
         
-        totalAmount = SaveFile.getInt("totalMoney");
         amount = SaveFile.getInt("money");
         changedAmount = amount;
+        
+        saveFile.loadFile();
         
         int randomImage = Greenfoot.getRandomNumber(2);
         if (randomImage == 0) { 

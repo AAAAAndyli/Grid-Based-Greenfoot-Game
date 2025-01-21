@@ -85,10 +85,12 @@ public class Player extends Entity
     
     //Sound
     private GreenfootSound gun = new GreenfootSound("sounds/Laser.wav");
-    
     private int actCounter = 10;
     private GreenfootSound explosion = new GreenfootSound("sounds/Explosion.wav");
     private int actCounter1 = 60;
+    
+    private GreenfootSound shotgun = new GreenfootSound("sounds/Shotgun.wav");
+    private int actCounter3 = 30;
     
     public Player()
     {
@@ -99,6 +101,7 @@ public class Player extends Entity
     {
         super(scrollX, scrollY);
         setImage("Hitbox.png");
+        getImage().setTransparency(0);
         state = "idle";
         globalPosition = new Coordinate(globalX,globalY);
         
@@ -112,7 +115,7 @@ public class Player extends Entity
         rapid = new RangedWeapon(10, 0, this, SaveFile.getInt("damage"));
         bomb = new RangedWeapon(60, 1, this, SaveFile.getInt("damage"));
         missile = new RangedWeapon(60, 2, this, SaveFile.getInt("damage"));
-        spread = new RangedWeapon(0, 3, this, SaveFile.getInt("damage"));
+        spread = new RangedWeapon(30, 3, this, SaveFile.getInt("damage"));
         
         weaponList[0] = rapid;
         
@@ -134,6 +137,7 @@ public class Player extends Entity
         
         
         gun.setVolume(65);
+        shotgun.setVolume(75);
     }
     
     public void addedToWorld(World world)
@@ -296,34 +300,64 @@ public class Player extends Entity
             yGravity = normalFallingGravity;
             world.removeObject(sight);
         }
-        if(currentWeapon == rapid && shooting)
-        {
-            
-            isAiming = false;
-            currentWeapon.shoot();
-            //Just play the sound
+        
+        if(currentWeapon == rapid){
+            if(Greenfoot.mouseClicked(null)){
+                isAiming = false;
+                currentWeapon.shoot();
+                gun.play();
+            }
+            if(shooting){
+                isAiming = false;
+                currentWeapon.shoot();
+                gun.play();
+            }
             if(actCounter < 10){
                 actCounter++;
             }
             if(actCounter == 10){
-                gun.play();
+                
                 actCounter = 0;
             }
-            
         }
-        if(currentWeapon == bomb && shooting){
-            
-            isAiming = false;
-            currentWeapon.shoot();
+        if(currentWeapon == bomb){
+            if(Greenfoot.mouseClicked(null)){
+                isAiming = false;
+                currentWeapon.shoot();
+                explosion.play();
+            }
+            if(shooting){
+                isAiming = false;
+                currentWeapon.shoot();
+                explosion.play();
+            }
             if(actCounter1 < 60){
                 actCounter1++;
             }
             if(actCounter1 == 60){
-                explosion.play();
+                
                 actCounter1 = 0;
             }
         }
-        
+        if(currentWeapon == spread){
+            if(Greenfoot.mouseClicked(null)){
+                isAiming = false;
+                currentWeapon.shoot();
+                shotgun.play();
+            }
+            if(shooting){
+                isAiming = false;
+                currentWeapon.shoot();
+                shotgun.play();
+            }
+            if(actCounter3 < 45){
+                actCounter3++;
+            }
+            if(actCounter3 == 45){
+                
+                actCounter3 = 0;
+            }
+        }
     }
     
     public void movement()
