@@ -138,10 +138,11 @@ public class MenuWorld extends World
     public void resetStats()
     {
         SaveFile.setInfo("money", 0); // 0
+        SaveFile.setInfo("deaths", 0);
         SaveFile.setInfo("health", 15);
         SaveFile.setInfo("maxHealth", 15);
         SaveFile.setInfo("level", 0);
-        SaveFile.setInfo("damage", 1); // 0
+        SaveFile.setInfo("damage", 1); // 1
         SaveFile.setInfo("hasBomb", 0); // 0
         SaveFile.setInfo("hasMissile", 0); // 0
         SaveFile.setInfo("hasSpread", 0); // 0
