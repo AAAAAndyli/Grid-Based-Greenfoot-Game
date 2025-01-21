@@ -227,6 +227,10 @@ public class Player extends Entity
             SaveFile.updateVolume(parrySound, "effectVolume");
             previousEffectVolume = SaveFile.getInt("musicVolume");
         }
+        if(maxHealth != SaveFile.getInt("maxHealth")){
+            maxHealth = SaveFile.getInt("maxHealth");
+        }
+        
         super.act();
         
     }

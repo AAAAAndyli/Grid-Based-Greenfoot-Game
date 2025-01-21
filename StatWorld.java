@@ -12,7 +12,8 @@ public class StatWorld extends World
     
     private ArrayList<Class> classList = new ArrayList<Class>();
     private String[] stats = new String[]{
-        "Bytes earned: ", "Deaths: " + SaveFile.getString("deaths"), "Time taken: "
+        "Bytes earned: " + SaveFile.getString("totalMoney"), "Deaths: " + SaveFile.getString("deaths"), 
+        ""
     };
     
     /**
