@@ -1,6 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 import java.util.Collection;
+import greenfoot.GreenfootSound;
 
 
 /**
@@ -81,6 +82,9 @@ public class Player extends Entity
     protected String down;
     protected String parry;
     protected String dash;
+    
+    //Sound
+    private GreenfootSound gun = new GreenfootSound("sounds/Laser.wav");
 
     public Player()
     {
@@ -181,6 +185,7 @@ public class Player extends Entity
         {
             weaponIndex = 0;
             currentWeapon = weaponList.get(weaponIndex);
+            gun = new GreenfootSound("sounds/Laser.wav");
         }
         else if(Greenfoot.isKeyDown("2") && weaponList.size() > 1)
         {
@@ -243,6 +248,7 @@ public class Player extends Entity
         if(Greenfoot.getMouseInfo() != null && (Greenfoot.getMouseInfo().getButton() == 1)||isAiming)
         {   
             mouseTarget = new Coordinate(mouseX, mouseY);
+            gun.play();
             if(aimIsActivated)
             {
                 if(yVelocity > 0)
