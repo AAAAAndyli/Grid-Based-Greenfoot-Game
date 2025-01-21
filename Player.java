@@ -85,6 +85,7 @@ public class Player extends Entity
     
     //Sound
     private GreenfootSound gun = new GreenfootSound("sounds/Laser.wav");
+    private GreenfootSound explosion = new GreenfootSound("sounds/Explosion.wav");
 
     public Player()
     {
@@ -191,6 +192,7 @@ public class Player extends Entity
         {
             weaponIndex = 1;
             currentWeapon = weaponList.get(weaponIndex);
+            
         }
         else if(Greenfoot.isKeyDown("3") && weaponList.size() > 2)
         {
@@ -249,9 +251,7 @@ public class Player extends Entity
         {   
             mouseTarget = new Coordinate(mouseX, mouseY);
             //If the music is not playing currently, play the music
-            if(!gun.isPlaying()){
-                gun.play();
-            }
+            
             if(aimIsActivated)
             {
                 if(yVelocity > 0)
@@ -296,9 +296,7 @@ public class Player extends Entity
             isAiming = false;
             currentWeapon.shoot();
             //Just play the sound
-            if(!gun.isPlaying()){
-                gun.play();
-            }
+            gun.play();
         }
     }
     
