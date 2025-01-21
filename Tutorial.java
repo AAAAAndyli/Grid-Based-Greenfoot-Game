@@ -50,6 +50,7 @@ public class Tutorial extends LevelWorld
         tutorialMusic.setVolume(60);
         SaveFile.updateVolume(tutorialMusic, "musicVolume");
     }
+
     
     public void stopped(){
         tutorialMusic.pause();

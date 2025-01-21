@@ -55,6 +55,10 @@ public abstract class Enemy extends Entity
         {
             getWorld().addObject(new Byte(getPosition().getX(), getPosition().getY()), getPosition().getX(), getPosition().getY());
         }
+        for(int i = 0; i < 3; i++)
+        {
+            getWorld().addObject(new DeathEffects(), getPosition().getX(), getPosition().getY());
+        }
         getWorld().removeObject(this);
     }
     

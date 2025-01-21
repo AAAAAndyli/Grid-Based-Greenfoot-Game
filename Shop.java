@@ -20,8 +20,8 @@ public class Shop extends World
     private int health;
     private int maxHealth;
     private int imageIndex = 0;
-    private int maxDamageUpgrade = 5;
     private int maxHealthUpgrade = 5;
+    private int newDamage;
     private double speed = 0.4;
     
     //Handles Animation
@@ -89,6 +89,9 @@ public class Shop extends World
         SaveFile.updateVolume(shopMusic, "musicVolume");
         
         money = SaveFile.getInt("money");
+        newDamage = SaveFile.getInt("damage") + 1;
+        health = SaveFile.getInt("health");
+        maxHealth = SaveFile.getInt("maxHealth");
         
         for(int i = 0; i < shopAnimation.length; i++){
             shopAnimation[i] = new GreenfootImage("images/ShopBg/shop" + i  + ".png");
@@ -123,9 +126,6 @@ public class Shop extends World
         
         WorldButton back = new WorldButton("Buttons/backButton.png", 0.5, world);
         addObject(back, 85, 50);
-        
-        health = 1;
-        maxHealth = 15;
         
         purchased = false;
         
@@ -206,8 +206,8 @@ public class Shop extends World
             if(money >= price)
             {
                 money -= price;
-                maxDamageUpgrade--;
                 purchased = true;
+                SaveFile.setInfo("damage", newDamage);
             }
             else
             {

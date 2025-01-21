@@ -32,6 +32,41 @@ public class ArsysWorld extends LevelWorld
         WorldOrder.setIndex(levelName);
         setBackground("black.png");
     }
+    public void act()
+    {
+        if(previousMusicVolume != SaveFile.getInt("musicVolume")){
+            //update the list with each new music
+            musicList = new GreenfootSound[]
+            {
+                currentMusic,
+            };
+            SaveFile.updateVolume(musicList, "musicVolume");
+            previousMusicVolume = SaveFile.getInt("musicVolume");
+        }
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            //update the list with each new effect
+            effectList = new GreenfootSound[]
+            {
+                
+            };
+            //UNCOMMENT WHEN EFFECTS ADDED
+            //SaveFile.updateVolume(effectList, "effectVolume");
+            //previousEffectVolume = SaveFile.getInt("musicVolume");
+        }
+        if(enterWorld.fadedOnce())
+        {
+            removeObject(enterWorld);
+        }
+        if(player.getWorld() == null)
+        {
+            addObject(playerDeath, 540, 360);
+            if(playerDeath.fadedOnce())
+            {
+                Greenfoot.setWorld(new GameOver());
+            }
+        }
+        super.act();
+    }
 
     public void loadParallax()
     {
