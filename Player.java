@@ -90,7 +90,7 @@ public class Player extends Entity
     private int actCounter1 = 60;
     
     private GreenfootSound shotgun = new GreenfootSound("sounds/Shotgun.wav");
-    private int actCounter3 = 15;
+    private int actCounter3 = 30;
     
     public Player()
     {
