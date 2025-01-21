@@ -85,6 +85,7 @@ public class Player extends Entity
     
     //Sound
     private GreenfootSound gun = new GreenfootSound("sounds/Laser.wav");
+    private GreenfootSound explosion = new GreenfootSound("sounds/Explosion.wav");
 
     public Player()
     {
@@ -111,21 +112,13 @@ public class Player extends Entity
         spread = new RangedWeapon(30, 3, this, SaveFile.getInt("damage"));
         
         weaponList.add(rapid);
+        weaponList.add(bomb);
+        weaponList.add(missile);
+        weaponList.add(spread);
         
         currentWeapon = weaponList.get(weaponIndex);
         
-        if(SaveFile.getInt("hasBomb") == 1)
-        {
-            weaponList.add(bomb);
-        }
-        if(SaveFile.getInt("hasMissile") == 1)
-        {
-            weaponList.add(missile);
-        }
-        if(SaveFile.getInt("hasSpread") == 1)
-        {
-            weaponList.add(spread);
-        }
+        
     }
     
     public void addedToWorld(World world)
@@ -181,25 +174,23 @@ public class Player extends Entity
         shoot();
         parry();
         currentWeapon.incrementTimer();
-        if(Greenfoot.isKeyDown("1"))
+        if(weaponIndex == 0)
         {
-            weaponIndex = 0;
             currentWeapon = weaponList.get(weaponIndex);
             gun = new GreenfootSound("sounds/Laser.wav");
         }
-        else if(Greenfoot.isKeyDown("2") && weaponList.size() > 1)
+        else if(weaponIndex == 1)
         {
             weaponIndex = 1;
             currentWeapon = weaponList.get(weaponIndex);
+            
         }
-        else if(Greenfoot.isKeyDown("3") && weaponList.size() > 2)
+        else if(weaponIndex == 2)
         {
-            weaponIndex = 2;
             currentWeapon = weaponList.get(weaponIndex);
         }
-        else if(Greenfoot.isKeyDown("4") && weaponList.size() > 3)
+        else if(weaponIndex == 3)
         {
-            weaponIndex = 3;
             currentWeapon = weaponList.get(weaponIndex);
         }
         if(willDie)
@@ -249,9 +240,7 @@ public class Player extends Entity
         {   
             mouseTarget = new Coordinate(mouseX, mouseY);
             //If the music is not playing currently, play the music
-            if(!gun.isPlaying()){
-                gun.play();
-            }
+            
             if(aimIsActivated)
             {
                 if(yVelocity > 0)
@@ -296,9 +285,7 @@ public class Player extends Entity
             isAiming = false;
             currentWeapon.shoot();
             //Just play the sound
-            if(!gun.isPlaying()){
-                gun.play();
-            }
+            gun.play();
         }
     }
     
@@ -737,6 +724,12 @@ public class Player extends Entity
     }
     public void setRunOnce(boolean set){
         runOnce = set;
+    }
+    public void setWeaponIndex(int index){
+        weaponIndex = index;
+    }
+    public int getWeaponIndex(){
+        return weaponIndex;
     }
     
     private class RangedWeapon
