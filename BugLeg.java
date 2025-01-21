@@ -86,7 +86,7 @@ public class BugLeg extends Enemy
     {
         if(attackTimer == 0)
         {
-            getWorld().addObject(new AttackIndicator(scrollX, scrollY), x + direction * 100, y - 50);
+            getWorld().addObject(new AttackIndicator(scrollX, scrollY, 0 , direction), x + direction * 100, y - 50);
             attackTimer++;
         }
         else if(attackTimer > 30)

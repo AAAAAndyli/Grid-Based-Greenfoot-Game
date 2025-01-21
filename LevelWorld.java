@@ -31,6 +31,8 @@ public class LevelWorld extends ScrollingWorld
     
     protected GreenfootSound currentMusic;
     
+    protected final boolean PERFORMANCE_MODE = true;
+    
     protected GreenfootSound[] musicList, effectList;
     
     protected int previousMusicVolume, previousEffectVolume;
@@ -308,62 +310,64 @@ public class LevelWorld extends ScrollingWorld
                     {
                         colour = tokenizer.nextToken();
                     }
-
-                    switch(type)
+                    if(!PERFORMANCE_MODE || !type.contains("Background"))
                     {
-                        case "PlayerSpawnPoint":
-                            player = new Player();
-                            addObject(crosshair, xLocation, yLocation);
-                            addObject(player, xLocation, yLocation - player.getImage().getHeight()/4);
-                            addObject(camera, 0, 0);
-                            camera.addFollowing(player);
-                            camera.addFollowing(player);
-                            camera.addFollowing(player);
-                            camera.addFollowing(player);
-                            camera.addFollowing(player);
-                            camera.setFollowing(player);
-                            addObject(new HealthBar(player), 100, 100);
-                            addObject(new Wallet(), 195, 178);
-                            break;
-                        case "LaserTile":
-                            addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
-                            break;
-                        case "EnemySpawnPoint":
-                            Agast enemy = new Agast();
-                            addObject(enemy, xLocation, yLocation);
-                            break;
-                        case "EnemySpawner":
-                            EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, EnemyID.getEnemy(enemyNumber));
-                            addObject(enemySpawner, xLocation, yLocation);
-                            break;
-                        case "TriggerTile":
-                            CollisionTrigger trigger = new CollisionTrigger(type, rotation, xLocation, yLocation, triggerNumber);
-                            addObject(trigger, xLocation, yLocation);
-                            break;
-                        case "OneWayTile":
-                            OneWayTile oneWayTile = new OneWayTile(type, rotation, xLocation, yLocation);
-                            addObject(oneWayTile, xLocation, yLocation);
-                            break;
-                        case "Firewall":
-                            Firewall firewall = new Firewall(type, rotation, xLocation, yLocation, triggerNumber, colour);
-                            addObject(firewall, xLocation, yLocation);
-                            break;
-                        case "Key":
-                            Key key = new Key(type, rotation, xLocation, yLocation, triggerNumber, colour);
-                            addObject(key, xLocation, yLocation);
-                            break;
-                        case "BossSpawner":
-                            BossSpawner BossSpawner = new BossSpawner(type, rotation, xLocation, yLocation, triggerNumber, enemyNumber);
-                            addObject(BossSpawner, xLocation, yLocation);
-                            break;
-                        case "NextWorld":
-                            NextWorld nextWorld = new NextWorld(type, rotation, xLocation, yLocation, triggerNumber);
-                            addObject(nextWorld, xLocation, yLocation);
-                            break;
-                        default:
-                            addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
-                            tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
-                            break;
+                        switch(type)
+                        {
+                            case "PlayerSpawnPoint":
+                                player = new Player();
+                                addObject(crosshair, xLocation, yLocation);
+                                addObject(player, xLocation, yLocation - player.getImage().getHeight()/4);
+                                addObject(camera, 0, 0);
+                                camera.addFollowing(player);
+                                camera.addFollowing(player);
+                                camera.addFollowing(player);
+                                camera.addFollowing(player);
+                                camera.addFollowing(player);
+                                camera.setFollowing(player);
+                                addObject(new HealthBar(player), 100, 100);
+                                addObject(new Wallet(), 195, 178);
+                                break;
+                            case "LaserTile":
+                                addObject(new LaserTile(type, rotation, xLocation, yLocation), xLocation, yLocation);
+                                break;
+                            case "EnemySpawnPoint":
+                                Agast enemy = new Agast();
+                                addObject(enemy, xLocation, yLocation);
+                                break;
+                            case "EnemySpawner":
+                                EnemySpawner enemySpawner = new EnemySpawner(type, rotation, xLocation, yLocation, triggerNumber, EnemyID.getEnemy(enemyNumber));
+                                addObject(enemySpawner, xLocation, yLocation);
+                                break;
+                            case "TriggerTile":
+                                CollisionTrigger trigger = new CollisionTrigger(type, rotation, xLocation, yLocation, triggerNumber);
+                                addObject(trigger, xLocation, yLocation);
+                                break;
+                            case "OneWayTile":
+                                OneWayTile oneWayTile = new OneWayTile(type, rotation, xLocation, yLocation);
+                                addObject(oneWayTile, xLocation, yLocation);
+                                break;
+                            case "Firewall":
+                                Firewall firewall = new Firewall(type, rotation, xLocation, yLocation, triggerNumber, colour);
+                                addObject(firewall, xLocation, yLocation);
+                                break;
+                            case "Key":
+                                Key key = new Key(type, rotation, xLocation, yLocation, triggerNumber, colour);
+                                addObject(key, xLocation, yLocation);
+                                break;
+                            case "BossSpawner":
+                                BossSpawner BossSpawner = new BossSpawner(type, rotation, xLocation, yLocation, triggerNumber, enemyNumber);
+                                addObject(BossSpawner, xLocation, yLocation);
+                                break;
+                            case "NextWorld":
+                                NextWorld nextWorld = new NextWorld(type, rotation, xLocation, yLocation, triggerNumber);
+                                addObject(nextWorld, xLocation, yLocation);
+                                break;
+                            default:
+                                addObject(new Tile(type, rotation, xLocation, yLocation, true), xLocation, yLocation);
+                                tileWorld.add(new Tile(type, rotation, xLocation, yLocation, true));
+                                break;
+                        }
                     }
                 }
                 catch(NumberFormatException e)

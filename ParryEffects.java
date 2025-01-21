@@ -6,19 +6,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class SpawnEffects extends Effect
+public class ParryEffects extends Effect
 {
-    private GreenfootImage explosionSprite = new GreenfootImage("explosion.png");
-    public SpawnEffects()
+    private GreenfootImage sprite = new GreenfootImage("Parried.png");
+    public ParryEffects()
     {
-        setImage(explosionSprite);
+        setImage(sprite);
         speed = 5;
-        getImage().scale(50,50);
+        getImage().scale(75,75);
     }
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);
-        setLocation(getPosition().getX() - scrollX, getPosition().getY() - scrollY);
     }
     /**
      * Act - do whatever the Effects wants to do. This method is called whenever

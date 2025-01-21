@@ -47,11 +47,13 @@ public class EProjectile extends Projectile
         {
             Coordinate spawnerLocalCoordinate = new Coordinate(spawner.getX(), spawner.getY());
             getWorld().addObject(new PProjectile(spawnerLocalCoordinate, speed, 1, this, "ParriedProjectile"), getX(), getY());
+            getWorld().addObject(new ParryEffects(), getX(), getY());
             getWorld().removeObject(this);
         }
         else
         {
             getWorld().addObject(new PProjectile(new Coordinate(mouseX, mouseY), speed, 1, this, "ParriedProjectile"), getX(), getY());
+            getWorld().addObject(new ParryEffects(), getX(), getY());
             getWorld().removeObject(this);
         }
     }

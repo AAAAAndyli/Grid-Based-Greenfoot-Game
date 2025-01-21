@@ -53,7 +53,6 @@ BackgroundFullTile4,1,450,400
 BackgroundFullTile4,1,500,400
 BackgroundFullTile3,0,550,400
 Firewall,0,550,400,2,-1,red
-Firewall,0,550,400,2,-1,red
 FullTile,0,600,400
 BackgroundFullTile4,2,650,400
 FullTile,0,700,400
@@ -75,7 +74,6 @@ BackgroundFullTile3,0,400,500
 BackgroundFullTile3,0,450,500
 BackgroundFullTile3,1,500,500
 BackgroundFullTile3,0,550,500
-Firewall,0,550,500,2,-1,red
 Firewall,0,550,500,2,-1,red
 BackgroundFullTile3,1,600,500
 BackgroundFullTile4,2,650,500
@@ -125,7 +123,6 @@ BackgroundFullTile3,1,400,600
 BackgroundFullTile3,1,450,600
 BackgroundFullTile3,1,500,600
 BackgroundFullTile3,0,550,600
-Firewall,0,550,600,2,-1,red
 Firewall,0,550,600,2,-1,red
 BackgroundFullTile3,1,600,600
 BackgroundFullTile4,2,650,600
@@ -191,12 +188,10 @@ BackgroundFullTile3,1,350,700
 TriggerTile,1,350,700,0
 BackgroundFullTile3,3,400,700
 BackgroundFullTile3,3,450,700
-BackgroundFullTile3,0,500,700
-OneWayTile,2,500,700
-BackgroundFullTile3,0,550,700
-OneWayTile,2,550,700
-BackgroundFullTile3,2,600,700
-OneWayTile,2,600,700
+FullTile,0,500,700
+FullTile,0,550,700
+FullTile,0,550,700
+FullTile,0,600,700
 FullTile,0,650,700
 FullTile,0,700,700
 BackgroundFullTile4,0,750,700
@@ -260,7 +255,6 @@ BackgroundFullTile3,0,350,800
 TriggerTile,0,350,800,0
 BackgroundFullTile3,0,400,800
 TriggerTile,0,400,800,0
-TriggerTile,0,400,800,0
 BackgroundFullTile3,3,450,800
 BackgroundFullTile3,0,500,800
 BackgroundFullTile3,0,550,800
@@ -293,7 +287,6 @@ EnemySpawner,0,100,850,0,0
 BackgroundFullTile3,0,150,850
 EnemySpawner,0,150,850,0,0
 BackgroundFullTile3,0,200,850
-EnemySpawner,0,200,850,0,0
 EnemySpawner,0,200,850,0,0
 BackgroundFullTile3,0,250,850
 BackgroundFullTile3,0,300,850
