@@ -121,7 +121,7 @@ public class LevelWorld extends ScrollingWorld
         if(levelName.equals("Tutorial/tutorial.csv"))
         {
             currentMusic = new GreenfootSound("goofyAh.mp3");
-            currentMusic.setVolume(40);
+            currentMusic.setVolume(60);
         }
         else if(levelName.equals("wa.csv"))
         {
@@ -335,6 +335,7 @@ public class LevelWorld extends ScrollingWorld
                 return;
             }
         }
+        currentMusic.setVolume(previousMusicVolume);
         currentMusic.playLoop();
     }
     public void loadLevel()
