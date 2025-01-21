@@ -4,6 +4,10 @@ left,a
 right,d
 dash,shift
 parry,e
+rapid,1
+bomb,2
+missile,3
+spread,4
 money,1000
 health,15
 maxHealth,15
@@ -12,6 +16,7 @@ effectVolume,100
 deaths,0
 level,0
 damage,1
+hasRapid,1
 hasBomb,0
 hasMissile,0
 hasSpread,0

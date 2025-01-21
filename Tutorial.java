@@ -12,12 +12,6 @@ public class Tutorial extends LevelWorld
     
     private SuperTextBox textbox;
     private SuperTextBox textbox1;
-    
-    GreenfootSound tutorialMusic;
-    
-    GreenfootSound[] musicList, effectList;
-    
-    int previousMusicVolume, previousEffectVolume;
     /**
      * Constructor for objects of class Tutorial.
      * 
@@ -39,12 +33,6 @@ public class Tutorial extends LevelWorld
         //addObject(pause, 1040, 40);
         
         addObject(tutorial, 1080, 650);
-        
-        
-        //make sure to update the volume with values from savefile!
-        previousMusicVolume = SaveFile.getInt("musicVolume");
-        //make sure to update sound effects volume as shown above
-        previousEffectVolume = SaveFile.getInt("effectVolume");
     }
     
     public void act(){
