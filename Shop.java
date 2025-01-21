@@ -235,7 +235,7 @@ public class Shop extends World
         {
             if(maxHealthUpgrade > 0)
             {
-                price = 20;
+                price = 50;
                 if(money >= price)
                 {
                     wallet.changeAmount(-price);
