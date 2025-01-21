@@ -20,6 +20,9 @@ public class WorldOrder
         worldList.add("level2.csv");
         worldList.add("BugEntrance.csv");
         worldList.add("ba.csv");
+        worldList.add("level3.csv");
+        worldList.add("sa.csv");
+        worldList.add("Arsys");
     }
     public static void createArSYSList()
     {
@@ -28,6 +31,13 @@ public class WorldOrder
         worldList.add("1.csv");
         worldList.add("2.csv");
         worldList.add("3.csv");
+        worldList.add("4.csv");
+        worldList.add("5.csv");
+        worldList.add("6.csv");
+        worldList.add("7.csv");
+        worldList.add("8.csv");
+        worldList.add("9.csv");
+        worldList.add("Win");
     }
     public static boolean isArSYS()
     {
@@ -41,9 +51,12 @@ public class WorldOrder
     {
         worldIndex = index;
     }
+    public static int getIndex()
+    {
+        return worldIndex;
+    }
     public static String nextWorld()
     {
-        worldIndex++;
-        return worldList.get(worldIndex);
+        return worldList.get(worldIndex + 1);
     }
 }

@@ -16,23 +16,25 @@ public class Tutorial extends LevelWorld
      * Constructor for objects of class Tutorial.
      * 
      */
-    public Tutorial()
+    public Tutorial(MenuWorld menu)
     {
         this("tutorial.csv");
+        super.setMainMenu(menu);
     }
     
     public Tutorial(String levelName)
     {
         super("Tutorial/" + levelName); 
-        WorldOrder.createArSYSList();
+        WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
         setBackground("black.png");
         TutorialAvatar tutorial = new TutorialAvatar();
         
-        //pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, TutorialWorld.class));
-        //addObject(pause, 1040, 40);
-        
         addObject(tutorial, 1080, 650);
+    }
+    
+    public MenuWorld getMainMenu(){
+        return super.getMainMenu();
     }
     
     public void act(){

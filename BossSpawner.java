@@ -91,7 +91,18 @@ public class BossSpawner extends TriggerTile
         }
         else if(boss.getClass() == Scorch.class)
         {
-            return 1;
+            return 2;
+        }
+        else if(boss.getClass() == ArSysRam.class)
+        {
+            if(((ArSysRam)boss).isRight())
+            {
+                return 3;
+            }
+            else
+            {
+                return 4;
+            }
         }
         return -1;
     }
@@ -108,6 +119,14 @@ public class BossSpawner extends TriggerTile
         else if(bossID == 2)
         {
             return new Scorch();
+        }
+        else if(bossID == 3)
+        {
+            return new ArSysRam(true);
+        }
+        else if(bossID == 4)
+        {
+            return new ArSysRam(false);
         }
 
         return null;
@@ -131,7 +150,6 @@ public class BossSpawner extends TriggerTile
             spawnDelayTimer++;
             if(spawnDelay < spawnDelayTimer)
             {
-                System.out.println(spawnDelayTimer);
                 spawnEnemies();
                 getWorld().removeObject(this);
                 return;

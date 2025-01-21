@@ -234,6 +234,10 @@ public abstract class Enemy extends Entity
     }
     public int getDistance(Actor actor)
     {
+        if(actor.getWorld() == null)
+        {
+            return 0;
+        }
         int deltaX = actor.getX() - this.getX();
         int deltaY = actor.getY() - this.getY();
     

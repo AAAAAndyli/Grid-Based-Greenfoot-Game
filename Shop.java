@@ -99,7 +99,7 @@ public class Shop extends World
         }
         setBackground(shopAnimation[0]);
         
-        moneyLabel = new Label("Money:",30);
+        moneyLabel = new Label("Byte:",30);
         moneyLabel.setLineColor(Color.WHITE);
         addObject(moneyLabel, 300, 50);
         
@@ -144,6 +144,10 @@ public class Shop extends World
         animate();
         checkMouseHover();
         hover();
+        if(money != SaveFile.getInt("money")){
+            money = SaveFile.getInt("money");
+            moneyInt.setValue(money);
+        }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
             musicList = new GreenfootSound[]

@@ -22,8 +22,7 @@ public class MenuWorld extends World
     
     private Button title;
     private Button resetData;
-    private WorldButton play;
-    private WorldButton settings;
+    private WorldButton play, settings, stat;
     
     /**
      * Constructor for objects of class MenuWorld.
@@ -36,14 +35,13 @@ public class MenuWorld extends World
         background = new GreenfootSound("Opening.mp3");
         clickSound = new GreenfootSound("click.wav");
         
-        
         setBackground("images/menu.png");
         
         title = new Button("title.png",.9,true);
         addObject(title,getWidth()/3, 150);
         
-        resetData = new Button("Buttons/resetData.png",1);
-        addObject(resetData, 150, 600);
+        resetData = new Button("Buttons/resetData.png",0.8);
+        addObject(resetData, 150, 650);
         
         //load save file for data
         SaveFile.loadFile();
@@ -59,19 +57,19 @@ public class MenuWorld extends World
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");
         
-        Label shopLabel = new Label("Shop", 30);
-        addObject(shopLabel, 900, 600);
+        //Label shopLabel = new Label("Shop", 30);
+        //addObject(shopLabel, 900, 600);
         
-        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new Tutorial());
+        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new Tutorial(this));
         addObject(play, 900, 300);
         settings = new WorldButton("Buttons/settingsButton.png", 1.1, (World)new SettingWorld(this));
         addObject(settings, 900, 450);
         //temporary
-        WorldButton shop = new WorldButton("Buttons/button1.png", 1.1, (World)new Shop(this), shopLabel);
-        addObject(shop, 900, 600);
+        //WorldButton shop = new WorldButton("Buttons/button1.png", 1.1, (World)new Shop(this), shopLabel);
+        //addObject(shop, 900, 600);
         
-        WorldButton stat = new WorldButton("Buttons/stats.png", 1.1, (World)new StatWorld(this));
-        addObject(stat, 500, 600);
+        stat = new WorldButton("Buttons/stats.png", 1.1, (World)new StatWorld(this));
+        addObject(stat, 900, 600);
         
         setPaintOrder(Transition.class, Label.class, Button.class);
     }
@@ -103,9 +101,8 @@ public class MenuWorld extends World
             {
                 clickSound
             };
-            //UNCOMMENT WHEN EFFECTS ADDED
-            //SaveFile.updateVolume(effectList, "effectVolume");
-            //previousEffectVolume = SaveFile.getInt("musicVolume");
+            SaveFile.updateVolume(effectList, "effectVolume");
+            previousEffectVolume = SaveFile.getInt("musicVolume");
         }
         background.playLoop();
         hover();
@@ -126,6 +123,7 @@ public class MenuWorld extends World
             title.setLocation(title.getExactX(), title.getPreciseY() + speed);
             play.setLocation(play.getExactX(), play.getPreciseY() + speed);
             settings.setLocation(settings.getExactX(), settings.getPreciseY() + speed);
+            stat.setLocation(stat.getExactX(), stat.getPreciseY() + speed);
             if (title.getY() >= 170) 
             {
                 movingDown = false; 
@@ -136,6 +134,7 @@ public class MenuWorld extends World
             title.setLocation(title.getExactX(), title.getPreciseY() - speed);
             play.setLocation(play.getExactX(), play.getPreciseY() - speed);
             settings.setLocation(settings.getExactX(), settings.getPreciseY() - speed);
+            stat.setLocation(stat.getExactX(), stat.getPreciseY() - speed);
             if (title.getY() <= 150) 
             {
                 movingDown = true;
