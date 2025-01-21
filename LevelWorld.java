@@ -148,9 +148,9 @@
                     }
                 }
                 
-                setPaintOrder(Transition.class, HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
-                setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
             }
+            setPaintOrder(Transition.class, HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
+            setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
         }
         public void loadParallax()
         {
