@@ -45,23 +45,9 @@ public class Tutorial extends LevelWorld
         previousMusicVolume = SaveFile.getInt("musicVolume");
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");
-    
-        tutorialMusic = new GreenfootSound("goofyAh.mp3");
-        tutorialMusic.setVolume(60);
-        SaveFile.updateVolume(tutorialMusic, "musicVolume");
-    }
-
-    
-    public void stopped(){
-        tutorialMusic.pause();
-    }
-    
-    public void started(){
-        tutorialMusic.playLoop();
     }
     
     public void act(){
-        tutorialMusic.playLoop();
         super.act();
     }
     
