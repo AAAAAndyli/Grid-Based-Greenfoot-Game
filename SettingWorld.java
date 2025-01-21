@@ -28,6 +28,13 @@ public class SettingWorld extends World
         this(world, null);
     }
     
+    public SettingWorld(World world, Class backType, MenuWorld menu){
+        this(world, backType);
+        
+        WorldButton menuButton = new WorldButton("Buttons/menuButton.png", 0.5, menu);
+        addObject(menuButton, 225, 50);
+    }
+    
     /**
      * Constructor for objects of class SettingWorld.
      * 

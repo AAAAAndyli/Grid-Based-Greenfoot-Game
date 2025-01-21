@@ -66,6 +66,21 @@ public class LevelWorld extends ScrollingWorld
             {
                 System.out.println(toGrid()[i][j].getString());
             }
+        protected GreenfootSound[] musicList, effectList;
+        
+        protected int previousMusicVolume, previousEffectVolume;
+        
+        private ScrollingBackground layer1 = new ScrollingBackground(new GreenfootImage("Background/tower0.png"), 0.25, 0);
+        private ScrollingBackground layer2 = new ScrollingBackground(new GreenfootImage("Background/tower1.png"), 0.5, 400);
+        private ScrollingBackground layer3 = new ScrollingBackground(new GreenfootImage("Background/tower2.png"), 0.1, 800);
+        protected WorldButton pause;
+        protected MenuWorld mainMenu;
+        private boolean runOnce = false;
+        
+        public LevelWorld(MenuWorld menu)
+        {
+            this("level1.csv");
+            mainMenu = menu;
         }
         */
         addObject(enterWorld, 540, 360);
@@ -201,6 +216,33 @@ public class LevelWorld extends ScrollingWorld
         {
             addObject(playerDeath, 540, 360);
             if(playerDeath.fadedOnce())
+            super.act();
+            
+            if(!runOnce){
+                pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, mainMenu));
+                addObject(pause, 40, 40);
+                runOnce = true;
+            }
+            if(previousMusicVolume != SaveFile.getInt("musicVolume")){
+                //update the list with each new music
+                musicList = new GreenfootSound[]
+                {
+                    currentMusic
+                };
+                SaveFile.updateVolume(musicList, "musicVolume");
+                previousMusicVolume = SaveFile.getInt("musicVolume");
+            }
+            if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+                //update the list with each new effect
+                effectList = new GreenfootSound[]
+                {
+                    
+                };
+                //UNCOMMENT WHEN EFFECTS ADDED
+                //SaveFile.updateVolume(effectList, "effectVolume");
+                //previousEffectVolume = SaveFile.getInt("musicVolume");
+            }
+            if(enterWorld.fadedOnce())
             {
                 Greenfoot.setWorld(new GameOver());
             }
@@ -342,6 +384,16 @@ public class LevelWorld extends ScrollingWorld
         int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
         int highestX = Integer.MIN_VALUE, highestY = Integer.MIN_VALUE;
         for(Tile tile : tileWorld)
+        
+        public MenuWorld getMainMenu(){
+            return mainMenu;
+        }
+        
+        public void setMainMenu(MenuWorld m){
+            mainMenu = m;
+        }
+        
+        public Player getPlayer()
         {
             if(lowestX > tile.getGlobalX())
             {
