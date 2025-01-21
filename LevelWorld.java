@@ -85,44 +85,72 @@
             //make sure to update sound effects volume as shown above
             previousEffectVolume = SaveFile.getInt("effectVolume");
             
+            Hotkey rapid = new Hotkey("rapidfire", SaveFile.getString("rapid"), "hasRapid", true, 0, player);
+            addObject(rapid, 70, 660);
+            Hotkey bomb = new Hotkey("bomb", SaveFile.getString("bomb"), "hasBomb", false, 1, player);
+            addObject(bomb, 150, 660);
+            Hotkey missile = new Hotkey("missile", SaveFile.getString("missile"), "hasMissile", false, 2, player);
+            addObject(missile, 230, 660);
+            Hotkey spread = new Hotkey("spread", SaveFile.getString("spread"), "hasSpread", false, 3, player);
+            addObject(spread, 310, 660);
+            
             if(levelName.equals("Tutorial/tutorial.csv"))
             {
                 currentMusic = new GreenfootSound("goofyAh.mp3");
                 currentMusic.setVolume(60);
-                SaveFile.updateVolume(currentMusic, "musicVolume");
             }
             else if(levelName.equals("wa.csv"))
             {
                 currentMusic = new GreenfootSound("Firewall.mp3");
                 currentMusic.setVolume(60);
-                SaveFile.updateVolume(currentMusic, "musicVolume");
             }
             else if(levelName.equals("ba.csv"))
             {
                 currentMusic = new GreenfootSound("bugMenace.mp3");
                 currentMusic.setVolume(60);
-                SaveFile.updateVolume(currentMusic, "musicVolume");
             }
             else
             {
-                Random random = new Random();
-                int result = random.nextInt(2);
-                if(result == 0)
+                int bools = random.nextInt(2);
+                if(bools == 1)
                 {
                     currentMusic = new GreenfootSound("goofyAh.mp3");
                     currentMusic.setVolume(60);
                     SaveFile.updateVolume(currentMusic, "musicVolume");
                 }
-                else
+                else if(levelName.equals("wa.csv"))
                 {
-                    currentMusic = new GreenfootSound("hunting.mp3");
+                    currentMusic = new GreenfootSound("Firewall.mp3");
                     currentMusic.setVolume(60);
                     SaveFile.updateVolume(currentMusic, "musicVolume");
                 }
+                else if(levelName.equals("ba.csv"))
+                {
+                    currentMusic = new GreenfootSound("bugMenace.mp3");
+                    currentMusic.setVolume(60);
+                    SaveFile.updateVolume(currentMusic, "musicVolume");
+                }
+                else
+                {
+                    Random random = new Random();
+                    int result = random.nextInt(2);
+                    if(result == 0)
+                    {
+                        currentMusic = new GreenfootSound("goofyAh.mp3");
+                        currentMusic.setVolume(60);
+                        SaveFile.updateVolume(currentMusic, "musicVolume");
+                    }
+                    else
+                    {
+                        currentMusic = new GreenfootSound("hunting.mp3");
+                        currentMusic.setVolume(60);
+                        SaveFile.updateVolume(currentMusic, "musicVolume");
+                    }
+                }
+                
+                setPaintOrder(Transition.class, HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
+                setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
             }
-            
-            setPaintOrder(Transition.class, HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,BossSprites.class, Tile.class, ScrollingBackground.class);
-            setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
         }
         public void loadParallax()
         {
