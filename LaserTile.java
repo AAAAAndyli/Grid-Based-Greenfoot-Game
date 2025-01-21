@@ -46,7 +46,7 @@ public class LaserTile extends Tile
             rotations == 1 ? length:
             rotations == 3 ? -length:
             0, Tile.class));
-            if(otherTile!= null && otherTile.getCollidable() && otherTile != this)
+            if(otherTile!= null && (otherTile.getCollidable() || otherTile.getOneWayCollidable()) && otherTile != this)
             {
                 break;
             }
