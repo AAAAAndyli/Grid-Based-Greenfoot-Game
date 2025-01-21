@@ -39,6 +39,14 @@ public class LevelWorld extends ScrollingWorld
     private ScrollingBackground layer2 = new ScrollingBackground(new GreenfootImage("Background/tower1.png"), 0.5, 400);
     private ScrollingBackground layer3 = new ScrollingBackground(new GreenfootImage("Background/tower2.png"), 0.1, 800);
     protected WorldButton pause;
+    protected MenuWorld mainMenu;
+    private boolean runOnce = false;
+    
+    public LevelWorld(MenuWorld menu)
+    {
+        this("level1.csv");
+        mainMenu = menu;
+    }
     
     public LevelWorld()
     {
@@ -219,7 +227,7 @@ public class LevelWorld extends ScrollingWorld
             super.act();
             
             if(!runOnce){
-                pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, mainMenu));
+                pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, new MenuWorld()));
                 addObject(pause, 40, 40);
                 runOnce = true;
             }
@@ -384,16 +392,6 @@ public class LevelWorld extends ScrollingWorld
         int lowestX = Integer.MAX_VALUE, lowestY = Integer.MAX_VALUE;
         int highestX = Integer.MIN_VALUE, highestY = Integer.MIN_VALUE;
         for(Tile tile : tileWorld)
-        
-        public MenuWorld getMainMenu(){
-            return mainMenu;
-        }
-        
-        public void setMainMenu(MenuWorld m){
-            mainMenu = m;
-        }
-        
-        public Player getPlayer()
         {
             if(lowestX > tile.getGlobalX())
             {
@@ -471,6 +469,15 @@ public class LevelWorld extends ScrollingWorld
             currentMusic.pause();
         }
     }
+    
+    public MenuWorld getMainMenu(){
+            return mainMenu;
+        }
+        
+    public void setMainMenu(MenuWorld m){
+        mainMenu = m;
+    }
+        
     
     public void started()
     {
