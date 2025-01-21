@@ -31,7 +31,7 @@ public abstract class Enemy extends Entity
     protected int totalVelocityOfTarget, averageVelocityOfTarget, time;
     
     protected int animationTimer = 0;
-    protected int bytesOnDeath = 2 + Greenfoot.getRandomNumber(3);
+    protected int bytesOnDeath = 3;
     
     public Enemy()
     {
