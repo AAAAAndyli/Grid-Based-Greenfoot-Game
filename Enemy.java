@@ -140,9 +140,13 @@ public abstract class Enemy extends Entity
     public void aiming(int projectileSpeed)
     {
         Player player = getWorld().getObjects(Player.class).get(0);
+        if(player == null)
+        {
+            return;
+        }
+
         int playerPredictedX, playerPredictedY;
         double distance = Math.sqrt(Math.pow(player.getX() - getX(), 2) + Math.pow(player.getY() - getY(), 2));
-        
         
         if(attackTimer < attackCooldown && distance < 250)
         {

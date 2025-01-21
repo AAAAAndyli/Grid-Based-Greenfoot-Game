@@ -9,9 +9,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class EnemyHurtBox extends HurtBox
 {
     private Enemy origin;
+    private boolean hitstop;
     public EnemyHurtBox(int width, int height, int damage, Enemy origin)
     {
+        this(width, height, damage, origin, true);
+    }
+    public EnemyHurtBox(int width, int height, int damage, Enemy origin, boolean hitStop)
+    {
         super(width, height, damage);
+        this.hitstop = hitstop;
         this.origin = origin;
     }
     public boolean collide()
@@ -28,7 +34,10 @@ public class EnemyHurtBox extends HurtBox
             else if(player.getState().equals("parrying") && player.getParryTimer() < 20)
             {
                 parried();
-                Greenfoot.delay(5);
+                if(hitstop)
+                {
+                    Greenfoot.delay(5);
+                }
                 getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
                 getWorld().removeObject(this);
                 return false;

@@ -1,12 +1,16 @@
 #BlueJ class context
 comment0.target=EProjectile
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ EProjectile\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=world
-comment1.target=void\ addedToWorld(greenfoot.World)
-comment2.params=
-comment2.target=void\ act()
-comment3.params=
-comment3.target=void\ collide()
-comment4.params=mouseX\ mouseY
-comment4.target=void\ parried(int,\ int)
-numComments=5
+comment0.text=\n\ Write\ a\ description\ of\ class\ EProjectile\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=target\ speed\ damage\ spawner\ sprite
+comment1.target=EProjectile(Coordinate,\ double,\ int,\ ScrollingActor,\ java.lang.String)
+comment2.params=target\ speed\ damage\ sprite
+comment2.target=EProjectile(Coordinate,\ double,\ int,\ java.lang.String)
+comment3.params=world
+comment3.target=void\ addedToWorld(greenfoot.World)
+comment4.params=
+comment4.target=void\ act()
+comment5.params=
+comment5.target=void\ collide()
+comment6.params=mouseX\ mouseY
+comment6.target=void\ parried(int,\ int)
+numComments=7

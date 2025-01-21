@@ -1,10 +1,12 @@
 #BlueJ class context
 comment0.target=EnemyHurtBox
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ EnemyHurtBox\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ EnemyHurtBox\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=width\ height\ damage\ origin
 comment1.target=EnemyHurtBox(int,\ int,\ int,\ Enemy)
-comment2.params=
-comment2.target=boolean\ collide()
+comment2.params=width\ height\ damage\ origin\ hitStop
+comment2.target=EnemyHurtBox(int,\ int,\ int,\ Enemy,\ boolean)
 comment3.params=
-comment3.target=void\ parried()
-numComments=4
+comment3.target=boolean\ collide()
+comment4.params=
+comment4.target=void\ parried()
+numComments=5

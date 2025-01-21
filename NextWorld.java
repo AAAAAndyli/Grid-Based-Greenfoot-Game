@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class NextWorld extends CollisionTrigger
 {   
-    private Transition transition = new Transition(false);
+    private Transition transition = new Transition(true);
     public NextWorld(String type, int rotations, int xPosition, int yPosition, int triggerNumber)
     {
         this(type, rotations, false, null, xPosition, yPosition, triggerNumber);
@@ -37,16 +37,16 @@ public class NextWorld extends CollisionTrigger
         {
             trigger.activateTrigger();
             getWorld().addObject(transition, 540, 360);
-            if(transition.fadedOnce())
+        }
+        if(transition.fadedOnce())
+        {
+            if(WorldOrder.isArSYS())
             {
-                if(WorldOrder.isArSYS())
-                {
-                    Greenfoot.setWorld(new ArsysWorld(WorldOrder.nextWorld()));
-                }
-                else
-                {
-                    Greenfoot.setWorld(new Shop(new LevelWorld(WorldOrder.nextWorld())));
-                }
+                Greenfoot.setWorld(new ArsysWorld(WorldOrder.nextWorld()));
+            }
+            else
+            {
+                Greenfoot.setWorld(new Shop(new LevelWorld(WorldOrder.nextWorld())));
             }
         }
     }
