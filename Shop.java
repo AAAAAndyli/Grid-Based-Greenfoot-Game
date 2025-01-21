@@ -21,7 +21,7 @@ public class Shop extends World
     private int health;
     private int maxHealth;
     private int imageIndex = 0;
-    private int maxHealthUpgrade = 5;
+    private int maxHealthUpgrade = 2;
     private double speed = 0.4;
     
     //Handles Animation
@@ -67,8 +67,7 @@ public class Shop extends World
     private Button image5Desc;
     private Button image6Desc;
     
-    private Label moneyLabel;
-    private Label moneyInt;
+    private Wallet wallet;
     
     GreenfootSound shopMusic;
     
@@ -97,13 +96,8 @@ public class Shop extends World
         }
         setBackground(shopAnimation[0]);
         
-        moneyLabel = new Label("Byte:",30);
-        moneyLabel.setLineColor(Color.WHITE);
-        addObject(moneyLabel, 300, 50);
-        
-        moneyInt = new Label(money,30);
-        moneyInt.setLineColor(Color.WHITE);
-        addObject(moneyInt, 400, 50);
+        wallet = new Wallet();
+        addObject(wallet, 120, 620);
         
         addObject(item1, 250, 300);
         addObject(image1, 250, 150);
@@ -142,10 +136,6 @@ public class Shop extends World
         animate();
         checkMouseHover();
         hover();
-        if(money != SaveFile.getInt("money")){
-            money = SaveFile.getInt("money");
-            moneyInt.setValue(money);
-        }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
             musicList = new GreenfootSound[]
@@ -208,7 +198,7 @@ public class Shop extends World
             price = 100;
             if(money >= price)
             {
-                money -= price;
+                wallet.changeAmount(-price);
                 purchased = true;
                 
                 SaveFile.setInfo("damage", SaveFile.getInt("damage") + 1);
@@ -227,7 +217,7 @@ public class Shop extends World
             price = 50;
             if(money >= price)
             {
-                money -= price;
+                wallet.changeAmount(-price);
                 health = maxHealth;
                 removeObject(item2);
                 addObject(new Button("shopIcons/bought.png",.7, true),250,600);
@@ -245,10 +235,10 @@ public class Shop extends World
         {
             if(maxHealthUpgrade > 0)
             {
-                price = 20;
+                price = 50;
                 if(money >= price)
                 {
-                    money -= price;
+                    wallet.changeAmount(-price);
                     maxHealthUpgrade--;
                     maxHealth += 3;
                     health += 3;
@@ -274,7 +264,7 @@ public class Shop extends World
             price = 150;
             if(money >= price)
             {
-                money -= price;
+                wallet.changeAmount(-price);
                 purchased = true;
                 SaveFile.setInfo("hasMissile", 1);
             }
@@ -290,7 +280,7 @@ public class Shop extends World
             price = 50;
             if(money >= price)
             {
-                money -= price;
+                wallet.changeAmount(-price);
                 purchased = true;
                 SaveFile.setInfo("hasSpread", 1);
             }
@@ -306,7 +296,7 @@ public class Shop extends World
             price = 150;
             if(money >= price)
             {
-                money -= price;
+                wallet.changeAmount(-price);
                 purchased = true;
                 SaveFile.setInfo("hasBomb", 1);
             }
@@ -321,8 +311,6 @@ public class Shop extends World
         
         if(purchased){
             purchased = false;
-            moneyInt.setValue(money);
-            SaveFile.setInfo("money", money);
         }
     }
     
