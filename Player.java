@@ -136,6 +136,7 @@ public class Player extends Entity
         
         
         gun.setVolume(65);
+        shotgun.setVolume(75);
     }
     
     public void addedToWorld(World world)
