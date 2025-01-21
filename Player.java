@@ -114,7 +114,7 @@ public class Player extends Entity
         rapid = new RangedWeapon(10, 0, this, SaveFile.getInt("damage"));
         bomb = new RangedWeapon(60, 1, this, SaveFile.getInt("damage"));
         missile = new RangedWeapon(60, 2, this, SaveFile.getInt("damage"));
-        spread = new RangedWeapon(45, 3, this, SaveFile.getInt("damage"));
+        spread = new RangedWeapon(30, 3, this, SaveFile.getInt("damage"));
         
         weaponList[0] = rapid;
         
@@ -322,7 +322,7 @@ public class Player extends Entity
             if(Greenfoot.mouseClicked(null)){
                 isAiming = false;
                 currentWeapon.shoot();
-                gun.play();
+                explosion.play();
             }
             if(shooting){
                 isAiming = false;
@@ -337,14 +337,22 @@ public class Player extends Entity
                 actCounter1 = 0;
             }
         }
-        if(currentWeapon == spread && shooting){
-            isAiming = false;
-            currentWeapon.shoot();
-            if(actCounter3 < 15){
+        if(currentWeapon == spread){
+            if(Greenfoot.mouseClicked(null)){
+                isAiming = false;
+                currentWeapon.shoot();
+                shotgun.play();
+            }
+            if(shooting){
+                isAiming = false;
+                currentWeapon.shoot();
+                shotgun.play();
+            }
+            if(actCounter3 < 45){
                 actCounter3++;
             }
-            if(actCounter3 == 15){
-                explosion.play();
+            if(actCounter3 == 45){
+                
                 actCounter3 = 0;
             }
         }
