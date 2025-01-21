@@ -14,7 +14,7 @@ health,30
 maxHealth,30
 musicVolume,70
 effectVolume,22
-deaths,0
+deaths,5
 level,0
 damage,5
 hasRapid,1
