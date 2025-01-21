@@ -9,12 +9,12 @@ bomb,2
 missile,3
 spread,4
 money,1000
-totalMoney,657
+totalMoney,500
 health,15
 maxHealth,15
 musicVolume,70
 effectVolume,22
-deaths,0
+deaths,5
 level,0
 damage,1
 hasRapid,1

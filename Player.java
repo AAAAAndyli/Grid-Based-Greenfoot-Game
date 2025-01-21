@@ -85,8 +85,11 @@ public class Player extends Entity
     
     //Sound
     private GreenfootSound gun = new GreenfootSound("sounds/Laser.wav");
+    
+    private int actCounter = 10;
     private GreenfootSound explosion = new GreenfootSound("sounds/Explosion.wav");
-
+    private int actCounter1 = 60;
+    
     public Player()
     {
         this(0,0, 0, 0);
@@ -127,6 +130,10 @@ public class Player extends Entity
         {
             weaponList[3] = spread;
         }
+        
+        
+        
+        gun.setVolume(65);
     }
     
     public void addedToWorld(World world)
@@ -186,7 +193,6 @@ public class Player extends Entity
         {
             weaponIndex = 0;
             currentWeapon = weaponList[weaponIndex];
-            gun = new GreenfootSound("sounds/Laser.wav");
         }
         else if(Greenfoot.isKeyDown("2") && weaponList[1] != null)
         {
@@ -292,11 +298,32 @@ public class Player extends Entity
         }
         if(currentWeapon == rapid && shooting)
         {
+            
             isAiming = false;
             currentWeapon.shoot();
             //Just play the sound
-            gun.play();
+            if(actCounter < 10){
+                actCounter++;
+            }
+            if(actCounter == 10){
+                gun.play();
+                actCounter = 0;
+            }
+            
         }
+        if(currentWeapon == bomb && shooting){
+            
+            isAiming = false;
+            currentWeapon.shoot();
+            if(actCounter1 < 60){
+                actCounter1++;
+            }
+            if(actCounter1 == 60){
+                explosion.play();
+                actCounter1 = 0;
+            }
+        }
+        
     }
     
     public void movement()
