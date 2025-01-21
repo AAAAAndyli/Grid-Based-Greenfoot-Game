@@ -93,7 +93,6 @@ BackgroundFullTile3,0,450,550
 BackgroundFullTile3,1,500,550
 BackgroundFullTile3,0,550,550
 Firewall,0,550,550,2,-1,red
-Firewall,0,550,550,2,-1,red
 FullTile,0,600,550
 BackgroundFullTile4,2,650,550
 FullTile,0,700,550
@@ -160,7 +159,6 @@ BackgroundFullTile3,3,400,650
 BackgroundFullTile3,3,450,650
 BackgroundFullTile3,0,500,650
 BackgroundFullTile3,0,550,650
-Firewall,0,550,650,2,-1,red
 Firewall,0,550,650,2,-1,red
 BackgroundFullTile4,3,600,650
 BackgroundFullTile6,2,650,650
@@ -246,9 +244,7 @@ BackgroundFullTile3,0,1150,750
 BackgroundFullTile3,0,1200,750
 BackgroundFullTile3,0,1250,750
 BackgroundFullTile3,0,1300,750
-OneWayTile,1,1350,750
 BackgroundFullTile3,0,1350,750
-OneWayTile,1,1350,750
 BackgroundFullTile3,0,1400,750
 BackgroundFullTile3,0,1450,750
 BackgroundFullTile4,2,1500,750
@@ -284,7 +280,6 @@ BackgroundFullTile3,0,1200,800
 BackgroundFullTile3,0,1250,800
 BackgroundFullTile3,0,1300,800
 BackgroundFullTile3,0,1350,800
-OneWayTile,1,1350,800
 BackgroundFullTile3,0,1400,800
 Key,0,1400,800,2,-1,red
 BackgroundFullTile3,0,1450,800
@@ -326,7 +321,6 @@ BackgroundFullTile3,0,1200,850
 BackgroundFullTile3,0,1250,850
 BackgroundFullTile3,0,1300,850
 BackgroundFullTile3,0,1350,850
-OneWayTile,1,1350,850
 OneWayTile,1,1350,850
 BackgroundFullTile3,0,1400,850
 BackgroundFullTile3,0,1450,850
@@ -509,11 +503,9 @@ BackgroundFullTile3,0,650,1150
 BackgroundFullTile3,0,700,1150
 BackgroundFullTile3,0,750,1150
 EnemySpawner,0,750,1150,0,0
-EnemySpawner,0,750,1150,0,0
 BackgroundFullTile3,0,800,1150
 BackgroundFullTile3,2,850,1150
 BackgroundFullTile3,1,900,1150
-OneWayTile,0,900,1150
 OneWayTile,0,900,1150
 BackgroundFullTile3,1,950,1150
 OneWayTile,0,950,1150

@@ -22,7 +22,7 @@ public class TutorialAvatar extends SuperSmoothMover {
         "Use E to parry, changeable in Settings. \n Right arrow to continue",
         "Defeat monsters to collect cash for \n upgrades. Right arrow to continue",
         "To switch weapons, press 1/2/3/4. Right \n arrow to continue",
-        "Hotkey 1 is a rocket projectile, 2 is \n a shotgun, 3 is automatic",
+        "Hotkey 1 is an automatic, 2 is \n a projectile, 3 is a rocket launcher \n and 4 is a shotgun",
         "Reach as far as possible while not \n dying. Right arrow to continue",
         "You can trigger the monster spawns to \n practice. Right arrow to continue",
         "Press the right arrow key to start the \n levels and meet your fate..."
@@ -64,7 +64,8 @@ public class TutorialAvatar extends SuperSmoothMover {
             Greenfoot.delay(10); 
         }else if(Greenfoot.isKeyDown("right") && currentMessage >= tutorialMessages.length - 1){
             getWorld().stopped();
-            Greenfoot.setWorld(new LevelWorld());
+            getWorld().removeObject(label);
+            getWorld().removeObject(this);
         }
                 
             
