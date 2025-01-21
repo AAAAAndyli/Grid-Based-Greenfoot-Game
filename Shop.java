@@ -15,8 +15,7 @@ public class Shop extends World
 {
     //source - https://www.greenfoot.org/topics/821
     private GreenfootImage[] shopAnimation = new GreenfootImage[35];
-    
-    private int money;
+
     private int price;
     private int health;
     private int maxHealth;
@@ -87,7 +86,6 @@ public class Shop extends World
         shopMusic.setVolume(40);
         SaveFile.updateVolume(shopMusic, "musicVolume");
         
-        money = SaveFile.getInt("money");
         health = SaveFile.getInt("health");
         maxHealth = SaveFile.getInt("maxHealth");
         
@@ -196,7 +194,7 @@ public class Shop extends World
         if(clickedOne)
         {
             price = 100;
-            if(money >= price)
+            if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
                 purchased = true;
@@ -215,7 +213,7 @@ public class Shop extends World
         else if(clickedTwo)
         {
             price = 50;
-            if(money >= price)
+            if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
                 health = maxHealth;
@@ -236,7 +234,7 @@ public class Shop extends World
             if(maxHealthUpgrade > 0)
             {
                 price = 50;
-                if(money >= price)
+                if(wallet.getAmount() >= price)
                 {
                     wallet.changeAmount(-price);
                     maxHealthUpgrade--;
@@ -262,7 +260,7 @@ public class Shop extends World
         else if(clickedFour)
         {
             price = 150;
-            if(money >= price)
+            if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
                 purchased = true;
@@ -278,7 +276,7 @@ public class Shop extends World
         else if(clickedFive)
         {
             price = 50;
-            if(money >= price)
+            if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
                 purchased = true;
@@ -294,7 +292,7 @@ public class Shop extends World
         else if(clickedSix)
         {
             price = 150;
-            if(money >= price)
+            if(wallet.getAmount() >= price)
             {
                 wallet.changeAmount(-price);
                 purchased = true;
