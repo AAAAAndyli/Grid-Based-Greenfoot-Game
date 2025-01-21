@@ -202,6 +202,10 @@ public class Player extends Entity
         {
             canBeHurt = true;
         }
+        
+        health = SaveFile.getInt("health");
+        maxHealth = SaveFile.getInt("maxHealth");
+        
         state = "idle";
         movement();
         shoot();
@@ -718,10 +722,10 @@ public class Player extends Entity
     
     public void heal(int regen)
     {
-        health += regen;
-        if(health > maxHealth)
+        SaveFile.setInfo("health", SaveFile.getInt("health") + regen);
+        if(SaveFile.getInt("health") > maxHealth)
         {
-            health = maxHealth;
+            SaveFile.setInfo("health", maxHealth);
         }
         isHeal = true;
     }
@@ -738,6 +742,7 @@ public class Player extends Entity
         {
             super.hurt(damage);
             SaveFile.setInfo("health", SaveFile.getInt("health") - damage);
+            health = SaveFile.getInt("health");
             getWorld().getObjects(Camera.class).get(0).screenShake(3, 5);
             canBeHurt = false;
             invincibilityFrames = 0;
@@ -769,6 +774,8 @@ public class Player extends Entity
     }
     public int getHealthBarHP()
     {
+        maxHealth = SaveFile.getInt("maxHealth");
+        health = SaveFile.getInt("health");
         return (int)Math.ceil(maxHealth/3);
     }
     public boolean getSlamming()
