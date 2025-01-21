@@ -53,30 +53,30 @@ public class SettingWorld extends World
         int scrollRightEdge = scroll.getX() + (350 / 2);
         
         BindButton dashButton = new BindButton("Buttons/keyButton.png", 0.5, "Dash Keybind", "dash");
-        addObject(dashButton, scrollRightEdge - 20, 510);
+        addObject(dashButton, scrollRightEdge - 20, 310);
         
         BindButton parryButton = new BindButton("Buttons/keyButton.png", 0.5, "Parry Keybind", "parry");
-        addObject(parryButton, scrollRightEdge - 20, 610);
+        addObject(parryButton, scrollRightEdge - 20, 410);
         
         //movement WASD binds (basic movement)
         BindButton jumpButton = new BindButton("Buttons/keyButton.png", 0.5, "Jump Keybind", "jump");
-        addObject(jumpButton, scrollRightEdge - 20, 110);
+        addObject(jumpButton, scrollRightEdge - 20, -90);
         BindButton downButton = new BindButton("Buttons/keyButton.png", 0.5, "Down Keybind", "down");
-        addObject(downButton, scrollRightEdge - 20, 210);
+        addObject(downButton, scrollRightEdge - 20, 10);
         BindButton leftButton = new BindButton("Buttons/keyButton.png", 0.5, "Left Keybind", "left");
-        addObject(leftButton, scrollRightEdge - 20, 310);
+        addObject(leftButton, scrollRightEdge - 20, 110);
         BindButton rightButton = new BindButton("Buttons/keyButton.png", 0.5, "Right Keybind", "right");
-        addObject(rightButton, scrollRightEdge - 20, 410);
+        addObject(rightButton, scrollRightEdge - 20, 210);
         
         //hotkey binds (weapons)
-        BindButton rapidButton = new BindButton("Buttons/keyButton.png", 0.5, "Rapidfire Weapon", "rapid");
-        addObject(rapidButton, scrollRightEdge - 20, 710);
-        BindButton bombButton = new BindButton("Buttons/keyButton.png", 0.5, "Bomb Weapon", "bomb");
-        addObject(bombButton, scrollRightEdge - 20, 810);
-        BindButton missileButton = new BindButton("Buttons/keyButton.png", 0.5, "Missile Weapon", "missile");
-        addObject(missileButton, scrollRightEdge - 20, 910);
-        BindButton spreadButton = new BindButton("Buttons/keyButton.png", 0.5, "Spreadshot Weapon", "spread");
-        addObject(spreadButton, scrollRightEdge - 20, 1010);
+        BindButton rapidButton = new BindButton("Buttons/keyButton.png", 0.5, "Rapidfire Bind", "rapid");
+        addObject(rapidButton, scrollRightEdge - 20, 510);
+        BindButton bombButton = new BindButton("Buttons/keyButton.png", 0.5, "Bomb Bind", "bomb");
+        addObject(bombButton, scrollRightEdge - 20, 610);
+        BindButton missileButton = new BindButton("Buttons/keyButton.png", 0.5, "Missile Bind", "missile");
+        addObject(missileButton, scrollRightEdge - 20, 710);
+        BindButton spreadButton = new BindButton("Buttons/keyButton.png", 0.5, "Spreadshot Bind", "spread");
+        addObject(spreadButton, scrollRightEdge - 20, 810);
         
         ResetButton resetButton = new ResetButton("Buttons/resetButton.png", 0.55);
         addObject(resetButton, 150, 650);
@@ -94,10 +94,10 @@ public class SettingWorld extends World
         addObject(funImage,300,350);
         
         Slider musicVolume = new Slider(1000, SaveFile.getInt("musicVolume") * 10, null, 350, 20, 350, "musicVolume", "Music Volume");
-        addObject(musicVolume, scroll.getX() + 40, 1110);
+        addObject(musicVolume, scroll.getX() + 40, 910);
         
         Slider effectVolume = new Slider(1000, SaveFile.getInt("effectVolume") * 10, null, 350, 20, 350, "effectVolume", "SFX Volume");
-        addObject(effectVolume, scroll.getX() + 40, 1210);
+        addObject(effectVolume, scroll.getX() + 40, 1010);
         
         //create binary strings as decoration
         for(int i = 0; i < 14; i++){   
