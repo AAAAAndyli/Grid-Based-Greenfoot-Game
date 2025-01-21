@@ -18,7 +18,7 @@ public class HealthBar extends Actor
     {
         this.player = player;
         healthBlobCount = player.getHealthBarHP();
-        health = player.getHP();
+        health = SaveFile.getInt("health");
         setImage("HealthBar/h0.png");
     }
     public void addedToWorld(World world)
@@ -36,7 +36,7 @@ public class HealthBar extends Actor
      */
     public void act()
     {
-        health = player.getHP();
+        health = SaveFile.getInt("health");
         for (int i = 0; i < healthPods.size(); i++) 
         {
             int podHealth = Math.min(3, health - (i * 3));

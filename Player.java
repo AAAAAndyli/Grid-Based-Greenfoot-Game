@@ -729,6 +729,7 @@ public class Player extends Entity
         if(invincibilityFrames > 30)
         {
             super.hurt(damage);
+            SaveFile.setInfo("health", SaveFile.getInt("health") - damage);
             getWorld().getObjects(Camera.class).get(0).screenShake(3, 5);
             canBeHurt = false;
             invincibilityFrames = 0;
@@ -760,7 +761,7 @@ public class Player extends Entity
     }
     public int getHealthBarHP()
     {
-        return (int)Math.ceil(health/3);
+        return (int)Math.ceil(SaveFile.getInt("health")/3);
     }
     public boolean getSlamming()
     {
