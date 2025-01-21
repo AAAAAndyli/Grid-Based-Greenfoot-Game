@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 // for Files
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Random;
 /**
  * Write a description of class LevelWorld here.
  * 
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
  */
 public class LevelWorld extends ScrollingWorld
 {
+    Random random = new Random();
     protected String levelName;
     ArrayList<String> world = new ArrayList<String>();
     ArrayList<Tile> tileWorld = new ArrayList<Tile>();
@@ -100,8 +102,17 @@ public class LevelWorld extends ScrollingWorld
         }
         else
         {
-            currentMusic = new GreenfootSound("hunting.mp3");
-            currentMusic.setVolume(60);
+            int bools = random.nextInt(2);
+            if(bools == 1)
+            {
+                currentMusic = new GreenfootSound("goofyAh.mp3");
+                currentMusic.setVolume(60);
+            }
+            else
+            {
+                currentMusic = new GreenfootSound("hunting.mp3");
+                currentMusic.setVolume(60);
+            }
         }
         SaveFile.updateVolume(currentMusic, "musicVolume");
         

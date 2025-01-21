@@ -21,6 +21,7 @@ public class MenuWorld extends World
     private int previousMusicVolume, previousEffectVolume;
     
     private Button title;
+    private Button resetData;
     private WorldButton play;
     private WorldButton settings;
     
@@ -41,9 +42,11 @@ public class MenuWorld extends World
         title = new Button("title.png",.9,true);
         addObject(title,getWidth()/3, 150);
         
+        resetData = new Button("Buttons/resetData.png",1);
+        addObject(resetData, 150, 600);
+        
         //load save file for data
         SaveFile.loadFile();
-        resetStats();
         
         //update bgm volume
         previousMusicVolume = SaveFile.getInt("musicVolume");
@@ -74,6 +77,17 @@ public class MenuWorld extends World
     }
     
     public void act(){
+        if(resetData.checkButton())
+        {
+            SaveFile.setInfo("money", 1000); // 0
+            SaveFile.setInfo("health", 15);
+            SaveFile.setInfo("maxHealth", 15);
+            SaveFile.setInfo("level", 0);
+            SaveFile.setInfo("damage", 1); // 0
+            SaveFile.setInfo("hasBomb", 1); // 0
+            SaveFile.setInfo("hasMissile", 1); // 0
+            SaveFile.setInfo("hasSpread", 1); // 0
+        }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
             musicList = new GreenfootSound[]
@@ -127,17 +141,5 @@ public class MenuWorld extends World
                 movingDown = true;
             }
         }
-    }
-    
-    public void resetStats()
-    {
-        SaveFile.setInfo("money", 1000); // 0
-        SaveFile.setInfo("health", 15);
-        SaveFile.setInfo("maxHealth", 15);
-        SaveFile.setInfo("level", 0);
-        SaveFile.setInfo("damage", 1); // 0
-        SaveFile.setInfo("hasBomb", 1); // 0
-        SaveFile.setInfo("hasMissile", 1); // 0
-        SaveFile.setInfo("hasSpread", 1); // 0
     }
 }
