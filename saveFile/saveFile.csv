@@ -4,7 +4,11 @@ left,a
 right,d
 dash,shift
 parry,e
-money,1000
+rapid,1
+bomb,2
+missile,3
+spread,4
+money,650
 health,15
 maxHealth,15
 musicVolume,55
@@ -12,6 +16,7 @@ effectVolume,81
 deaths,2
 level,0
 damage,1
+hasRapid,1
 hasBomb,1
 hasMissile,1
 hasSpread,1

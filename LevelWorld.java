@@ -83,6 +83,15 @@ public class LevelWorld extends ScrollingWorld
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");
         
+        Hotkey rapid = new Hotkey("rapidfire", SaveFile.getString("rapid"), "hasRapid", true, 0, player);
+        addObject(rapid, 70, 660);
+        Hotkey bomb = new Hotkey("bomb", SaveFile.getString("bomb"), "hasBomb", false, 1, player);
+        addObject(bomb, 150, 660);
+        Hotkey missile = new Hotkey("missile", SaveFile.getString("missile"), "hasMissile", false, 2, player);
+        addObject(missile, 230, 660);
+        Hotkey spread = new Hotkey("spread", SaveFile.getString("spread"), "hasSpread", false, 3, player);
+        addObject(spread, 310, 660);
+        
         if(levelName.equals("Tutorial/tutorial.csv"))
         {
             currentMusic = new GreenfootSound("goofyAh.mp3");

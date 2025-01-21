@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Shop
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Shop\ here.\r\n\ \r\n\ @author\ (Justin\ Ye)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n\ Credits\ for\ a\ few\ shopIcons\:\r\n\ -https\://www.vecteezy.com/vector-art/5450129-shotgun-pixel-art\ -\ Spreadshot\r\n\ -https\://www.vecteezy.com/free-vector/pixel-bomb\ -\ Bombshot\r\n\ -https\://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style\ -\ Rocketshot\r\n\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Shop\ here.\r\n\ \r\n\ @author\ (Justin\ Ye)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n\ Credits\ for\ a\ few\ shopIcons\:\r\n\ -https\://www.vecteezy.com/vector-art/5450129-shotgun-pixel-art\ -\ Spreadshot\r\n\ -https\://www.vecteezy.com/free-vector/pixel-bomb\ -\ Bombshot\r\n\ -https\://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style\ -\ Rocketshot\r\n\ -https\://www.reddit.com/r/PixelArt/comments/t0klk1/i_made_a_machine_gun_i_like_my_machine_gun_do_you/?rdt\=62969\ -\ (default)Rapidfire\r\n\r\n
 comment1.params=world
 comment1.target=Shop(greenfoot.World)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Shop.\r\n\ \r\n
