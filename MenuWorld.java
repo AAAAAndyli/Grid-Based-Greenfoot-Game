@@ -41,7 +41,7 @@ public class MenuWorld extends World
         addObject(title,getWidth()/3, 150);
         
         resetData = new Button("Buttons/resetData.png",0.8);
-        addObject(resetData, 150, 650);
+        addObject(resetData, 150, 620);
         
         //load save file for data
         SaveFile.loadFile();
@@ -117,6 +117,7 @@ public class MenuWorld extends World
             play.setLocation(play.getExactX(), play.getPreciseY() + speed);
             settings.setLocation(settings.getExactX(), settings.getPreciseY() + speed);
             stat.setLocation(stat.getExactX(), stat.getPreciseY() + speed);
+            resetData.setLocation(resetData.getExactX(), resetData.getPreciseY() + speed);
             if (title.getY() >= 170) 
             {
                 movingDown = false; 
@@ -128,6 +129,7 @@ public class MenuWorld extends World
             play.setLocation(play.getExactX(), play.getPreciseY() - speed);
             settings.setLocation(settings.getExactX(), settings.getPreciseY() - speed);
             stat.setLocation(stat.getExactX(), stat.getPreciseY() - speed);
+            resetData.setLocation(resetData.getExactX(), resetData.getPreciseY() - speed);
             if (title.getY() <= 150) 
             {
                 movingDown = true;

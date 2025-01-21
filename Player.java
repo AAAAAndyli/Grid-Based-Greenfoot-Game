@@ -84,7 +84,7 @@ public class Player extends Entity
     protected String dash;
     
     //Sound
-    private GreenfootSound gun = new GreenfootSound("sounds/Laser.wav");
+    private GreenfootSound gunSound = new GreenfootSound("sounds/Laser.wav");
     private int actCounter = 10;
     private GreenfootSound explosion = new GreenfootSound("sounds/Explosion.wav");
     private int actCounter1 = 60;
@@ -92,6 +92,7 @@ public class Player extends Entity
     private GreenfootSound parrySound = new GreenfootSound("sounds/parrySound.mp3");
     private int previousEffectVolume = SaveFile.getInt("musicVolume");
     
+    private GreenfootSound dashSound = new GreenfootSound("sounds/dashSound.wav");
     private GreenfootSound shotgun = new GreenfootSound("sounds/Shotgun.wav");
     private int actCounter3 = 30;
     
@@ -110,6 +111,15 @@ public class Player extends Entity
         
         parrySound.setVolume(60);
         SaveFile.updateVolume(parrySound, "effectVolume");
+        
+        dashSound.setVolume(80);
+        SaveFile.updateVolume(dashSound, "effectVolume");
+
+        gunSound.setVolume(65);
+        SaveFile.updateVolume(gunSound, "effectVolume");
+        
+        shotgun.setVolume(70);
+        SaveFile.updateVolume(shotgun, "effectVolume");
         
         if(SaveFile.getString("jump") == null){
             SaveFile.loadFile("saveFile/defaultSaveFile.csv");
@@ -142,8 +152,6 @@ public class Player extends Entity
         
         
         
-        gun.setVolume(65);
-        shotgun.setVolume(75);
     }
     
     public void addedToWorld(World world)
@@ -233,7 +241,6 @@ public class Player extends Entity
     
     public void die()
     {
-        
         super.die();
     }
     
@@ -241,6 +248,7 @@ public class Player extends Entity
     {
         if(Greenfoot.isKeyDown(dash) && dashTimer > 0 && dashTimer <= 10)
         {
+            dashSound.play();
             state = "dashing";
             isDashing = true;
             touchingFloor = true;
@@ -316,12 +324,12 @@ public class Player extends Entity
             if(Greenfoot.mouseClicked(null)){
                 isAiming = false;
                 currentWeapon.shoot();
-                gun.play();
+                gunSound.play();
             }
             if(shooting){
                 isAiming = false;
                 currentWeapon.shoot();
-                gun.play();
+                gunSound.play();
             }
             if(actCounter < 10){
                 actCounter++;

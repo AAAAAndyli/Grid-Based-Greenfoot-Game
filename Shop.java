@@ -204,7 +204,6 @@ public class Shop extends World
             removeObject(item6);
             addObject(new Button("shopIcons/bought.png",.7, true),950,600);
         }
-        // If clicked first button it takes money in exchange to increase Shield level, which increases the amount of times you can parry
         if(clickedOne)
         {
             
@@ -334,8 +333,6 @@ public class Shop extends World
                 noByte.fadeOut();
             }
         }
-        
-        
         if(purchased){
             purchased = false;
         }
