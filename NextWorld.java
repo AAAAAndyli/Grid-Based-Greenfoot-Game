@@ -33,19 +33,22 @@ public class NextWorld extends CollisionTrigger
     }
     public void activateTrigger()
     {
-        if(isTouching(Player.class) && Greenfoot.isKeyDown("space"))
-        {
+        if (isTouching(Player.class) && Greenfoot.isKeyDown("space")) {
             trigger.activateTrigger();
             getWorld().addObject(transition, 540, 360);
         }
-        if(transition.fadedOnce())
-        {
-            if(WorldOrder.isArSYS())
-            {
-                Greenfoot.setWorld(new ArsysWorld(WorldOrder.nextWorld()));
+        if (transition.fadedOnce()) {
+            // Stop the music before transitioning
+            if (getWorld() instanceof ArSYSStartingWorld) {
+                ((ArSYSStartingWorld) getWorld()).background.stop(); // Stop ArSYSStartingWorld music
+            } else if (getWorld() instanceof Tutorial) {
+                ((Tutorial) getWorld()).currentMusic.stop(); // Stop Tutorial music
             }
-            else
-            {
+            
+            // Transition to the next world
+            if (WorldOrder.isArSYS()) {
+                Greenfoot.setWorld(new ArsysWorld(WorldOrder.nextWorld()));
+            } else {
                 Greenfoot.setWorld(new Shop(new LevelWorld(WorldOrder.nextWorld())));
             }
         }
