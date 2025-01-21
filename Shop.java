@@ -99,7 +99,7 @@ public class Shop extends World
         }
         setBackground(shopAnimation[0]);
         
-        moneyLabel = new Label("Money:",30);
+        moneyLabel = new Label("Byte:",30);
         moneyLabel.setLineColor(Color.WHITE);
         addObject(moneyLabel, 300, 50);
         
