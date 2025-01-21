@@ -23,7 +23,8 @@ public class Hotkey extends Actor
         player = reference;
         
         if(unlockedYet){
-            icon = new GreenfootImage("images/HotkeyIcons/" + imagePath + ".png");
+            icon = new GreenfootImage("images/HotkeyIcons/" + imagePath + "Equipped.png");
+            unlockedOnce = true;
         }
         else{
             System.out.println(type);
