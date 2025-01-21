@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Shop
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Shop\ here.\r\n\ \r\n\ @author\ (Justin\ Ye)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n\ Credits\ for\ a\ few\ shopIcons\:\r\n\ -https\://www.vecteezy.com/vector-art/5450129-shotgun-pixel-art\ -\ Spreadshot\r\n\ -https\://www.vecteezy.com/free-vector/pixel-bomb\ -\ Bombshot\r\n\ -https\://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style\ -\ Rocketshot\r\n\ -https\://www.reddit.com/r/PixelArt/comments/t0klk1/i_made_a_machine_gun_i_like_my_machine_gun_do_you/?rdt\=62969\ -\ (default)Rapidfire\r\n\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ Shop\ here.\n\ \n\ @author\ (Justin\ Ye)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n\ Credits\ for\ a\ few\ shopIcons\:\n\ -https\://www.vecteezy.com/vector-art/5450129-shotgun-pixel-art\ -\ Spreadshot\n\ -https\://www.vecteezy.com/free-vector/pixel-bomb\ -\ Bombshot\n\ -https\://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style\ -\ Rocketshot\n\ -https\://www.reddit.com/r/PixelArt/comments/t0klk1/i_made_a_machine_gun_i_like_my_machine_gun_do_you/?rdt\=62969\ -\ (default)Rapidfire\n\n
 comment1.params=world
 comment1.target=Shop(greenfoot.World)
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Shop.\r\n\ \r\n
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Shop.\n\ \n
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
@@ -12,14 +12,14 @@ comment4.params=
 comment4.target=void\ started()
 comment5.params=
 comment5.target=void\ purchase()
-comment5.text=\r\n\ Handles\ all\ UI\ related\ interactions\ around\ the\ purchasing\ of\ products\ in\ Shop\ class\r\n
+comment5.text=\n\ Handles\ all\ UI\ related\ interactions\ around\ the\ purchasing\ of\ products\ in\ Shop\ class\n
 comment6.params=
 comment6.target=void\ animate()
-comment6.text=\r\n\ Animates\ the\ background\r\n
+comment6.text=\n\ Animates\ the\ background\n
 comment7.params=
 comment7.target=void\ hover()
-comment7.text=\r\n\ For\ decoration\ purposes,\ it\ Oscillates\ images\ back\ and\ forth\r\n
+comment7.text=\n\ For\ decoration\ purposes,\ it\ Oscillates\ images\ back\ and\ forth\n
 comment8.params=
 comment8.target=void\ checkMouseHover()
-comment8.text=\r\n\ Gives\ a\ good\ description\ of\ what\ each\ product\ is\ by\ hovering\ it\ over\ the\ icon\r\n
+comment8.text=\n\ Gives\ a\ good\ description\ of\ what\ each\ product\ is\ by\ hovering\ it\ over\ the\ icon\n
 numComments=9

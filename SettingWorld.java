@@ -32,7 +32,7 @@ public class SettingWorld extends World
         this(world, backType);
         
         WorldButton menuButton = new WorldButton("Buttons/menuButton.png", 0.5, menu);
-        addObject(menuButton, 225, 50);
+        addObject(menuButton, 250, 50);
     }
     
     /**

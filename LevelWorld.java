@@ -125,7 +125,7 @@ public class LevelWorld extends ScrollingWorld
         }
         else if(levelName.equals("wa.csv"))
         {
-            currentMusic = new GreenfootSound("Firewall.mp3");
+            currentMusic = new GreenfootSound("fireWall.mp3");
             currentMusic.setVolume(60);
         }
         else if(levelName.equals("ba.csv"))
@@ -150,7 +150,7 @@ public class LevelWorld extends ScrollingWorld
             }
             else if(levelName.equals("wa.csv"))
             {
-                currentMusic = new GreenfootSound("Firewall.mp3");
+                currentMusic = new GreenfootSound("fireWall.mp3");
                 currentMusic.setVolume(60);
                 SaveFile.updateVolume(currentMusic, "musicVolume");
             }
@@ -197,6 +197,11 @@ public class LevelWorld extends ScrollingWorld
     public void act()
     {
         super.act();
+        if(!runOnce){
+            pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, mainMenu));
+            addObject(pause, 40, 40);
+            runOnce = true;
+        }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
             musicList = new GreenfootSound[]
@@ -255,7 +260,10 @@ public class LevelWorld extends ScrollingWorld
                 Greenfoot.setWorld(new GameOver());
             }
         }
-        currentMusic.playLoop();
+        if(currentMusic != null)
+        {
+            currentMusic.playLoop();
+        }
     }
     public void loadLevel()
     {
