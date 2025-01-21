@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * -https://www.vecteezy.com/vector-art/5450129-shotgun-pixel-art - Spreadshot
  * -https://www.vecteezy.com/free-vector/pixel-bomb - Bombshot
  * -https://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style - Rocketshot
+ * -https://www.reddit.com/r/PixelArt/comments/t0klk1/i_made_a_machine_gun_i_like_my_machine_gun_do_you/?rdt=62969 - (default)Rapidfire
 
  */
 public class Shop extends World
