@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=BindButton
-comment0.text=\n\ Write\ a\ description\ of\ class\ BindButton\ here.\n\ \n\ @author\ Darren\ T.\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ BindButton\ here.\r\n\ \r\n\ @author\ Darren\ T.\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=file\ sizeMulti\ txt\ type
 comment1.target=BindButton(java.lang.String,\ double,\ java.lang.String,\ java.lang.String)
 comment2.params=
