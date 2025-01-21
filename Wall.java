@@ -31,6 +31,9 @@ public class Wall extends Bosses
         totalAttackCooldown = 60;
         bytesOnDeath = 75;
         health = 200;
+        state = 0;
+        currentAttackDone = false;
+        attackCooldown = 30;
         bossbar.setMaxVal(200);
         createHitBox();
         setImage(hitBox);
