@@ -26,6 +26,8 @@ public class Wallet extends Actor
         amount = SaveFile.getInt("money");
         changedAmount = amount;
         
+        saveFile.loadFile();
+        
         int randomImage = Greenfoot.getRandomNumber(2);
         if (randomImage == 0) { 
             image = new GreenfootImage("/wallet0.png");

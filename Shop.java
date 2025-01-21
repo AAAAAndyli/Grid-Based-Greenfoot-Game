@@ -97,7 +97,7 @@ public class Shop extends World
         setBackground(shopAnimation[0]);
         
         wallet = new Wallet();
-        addObject(wallet, 120, 620);
+        addObject(wallet, 120, 670);
         
         addObject(item1, 250, 300);
         addObject(image1, 250, 150);

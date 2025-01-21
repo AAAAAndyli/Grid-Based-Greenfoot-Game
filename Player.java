@@ -99,6 +99,7 @@ public class Player extends Entity
     {
         super(scrollX, scrollY);
         setImage("Hitbox.png");
+        getImage().setTransparency(0);
         state = "idle";
         globalPosition = new Coordinate(globalX,globalY);
         
