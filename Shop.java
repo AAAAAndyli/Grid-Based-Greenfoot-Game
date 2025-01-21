@@ -22,7 +22,6 @@ public class Shop extends World
     private int maxHealth;
     private int imageIndex = 0;
     private int maxHealthUpgrade = 5;
-    private int newDamage;
     private double speed = 0.4;
     
     //Handles Animation
@@ -90,7 +89,6 @@ public class Shop extends World
         SaveFile.updateVolume(shopMusic, "musicVolume");
         
         money = SaveFile.getInt("money");
-        newDamage = SaveFile.getInt("damage") + 1;
         health = SaveFile.getInt("health");
         maxHealth = SaveFile.getInt("maxHealth");
         
@@ -212,7 +210,8 @@ public class Shop extends World
             {
                 money -= price;
                 purchased = true;
-                SaveFile.setInfo("damage", newDamage);
+                
+                SaveFile.setInfo("damage", SaveFile.getInt("damage") + 1);
             }
             else
             {
