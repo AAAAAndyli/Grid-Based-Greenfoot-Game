@@ -26,14 +26,16 @@ public class Scorch extends Bosses
     private boolean playAttackAnimation;
     private boolean isFirstCombo = true;
     
+    private Aura aura = new Aura(this);
+    
     protected GreenfootImage hitBox;
     public Scorch()
     {
         currentAttackDone = true;
         totalAttackCooldown = 60;
         bytesOnDeath = 300;
-        health = 500;
-        bossbar.setMaxVal(500);
+        health = 800;
+        bossbar.setMaxVal(800);
         createHitBox();
         setImage(hitBox);
     }
@@ -75,7 +77,7 @@ public class Scorch extends Bosses
                 {
                     faceTowards(player.getPosition().getX());
                     hoverAbove(0.01);
-                    followPlayer(0.01, 200);
+                    followPlayer(0.05, 200);
                     attackCooldown--;
                     state = -1;
                 }
@@ -111,9 +113,10 @@ public class Scorch extends Bosses
             {
                 totalAttackCooldown = 0;
             }
-            else if(health < 250)
+            else if(health < 300)
             {
                 totalAttackCooldown = 10;
+                getWorld().addObject(aura, getX(), getY());
             }
             else if(health < 400)
             {

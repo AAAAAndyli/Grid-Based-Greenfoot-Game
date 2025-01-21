@@ -14,10 +14,10 @@ public class ArSysRam extends Bosses
     public ArSysRam(boolean isRight)
     {
         super();
-        health = 100;
+        health = 200;
         bytesOnDeath = 25;
         this.isRight = isRight;
-        totalAttackCooldown = 30;
+        totalAttackCooldown = 60;
         if(isRight)
         {
             setImage("Enemies/ArSysRam/idle.png");
@@ -91,14 +91,9 @@ public class ArSysRam extends Bosses
             attackTimer = 0;
             setImage("images/Enemies/ArSysRam/idle.png");
             aiming(15);
-            for(int i = 0; i < 5 ; i++)
-            {
-                Coordinate newCoordinate = new Coordinate(player.getPosition().getX(), player.getPosition().getY());
-                newCoordinate.setX(newCoordinate.getX() + (i - 3) * 150);
-                useProjectile(15, newCoordinate);
-            }
             useHomingProjectile(15, new Coordinate(player.getPosition().getX(), player.getPosition().getY()));
-            useExplosiveProjectile(15, new Coordinate(player.getPosition().getX(), player.getPosition().getY()));
+            useHomingProjectile(10, new Coordinate(player.getPosition().getX(), player.getPosition().getY()));
+            useHomingProjectile(5, new Coordinate(player.getPosition().getX(), player.getPosition().getY()));
             return true;
         }
         else
