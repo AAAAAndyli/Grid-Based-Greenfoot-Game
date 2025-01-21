@@ -226,7 +226,9 @@ public class LevelWorld extends ScrollingWorld
         {
             addObject(playerDeath, 540, 360);
             if(playerDeath.fadedOnce())
-            super.act();
+            {
+                currentMusic.stop();
+            }
             
             if(!runOnce){
                 pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, new MenuWorld()));
