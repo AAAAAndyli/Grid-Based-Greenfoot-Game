@@ -91,9 +91,6 @@ public class WorldButton extends Button
             else if(current instanceof Shop){
                 ((Shop)getWorld()).shopMusic.stop();
             }
-            else if(current instanceof Tutorial){
-                ((Tutorial)getWorld()).tutorialMusic.stop();
-            }
 
             Greenfoot.setWorld(destination);
             
@@ -111,9 +108,6 @@ public class WorldButton extends Button
             }
             else if(current instanceof Shop){
                 ((Shop)getWorld()).shopMusic.stop();
-            }
-            else if(current instanceof Tutorial){
-                ((Tutorial)getWorld()).tutorialMusic.stop();
             }
 
 

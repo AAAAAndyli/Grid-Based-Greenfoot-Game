@@ -22,6 +22,8 @@ public class ArSYSStartingWorld extends ScrollingWorld
     
     int previousMusicVolume, previousEffectVolume;
     
+    private boolean transitionComplete = false;
+    
     /**
      * Constructor for objects of class ArSYSStartingWorld.
      * 
@@ -44,21 +46,20 @@ public class ArSYSStartingWorld extends ScrollingWorld
         //load save file for data
         SaveFile.loadFile();
         
-        //update bgm volume
         previousMusicVolume = SaveFile.getInt("musicVolume");
-        // ** IMPORTANT **
-        //make sure to set a volume value for ALL sounds, otherwise it defaults to 0 even if sound plays
-        background.setVolume(20); 
-        //make sure to update the volume with values from savefile!
+        background.setVolume(20);
         SaveFile.updateVolume(background, "musicVolume");
         
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");
     }
     
-    public void act()
+    public void act()  
     {
         scrollX--;
+        if (!transitionComplete) {
+            background.playLoop();  // Only start music once
+        }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
             musicList = new GreenfootSound[]
@@ -78,7 +79,6 @@ public class ArSYSStartingWorld extends ScrollingWorld
             //SaveFile.updateVolume(effectList, "effectVolume");
             //previousEffectVolume = SaveFile.getInt("musicVolume");
         }
-        background.playLoop();
         if(projectilesFired < 200)
         {
             if(transition1.fadedOnce())
@@ -97,8 +97,9 @@ public class ArSYSStartingWorld extends ScrollingWorld
             addObject(transition2, 540,360);
             if(transition2.fadedOnce())
             {
-                Greenfoot.setWorld(new ArsysWorld());
                 background.stop();
+                transitionComplete = true;
+                Greenfoot.setWorld(new ArsysWorld());
             }
         }
         super.act();
@@ -109,7 +110,9 @@ public class ArSYSStartingWorld extends ScrollingWorld
     }
     
     public void started(){
-        background.playLoop();
+        if (!transitionComplete) {
+            background.playLoop();
+        }
     }
     
     public void dying()

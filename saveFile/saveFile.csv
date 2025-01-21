@@ -8,7 +8,7 @@ rapid,2
 bomb,3
 missile,4
 spread,5
-money,650
+money,1000
 health,15
 maxHealth,15
 musicVolume,35
@@ -16,7 +16,6 @@ effectVolume,81
 deaths,4
 level,0
 damage,1
-hasRapid,1
 hasBomb,1
 hasMissile,1
 hasSpread,1
