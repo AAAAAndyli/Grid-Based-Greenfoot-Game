@@ -8,10 +8,10 @@ rapid,1
 bomb,2
 missile,3
 spread,4
-money,600
-totalMoney,600
-health,42
-maxHealth,42
+money,627
+totalMoney,0
+health,24
+maxHealth,24
 musicVolume,70
 effectVolume,22
 deaths,2
