@@ -51,6 +51,9 @@ public class Wallet extends Actor
         if (added) {
             getWorld().addObject(text, 172, 178);
         }
+        if(amount != SaveFile.getInt("money")){
+            amount = SaveFile.getInt("money");
+        }
         SaveFile.setInfo("money", amount);
         text.update("" + amount);
     }
