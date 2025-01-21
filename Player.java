@@ -248,7 +248,10 @@ public class Player extends Entity
         if(Greenfoot.getMouseInfo() != null && (Greenfoot.getMouseInfo().getButton() == 1)||isAiming)
         {   
             mouseTarget = new Coordinate(mouseX, mouseY);
-            gun.play();
+            //If the music is not playing currently, play the music
+            if(!gun.isPlaying()){
+                gun.play();
+            }
             if(aimIsActivated)
             {
                 if(yVelocity > 0)
@@ -274,6 +277,9 @@ public class Player extends Entity
                 sight.turnTowards(mouseX, mouseY);
                 sight.setWidth(1000);
             }
+            
+            
+            
             if(Greenfoot.mouseClicked(null))
             {
                 isAiming = false;
@@ -289,6 +295,10 @@ public class Player extends Entity
         {
             isAiming = false;
             currentWeapon.shoot();
+            //Just play the sound
+            if(!gun.isPlaying()){
+                gun.play();
+            }
         }
     }
     
