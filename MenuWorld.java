@@ -36,7 +36,6 @@ public class MenuWorld extends World
         background = new GreenfootSound("Opening.mp3");
         clickSound = new GreenfootSound("click.wav");
         
-        
         setBackground("images/menu.png");
         
         title = new Button("title.png",.9,true);
@@ -62,7 +61,7 @@ public class MenuWorld extends World
         Label shopLabel = new Label("Shop", 30);
         addObject(shopLabel, 900, 600);
         
-        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new Tutorial());
+        play = new WorldButton("Buttons/playButton.png", 1.1, (World)new Tutorial(this));
         addObject(play, 900, 300);
         settings = new WorldButton("Buttons/settingsButton.png", 1.1, (World)new SettingWorld(this));
         addObject(settings, 900, 450);
