@@ -75,13 +75,17 @@ public class MenuWorld extends World
     }
     
     public void act(){
-        /** Dont activate it doesn't work properly
         if(resetData.checkButton())
         {
-            resetStats();
+            SaveFile.setInfo("money", 1000); // 0
+            SaveFile.setInfo("health", 15);
+            SaveFile.setInfo("maxHealth", 15);
+            SaveFile.setInfo("level", 0);
+            SaveFile.setInfo("damage", 1); // 0
+            SaveFile.setInfo("hasBomb", 1); // 0
+            SaveFile.setInfo("hasMissile", 1); // 0
+            SaveFile.setInfo("hasSpread", 1); // 0
         }
-        */
-        
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
             musicList = new GreenfootSound[]
@@ -140,8 +144,7 @@ public class MenuWorld extends World
     
     public void resetStats()
     {
-        SaveFile.setInfo("money", 0); // 0
-        SaveFile.setInfo("totalMoney", 0);
+        SaveFile.setInfo("money", 1000); // 0
         SaveFile.setInfo("health", 15);
         SaveFile.setInfo("maxHealth", 15);
         SaveFile.setInfo("level", 0);

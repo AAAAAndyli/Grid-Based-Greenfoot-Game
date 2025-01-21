@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Wallet extends Actor
 {
-    private int totalAmount;
     private int amount;
     private int changedAmount;
 
@@ -22,7 +21,6 @@ public class Wallet extends Actor
     public Wallet() {
         text = new SuperTextBox("" + changedAmount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK, 0);
         
-        totalAmount = SaveFile.getInt("totalMoney");
         amount = SaveFile.getInt("money");
         changedAmount = amount;
         
@@ -51,9 +49,11 @@ public class Wallet extends Actor
             changedAmount = amount;
         }
         if (added) {
-            getWorld().addObject(text, getX() - 23, getY());
+            getWorld().addObject(text, 172, 178);
         }
-        SaveFile.setInfo("totalMoney", totalAmount);
+        if(amount != SaveFile.getInt("money")){
+            amount = SaveFile.getInt("money");
+        }
         SaveFile.setInfo("money", amount);
         text.update("" + amount);
     }
@@ -68,8 +68,5 @@ public class Wallet extends Actor
 
     public void changeAmount(int x) {
         amount += x;
-        if (x > 0) {
-            totalAmount += x;
-        }
     }
 }
