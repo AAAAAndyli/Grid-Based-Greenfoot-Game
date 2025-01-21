@@ -15,17 +15,15 @@ public class Wallet extends Actor
     private GreenfootImage image;
     private SuperTextBox text;
     private SimpleTimer timer = new SimpleTimer();
-    private SaveFile saveFile;
     
     private boolean added, changed;
 
     public Wallet() {
         text = new SuperTextBox("" + changedAmount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK, 0);
         
+        SaveFile.loadFile();
         amount = SaveFile.getInt("money");
         changedAmount = amount;
-        
-        saveFile.loadFile();
         
         int randomImage = Greenfoot.getRandomNumber(2);
         if (randomImage == 0) { 
@@ -41,6 +39,7 @@ public class Wallet extends Actor
 
     public void act()
     {
+        SaveFile.loadFile();
         if (changedAmount != amount && !changed) {
             timer.mark();
             setLocation(getX(), getY() + 5);
@@ -50,13 +49,14 @@ public class Wallet extends Actor
             changed = false;
             setLocation(getX(), getY() - 5);
             changedAmount = amount;
+            SaveFile.setInfo("totalMoney", totalAmount);
+            SaveFile.setInfo("money", amount);
         }
         if (added) {
             getWorld().addObject(text, getX() - 23, getY());
         }
-        SaveFile.setInfo("totalMoney", totalAmount);
-        SaveFile.setInfo("money", amount);
-        text.update("" + amount);
+        
+        text.update("" + SaveFile.getInt("money"));
     }
 
     public int getAmount() {

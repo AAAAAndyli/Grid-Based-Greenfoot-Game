@@ -199,6 +199,7 @@ public class Shop extends World
             if(money >= price)
             {
                 wallet.changeAmount(-price);
+                
                 purchased = true;
                 
                 SaveFile.setInfo("damage", SaveFile.getInt("damage") + 1);
