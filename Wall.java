@@ -22,6 +22,7 @@ public class Wall extends Bosses
     private Player player;
     private Camera camera;
     private WallSprites wallsprite = new WallSprites(this);
+    private int hardlockPreventionTimer = 0;
     
     protected GreenfootImage hitBox;
     public Wall()
@@ -61,6 +62,7 @@ public class Wall extends Bosses
                     currentAttackDone = false;
                     playerDistance = Math.abs(player.getX() - this.getX());
                     faceTowards(player.getPosition().getX());
+                    hardlockPreventionTimer = 0;
                     return;
                 }
                 else if(currentAttackDone)
@@ -82,6 +84,7 @@ public class Wall extends Bosses
                             currentAttackDone = shootProjectiles();
                             break;
                     }
+                    hardlockPreventionTimer++;
                 }
             }
             if(health < 50)
@@ -92,6 +95,10 @@ public class Wall extends Bosses
             {
                 totalAttackCooldown = 30;
             }
+        }
+        if(hardlockPreventionTimer > 600)
+        {
+            willDie = true;
         }
         checkFloor();
         predictFloor();
@@ -170,9 +177,10 @@ public class Wall extends Bosses
         }
         else if(attackTimer > attackCooldown + 5)
         {
+            aiming(15);
             attackTimer = 0;
             useExplosiveProjectile(5, player.getPosition());
-            useHomingProjectile(15, player.getPosition());
+            useHomingProjectile(10, player.getPosition());
             useProjectile(15, player.getPosition());
             return true;
         }

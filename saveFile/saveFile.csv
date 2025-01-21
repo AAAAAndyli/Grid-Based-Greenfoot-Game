@@ -7,9 +7,9 @@ parry,e
 money,1000
 health,15
 maxHealth,15
-musicVolume,55
+musicVolume,63
 effectVolume,81
-deaths,2
+deaths,3
 level,0
 damage,1
 hasBomb,1

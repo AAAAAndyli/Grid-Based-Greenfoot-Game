@@ -90,12 +90,12 @@ public class LevelWorld extends ScrollingWorld
         }
         else if(levelName.equals("wa.csv"))
         {
-            currentMusic = new GreenfootSound("fireWall.mp3");
+            currentMusic = new GreenfootSound("Firewall.mp3");
             currentMusic.setVolume(60);
         }
         else if(levelName.equals("ba.csv"))
         {
-            currentMusic = new GreenfootSound("bugMenace");
+            currentMusic = new GreenfootSound("bugMenace.mp3");
             currentMusic.setVolume(60);
         }
         else
