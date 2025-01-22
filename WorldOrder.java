@@ -11,7 +11,7 @@ public class WorldOrder
     // instance variables - replace the example below with your own
     private static ArrayList<String> worldList = new ArrayList<String>();
     private static int worldIndex = SaveFile.getInt("worldIndex");
-
+    //arraylist of world order
     public static void createArrayList()
     {
         worldList.clear();
@@ -39,6 +39,7 @@ public class WorldOrder
         worldList.add("9.csv");
         worldList.add("Win");
     }
+    //getters and setters for world order and index
     public static boolean isArSYS()
     {
         return worldList.get(0).equals("0.csv");
