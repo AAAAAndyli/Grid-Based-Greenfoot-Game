@@ -3,10 +3,54 @@ import greenfoot.GreenfootSound;
 import java.util.ArrayList;
 
 /**
- * Write a description of class MenuWorld here.
+ * By: Darren T, Justin Y, Brennan L, Andy L, Braden C, Allan L
+ * Written by: Darren T
+ * 2025-01-21
  * 
- * @author Darren T.
- * @version (a version number or a date)
+ * A platformer rogue-like about a computer worm attempting to infect an AI running a mass surveillance system
+ * 
+ * Features:
+ *      Custom Made Graphics: Nearly every monster and image was drawn/animated by 
+ *                              Justin and Andy
+ *                  
+ *      Customizable Experience: Settings will allow you to change... 
+ *                              - Movement keybinds
+ *                              - Weapon swap keybinds
+ *                              - Adjust music and sound effects
+ *
+ *      Upgradeable Character: Shoot and explode through tons of enemies to gain
+ *                              bytes, which allow you to strengthen your character's
+ *                              health and attack in the shop
+ *
+ *      Multiple Weapons: Buy and use 4 different weapons, suiting different scenarios 
+ *                          such as single target, AoE, and Rocket Jumping (!)
+ *                      
+ *      Robust Movement: Clean mechanics such as increased height when slam jumping 
+ *                          (hint: w, a, then w for extra height)
+ *                          and invincibility frames from dashing allow you to feel like
+ *                          a pro with ease!
+ *                          
+ *      Varied Bosses: Custom made bosses will shock and awe you before killing you!
+ *      
+ *      Hardcore Mode: Deaths will reset all progress, including money, weapons, and levels...
+ *          Mr Cohen Mode: Feel free to change money and health to 999 in saveFile.csv if it's too hard, it's okay!
+ *          
+ * Sources:
+ * 
+ * Images:
+ *      Padlock - https://stock.adobe.com/search/images?k=cartoon+padlock
+ *      
+ * 
+ * Sounds:
+ *      Purchase - https://www.myinstants.com/en/instant/pixel-gun-3d-purchase-sound-18/ 
+ *      Parry - https://www.myinstants.com/en/instant/parry-ultrakill-37032/ 
+ *      No Bytes - https://www.myinstants.com/en/instant/windows-error-remix-16451/ 
+ *               - https://www.myinstants.com/en/instant/error-soundss-25534/ 
+ *      
+ * Code:
+ *      Code was used that was made by Mr. Cohen such as SuperStatBar class, 
+ *      SuperSmoothMover class, Coordinate class
+ *      
  */
 public class MenuWorld extends World
 {
