@@ -94,6 +94,7 @@ public class MenuWorld extends World
         if(resetData.checkButton())
         {
             resetStats();
+            
             Greenfoot.setWorld(new MenuWorld());
         }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){

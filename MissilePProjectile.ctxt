@@ -1,16 +1,12 @@
 #BlueJ class context
 comment0.target=MissilePProjectile
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ MissilePProjectile\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=target\ speed\ spawner
-comment1.target=MissilePProjectile(Coordinate,\ double,\ ScrollingActor)
-comment2.params=target\ speed\ damage\ spawner\ sprite
-comment2.target=MissilePProjectile(Coordinate,\ double,\ int,\ ScrollingActor,\ java.lang.String)
-comment3.params=world
-comment3.target=void\ addedToWorld(greenfoot.World)
+comment1.params=world
+comment1.target=void\ addedToWorld(greenfoot.World)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ deleteConditions()
 comment4.params=
-comment4.target=void\ act()
-comment5.params=
-comment5.target=void\ deleteConditions()
-comment6.params=
-comment6.target=void\ collide()
-numComments=7
+comment4.target=void\ collide()
+numComments=5

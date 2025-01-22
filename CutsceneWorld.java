@@ -11,7 +11,8 @@ public class CutsceneWorld extends World {
     private boolean spaceKeyDown = false; // Tracks the space key press state
     private World previousWorld; // Reference to the world before the cutscene
     private boolean isNotCutScene = false;
-
+    private Label help;
+    
     /**
      * Constructor for objects of class CutsceneWorld.
      */
@@ -20,6 +21,10 @@ public class CutsceneWorld extends World {
         super(1080, 720, 1); 
         previousWorld = world;
         setPaintOrder(Transition.class, Button.class, CutsceneWorld.class);
+        
+        help = new Label("Press Space to proceed", 30);
+        addObject(help, getWidth() - 150, getHeight() - 30);
+        
         if(world.getClass() == LevelWorld.class)
         {
             initializeCutsceneImages(((LevelWorld)world).getCutscene());
