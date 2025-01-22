@@ -17,7 +17,7 @@ public class Byte extends ScrollingActor
     private final double maximumYVelocity = 40;
     private boolean touchingFloor;
     private boolean isCollidingLeft, isCollidingRight, isCollidingUp;
-    private int value = 5;
+    private int value = 1;
 
     private GreenfootImage image;
 
