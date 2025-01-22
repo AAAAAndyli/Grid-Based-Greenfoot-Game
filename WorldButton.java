@@ -2,6 +2,8 @@ import greenfoot.*;
 
 /**
  * WorldButton class that creates a fade-in and fade-out transition when pressed.
+ * 
+ * By: Various group members
  */
 public class WorldButton extends Button
 {
@@ -11,6 +13,8 @@ public class WorldButton extends Button
     private MenuWorld destinationMenu;
     private Label label;
     private boolean pressed;
+    
+    //variables for a fade out effect when worldbutton pressed
     private boolean transitioning = false; 
     private Transition transitionEffect;   
     private int transitionFrames = 240;    
@@ -21,6 +25,7 @@ public class WorldButton extends Button
         destination = dest;
     }
     
+    //if need to specify a specific world use this constructor
     public WorldButton(String file, double sizeMulti, World dest, Class worldClass) {
         this(file, sizeMulti, dest);
         
@@ -48,13 +53,14 @@ public class WorldButton extends Button
         if(Greenfoot.mouseClicked(this)){
             super.clickSound.play();
         }
+        //check if pressed
         if(label == null){
             pressed = checkButton();
         }
         else{
             pressed = checkButton() || checkButton(label);
         }
-        if (pressed) {
+        if (pressed) { 
             startTransition();
         }
         if (transitioning) {

@@ -2,9 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class StatWorld here.
+ * A world which houses a few statistics 
+ * of your gameplay
  * 
- * @author (your name) 
+ * @author Darren T.
  * @version (a version number or a date)
  */
 public class StatWorld extends World
@@ -12,6 +13,7 @@ public class StatWorld extends World
     private int numWeapons = 1 + SaveFile.getInt("hasBomb") + SaveFile.getInt("hasSpread") + SaveFile.getInt("hasMissile");
     private SuperTextBox text;
     private ArrayList<Class> classList = new ArrayList<Class>();
+    //list of things to keep track of
     private String[] stats = new String[]{
         "Bytes earned: " + SaveFile.getString("totalMoney"), "Deaths: " + SaveFile.getString("deaths"), 
         "Current Health: " + SaveFile.getInt("health"), "Max Health: " + SaveFile.getInt("maxHealth"),
@@ -55,12 +57,15 @@ public class StatWorld extends World
         if(actCounter > 60){
             actCounter = 0;
             SaveFile.loadFile();
+            //remove old textbox
             removeObject(text);
+            //update info
             stats = new String[]{
                 "Bytes earned: " + SaveFile.getString("totalMoney"), "Deaths: " + SaveFile.getString("deaths"), 
                 "Current Health: " + SaveFile.getInt("health"), "Max Health: " + SaveFile.getInt("maxHealth"),
                 "Current Damage: " + SaveFile.getInt("damage"), "Unlocked Weapon: " + numWeapons
             };
+            //create new textbox to prevent multiple textboxes
             text = new SuperTextBox(stats, new Color(0,0,0,0), Color.RED, new Font("Arial", true, false, 18), false, 400, 0, new Color(0, 0, 0, 0), 40);
             addObject(text, getWidth() / 2 + 20, 350);
             text.update(stats);

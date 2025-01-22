@@ -1,7 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class BinaryString here.
+ * Class that moves binary strings up and down
+ * as a decoration
  * 
  * @author Darren T.
  * @version (a version number or a date)
@@ -36,6 +37,7 @@ public class BinaryString extends UI
         //move the binary string up or down  until it is out of screen
         setLocation(getX(), getY() + direction);
         
+        //if outside of world, remove it and add a new one
         if((direction == -1 && getY() < -100) || (direction == 1 && getY() > getWorld().getHeight() + 100)){
             BinaryString binary = new BinaryString();
             int ySpawn = binary.getDirection() == 1 ? -100 - Greenfoot.getRandomNumber(100) : Greenfoot.getRandomNumber(100) + 100 + getWorld().getHeight();
@@ -45,6 +47,9 @@ public class BinaryString extends UI
         }
     }
     
+    /**
+     * Method to return direction of travel 
+     */
     public int getDirection(){
         return direction;
     }

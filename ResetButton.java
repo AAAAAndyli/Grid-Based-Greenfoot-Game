@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class ResetButton here.
+ * Button to reset keybinds when pressed
  * 
  * @author Darren T.
  * @version (a version number or a date)
@@ -34,10 +34,15 @@ public class ResetButton extends Button
         }
     }
     
+    /**
+     * Method to load the default keybinds and replace them the current keybinds
+     * and the associated label
+     */
     public void resetSettings(){
         SettingWorld w = (SettingWorld)getWorld();
         ArrayList<BindButton> binds = (ArrayList<BindButton>)w.getObjects(BindButton.class);
         SaveFile.loadFile("saveFile/defaultSaveFile.csv");
+        //for all the buttons, get their label and change it to default keybind's value
         for(BindButton b : binds){
             b.getKeyLabel().setValue(SaveFile.getString(b.getButtonType()));
         }

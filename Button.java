@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class buttons here.
+ * Button superclass which performs an action when clicked
  * 
  * @author Darren T and Justin Y
  * @version (a version number or a date)
@@ -42,6 +42,7 @@ public class Button extends UI
         height = (int)(getImage().getHeight() * sizeMulti);
         getImage().scale(width, height);
         
+        //click sfx for button
         clickSound = new GreenfootSound("click.wav");
         clickSound.setVolume(musicLevel);
         SaveFile.updateVolume(clickSound, "effectVolume");
@@ -50,6 +51,7 @@ public class Button extends UI
     public Button(String file, double sizeMulti, Label labelReference)
     {
         this(file, sizeMulti);
+        //if a button has a label attached to it
         selfLabel = labelReference;
     }
     
@@ -67,6 +69,7 @@ public class Button extends UI
     
     public void act()
     {
+        //play sfx when clicked
         if (Greenfoot.mouseClicked(this)) {
             clickSound.play();
         }
@@ -83,6 +86,9 @@ public class Button extends UI
         }
     }
     
+    /**
+     * Method to check if the current volume is aligned with savefile volume
+     */
     public void checkClick(){    
         currentVolume = (int)(musicLevel * SaveFile.getInt("effectVolume") / 100.0);
         if(previousVolume != currentVolume){

@@ -8,13 +8,13 @@ rapid,1
 bomb,2
 missile,3
 spread,4
-money,0
-totalMoney,0
+money,30
+totalMoney,105
 health,15
 maxHealth,15
 musicVolume,50
 effectVolume,79
-deaths,0
+deaths,3
 level,0
 damage,1
 hasRapid,1
