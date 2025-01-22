@@ -10,7 +10,8 @@ import java.util.StringTokenizer;
 import greenfoot.*;
 
 /**
- * Write a description of class SaveFile here.
+ * A class that is responsible for getting or saving data to 
+ * the csv save file
  * 
  * @author Darren T.
  * @version (a version number or a date)
@@ -20,23 +21,20 @@ public class SaveFile
     private static FileWriter out;
     private static PrintWriter output;
     private static ArrayList<String> info = new ArrayList<String>();
+    //boolean so that some code is run only once
     private static boolean ranOnce = false;
     private static Scanner s;
     private static StringTokenizer tokenizer;
     private static String currentToken;
     
-    /**
-     * Constructor for objects of class SaveFile
-     */
-    public SaveFile()
-    {
-        
-    }
-    
     public static void loadFile(){
         loadFile("saveFile/saveFile.csv");
     }
     
+    /**
+     * Method to load all the info from a file and 
+     * put it into the info ArrayList for use
+     */
     public static void loadFile(String file){
         info.clear();
         try{
@@ -51,6 +49,10 @@ public class SaveFile
         }
     }
     
+    /**
+     * Method to replace data in info with a new string
+     * based on the first token of each line
+     */
     public static void setInfo(String infoType, String set){
         int index = 0;
         
@@ -68,10 +70,18 @@ public class SaveFile
         save();
     }
     
+    /**
+     * Method to replace data in info with a new int
+     * based on the first token of each line
+     */
     public static void setInfo(String infoType, int set){
         setInfo(infoType, Integer.toString(set));
     }
     
+    /**
+     * Method to get String data in info with a 
+     * based on the first token of each line
+     */
     public static String getString(String keyBind){
         
         for(String s : info){
@@ -87,22 +97,28 @@ public class SaveFile
         return null;
     }
     
+    /**
+     * Method to update the volume of a single sound
+     * based on what type it is (effect or music)
+     */
     public static void updateVolume(GreenfootSound reference, String type){
         reference.setVolume((int)(reference.getVolume() * SaveFile.getInt(type) / 100.0));
     }
     
+    /**
+     * Method to update the volume of a multiple sounds
+     * based on what type it is (effect or music)
+     */
     public static void updateVolume(GreenfootSound[] references, String type){
         for(GreenfootSound s : references){
             s.setVolume((int)(s.getVolume() * SaveFile.getInt(type) / 100.0));   
         }
     }
     
-    // public static void updateVolume(ArrayList<GreenfootSound> references, String type){
-        // for(GreenfootSound s : references){
-            // s.setVolume((int)(s.getVolume() * SaveFile.getInt(type) / 100.0));   
-        // }
-    // }
-    
+    /**
+     * Method to get int data in info with a 
+     * based on the first token of each line
+     */
     public static int getInt(String keyBind){
         
         for(String s : info){
@@ -118,6 +134,9 @@ public class SaveFile
         return -1;
     }
     
+    /**
+     * Method to save data to the csv file
+     */
     public static void save(){
         try{
             FileWriter out = new FileWriter("saveFile/saveFile.csv");
@@ -134,6 +153,9 @@ public class SaveFile
         }
     }
     
+    /**
+     * Method to get the info arraylist
+     */
     public static ArrayList<String> getInfo(){
         return info;
     }
