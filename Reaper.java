@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Reaper extends FlyingEnemy
 {
     private int attackRange = 100;
-    private Attack slice = new Attack(attackRange + 50, 70, 2, 0 , attackRange/2 + 10, 0, this);
+    private Attack slice = new Attack(attackRange + 50, 70, 2, 0 , attackRange/2 + 10, 0, this, slash);
     private Player player;
     public Reaper()
     {

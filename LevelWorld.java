@@ -133,6 +133,11 @@ public class LevelWorld extends ScrollingWorld
             addObject(spread, 310, 660);
             TheGrid.setGrid(toGrid());
             addObject(pause, 40, 40);
+            worldLoaded = true;
+            if(getClass() == ArsysWorld.class)
+            {
+                return;
+            }
             if(levelName.equals("Tutorial/tutorial.csv"))
             {
                 currentMusic = new GreenfootSound("goofyAh.mp3");
@@ -199,7 +204,6 @@ public class LevelWorld extends ScrollingWorld
                     }
                 }
             }
-            worldLoaded = true;
         }
         super.act();
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){

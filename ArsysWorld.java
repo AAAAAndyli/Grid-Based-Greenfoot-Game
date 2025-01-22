@@ -37,6 +37,7 @@ public class ArsysWorld extends LevelWorld
 
     public void act()
     {
+        super.act();
         if(enterWorld.fadedOnce())
         {
             removeObject(enterWorld);
@@ -49,7 +50,6 @@ public class ArsysWorld extends LevelWorld
                 Greenfoot.setWorld(new GameOver());
             }
         }
-        super.act();
     }
 
     public void loadParallax()

@@ -9,9 +9,14 @@ import java.util.ArrayList;
  */
 public class Scorch extends Bosses
 {
-    private Attack slashFirst = new Attack(250, 200, 1, 0 , 100, 0, this);
-    private Attack slashSecond = new Attack(250, 200, 1, 0 , 100, 0, this);
-    private Attack diveAttack = new Attack(50, 200, 1, 0 , 0, 0, this);
+    private GreenfootSound swing1 = new GreenfootSound("swing1.wav");
+    private GreenfootSound swing2 = new GreenfootSound("swing2.wav");
+    private GreenfootSound falling = new GreenfootSound("ScorFall.wav");
+    private GreenfootSound land = new GreenfootSound("Land.wav");
+    
+    private Attack slashFirst = new Attack(250, 200, 1, 0 , 100, 0, this, swing1);
+    private Attack slashSecond = new Attack(250, 200, 1, 0 , 100, 0, this, swing2);
+    private Attack diveAttack = new Attack(50, 200, 1, 0 , 0, 0, this, falling);
     
     private int xVelocity;
     
@@ -47,6 +52,14 @@ public class Scorch extends Bosses
     public void act()
     {
         bossActive = true;
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            //update the list with each new effect
+            effectList = new GreenfootSound[]
+            {
+                swing1, swing2, falling, land
+            };
+            SaveFile.updateVolume(effectList, "effectVolume");
+        }
         if(bossActive)
         {
             if(player == null)
@@ -229,9 +242,10 @@ public class Scorch extends Bosses
                 int playerPredictedX = (int)player.getXVelocity() * ((int)getDistance(player)/50);
                 followPlayer(0.1, Math.abs(playerPredictedX));
             }
-            if((getY() > player.getY() - 26 && getY() < player.getY() + 26) || attackTimer > attackCooldown + 270)
+            if(getY() > player.getY() || attackTimer > attackCooldown + 270)
             {
                 attackTimer = 0;
+                land.play();
                 return true;
             }
         }

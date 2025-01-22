@@ -16,8 +16,9 @@ public class BugLeg extends Enemy
     private static GreenfootImage vertLeg = new GreenfootImage("images/Enemies/bug/legs/attackLeg.png");
     private static GreenfootImage leftLeg = new GreenfootImage("images/Enemies/bug/legs/rattackLeg.png");
     private static GreenfootImage rightLeg = new GreenfootImage("images/Enemies/bug/legs/lattackLeg.png");
-    private Attack vertStab = new Attack(30, 700, 1, 0 , 0, 0, this);
-    private Attack horStab = new Attack(1080, 30, 1, 0 , 0, 0, this);
+    private GreenfootSound stab = new GreenfootSound("LegStab.wav");
+    private Attack vertStab = new Attack(30, 700, 1, 0 , 0, 0, this, stab);
+    private Attack horStab = new Attack(1080, 30, 1, 0 , 0, 0, this, stab);
     public BugLeg(int x, int y, boolean isVertical, Camera camera)
     {
         this.camera = camera;
@@ -50,6 +51,9 @@ public class BugLeg extends Enemy
      */
     public void act()
     {
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            SaveFile.updateVolume(stab, "effectVolume");
+        }
         if(isVertical)
         {
             verticalStab();
@@ -77,7 +81,7 @@ public class BugLeg extends Enemy
         {
             attackTimer++;
         }
-        if(attackTimer > 360)
+        if(attackTimer > 120)
         {
             willDie = true;
         }

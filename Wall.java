@@ -9,7 +9,9 @@ import java.util.ArrayList;
  */
 public class Wall extends Bosses
 {
-    private Attack hitbox = new Attack(100, 200, 1, 0 , 0, 0, this);
+    private GreenfootSound big = new GreenfootSound("Big1.wav");
+    private GreenfootSound land = new GreenfootSound("Land.wav");
+    private Attack hitbox = new Attack(100, 200, 1, 0 , 0, 0, this, big);
     
     private int xVelocity;
     
@@ -43,6 +45,14 @@ public class Wall extends Bosses
     public void act()
     {
         bossActive = true;
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            //update the list with each new effect
+            effectList = new GreenfootSound[]
+            {
+                big, land
+            };
+            SaveFile.updateVolume(effectList, "effectVolume");
+        }
         if(bossActive)
         {
             if(player == null)
@@ -136,6 +146,7 @@ public class Wall extends Bosses
         {
             xDirection = -xDirection;
             camera.screenShake(3, 10);
+            land.play();
         }
         xVelocity = xDirection * playerDistance / 60;
         yVelocity += gravity;
@@ -158,6 +169,7 @@ public class Wall extends Bosses
             {
                 attackTimer = 0;
                 camera.screenShake(3, 10);
+                land.play();
                 return true;
             }
             getPosition().setCoordinate(getPosition().getX() + xVelocity, getPosition().getY());

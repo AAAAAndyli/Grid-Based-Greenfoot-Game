@@ -23,6 +23,10 @@ public abstract class Enemy extends Entity
     protected int attackXOffset, attackYOffset;    
     protected boolean attackAnimOver = true;
     
+    protected static GreenfootSound shootSmall = new GreenfootSound("shootSmall.wav");
+    protected static GreenfootSound shootBig = new GreenfootSound("shootBig.wav");
+    protected static GreenfootSound slash = new GreenfootSound("Slash.wav");
+    
     
     //Ranged attacking Variables
     protected int attackRange = 1000;
@@ -33,6 +37,10 @@ public abstract class Enemy extends Entity
     protected int animationTimer = 0;
     protected int bytesOnDeath = 3;
     
+    protected GreenfootSound[] effectList;
+    
+    protected int previousEffectVolume;
+    
     public Enemy()
     {
         this(0,0);
@@ -41,6 +49,12 @@ public abstract class Enemy extends Entity
     public Enemy(int scrollX, int scrollY)
     {
         super(scrollX, scrollY);
+        shootSmall.setVolume(60);
+        SaveFile.updateVolume(shootSmall, "effectVolume");
+        shootBig.setVolume(60);
+        SaveFile.updateVolume(shootBig, "effectVolume");
+        slash.setVolume(60);
+        SaveFile.updateVolume(slash, "effectVolume");
     }
     
     public void addedToWorld(World world)
@@ -70,6 +84,14 @@ public abstract class Enemy extends Entity
     {
         animationTimer++;
         barrier();
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            //update the list with each new effect
+            effectList = new GreenfootSound[]
+            {
+                shootSmall, shootBig, slash
+            };
+            SaveFile.updateVolume(effectList, "effectVolume");
+        }
         if(willDie)
         {
             die();
@@ -126,14 +148,17 @@ public abstract class Enemy extends Entity
     }
     public void useProjectile(int projectileSpeed, Coordinate target)
     {
+        shootSmall.play();
         getWorld().addObject(new EProjectile(target, projectileSpeed, 1, this, "EnemyProjectile"), getX(), getY());
     }
     public void useHomingProjectile(int projectileSpeed, Coordinate target)
     {
+        shootSmall.play();
         getWorld().addObject(new HomingEProjectile(target, projectileSpeed, 1, this, "HomingEnemyProjectile"), getX(), getY());
     }
     public void useExplosiveProjectile(int projectileSpeed, Coordinate target)
     {
+        shootBig.play();
         getWorld().addObject(new ExplodingEProjectile(target, projectileSpeed, 1, this, "ExplosiveEnemyProjectile"), getX(), getY());
     }
     
@@ -255,17 +280,20 @@ public abstract class Enemy extends Entity
         private int xOffset, yOffset;
         private EnemyHurtBox hurtBox;
         private boolean didHit;
+        private GreenfootSound sound;
         private int duration = 0;
-        public Attack(int width, int height,int damage, int direction, int xOffset, int yOffset, Enemy origin)
+        public Attack(int width, int height,int damage, int direction, int xOffset, int yOffset, Enemy origin, GreenfootSound sound)
         {
             this.damage = damage;
             this.direction = direction;
             this.xOffset = xOffset;
             this.yOffset = yOffset;
+            this.sound = sound;
             hurtBox = new EnemyHurtBox(width, height, damage, origin);
         }
         public void performAttack()
         {
+            sound.play();
             hurtBox.createHurtBox();
             getWorld().addObject(hurtBox, getPosition().getX() + direction * xOffset, getPosition().getY() + yOffset);
             hurtBox.setLocation(hurtBox.getPosition().getX()+scrollX, hurtBox.getPosition().getY()+scrollY);
