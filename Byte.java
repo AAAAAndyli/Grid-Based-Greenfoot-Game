@@ -17,7 +17,7 @@ public class Byte extends ScrollingActor
     private final double maximumYVelocity = 40;
     private boolean touchingFloor;
     private boolean isCollidingLeft, isCollidingRight, isCollidingUp;
-    private int value = 1;
+    private int value = 5;
 
     private GreenfootImage image;
 
@@ -28,7 +28,7 @@ public class Byte extends ScrollingActor
 
     public Byte(int x, int y) {
         super(x,y);
-
+        //byteimage 1 or 2
         int randomImage = Greenfoot.getRandomNumber(2);
         if (randomImage == 0) {
             image = new GreenfootImage("images/Byte/0.png");
@@ -37,7 +37,7 @@ public class Byte extends ScrollingActor
         }
         setImage(image);
         getImage().scale(35,30);
-
+        //random velocity when dropped
         yVelocity = -( Greenfoot.getRandomNumber(6) + 6 );
 
         int randomXDirection = Greenfoot.getRandomNumber(2);
@@ -73,6 +73,7 @@ public class Byte extends ScrollingActor
         {
             if(isTouching(Byte.class))
             {
+                //for bytes next to each other on the floor, combine their values to reduce lag
                 Byte touchingByte = (Byte)getOneIntersectingObject(Byte.class);
                 int byteValue = touchingByte.getValue();
                 value += byteValue;
@@ -80,6 +81,7 @@ public class Byte extends ScrollingActor
                 touchingByte = null;
             }
         }
+        //when collected, fly up towards playerui, when touching playerui, remove object and add value to byteamount in wallet
         ArrayList<HealthPod> touchingHealth = (ArrayList<HealthPod>)getIntersectingObjects(HealthPod.class);        
         ArrayList<Wallet> touchingWallet = (ArrayList<Wallet>)getIntersectingObjects(Wallet.class);        
         if ((touchingWallet.size() > 0 || touchingHealth.size() > 0)&& collected){
@@ -104,6 +106,7 @@ public class Byte extends ScrollingActor
     }
 
     public void pickUp() {
+        //if picked up
         ArrayList<Player> touchingPlayer = (ArrayList<Player>)getIntersectingObjects(Player.class);
         if (touchingPlayer.size() == 1) {
             collected = true;
@@ -112,7 +115,8 @@ public class Byte extends ScrollingActor
             timer.mark();
         }
     }
-
+    
+    //rest are just physics methods for the bytes
     public void movement() {
         predictFloor();
         checkFloor();

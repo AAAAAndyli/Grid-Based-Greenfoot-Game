@@ -20,11 +20,13 @@ public class Wallet extends Actor
 
     public Wallet() {
         text = new SuperTextBox("" + changedAmount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK, 0);
-        
+        //get values from savefile
         SaveFile.loadFile();
+        totalAmount = SaveFile.getInt("totalMoney");
         amount = SaveFile.getInt("money");
         changedAmount = amount;
         
+        //0 or 1 image
         int randomImage = Greenfoot.getRandomNumber(2);
         if (randomImage == 0) { 
             image = new GreenfootImage("/wallet0.png");
@@ -40,6 +42,7 @@ public class Wallet extends Actor
     public void act()
     {
         SaveFile.loadFile();
+        //make the wallet ui go up and down when a byte is collected
         if (changedAmount != amount && !changed) {
             timer.mark();
             setLocation(getX(), getY() + 5);

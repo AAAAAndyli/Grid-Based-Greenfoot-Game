@@ -9,12 +9,15 @@ import java.util.ArrayList;
  */
 public class StatWorld extends World
 {    
-    
+    private int numWeapons = 1 + SaveFile.getInt("hasBomb") + SaveFile.getInt("hasSpread") + SaveFile.getInt("hasMissile");
+    private SuperTextBox text;
     private ArrayList<Class> classList = new ArrayList<Class>();
     private String[] stats = new String[]{
-        "Bytes earned: ", "Deaths: " + SaveFile.getString("deaths"), "Time taken: "
+        "Bytes earned: " + SaveFile.getString("totalMoney"), "Deaths: " + SaveFile.getString("deaths"), 
+        "Current Health: " + SaveFile.getInt("health"), "Max Health: " + SaveFile.getInt("maxHealth"),
+        "Current Damage: " + SaveFile.getInt("damage"), "Unlocked Weapon: " + numWeapons
     };
-    
+    private int actCounter = 0;
     /**
      * Constructor for objects of class StatWorld.
      * 
@@ -30,7 +33,7 @@ public class StatWorld extends World
         
         classList.add(SuperTextBox.class);
         
-        SuperTextBox text = new SuperTextBox(stats, new Color(0,0,0,0), Color.RED, new Font("Arial", true, false, 18), false, 400, 0, new Color(0, 0, 0, 0), 40);
+        text = new SuperTextBox(stats, new Color(0,0,0,0), Color.RED, new Font("Arial", true, false, 18), false, 400, 0, new Color(0, 0, 0, 0), 40);
         addObject(text, getWidth() / 2 + 20, 350);
         
         ScrollingUI scroll = new ScrollingUI(540, 350, 400, 1500, true, new Color(0, 106, 78, 100), classList, text);
@@ -46,5 +49,21 @@ public class StatWorld extends World
         setPaintOrder(SuperTextBox.class, ScrollingUI.class, BinaryString.class);
     }
     
-    
+    public void act(){
+        actCounter++;
+        //update info every 60 acts
+        if(actCounter > 60){
+            actCounter = 0;
+            SaveFile.loadFile();
+            removeObject(text);
+            stats = new String[]{
+                "Bytes earned: " + SaveFile.getString("totalMoney"), "Deaths: " + SaveFile.getString("deaths"), 
+                "Current Health: " + SaveFile.getInt("health"), "Max Health: " + SaveFile.getInt("maxHealth"),
+                "Current Damage: " + SaveFile.getInt("damage"), "Unlocked Weapon: " + numWeapons
+            };
+            text = new SuperTextBox(stats, new Color(0,0,0,0), Color.RED, new Font("Arial", true, false, 18), false, 400, 0, new Color(0, 0, 0, 0), 40);
+            addObject(text, getWidth() / 2 + 20, 350);
+            text.update(stats);
+        }
+    }
 }

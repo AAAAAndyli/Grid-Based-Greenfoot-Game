@@ -94,7 +94,7 @@ public class LevelWorld extends ScrollingWorld
         */
         addObject(enterWorld, 540, 360);
         WorldOrder.createArrayList();
-        WorldOrder.setIndex(levelName);
+        WorldOrder.setIndex(levelName);//change world index
         //addObject(new Shield(), 80, 650);
         loadParallax();
         setBackground("black.png");

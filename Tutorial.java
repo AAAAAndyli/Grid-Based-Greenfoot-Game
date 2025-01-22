@@ -9,12 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Tutorial extends LevelWorld
 {
     private WorldButton pause;
-    
+
     private SuperTextBox textbox;
     private SuperTextBox textbox1;
-    
-    
-    
+
     private String[] tutorialMessages = {
         "Welcome to the tutorial. \n Right arrow to continue",
         "Use WASD or set them in the Settings Menu \n to move. Right arrow to continue",
@@ -27,6 +25,7 @@ public class Tutorial extends LevelWorld
         "Some places have firewalls. Find keys \n to access past it Right arrow to continue",
         "Find the portal and press space to move \n into the next level.. Good luck"
     };
+    private boolean tutorialSkip;
     /**
      * Constructor for objects of class Tutorial.
      * 
@@ -36,24 +35,26 @@ public class Tutorial extends LevelWorld
         this("tutorial.csv");
         super.setMainMenu(menu);
     }
-    
+
     public Tutorial(String levelName)
     {
         super("Tutorial/" + levelName); 
-        WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
         setBackground("black.png");
         TutorialAvatar tutorial = new TutorialAvatar(tutorialMessages);
         
+
+
+
         addObject(tutorial, 1080, 650);
     }
-    
+
     public MenuWorld getMainMenu(){
         return super.getMainMenu();
     }
-    
+
     public void act(){
         super.act();
     }
-    
+
 }
