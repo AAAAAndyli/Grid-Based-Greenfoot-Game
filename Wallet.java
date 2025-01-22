@@ -22,6 +22,7 @@ public class Wallet extends Actor
         text = new SuperTextBox("" + changedAmount, Color.BLACK, Color.WHITE, new Font ("Arial", true, false, 24), false, 80, 0, Color.BLACK, 0);
         
         SaveFile.loadFile();
+        totalAmount = SaveFile.getInt("totalMoney");
         amount = SaveFile.getInt("money");
         changedAmount = amount;
         

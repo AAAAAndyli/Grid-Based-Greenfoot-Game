@@ -28,6 +28,7 @@ public class LevelWorld extends ScrollingWorld
     protected Player player;
     protected Transition enterWorld = new Transition(false);
     protected Transition playerDeath = new Transition(true);
+    protected boolean worldLoaded = false;
     
     protected GreenfootSound currentMusic;
     
@@ -67,8 +68,6 @@ public class LevelWorld extends ScrollingWorld
         TriggerCollection.resetList();
         this.levelName = levelName;
         Greenfoot.setSpeed(51);
-        loadLevel();
-        saveLevel();
         /*
         for(int i = 0; i < toGrid().length; i++)
         {
@@ -97,10 +96,9 @@ public class LevelWorld extends ScrollingWorld
         WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
         //addObject(new Shield(), 80, 650);
-        addObject(pause, 40, 40);
         loadParallax();
         setBackground("black.png");
-        TheGrid.setGrid(toGrid());
+
         addObject(new FPS(), 200, 10);
         if(currentMusic != null)
         {
@@ -111,82 +109,6 @@ public class LevelWorld extends ScrollingWorld
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");
         
-        Hotkey rapid = new Hotkey("rapidfire", SaveFile.getString("rapid"), "hasRapid", true, 0, player);
-        addObject(rapid, 70, 660);
-        Hotkey bomb = new Hotkey("bomb", SaveFile.getString("bomb"), "hasBomb", false, 1, player);
-        addObject(bomb, 150, 660);
-        Hotkey missile = new Hotkey("missile", SaveFile.getString("missile"), "hasMissile", false, 2, player);
-        addObject(missile, 230, 660);
-        Hotkey spread = new Hotkey("spread", SaveFile.getString("spread"), "hasSpread", false, 3, player);
-        addObject(spread, 310, 660);
-        
-        if(levelName.equals("Tutorial/tutorial.csv"))
-        {
-            currentMusic = new GreenfootSound("goofyAh.mp3");
-            currentMusic.setVolume(60);
-        }
-        else if(levelName.equals("wa.csv"))
-        {
-            currentMusic = new GreenfootSound("Firewall.mp3");
-            currentMusic.setVolume(60);
-        }
-        else if(levelName.equals("ba.csv"))
-        {
-            currentMusic = new GreenfootSound("bugMenace.mp3");
-            currentMusic.setVolume(60);
-        }
-        else if(levelName.equals("sa.csv") || levelName.equals("BugEntrance.csv"))
-        {
-            currentMusic = new GreenfootSound("Drone.mp3");
-            currentMusic.setVolume(60);
-            SaveFile.updateVolume(currentMusic, "musicVolume");
-        }
-        else
-        {
-            int bools = random.nextInt(2);
-            if(bools == 1)
-            {
-                currentMusic = new GreenfootSound("goofyAh.mp3");
-                currentMusic.setVolume(60);
-                SaveFile.updateVolume(currentMusic, "musicVolume");
-            }
-            else if(levelName.equals("wa.csv"))
-            {
-                currentMusic = new GreenfootSound("Firewall.mp3");
-                currentMusic.setVolume(60);
-                SaveFile.updateVolume(currentMusic, "musicVolume");
-            }
-            else if(levelName.equals("ba.csv"))
-            {
-                currentMusic = new GreenfootSound("bugMenace.mp3");
-                currentMusic.setVolume(60);
-                SaveFile.updateVolume(currentMusic, "musicVolume");
-            }
-            else if(levelName.equals("sa.csv") || levelName.equals("BugEntrance.csv"))
-            {
-                currentMusic = new GreenfootSound("Drone.mp3");
-                currentMusic.setVolume(60);
-                SaveFile.updateVolume(currentMusic, "musicVolume");
-            }
-            else
-            {
-                Random random = new Random();
-                int result = random.nextInt(2);
-                if(result == 0)
-                {
-                    currentMusic = new GreenfootSound("goofyAh.mp3");
-                    currentMusic.setVolume(60);
-                    SaveFile.updateVolume(currentMusic, "musicVolume");
-                }
-                else
-                {
-                    currentMusic = new GreenfootSound("hunting.mp3");
-                    currentMusic.setVolume(60);
-                    SaveFile.updateVolume(currentMusic, "musicVolume");
-                }
-            }
-            
-        }
         setPaintOrder(Transition.class, Projectile.class, HealthBar.class, HealthBlob.class, HealthPod.class, PlayerSprites.class, Enemy.class, Actor.class, NextWorld.class, OneWayTile.class ,Bosses.class, BossSprites.class, Tile.class, ScrollingBackground.class);
         setActOrder(PlayerSprites.class, Player.class, Tile.class, Enemy.class, Actor.class);
     }
@@ -198,6 +120,87 @@ public class LevelWorld extends ScrollingWorld
     }
     public void act()
     {
+        if(!worldLoaded)
+        {
+            loadLevel();
+            Hotkey rapid = new Hotkey("rapidfire", SaveFile.getString("rapid"), "hasRapid", true, 0, player);
+            addObject(rapid, 70, 660);
+            Hotkey bomb = new Hotkey("bomb", SaveFile.getString("bomb"), "hasBomb", false, 1, player);
+            addObject(bomb, 150, 660);
+            Hotkey missile = new Hotkey("missile", SaveFile.getString("missile"), "hasMissile", false, 2, player);
+            addObject(missile, 230, 660);
+            Hotkey spread = new Hotkey("spread", SaveFile.getString("spread"), "hasSpread", false, 3, player);
+            addObject(spread, 310, 660);
+            TheGrid.setGrid(toGrid());
+            addObject(pause, 40, 40);
+            if(levelName.equals("Tutorial/tutorial.csv"))
+            {
+                currentMusic = new GreenfootSound("goofyAh.mp3");
+                currentMusic.setVolume(60);
+            }
+            else if(levelName.equals("wa.csv"))
+            {
+                currentMusic = new GreenfootSound("Firewall.mp3");
+                currentMusic.setVolume(60);
+            }
+            else if(levelName.equals("ba.csv"))
+            {
+                currentMusic = new GreenfootSound("bugMenace.mp3");
+                currentMusic.setVolume(60);
+            }
+            else if(levelName.equals("sa.csv") || levelName.equals("BugEntrance.csv"))
+            {
+                currentMusic = new GreenfootSound("Drone.mp3");
+                currentMusic.setVolume(60);
+                SaveFile.updateVolume(currentMusic, "musicVolume");
+            }
+            else
+            {
+                int bools = random.nextInt(2);
+                if(bools == 1)
+                {
+                    currentMusic = new GreenfootSound("goofyAh.mp3");
+                    currentMusic.setVolume(60);
+                    SaveFile.updateVolume(currentMusic, "musicVolume");
+                }
+                else if(levelName.equals("wa.csv"))
+                {
+                    currentMusic = new GreenfootSound("Firewall.mp3");
+                    currentMusic.setVolume(60);
+                    SaveFile.updateVolume(currentMusic, "musicVolume");
+                }
+                else if(levelName.equals("ba.csv"))
+                {
+                    currentMusic = new GreenfootSound("bugMenace.mp3");
+                    currentMusic.setVolume(60);
+                    SaveFile.updateVolume(currentMusic, "musicVolume");
+                }
+                else if(levelName.equals("sa.csv") || levelName.equals("BugEntrance.csv"))
+                {
+                    currentMusic = new GreenfootSound("Drone.mp3");
+                    currentMusic.setVolume(60);
+                    SaveFile.updateVolume(currentMusic, "musicVolume");
+                }
+                else
+                {
+                    Random random = new Random();
+                    int result = random.nextInt(2);
+                    if(result == 0)
+                    {
+                        currentMusic = new GreenfootSound("goofyAh.mp3");
+                        currentMusic.setVolume(60);
+                        SaveFile.updateVolume(currentMusic, "musicVolume");
+                    }
+                    else
+                    {
+                        currentMusic = new GreenfootSound("hunting.mp3");
+                        currentMusic.setVolume(60);
+                        SaveFile.updateVolume(currentMusic, "musicVolume");
+                    }
+                }
+            }
+            worldLoaded = true;
+        }
         super.act();
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
@@ -225,10 +228,7 @@ public class LevelWorld extends ScrollingWorld
         if(player.getWorld() == null)
         {
             addObject(playerDeath, 540, 360);
-            if(playerDeath.fadedOnce())
-            {
-                currentMusic.stop();
-            }
+            currentMusic.stop();
             
             if(!runOnce){
                 pause = new WorldButton("Pause.png", 0.05, new SettingWorld(this, LevelWorld.class, new MenuWorld()));
@@ -257,8 +257,10 @@ public class LevelWorld extends ScrollingWorld
             if(enterWorld.fadedOnce())
             {
                 Greenfoot.setWorld(new GameOver());
+                return;
             }
         }
+        currentMusic.setVolume(previousMusicVolume);
         currentMusic.playLoop();
     }
     public void loadLevel()

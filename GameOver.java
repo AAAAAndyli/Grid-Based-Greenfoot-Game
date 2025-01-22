@@ -39,7 +39,19 @@ public class GameOver extends World
         if(transision.fadedOnce())
         {
             SaveFile.setInfo("deaths", SaveFile.getInt("deaths") + 1);
+            resetStats();
             Greenfoot.setWorld(new MenuWorld());
         }
+    }
+    public void resetStats()
+    {
+        SaveFile.setInfo("money", 0); // 0
+        SaveFile.setInfo("health", 15);
+        SaveFile.setInfo("maxHealth", 15);
+        SaveFile.setInfo("level", 0);
+        SaveFile.setInfo("damage", 1); // 1
+        SaveFile.setInfo("hasBomb", 0); // 0
+        SaveFile.setInfo("hasMissile", 0); // 0
+        SaveFile.setInfo("hasSpread", 0); // 0
     }
 }

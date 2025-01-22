@@ -84,17 +84,21 @@ public class Player extends Entity
     protected String dash;
     
     //Sound
-    private GreenfootSound gun = new GreenfootSound("sounds/Laser.wav");
+    private GreenfootSound gunSound = new GreenfootSound("sounds/Laser.wav");
     private int actCounter = 10;
     private GreenfootSound explosion = new GreenfootSound("sounds/Explosion.wav");
     private int actCounter1 = 60;
     
-    private GreenfootSound parrySound = new GreenfootSound("sounds/parrySound.mp3");
-    private int previousEffectVolume = SaveFile.getInt("musicVolume");
+    private GreenfootSound parrySound = new GreenfootSound("sounds/parrySound.wav");
+    private GreenfootSound jumpSound = new GreenfootSound("sounds/jumpSound.wav");
+    private GreenfootSound dashSound = new GreenfootSound("sounds/dashSound.wav");
+    private GreenfootSound hurtSound = new GreenfootSound("sounds/getHurt.wav");
+    private GreenfootSound pickUpSound = new GreenfootSound("sounds/pickUp.wav");
     
     private GreenfootSound shotgun = new GreenfootSound("sounds/Shotgun.wav");
     private int actCounter3 = 30;
     
+    private int previousEffectVolume = SaveFile.getInt("musicVolume");
     public Player()
     {
         this(0,0, 0, 0);
@@ -108,8 +112,25 @@ public class Player extends Entity
         state = "idle";
         globalPosition = new Coordinate(globalX,globalY);
         
-        parrySound.setVolume(60);
+        parrySound.setVolume(75);
         SaveFile.updateVolume(parrySound, "effectVolume");
+        
+        dashSound.setVolume(75);
+        SaveFile.updateVolume(dashSound, "effectVolume");
+
+        gunSound.setVolume(75);
+        SaveFile.updateVolume(gunSound, "effectVolume");
+        shotgun.setVolume(70);
+        SaveFile.updateVolume(shotgun, "effectVolume");
+        
+        jumpSound.setVolume(60);
+        SaveFile.updateVolume(jumpSound, "effectVolume");
+        
+        hurtSound.setVolume(80);
+        SaveFile.updateVolume(hurtSound, "effectVolume");
+        
+        pickUpSound.setVolume(100);
+        SaveFile.updateVolume(pickUpSound, "effectVolume");
         
         if(SaveFile.getString("jump") == null){
             SaveFile.loadFile("saveFile/defaultSaveFile.csv");
@@ -142,8 +163,6 @@ public class Player extends Entity
         
         
         
-        gun.setVolume(65);
-        shotgun.setVolume(75);
     }
     
     public void addedToWorld(World world)
@@ -194,6 +213,10 @@ public class Player extends Entity
         {
             canBeHurt = true;
         }
+        
+        health = SaveFile.getInt("health");
+        maxHealth = SaveFile.getInt("maxHealth");
+        
         state = "idle";
         movement();
         shoot();
@@ -237,7 +260,6 @@ public class Player extends Entity
     
     public void die()
     {
-        
         super.die();
     }
     
@@ -245,6 +267,7 @@ public class Player extends Entity
     {
         if(Greenfoot.isKeyDown(dash) && dashTimer > 0 && dashTimer <= 10)
         {
+            dashSound.play();
             state = "dashing";
             isDashing = true;
             touchingFloor = true;
@@ -320,12 +343,12 @@ public class Player extends Entity
             if(Greenfoot.mouseClicked(null)){
                 isAiming = false;
                 currentWeapon.shoot();
-                gun.play();
+                gunSound.play();
             }
             if(shooting){
                 isAiming = false;
                 currentWeapon.shoot();
-                gun.play();
+                gunSound.play();
             }
             if(actCounter < 10){
                 actCounter++;
@@ -522,6 +545,7 @@ public class Player extends Entity
     {
         if(Greenfoot.isKeyDown(jump) && coyoteTimer < 10 && !isJumpKeyDown)
         {
+            jumpSound.play();
             state = "jumping";
             System.out.println(yVelocity);
             launch((int)(jumpSpeed + storedJump));
@@ -656,8 +680,8 @@ public class Player extends Entity
                 {
                     for(EProjectile projectile : projectilesInRange) {
                         projectile.parried(mouseX, mouseY);
-                        parrySound.play();
                         Greenfoot.delay(10);
+                        parrySound.play();
                         getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
                         heal(1);
                     }
@@ -714,10 +738,10 @@ public class Player extends Entity
     
     public void heal(int regen)
     {
-        health += regen;
-        if(health > maxHealth)
+        SaveFile.setInfo("health", SaveFile.getInt("health") + regen);
+        if(SaveFile.getInt("health") > maxHealth)
         {
-            health = maxHealth;
+            SaveFile.setInfo("health", maxHealth);
         }
         isHeal = true;
     }
@@ -733,7 +757,9 @@ public class Player extends Entity
         if(invincibilityFrames > 30)
         {
             super.hurt(damage);
+            hurtSound.play();
             SaveFile.setInfo("health", SaveFile.getInt("health") - damage);
+            health = SaveFile.getInt("health");
             getWorld().getObjects(Camera.class).get(0).screenShake(3, 5);
             canBeHurt = false;
             invincibilityFrames = 0;
@@ -765,6 +791,8 @@ public class Player extends Entity
     }
     public int getHealthBarHP()
     {
+        maxHealth = SaveFile.getInt("maxHealth");
+        health = SaveFile.getInt("health");
         return (int)Math.ceil(maxHealth/3);
     }
     public boolean getSlamming()
