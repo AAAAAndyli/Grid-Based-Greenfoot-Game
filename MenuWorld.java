@@ -62,7 +62,7 @@ public class MenuWorld extends World
         //Label shopLabel = new Label("Shop", 30);
         //addObject(shopLabel, 900, 600);
 
-        if (SaveFile.getInt("worldIndex") != -1) {
+        if (SaveFile.getInt("worldIndex") != -1 && WorldOrder.currentWorld() != null) {
             if(WorldOrder.currentWorld().equals("Arsys"))
             {
                 play = new WorldButton("Buttons/playButton.png", 1.1, (World)new Shop(new CutsceneWorld(new ArSYSStartingWorld())));

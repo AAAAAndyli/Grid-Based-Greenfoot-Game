@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Enemy
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Enemy\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ Enemy\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=
 comment1.target=Enemy()
 comment10.params=projectileSpeed\ target
@@ -11,7 +11,7 @@ comment12.params=projectileSpeed
 comment12.target=void\ aiming(int)
 comment13.params=path
 comment13.target=void\ loadAnimationFrames(java.lang.String)
-comment13.text=\r\n\ Loads\ in\ every\ frame\ for\ every\ animation\r\n\ \r\n\ @param\ path\ -\ The\ file\ path\ for\ the\ unit\r\n
+comment13.text=\n\ Loads\ in\ every\ frame\ for\ every\ animation\n\ \n\ @param\ path\ -\ The\ file\ path\ for\ the\ unit\n
 comment14.params=path\ animation\ action
 comment14.target=void\ loadSingleAnimation(java.lang.String,\ java.util.ArrayList,\ java.lang.String)
 comment15.params=path\ animation\ action\ isRotated
@@ -34,7 +34,7 @@ comment4.params=
 comment4.target=void\ die()
 comment5.params=
 comment5.target=void\ act()
-comment5.text=\r\n\ Act\ -\ do\ whatever\ the\ Enemy\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment5.text=\n\ Act\ -\ do\ whatever\ the\ Enemy\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment6.params=
 comment6.target=void\ attack()
 comment7.params=xPositionToFace

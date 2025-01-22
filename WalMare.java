@@ -12,7 +12,7 @@ public class WalMare extends GroundedEnemy
     //attack variables
     private int attackRange = 100;
     private int attackCooldown = 25;
-    private Attack pierce = new Attack(attackRange + 50, 10, 1, 0 , attackRange/2 + 10, 0, this);
+    private Attack pierce = new Attack(attackRange + 50, 10, 1, 0 , attackRange/2 + 10, 0, this, slash);
     private int attackFrame = 6; 
     private int attackXOffset = 27;
     

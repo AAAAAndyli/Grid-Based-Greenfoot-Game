@@ -63,6 +63,10 @@ public class WorldOrder
     }
     public static String currentWorld()
     {
-        return worldList.get(worldIndex);
+        if(worldIndex < worldList.size())
+        {
+            return worldList.get(worldIndex);
+        }
+        return null;
     }
 }
