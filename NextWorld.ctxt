@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=NextWorld
-comment0.text=\n\ Write\ a\ description\ of\ class\ KillBorder\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ NextWorld\ here.\n
 comment1.params=type\ rotations\ xPosition\ yPosition\ triggerNumber
 comment1.target=NextWorld(java.lang.String,\ int,\ int,\ int,\ int)
 comment2.params=type\ rotations\ isButton\ mapMaker\ triggerNumber
@@ -12,7 +12,10 @@ comment4.target=void\ addedToWorld(greenfoot.World)
 comment5.params=
 comment5.target=void\ act()
 comment6.params=
-comment6.target=void\ activateTrigger()
+comment6.target=void\ checkPlayerProximity()
+comment6.text=\n\ Spawns\ a\ new\ TutorialAvatar\ if\ the\ player\ is\ close\ to\ this\ object.\n
 comment7.params=
-comment7.target=java.lang.String\ toString()
-numComments=8
+comment7.target=void\ activateTrigger()
+comment8.params=
+comment8.target=java.lang.String\ toString()
+numComments=9

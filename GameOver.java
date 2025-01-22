@@ -53,5 +53,6 @@ public class GameOver extends World
         SaveFile.setInfo("hasBomb", 0); // 0
         SaveFile.setInfo("hasMissile", 0); // 0
         SaveFile.setInfo("hasSpread", 0); // 0
+        SaveFile.setInfo("worldIndex", -1);
     }
 }
