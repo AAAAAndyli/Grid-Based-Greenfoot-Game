@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class GameOver here.
+ * It's the world when you lose
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class GameOver extends World

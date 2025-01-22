@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=AfterImage
-comment0.text=\n\ Write\ a\ description\ of\ class\ AfterImage\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Leaves\ behind\ a\ transparent\ copy\ of\ an\ image\n\ \n\ @author\ Andy\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=copy\ x\ y
 comment1.target=AfterImage(greenfoot.GreenfootImage,\ int,\ int)
 comment2.params=copy\ x\ y\ angle

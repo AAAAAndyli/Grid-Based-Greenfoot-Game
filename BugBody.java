@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class BugBody here.
+ * Body of bug
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class BugBody extends BossSprites

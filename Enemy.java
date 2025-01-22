@@ -3,9 +3,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Write a description of class Enemy here.
+ * The baddies.
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public abstract class Enemy extends Entity

@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class AfterImage here.
+ * Leaves behind a transparent copy of an image
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class AfterImage extends ScrollingActor

@@ -57,7 +57,7 @@ public class MapMakerWorld extends ScrollingWorld
         addObject(mapMaker, 540, 645);
         setPaintOrder(StillLabel.class, Label.class, Tile.class, MapMaker.class, TileSelector.class);
         Greenfoot.setSpeed(51);
-        addObject(new FPS(), 200, 10);
+        //addObject(new FPS(), 200, 10);
         addObject(currentTriggerID, 900, 40);
         addObject(currentEnemyID, 900, 80);
         addObject(currentColour, 850, 120);

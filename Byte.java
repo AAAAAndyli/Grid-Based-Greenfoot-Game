@@ -2,9 +2,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class Byte here.
+ * It's the currency of the game.
  * 
- * @author (your name) 
+ * @author Braden
  * @version (a version number or a date)
  */
 public class Byte extends ScrollingActor

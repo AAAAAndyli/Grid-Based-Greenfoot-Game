@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * 
  * Features:
  *      Custom Made Graphics: Nearly every monster and image was drawn/animated by 
- *                              Justin and Andy
+ *                            Andy
  *                  
  *      Customizable Experience: Settings will allow you to change... 
  *                              - Movement keybinds
@@ -45,7 +45,8 @@ import java.util.ArrayList;
  *      Bombshot inventory and shop icon - https://www.vecteezy.com/free-vector/pixel-bomb - Bombshot
  *      Rocketshot inventory and shop icon - https://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style
  *      RapidFire inventory icon - https://www.reddit.com/r/PixelArt/comments/t0klk1/i_made_a_machine_gun_i_like_my_machine_gun_do_you/?rdt=62969
- *      
+ *      All 
+ *      Most other images made by Andy
  * 
  * Sounds:
  *      Purchase - https://www.myinstants.com/en/instant/pixel-gun-3d-purchase-sound-18/ 
@@ -56,11 +57,19 @@ import java.util.ArrayList;
  *      jumpSound - https://pixabay.com/sound-effects/search/jump/
  *      dashSound - https://pixabay.com/sound-effects/search/teleport/
  *      pickUp - https://pixabay.com/sound-effects/search/key-pickup/
+ *      Any Sounds not mentioned above are from Ultrakill
+ *      
+ *      Music:
+ *      Most composed by Justin
+ *      Obersavtion without operation by Andy
+ *      Scorced Earth (Death of God's Will) By Hakita "Arsi" Patala for Ultrakill
  *      
  *      
  * Code:
  *      Code was used that was made by Mr. Cohen such as SuperStatBar class, 
  *      SuperSmoothMover class, Coordinate class
+ *      A* PseudoCode: https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
+ *      Most of Cutscene world was AI generated due to it being 3 in the morning, though was retrofitted to work properly.
  *      
  */
 public class MenuWorld extends World

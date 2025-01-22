@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Camera
-comment0.text=\n\ Write\ a\ description\ of\ class\ Camera\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Code\ that\ follows\ a\ target\ actor\ by\ changing\ scrollX\ and\ scrollY\n\ \n\ @author\ Andy\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=followingActor
 comment1.target=Camera(greenfoot.Actor)
 comment10.params=newFollowingActor
@@ -10,12 +10,15 @@ comment2.target=void\ act()
 comment2.text=\n\ Act\ -\ do\ whatever\ the\ Camera\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment3.params=
 comment3.target=void\ followSingleTarget()
+comment3.text=\n\ Method\ followSingleTarget-\ follows\ only\ one\ actor\n\n
 comment4.params=
 comment4.target=void\ activateBossMode()
 comment5.params=
 comment5.target=void\ followMultipleTargets()
+comment5.text=\n\ Method\ followMultipleTargets\ -\ Follows\ multiple\ targets\ if\ possible\n\n
 comment6.params=multiplier\ length
 comment6.target=void\ screenShake(double,\ int)
+comment6.text=\n\ Method\ screenShake\ -\ Shakes\ the\ screen\n\n\ @param\ multiplier\ strength\ of\ the\ shake\n\ @param\ length\ duration\ of\ the\ shake\n
 comment7.params=multipleActors
 comment7.target=void\ setMultipleFollowing(boolean)
 comment8.params=newFollowingActor

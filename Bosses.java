@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Bosses here.
+ * The big baddies.
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public abstract class Bosses extends Enemy

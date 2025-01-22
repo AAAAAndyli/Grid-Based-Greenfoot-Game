@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Write a description of class MapMakerAssets here.
+ * A way to select tiles to use in mapMakerWorld
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class MapMaker extends SuperSmoothMover
@@ -41,6 +41,7 @@ public class MapMaker extends SuperSmoothMover
             refreshOptions(rotation);
             isFirstAct = false;
         }
+        //Changes triggerID
         if(Greenfoot.isKeyDown("="))
         {
             if(changeIDDelay > delayLength)
@@ -60,6 +61,7 @@ public class MapMaker extends SuperSmoothMover
                 }
             }
         }
+        //changes enemy ID
         if(Greenfoot.isKeyDown("]"))
         {
             if(changeIDDelay > delayLength)
@@ -80,6 +82,7 @@ public class MapMaker extends SuperSmoothMover
             }
         }
         changeIDDelay++;
+        //rotates the tile
         if(Greenfoot.isKeyDown("r"))
         {
             if(actTimer != 0)
@@ -90,6 +93,7 @@ public class MapMaker extends SuperSmoothMover
                 refreshOptions(rotation);
             }
         }
+        //hides tiles
         else if(Greenfoot.isKeyDown("h"))
         {
             if(actTimer != 0)
@@ -151,6 +155,7 @@ public class MapMaker extends SuperSmoothMover
         //getWorld().getWidth()/2;
         displayOptions();
     }
+    //uses different pages
     public void pickOptions(int page, int rotations)
     {
         switch(page)
@@ -192,6 +197,10 @@ public class MapMaker extends SuperSmoothMover
                 break;
         } 
     }
+    /**
+     * Method displayOptions - shows all the available tiles of the page
+     *
+     */
     public void displayOptions()
     {
         double tileNum = - (double)tileListOptions.size()/2;

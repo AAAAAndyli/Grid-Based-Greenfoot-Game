@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=BossSprites
-comment0.text=\n\ Write\ a\ description\ of\ class\ MovingGraphic\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Sprites\ of\ the\ bosses\n\ \n\ @author\ Andy\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=boss
 comment1.target=BossSprites(Bosses)
 comment2.params=
@@ -12,6 +12,7 @@ comment4.params=
 comment4.target=void\ createAfterImage()
 comment5.params=path\ animation\ action\ isRotated
 comment5.target=void\ loadSingleAnimation(java.lang.String,\ java.util.ArrayList,\ java.lang.String,\ boolean)
+comment5.text=\n\ Method\ loadSingleAnimation\ -\ Loads\ in\ frames\ of\ a\ folder,\ and\ then\ turns\ it\ into\ an\ arraylist\ to\ animate\n\n\ @param\ path\ filepath\n\ @param\ animation\ the\ animation\ arraylist\n\ @param\ action\ what\ is\ the\ action\ of\ the\ boss\n\ @param\ isRotated\ is\ facing\ other\ way\n
 comment6.params=animation\ index
 comment6.target=int\ animate(java.util.ArrayList,\ int)
 numComments=7

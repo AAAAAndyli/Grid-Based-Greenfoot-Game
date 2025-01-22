@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
- * Write a description of class Camera here.
+ * Code that follows a target actor by changing scrollX and scrollY
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class Camera extends SuperSmoothMover
@@ -20,6 +20,7 @@ public class Camera extends SuperSmoothMover
     public Camera(Actor followingActor)
     {
         this.followingActor = followingActor;
+        setImage("nothingAgain.png");
     }
     /**
      * Act - do whatever the Camera wants to do. This method is called whenever
@@ -56,6 +57,10 @@ public class Camera extends SuperSmoothMover
         screenShake(screenShakeMultiplier, 0);
     }
     
+    /**
+     * Method followSingleTarget- follows only one actor
+     *
+     */
     public void followSingleTarget()
     {
         ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
@@ -75,6 +80,10 @@ public class Camera extends SuperSmoothMover
         lowerViewOfPlayer = true;
     }
     
+    /**
+     * Method followMultipleTargets - Follows multiple targets if possible
+     *
+     */
     public void followMultipleTargets()
     {
         ScrollingWorld world = getWorldOfType(ScrollingWorld.class);
@@ -98,6 +107,12 @@ public class Camera extends SuperSmoothMover
         world.setScrollY(newScrollY);    
     }
     
+    /**
+     * Method screenShake - Shakes the screen
+     *
+     * @param multiplier strength of the shake
+     * @param length duration of the shake
+     */
     public void screenShake(double multiplier, int length)
     {
         if(length != 0 && screenShakeLength == 0)

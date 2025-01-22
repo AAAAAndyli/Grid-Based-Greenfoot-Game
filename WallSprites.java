@@ -2,9 +2,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class Wal here.
+ * Wall SPrites
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class WallSprites extends BossSprites

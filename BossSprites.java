@@ -3,9 +3,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Write a description of class MovingGraphic here.
+ * Sprites of the bosses
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class BossSprites extends ScrollingActor
@@ -47,6 +47,14 @@ public class BossSprites extends ScrollingActor
         getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY), getPosition().getX(), getPosition().getY());
     }
     
+    /**
+     * Method loadSingleAnimation - Loads in frames of a folder, and then turns it into an arraylist to animate
+     *
+     * @param path filepath
+     * @param animation the animation arraylist
+     * @param action what is the action of the boss
+     * @param isRotated is facing other way
+     */
     protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation, String action, boolean isRotated)
     {
         for(int i = 0; i < new File(path + "/" + action).listFiles().length-1; i++)

@@ -5,7 +5,7 @@ import greenfoot.GreenfootSound;
 
 
 /**
- * Write a description of class Player here.
+ * Its' the player
  * 
  * @author Andy
  * @version (a version number or a date)
@@ -291,7 +291,7 @@ public class Player extends Entity
             canBeHurt = true;
         }
     }
-    
+    //picks out weapons and shoots with it
     public void shoot()
     {
         if(Greenfoot.getMouseInfo() != null && (Greenfoot.getMouseInfo().getButton() == 1)||isAiming)
@@ -547,7 +547,6 @@ public class Player extends Entity
         {
             jumpSound.play();
             state = "jumping";
-            System.out.println(yVelocity);
             launch((int)(jumpSpeed + storedJump));
             coyoteTimer = 100;
             storedJump = 0;

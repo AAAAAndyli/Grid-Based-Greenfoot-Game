@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class AttackIndicator here.
+ * Creates a warning of an attack that is incoming
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class AttackIndicator extends ScrollingActor

@@ -99,7 +99,7 @@ public class LevelWorld extends ScrollingWorld
         loadParallax();
         setBackground("black.png");
 
-        addObject(new FPS(), 200, 10);
+        //addObject(new FPS(), 200, 10);
         if(currentMusic != null)
         {
             currentMusic.stop();

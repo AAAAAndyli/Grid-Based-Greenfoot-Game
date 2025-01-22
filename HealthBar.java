@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Write a description of class HealthBar here.
+ * The Manager for HealthPods and HealthBlob
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andy
+ * @version 1
  */
 public class HealthBar extends Actor
 {
@@ -31,8 +31,7 @@ public class HealthBar extends Actor
         }
     }
     /**
-     * Act - do whatever the HealthBar wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Act - sets every healthPod to health
      */
     public void act()
     {
