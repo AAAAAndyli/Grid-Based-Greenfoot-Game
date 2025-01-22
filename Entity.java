@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MovingScrollingActor here.
+ * A scrolling actor, probably with some sort of actions it could do, and can move around and die
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public abstract class Entity extends ScrollingActor

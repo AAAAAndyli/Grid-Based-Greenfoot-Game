@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Effects here.
+ * Effect for spawning things in
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class SpawnEffects extends Effect

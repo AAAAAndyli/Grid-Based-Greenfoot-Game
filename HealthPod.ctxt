@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=HealthPod
-comment0.text=\n\ Write\ a\ description\ of\ class\ HealthPod\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ HealthBlob\ holder.\ like\ a\ hamburger.\n\ \n\ @author\ Andy\n\ @version\ 1\n
 comment1.params=
 comment1.target=HealthPod()
 comment2.params=world

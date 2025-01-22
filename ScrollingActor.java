@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class ScrollingActor here.
+ * Scrolling actors. Used in a scrolling world. Pretty basic offset stuff.
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class ScrollingActor extends SuperSmoothMover
