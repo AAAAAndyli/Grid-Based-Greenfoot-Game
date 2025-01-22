@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=LevelWorld
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ LevelWorld\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ LevelWorld\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=menu
 comment1.target=LevelWorld(MenuWorld)
 comment10.params=songFile
@@ -23,7 +23,7 @@ comment2.params=
 comment2.target=LevelWorld()
 comment3.params=levelName
 comment3.target=LevelWorld(java.lang.String)
-comment3.text=\r\n\ Constructor\ for\ objects\ of\ class\ LevelWorld.\r\n
+comment3.text=\n\ Constructor\ for\ objects\ of\ class\ LevelWorld.\n
 comment4.params=
 comment4.target=void\ loadParallax()
 comment5.params=

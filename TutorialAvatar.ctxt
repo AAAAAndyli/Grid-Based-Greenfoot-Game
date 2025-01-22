@@ -1,14 +1,14 @@
 #BlueJ class context
 comment0.target=TutorialAvatar
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ TutorialAvatar\ here.\r\n\ \r\n\ @author\ Allan\ L.\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ TutorialAvatar\ here.\n\ \n\ @author\ Allan\ L.\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=str
 comment1.target=TutorialAvatar(java.lang.String[])
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
 comment3.target=void\ handleKey()
-comment3.text=\r\n\ Handles\ displaying\ messages\ and\ switching\ to\ the\ next\ message\ when\ "right\ arrow"\ is\ pressed.\r\n
+comment3.text=\n\ Handles\ displaying\ messages\ and\ switching\ to\ the\ next\ message\ when\ "right\ arrow"\ is\ pressed.\n
 comment4.params=
 comment4.target=void\ moveToTarget()
-comment4.text=\r\n\ Smoothly\ moves\ the\ avatar\ to\ the\ target\ location.\r\n
+comment4.text=\n\ Smoothly\ moves\ the\ avatar\ to\ the\ target\ location.\n
 numComments=5

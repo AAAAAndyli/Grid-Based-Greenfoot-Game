@@ -4,11 +4,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author (Justin Ye) 
  * @version (a version number or a date)
- * Credits for a few shopIcons:
- * -https://www.vecteezy.com/vector-art/5450129-shotgun-pixel-art - Spreadshot
- * -https://www.vecteezy.com/free-vector/pixel-bomb - Bombshot
- * -https://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style - Rocketshot
- * -https://www.reddit.com/r/PixelArt/comments/t0klk1/i_made_a_machine_gun_i_like_my_machine_gun_do_you/?rdt=62969 - (default)Rapidfire
+ * A shop class in which player can purchase upgrades that make gameplay easier, it also saves in their save file so unless they want to reset 
+ * their data it will 
 
  */
 public class Shop extends World
@@ -34,6 +31,7 @@ public class Shop extends World
     private boolean clickedFive;
     private boolean clickedSix;
     
+    //makes a flag for each image
     private boolean isHoveringImage1 = false;
     private boolean isHoveringImage2 = false;
     private boolean isHoveringImage3 = false;
@@ -41,11 +39,12 @@ public class Shop extends World
     private boolean isHoveringImage5 = false;
     private boolean isHoveringImage6 = false;
     
+    //flags for hovermovement and purchasing
     private boolean hoverMovement = true;
     private boolean movingDown = true;
     private boolean purchased = false;
     
-    //Buttons and images using a specific button constructor
+    //Buttons using a specific button constructor
     private Button item1 = new Button("Buttons/purchaseButton.png",.7);
     private Button item2 = new Button("Buttons/purchaseButton.png",.7);
     private Button item3 = new Button("Buttons/purchaseButton.png",.7);
@@ -53,6 +52,7 @@ public class Shop extends World
     private Button item5 = new Button("Buttons/purchaseButton.png",.7);
     private Button item6 = new Button("Buttons/purchaseButton.png",.7);
     
+    //These are button images, another constructor to add an image instead of a functioning button, the images are in shopIcon folder
     private Button image1 = new Button("shopIcons/plusDamage.png",1.5, true);
     private Button image2 = new Button("shopIcons/fullHealth.png",1, true);
     private Button image3 = new Button("shopIcons/plusHP.png",.8, true);
@@ -66,8 +66,10 @@ public class Shop extends World
     private Button image5Desc;
     private Button image6Desc;
     
+    //This world uses Wallet class to update the currency
     private Wallet wallet;
     
+    //This is for implementing the music for this world
     GreenfootSound shopMusic, purchaseSound, brokeMusic, brokeSound;
     
     GreenfootSound[] musicList, effectList;

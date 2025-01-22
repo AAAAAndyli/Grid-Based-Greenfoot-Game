@@ -35,10 +35,16 @@ import java.util.ArrayList;
  *      Hardcore Mode: Deaths will reset all progress, including money, weapons, and levels...
  *          Mr Cohen Mode: Feel free to change money and health to 999 in saveFile.csv if it's too hard, it's okay!
  *          
+ *      Custom Music Producing: Nearly every music was original and produced by Justin and Andy
+ *          
  * Sources:
  * 
  * Images:
  *      Padlock - https://stock.adobe.com/search/images?k=cartoon+padlock
+ *      Spreadshot inventory and shop icon - https://www.vecteezy.com/vector-art/5450129-shotgun-pixel-art - Spreadshot
+ *      Bombshot inventory and shop icon - https://www.vecteezy.com/free-vector/pixel-bomb - Bombshot
+ *      Rocketshot inventory and shop icon - https://www.vecteezy.com/vector-art/22276361-rocket-launcher-in-pixel-art-style
+ *      RapidFire inventory icon - https://www.reddit.com/r/PixelArt/comments/t0klk1/i_made_a_machine_gun_i_like_my_machine_gun_do_you/?rdt=62969
  *      
  * 
  * Sounds:
@@ -46,6 +52,11 @@ import java.util.ArrayList;
  *      Parry - https://www.myinstants.com/en/instant/parry-ultrakill-37032/ 
  *      No Bytes - https://www.myinstants.com/en/instant/windows-error-remix-16451/ 
  *               - https://www.myinstants.com/en/instant/error-soundss-25534/ 
+ *      getHurt - https://www.soundsnap.com/tags/damage
+ *      jumpSound - https://pixabay.com/sound-effects/search/jump/
+ *      dashSound - https://pixabay.com/sound-effects/search/teleport/
+ *      pickUp - https://pixabay.com/sound-effects/search/key-pickup/
+ *      
  *      
  * Code:
  *      Code was used that was made by Mr. Cohen such as SuperStatBar class, 
