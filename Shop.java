@@ -139,7 +139,7 @@ public class Shop extends World
         //make sure to update sound effects volume as shown above
         previousEffectVolume = SaveFile.getInt("effectVolume");
         
-        setPaintOrder(Transition.class, Cursor.class, Label.class, Button.class, Shop.class);
+        setPaintOrder(Transition.class, Label.class, Button.class, Shop.class);
     }
     
     public void act()

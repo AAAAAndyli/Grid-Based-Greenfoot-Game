@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=BinaryString
-comment0.text=\n\ Write\ a\ description\ of\ class\ BinaryString\ here.\n\ \n\ @author\ Darren\ T.\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ Class\ that\ moves\ binary\ strings\ up\ and\ down\n\ as\ a\ decoration\n\ \n\ @author\ Darren\ T.\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=
 comment1.target=BinaryString()
 comment2.params=
@@ -8,4 +8,5 @@ comment2.target=void\ act()
 comment2.text=\n\ Act\ -\ do\ whatever\ the\ BinaryString\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment3.params=
 comment3.target=int\ getDirection()
+comment3.text=\n\ Method\ to\ return\ direction\ of\ travel\ \n
 numComments=4
