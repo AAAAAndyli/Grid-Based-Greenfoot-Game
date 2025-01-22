@@ -94,8 +94,9 @@ public class MenuWorld extends World
         if(resetData.checkButton())
         {
             resetStats();
-            
-            Greenfoot.setWorld(new MenuWorld());
+            removeObject(play);
+            play = new WorldButton("Buttons/playButton.png", 1.1, (World)new Tutorial(this));
+            addObject(play, 900, 300);
         }
         if(previousMusicVolume != SaveFile.getInt("musicVolume")){
             //update the list with each new music
