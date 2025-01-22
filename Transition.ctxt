@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Transition
-comment0.text=\r\n\ Transition\ class\ for\ fade-in\ and\ fade-out\ effects.\r\n
+comment0.text=\n\ Transition\ class\ for\ fade-in\ and\ fade-out\ effects.\n
 comment1.params=
 comment1.target=Transition()
 comment2.params=fadingIn
