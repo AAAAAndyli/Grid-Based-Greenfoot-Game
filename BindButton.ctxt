@@ -19,5 +19,5 @@ comment6.target=java.lang.String\ getKeyBinding()
 comment6.text=\r\n\ Method\ to\ get\ the\ key\ that\ activates\ the\ button's\ action\r\n
 comment7.params=active
 comment7.target=void\ setBindingActive(boolean)
-comment7.text=\r\n\ \r\n
+comment7.text=\r\n\ Setter\ method\ to\ change\ if\ it\ is\ active\ or\ not\r\n
 numComments=8
