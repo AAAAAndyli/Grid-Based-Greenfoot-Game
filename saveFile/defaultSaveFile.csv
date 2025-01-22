@@ -21,3 +21,4 @@ hasRapid,1
 hasBomb,0
 hasMissile,0
 hasSpread,0
+worldIndex,-1

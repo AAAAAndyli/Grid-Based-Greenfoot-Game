@@ -17,18 +17,20 @@ public class Firewall extends TriggerTile
     private int animationTimer;
     private int animationIndex;
     private String colour;
-    
+
     //private Label enemyNumberDisplay;
     private StillLabel buttonEnemyNumberDisplay;
-    
+
     public Firewall(String type, int rotations, int xPosition, int yPosition, int triggerNumber, String colour)
     {
         this(type, rotations, false, null, xPosition, yPosition, triggerNumber, colour);
     }
+
     public Firewall(String type, int rotations, boolean isButton, MapMaker mapMaker, int triggerNumber, String colour)
     {
         this(type, rotations, isButton, mapMaker, 0, 0, triggerNumber, colour);
     }
+
     public Firewall(String type, int rotations, boolean isButton, MapMaker mapMaker, int xPosition, int yPosition, int triggerNumber, String colour)
     {
         super(type,rotations,isButton,mapMaker,xPosition,yPosition, triggerNumber);
@@ -36,6 +38,7 @@ public class Firewall extends TriggerTile
         this.triggerNumber = triggerNumber;
         this.colour = colour;
     }
+
     public void addedToWorld(World world)
     {
         collidable = true;
@@ -50,6 +53,7 @@ public class Firewall extends TriggerTile
             TriggerCollection.addTrigger(trigger);
         }
     }
+
     public void whenTriggered()
     {
         collidable = false;
@@ -62,10 +66,12 @@ public class Firewall extends TriggerTile
             timer++;
         }
     }
+
     public String toString()
     {
         return(type + "," + rotations + ","  + x + "," + y + "," + triggerNumber + "," + -1 + "," + colour);
     }
+
     /**
      * Act - do whatever the EnemySpawner wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -76,10 +82,13 @@ public class Firewall extends TriggerTile
         {
             whenTriggered();
         }
+        if (!collidable) {
+            getImage().setTransparency(0);
+        }
         animationIndex = animate(animation, animationIndex);
         super.act();
     }
-    
+
     protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation)
     {
         for(int i = 0; i < new File(path + "/" ).listFiles().length - 1; i++)
@@ -87,7 +96,7 @@ public class Firewall extends TriggerTile
             animation.add(new GreenfootImage(path + "/" + i + ".png"));
         }
     }
-    
+
     public boolean getCollidable()
     {
         return collidable;

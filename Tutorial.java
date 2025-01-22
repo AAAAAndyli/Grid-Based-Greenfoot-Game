@@ -9,9 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Tutorial extends LevelWorld
 {
     private WorldButton pause;
-    
+
     private SuperTextBox textbox;
     private SuperTextBox textbox1;
+    private boolean tutorialSkip;
     /**
      * Constructor for objects of class Tutorial.
      * 
@@ -21,24 +22,23 @@ public class Tutorial extends LevelWorld
         this("tutorial.csv");
         super.setMainMenu(menu);
     }
-    
+
     public Tutorial(String levelName)
     {
         super("Tutorial/" + levelName); 
-        WorldOrder.createArrayList();
         WorldOrder.setIndex(levelName);
         setBackground("black.png");
         TutorialAvatar tutorial = new TutorialAvatar();
-        
+
         addObject(tutorial, 1080, 650);
     }
-    
+
     public MenuWorld getMainMenu(){
         return super.getMainMenu();
     }
-    
+
     public void act(){
         super.act();
     }
-    
+
 }

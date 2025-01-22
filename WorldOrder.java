@@ -10,7 +10,7 @@ public class WorldOrder
 {
     // instance variables - replace the example below with your own
     private static ArrayList<String> worldList = new ArrayList<String>();
-    private static int worldIndex = 0;
+    private static int worldIndex = SaveFile.getInt("worldIndex");
 
     public static void createArrayList()
     {
@@ -46,6 +46,7 @@ public class WorldOrder
     public static void setIndex(String worldName)
     {
         worldIndex = worldList.indexOf(worldName);
+        SaveFile.setInfo("worldIndex", worldIndex);
     }
     public static void setIndex(int index)
     {
@@ -58,5 +59,9 @@ public class WorldOrder
     public static String nextWorld()
     {
         return worldList.get(worldIndex + 1);
+    }
+    public static String currentWorld()
+    {
+        return worldList.get(worldIndex);
     }
 }
