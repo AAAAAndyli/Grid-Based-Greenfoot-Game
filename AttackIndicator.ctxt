@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=AttackIndicator
+comment0.text=\n\ Creates\ a\ warning\ of\ an\ attack\ that\ is\ incoming\n\ \n\ @author\ Andy\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=x\ y
+comment1.target=AttackIndicator(int,\ int)
+comment2.params=x\ y\ angle\ direction
+comment2.target=AttackIndicator(int,\ int,\ int,\ int)
+comment3.params=world
+comment3.target=void\ addedToWorld(greenfoot.World)
+comment4.params=
+comment4.target=void\ act()
+comment4.text=\n\ Act\ -\ do\ whatever\ the\ AttackIndicator\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+numComments=5

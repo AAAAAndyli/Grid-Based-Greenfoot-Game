@@ -14,7 +14,7 @@ public class FPS extends Actor
     /**
      * The two possbile modes the calculation can take.
      * 
-     * Average will display the number of frames that 
+     * Average will display the number of feames that 
      * were displayed in the previous second, thereby
      * giving you an average FPS reading from the last
      * second.

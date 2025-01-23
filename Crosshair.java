@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Cursor here.
+ * it goes to mouse.
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class Crosshair extends SuperSmoothMover

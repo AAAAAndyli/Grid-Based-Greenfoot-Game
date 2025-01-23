@@ -1,22 +1,29 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 import java.util.Collection;
+import greenfoot.GreenfootSound;
 
 
 /**
- * Write a description of class Player here.
+ * Its' the player
  * 
  * @author Andy
  * @version (a version number or a date)
  */
 public class Player extends Entity
 {
+    private String state;
+    private int actTimer = 60;
+    
+    private int playerHeight, playerWidth;
+    
     private double xVelocity = 0;
     private int xDirection = 0;
     private final int xSpeed = 10;
     
     private final int slideSpeed = 25;
     private boolean isSliding;
+    private boolean canSlide;
     
     private boolean isSlamming = false;
     private boolean isCollidingLeft, isCollidingRight, isCollidingUp;
@@ -39,12 +46,10 @@ public class Player extends Entity
     private int parryTimer = 10;
     private int dashTimer = 10;
     private final int dashCooldown = -200;
+    private boolean isDashing = false;
     private boolean canBeHurt = true;
     
-    private int knockbackX = 0, knockBackY = 0;
-    
     private boolean isHeal = false;
-    private boolean isHurt = false;
     private int invincibilityFrames = 0;
     private final int totalInvincibilityFrames = 30;
     
@@ -54,92 +59,246 @@ public class Player extends Entity
     
     private static int mouseX, mouseY;
     
+    private Shield shield = null;
+    private int cooldown = 0;
+    
+    private RangedWeapon[] weaponList = new RangedWeapon[4];
+    private RangedWeapon currentWeapon;
+    private boolean shooting;
+    private int weaponIndex = 0;
+    private RangedWeapon missile;
+    private RangedWeapon bomb;
+    private RangedWeapon spread;
+    private RangedWeapon rapid;
+    
+    private World world;
+    private int damage = 1;
+    protected boolean runOnce = false;
+    
+    //keybind related info
+    protected String jump;
+    protected String left;
+    protected String right;
+    protected String down;
+    protected String parry;
+    protected String dash;
+    
+    //Sound
+    private GreenfootSound gunSound = new GreenfootSound("sounds/Laser.wav");
+    private int actCounter = 10;
+    private GreenfootSound explosion = new GreenfootSound("sounds/Explosion.wav");
+    private int actCounter1 = 60;
+    
+    private GreenfootSound parrySound = new GreenfootSound("sounds/parrySound.wav");
+    private GreenfootSound jumpSound = new GreenfootSound("sounds/jumpSound.wav");
+    private GreenfootSound dashSound = new GreenfootSound("sounds/dashSound.wav");
+    private GreenfootSound hurtSound = new GreenfootSound("sounds/getHurt.wav");
+    private GreenfootSound pickUpSound = new GreenfootSound("sounds/pickUp.wav");
+    
+    private GreenfootSound shotgun = new GreenfootSound("sounds/Shotgun.wav");
+    private int actCounter3 = 30;
+    
+    private int previousEffectVolume = SaveFile.getInt("musicVolume");
     public Player()
     {
-        this(0,0);
+        this(0,0, 0, 0);
     }
     
-    public Player(int scrollX, int scrollY)
+    public Player(int scrollX, int scrollY, int globalX, int globalY)
     {
         super(scrollX, scrollY);
-        globalPosition = new Coordinate(0,0);
-        health = 15;
-        maxHealth = health;
+        setImage("Hitbox.png");
+        getImage().setTransparency(0);
+        state = "idle";
+        globalPosition = new Coordinate(globalX,globalY);
+        
+        parrySound.setVolume(75);
+        SaveFile.updateVolume(parrySound, "effectVolume");
+        
+        dashSound.setVolume(75);
+        SaveFile.updateVolume(dashSound, "effectVolume");
+
+        gunSound.setVolume(75);
+        SaveFile.updateVolume(gunSound, "effectVolume");
+        shotgun.setVolume(70);
+        SaveFile.updateVolume(shotgun, "effectVolume");
+        
+        jumpSound.setVolume(60);
+        SaveFile.updateVolume(jumpSound, "effectVolume");
+        
+        hurtSound.setVolume(80);
+        SaveFile.updateVolume(hurtSound, "effectVolume");
+        
+        pickUpSound.setVolume(100);
+        SaveFile.updateVolume(pickUpSound, "effectVolume");
+        
+        if(SaveFile.getString("jump") == null){
+            SaveFile.loadFile("saveFile/defaultSaveFile.csv");
+        }
+        
+        health = SaveFile.getInt("health");
+        maxHealth = SaveFile.getInt("maxHealth");
+
+        rapid = new RangedWeapon(10, 0, this, SaveFile.getInt("damage"));
+        bomb = new RangedWeapon(60, 1, this, SaveFile.getInt("damage"));
+        missile = new RangedWeapon(60, 2, this, SaveFile.getInt("damage"));
+        spread = new RangedWeapon(30, 3, this, SaveFile.getInt("damage"));
+        
+        weaponList[0] = rapid;
+        
+        currentWeapon = weaponList[weaponIndex];
+        
+        if(SaveFile.getInt("hasBomb") == 1)
+        {
+            weaponList[1] = bomb;
+        }
+        if(SaveFile.getInt("hasMissile") == 1)
+        {
+            weaponList[2] = missile;
+        }
+        if(SaveFile.getInt("hasSpread") == 1)
+        {
+            weaponList[3] = spread;
+        }
+        
+        
+        
     }
     
     public void addedToWorld(World world)
     {
-        getWorld().addObject(new LowerPlayerSprites(this), getX(), getY()); 
-        getWorld().addObject(new UpperPlayerSprites(this), getX(), getY()); 
+        this.world = getWorld();
+        this.world.addObject(new LowerPlayerSprites(this), getX(), getY()); 
+        this.world.addObject(new UpperPlayerSprites(this), getX(), getY()); 
         globalPosition.setCoordinate(getX(), getY());
-        crosshair = getWorld().getObjects(Crosshair.class).get(0);
+        crosshair = this.world.getObjects(Crosshair.class).get(0);
+        playerHeight = getImage().getHeight();
+        playerWidth = getImage().getWidth();
     }
-
+    
     public void act()
     {     
-        super.act();
+        if(!runOnce){
+            //if accessing levelworld through debug, load default binds
+            jump = SaveFile.getString("jump");
+            parry = SaveFile.getString("parry");
+            dash = SaveFile.getString("dash");
+            left = SaveFile.getString("left");
+            right = SaveFile.getString("right");
+            down = SaveFile.getString("down");
+            runOnce = true;
+        }
+        if(actTimer > 0)
+        {
+            //setLocation(super.act
+        }
         MouseInfo mouse = Greenfoot.getMouseInfo();
+        
         if(mouse != null)
         {
+            if (shooting && (Greenfoot.mouseDragEnded(null) || Greenfoot.mouseClicked(null))) 
+            {
+                shooting = false;
+            }
+            if (!shooting && Greenfoot.mousePressed(null)) 
+            {
+                shooting = true;
+            }
             mouseX = mouse.getX();
             mouseY = mouse.getY();
         }
-        if(invincibilityFrames == 2)
+
+        invincibilityFrames++;
+        if(invincibilityFrames > 30)
         {
-            invincibilityFrames++;
-            isHurt = false;
-            canBeHurt = false;
-        }
-        else if(invincibilityFrames > totalInvincibilityFrames)
-        {
-            invincibilityFrames = 0;
             canBeHurt = true;
         }
-        else if(invincibilityFrames != 0)
-        {
-            invincibilityFrames++;
-        }
+        
+        health = SaveFile.getInt("health");
+        maxHealth = SaveFile.getInt("maxHealth");
+        
+        state = "idle";
         movement();
         shoot();
         parry();
-        if(Greenfoot.isKeyDown("f"))
+        currentWeapon.incrementTimer();
+        if(weaponIndex == 0)
         {
-            aimIsActivated = !aimIsActivated;
+            weaponIndex = 0;
+            currentWeapon = weaponList[weaponIndex];
         }
-        //System.out.println("xVelocity: " + xVelocity + ", yVelocity: " + yVelocity);
-        //System.out.println(globalPosition.getX() + ", " + globalPosition.getY());
+        else if(Greenfoot.isKeyDown("2") && weaponList[1] != null)
+        {
+            weaponIndex = 1;
+            currentWeapon = weaponList[weaponIndex];
+        }
+        else if(Greenfoot.isKeyDown("3") && weaponList[2] != null)
+        {
+            weaponIndex = 2;
+            currentWeapon = weaponList[weaponIndex];
+        }
+        else if(Greenfoot.isKeyDown("4") && weaponList[3] != null)
+        {
+            weaponIndex = 3;
+            currentWeapon = weaponList[weaponIndex];
+        }
         if(willDie)
         {
             die();
         }
+        if(previousEffectVolume != SaveFile.getInt("effectVolume")){
+            SaveFile.updateVolume(parrySound, "effectVolume");
+            previousEffectVolume = SaveFile.getInt("musicVolume");
+        }
+        if(maxHealth != SaveFile.getInt("maxHealth")){
+            maxHealth = SaveFile.getInt("maxHealth");
+        }
+        
+        super.act();
+        
+    }
+    
+    public void die()
+    {
+        super.die();
     }
     
     public void dash()
     {
-        if(Greenfoot.isKeyDown("shift") && dashTimer > 0)
+        if(Greenfoot.isKeyDown(dash) && dashTimer > 0 && dashTimer <= 10)
         {
+            dashSound.play();
+            state = "dashing";
+            isDashing = true;
+            touchingFloor = true;
             dashTimer --;
             xVelocity = 40 * xDirection;
             yVelocity = 0;
+            invincibilityFrames = 0;
             canBeHurt = false;
         }
         else if(dashTimer == -100)
         {
-            dashTimer = 10;
+            isDashing = false;
+            dashTimer = 30;
             canBeHurt = true;
         }
         else if(dashTimer != 10)
         {
-            dashTimer --;
+            isDashing = false;
+            invincibilityFrames = 30;
+            dashTimer--;
             canBeHurt = true;
         }
     }
-    
+    //picks out weapons and shoots with it
     public void shoot()
     {
         if(Greenfoot.getMouseInfo() != null && (Greenfoot.getMouseInfo().getButton() == 1)||isAiming)
         {   
             mouseTarget = new Coordinate(mouseX, mouseY);
+            //If the music is not playing currently, play the music
+            
             if(aimIsActivated)
             {
                 if(yVelocity > 0)
@@ -150,10 +309,8 @@ public class Player extends Entity
                 {
                     yGravity = normalFallingGravity;
                 }
-                
-                getWorld().getObjects(Camera.class).get(0).setMultipleFollowing(true);
                 isAiming = true;
-                getWorld().addObject(sight, getX(), getY());
+                world.addObject(sight, getX(), getY());
                 
                 int deltaX = mouseX - getX();
                 int deltaY = mouseY - getY();
@@ -167,31 +324,91 @@ public class Player extends Entity
                 sight.turnTowards(mouseX, mouseY);
                 sight.setWidth(1000);
             }
+            
+            
+            
             if(Greenfoot.mouseClicked(null))
             {
                 isAiming = false;
-                getWorld().addObject(new PProjectile(mouseTarget, 15, this), getX(), getY());
+                currentWeapon.shoot();
             }
         }
         else
         {
             yGravity = normalFallingGravity;
-            getWorld().removeObject(sight);
-            getWorld().getObjects(Camera.class).get(0).setMultipleFollowing(false);
+            world.removeObject(sight);
+        }
+        
+        if(currentWeapon == rapid){
+            if(Greenfoot.mouseClicked(null)){
+                isAiming = false;
+                currentWeapon.shoot();
+                gunSound.play();
+            }
+            if(shooting){
+                isAiming = false;
+                currentWeapon.shoot();
+                gunSound.play();
+            }
+            if(actCounter < 10){
+                actCounter++;
+            }
+            if(actCounter == 10){
+                
+                actCounter = 0;
+            }
+        }
+        if(currentWeapon == bomb){
+            if(Greenfoot.mouseClicked(null)){
+                isAiming = false;
+                currentWeapon.shoot();
+                explosion.play();
+            }
+            if(shooting){
+                isAiming = false;
+                currentWeapon.shoot();
+                explosion.play();
+            }
+            if(actCounter1 < 60){
+                actCounter1++;
+            }
+            if(actCounter1 == 60){
+                
+                actCounter1 = 0;
+            }
+        }
+        if(currentWeapon == spread){
+            if(Greenfoot.mouseClicked(null)){
+                isAiming = false;
+                currentWeapon.shoot();
+                shotgun.play();
+            }
+            if(shooting){
+                isAiming = false;
+                currentWeapon.shoot();
+                shotgun.play();
+            }
+            if(actCounter3 < 45){
+                actCounter3++;
+            }
+            if(actCounter3 == 45){
+                
+                actCounter3 = 0;
+            }
         }
     }
     
     public void movement()
     {
-        if(dashTimer == 10 || dashTimer < 0)
+        predictFloor();
+        if(dashTimer >= 10 || dashTimer < 0)
         {
             slide();
-            predictFloor();
             checkFloor();
-            applyGravity();
             jump();
+            applyGravity();
         }
-        if(!isSliding)
+        if(!isSliding && !isDashing)
         {
             horizontalMovement();
             slam();
@@ -203,19 +420,22 @@ public class Player extends Entity
     
     public void horizontalMovement()
     {
-        if((Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))&&(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")))
+        if(Greenfoot.isKeyDown(left)&&(Greenfoot.isKeyDown(right)))
         {
+            state = "idle";
             xVelocity = 0;
         }
         else
         {
-            if(Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))
+            if(Greenfoot.isKeyDown(left))
             {
+                state = !state.equals("falling") && !state.equals("jumping") && !state.equals("slamming") ? "running" : state;
                 xVelocity = -xSpeed;
                 xDirection = -1;
             }
-            else if(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))
+            else if(Greenfoot.isKeyDown(right))
             {
+                state = !state.equals("falling") && !state.equals("jumping") && !state.equals("slamming") ? "running" : state;
                 xVelocity = xSpeed;
                 xDirection = 1;
             }
@@ -228,27 +448,19 @@ public class Player extends Entity
     
     public boolean checkFloor()
     {
-        Tile mid = getOneTileAtOffset(0, getImage().getHeight()/2);
-        Tile left = getOneTileAtOffset(-getImage().getWidth()/2 + 15, getImage().getHeight()/2);
-        Tile right = getOneTileAtOffset(getImage().getWidth()/2 - 15, getImage().getHeight()/2);
+        Tile mid = getOneTileAtOffset(0, playerHeight/2);
+        Tile left = getOneTileAtOffset(-playerWidth/2 + 15, playerHeight/2);
+        Tile right = getOneTileAtOffset(playerWidth/2 - 15, playerHeight/2);
         boolean midTouching = mid != null;
         boolean leftTouching = left != null;
         boolean rightTouching = right != null;
         touchingFloor = midTouching || leftTouching || rightTouching;
-        /*
-        if(midTouching)
+        
+        if((midTouching && mid.getOneWayCollidable()) || (leftTouching && left.getOneWayCollidable()) || rightTouching && right.getOneWayCollidable())
         {
-            moveOnDiagonal(mid);
+            yVelocity = 0;
+            touchingFloor = true;
         }
-        if(leftTouching)
-        {
-            moveOnDiagonal(left);
-        }
-        if(rightTouching)
-        {
-            moveOnDiagonal(right);
-        }
-        */
         
         if(!touchingFloor)
         {
@@ -263,71 +475,61 @@ public class Player extends Entity
     
     public void predictFloor()
     {
-        Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
-        
-        boolean midWillTouch = predictedMidTile != null;
-        boolean leftWillTouch = predictedLeftTile != null;
-        boolean rightWillTouch = predictedRightTile != null;
-        
-        if((midWillTouch || leftWillTouch || rightWillTouch))
+        for(int i = 1 ; i < 20 ; i ++)
         {
-            yVelocity = -1;
-            touchingFloor = true;
-            if(midWillTouch)
+            Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, playerHeight/2+(int)yVelocity/i);
+            Tile predictedLeftTile = getOneTileAtOffset(-playerWidth/2+(int)xVelocity + 20, playerHeight/2+(int)yVelocity/i);
+            Tile predictedRightTile = getOneTileAtOffset(playerWidth/2+(int)xVelocity - 20, playerHeight/2+(int)yVelocity/i);
+            
+            boolean midWillTouch = predictedMidTile != null;
+            boolean leftWillTouch = predictedLeftTile != null;
+            boolean rightWillTouch = predictedRightTile != null;
+    
+            if((midWillTouch || leftWillTouch || rightWillTouch))
             {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedMidTile.globalPosition.getY() - getImage().getHeight()/2 - predictedMidTile.getImage().getHeight()/2);
-            }
-            else if(leftWillTouch)
-            {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedLeftTile.globalPosition.getY() - getImage().getHeight()/2 - predictedLeftTile.getImage().getHeight()/2);
-            }
-            else if(rightWillTouch)
-            {
-                globalPosition.setCoordinate(globalPosition.getX(), predictedRightTile.globalPosition.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);
+                yVelocity = -1;
+                touchingFloor = true;
+                if(midWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedMidTile.globalPosition.getY() - playerHeight/2 - predictedMidTile.getImage().getHeight()/2);
+                }
+                else if(leftWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedLeftTile.globalPosition.getY() - playerHeight/2 - predictedLeftTile.getImage().getHeight()/2);
+                }
+                else if(rightWillTouch)
+                {
+                    globalPosition.setCoordinate(globalPosition.getX(), predictedRightTile.globalPosition.getY() - playerHeight/2 - predictedRightTile.getImage().getHeight()/2);
+                }
             }
         }
     }
     
     public Tile getOneTileAtOffset(int xOffset, int yOffset)
     {
-        Tile tile = (Tile)getOneObjectAtOffset(xOffset, yOffset, Tile.class);
-        if(tile  == null || tile.getButton() || tile.getCollidable() == false)
+        for(Tile tile : getObjectsAtOffset(xOffset, yOffset, Tile.class))
         {
-            return null;
-        }
-        else
-        {
-            return tile;
-        }
-    }
-    
-    public void moveOnDiagonal(Tile diagonalTile)
-    {
-        if(diagonalTile.isDiagonal())
-        {
-            int tileTop = diagonalTile.getY()-diagonalTile.getImage().getHeight()/2-getImage().getHeight()/2;
-            if(diagonalTile.getRotation() == 0)
+            if(tile != null && tile.getCollidable())
             {
-                touchingFloor = true;
-                double heightOnTile = getX() - diagonalTile.getX();
-                globalPosition.setY(tileTop - diagonalTile.getScrollY() - (int)heightOnTile);
-            }
-            else if(diagonalTile.getRotation() == 1)
-            {
-                touchingFloor = true;
-                double heightOnTile = diagonalTile.getX() - getX();
-                globalPosition.setY(tileTop - diagonalTile.getScrollY() - (int)heightOnTile);
+                return tile;
             }
         }
+        return null;
     }
     
     public void applyGravity()
     {
-        if(touchingFloor == false)
+        if(touchingFloor == false && coyoteTimer > 10)
         {
             yVelocity += yGravity;
+            if(yVelocity > 0)
+            {
+                state = "falling";
+            }
+            else
+            {
+                state = "jumping";
+            }
         }
         else
         {
@@ -341,14 +543,16 @@ public class Player extends Entity
     
     public void jump()
     {
-        if((Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && coyoteTimer < 10 && !isJumpKeyDown)
+        if(Greenfoot.isKeyDown(jump) && coyoteTimer < 10 && !isJumpKeyDown)
         {
-            yVelocity -= (jumpSpeed + storedJump);
+            jumpSound.play();
+            state = "jumping";
+            launch((int)(jumpSpeed + storedJump));
             coyoteTimer = 100;
             storedJump = 0;
             isJumpKeyDown = true;
         }
-        else if(!Greenfoot.isKeyDown("w") && !Greenfoot.isKeyDown("up"))
+        else if(!Greenfoot.isKeyDown(jump))
         {
             isJumpKeyDown = false;
         }
@@ -356,12 +560,13 @@ public class Player extends Entity
     
     public void slam()
     {
-        if(((touchingFloor || getOneTileAtOffset(0, getImage().getHeight()/2+10) != null|| getOneTileAtOffset(getImage().getWidth()/2, getImage().getHeight()/2+10) != null) || getOneTileAtOffset(-getImage().getWidth()/2, getImage().getHeight()/2+10) != null) && !(Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")))
+        if(((touchingFloor || getOneTileAtOffset(0, playerHeight/2+10) != null|| getOneTileAtOffset(playerWidth/2, playerHeight/2+10) != null) || getOneTileAtOffset(-playerWidth/2, playerHeight/2+10) != null) && !Greenfoot.isKeyDown(down))
         {
             isSlamming = false;
         }
-        else if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down") || isSlamming))
+        else if((Greenfoot.isKeyDown(down) || isSlamming))
         {
+            state = "slamming";
             storedJump = 5;
             xVelocity = 0;
             isSlamming = true;
@@ -369,12 +574,17 @@ public class Player extends Entity
             predictFloor();
             checkFloor();
         }
+        if((touchingFloor || getOneTileAtOffset(0, playerHeight/2+10) != null|| getOneTileAtOffset(playerWidth/2 - 5, playerHeight/2+10) != null || getOneTileAtOffset(-playerWidth/2 + 5, playerHeight/2+10) != null) && state.equals("slamming"))
+        {
+            state = "idle";
+        }
     }
     
     public void slide()
     {
-        if((Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && (touchingFloor||isSliding) && !isSlamming)
+        if(Greenfoot.isKeyDown(down) && (touchingFloor||isSliding) && !isSlamming)
         {
+            state = "sliding";
             switch(xDirection)
             {
                 case -1:
@@ -416,104 +626,143 @@ public class Player extends Entity
     
     public void collision()
     {
-        Tile rightTouching = getOneTileAtOffset(getImage().getWidth()/2 + (int)xVelocity + 5, 0);
-        Tile leftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + (int)xVelocity - 5, 0);
-        Tile upLeftTouching = getOneTileAtOffset(-getImage().getWidth()/2 + 5, -getImage().getHeight()/2);
-        Tile upRightTouching = getOneTileAtOffset(getImage().getWidth()/2 - 5, -getImage().getHeight()/2);
-        if(rightTouching != null && (xDirection == 1||xVelocity > 0) && !rightTouching.isDiagonal())
+        // Right touching tiles
+        Tile sideTouching1 = getOneTileAtOffset(xDirection * playerWidth/2 + (int) xVelocity, 20);
+        Tile sideTouching2 = getOneTileAtOffset(xDirection * playerWidth/2 + (int) xVelocity, -20);
+        Tile sideTouching3 = getOneTileAtOffset(xDirection * playerWidth/2 + (int) xVelocity, 0);
+        Tile sideTouching4 = getOneTileAtOffset(xDirection * (playerWidth/2 + 5), 0);
+        
+        boolean isSideTouching = sideTouching1 != null || sideTouching2 != null || sideTouching3 != null || sideTouching4 != null;
+        Tile sideTouching = sideTouching1 != null ? sideTouching1 : sideTouching2 != null ? sideTouching2 : sideTouching3 != null ? sideTouching3 : sideTouching4;
+        
+        Tile upLeftTouching = getOneTileAtOffset(-playerWidth/2 + 5, -playerHeight/2);
+        Tile upRightTouching = getOneTileAtOffset(playerWidth/2 - 5, -playerHeight/2);
+        
+        boolean isUpTouching = upLeftTouching != null || upRightTouching != null;
+        Tile upTouching = upLeftTouching != null ? upLeftTouching : upRightTouching;
+        // System.out.println("direction: " + xDirection + ", velocity: " + xVelocity);
+        // System.out.println(sideTouching1 != null);
+        // System.out.println(sideTouching2 != null);
+        // System.out.println(sideTouching3 != null);
+        // System.out.println(sideTouching4 != null);
+        if(isSideTouching)
         {
-            isCollidingRight = true;
             xVelocity = 0;
-            globalPosition.setCoordinate(rightTouching.globalPosition.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, globalPosition.getY());
-        }
-        //else if(rightTouching != null && (xDirection == 1||xVelocity > 0) && rightTouching.isDiagonal() && rightTouching.getRotation() == 0)
-        //{
-            //moveOnDiagonal(rightTouching);
-        //}
-        else if(rightTouching != null && (xDirection == 1||xVelocity > 0))
-        {
-            isCollidingRight = true;
-            xVelocity = 0;
-            globalPosition.setCoordinate(rightTouching.globalPosition.getX() - getImage().getWidth()/2 - rightTouching.getImage().getWidth()/2, globalPosition.getY());
+            globalPosition.setCoordinate(sideTouching.globalPosition.getX() + -xDirection * (getImage().getWidth()/2 + sideTouching.getImage().getWidth()/2), globalPosition.getY());
         }
         else
         {
-            isCollidingRight = false;
+            // getWorld().addObject(new test(false), globalPosition.getX() + xDirection * detectionOffset + (int) xVelocity, globalPosition.getY() + 20);
+            // getWorld().addObject(new test(false), globalPosition.getX() + xDirection * detectionOffset + (int) xVelocity, globalPosition.getY() - 20);
+            // getWorld().addObject(new test(false), globalPosition.getX() + xDirection * detectionOffset + (int) xVelocity, globalPosition.getY());
+            // getWorld().addObject(new test(false), globalPosition.getX() + xDirection * (detectionOffset + 5), globalPosition.getY());
         }
-        if(leftTouching != null && (xDirection == -1||xVelocity < 0) && !leftTouching.isDiagonal())
+        
+        if(isUpTouching && yVelocity < 0)
         {
-            isCollidingLeft = true;
-            xVelocity = 0;
-            globalPosition.setCoordinate(leftTouching.globalPosition.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, globalPosition.getY());
-        }
-        //else if(leftTouching != null && (xDirection == -1||xVelocity < 0) && leftTouching.isDiagonal() && leftTouching.getRotation() == 1)
-        //{
-            //moveOnDiagonal(leftTouching);
-        //}
-        else if(leftTouching != null && (xDirection == -1||xVelocity < 0))
-        {
-            isCollidingLeft = true;
-            xVelocity = 0;
-            globalPosition.setCoordinate(leftTouching.globalPosition.getX() + getImage().getWidth()/2 + leftTouching.getImage().getWidth()/2, globalPosition.getY());
-        }
-        else
-        {
-            isCollidingLeft = false;
-        }
-        if((upLeftTouching != null || upRightTouching != null) && yVelocity < 0)
-        {
-            isCollidingUp = true;
             yVelocity = 0;
-            int ceilingTileBottom = upLeftTouching != null ? upLeftTouching.globalPosition.getY() + getImage().getHeight()/2 + upLeftTouching.getImage().getHeight()/2 : upRightTouching.globalPosition.getY() + getImage().getHeight()/2 + upRightTouching.getImage().getHeight()/2;
+            int ceilingTileBottom = upLeftTouching != null ? upLeftTouching.globalPosition.getY() + playerHeight/2 + upLeftTouching.getImage().getHeight()/2 : upRightTouching.globalPosition.getY() + playerHeight/2 + upRightTouching.getImage().getHeight()/2;
             globalPosition.setCoordinate(globalPosition.getX(), ceilingTileBottom);
-        }
-        else
-        {
-            isCollidingUp = false;
         }
     }
     
+    
     public void parry()
     {
-        if(Greenfoot.isKeyDown("e") && parryTimer > 0)
+        if(Greenfoot.isKeyDown(parry) || (parryTimer > 0 && parryTimer != 30)) 
         {
-            ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>)getObjectsInRange(100, EProjectile.class);
-            for(EProjectile projectile : projectilesInRange)
+            if(parryTimer > 0) 
             {
-                projectile.parried(mouseX, mouseY);
-                Greenfoot.delay(10);
-                getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
-                heal(3);
+                state = "parrying";
+                ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>) getObjectsInRange(100, EProjectile.class);
+                if(parryTimer < 20)
+                {
+                    for(EProjectile projectile : projectilesInRange) {
+                        projectile.parried(mouseX, mouseY);
+                        Greenfoot.delay(10);
+                        parrySound.play();
+                        getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
+                        heal(1);
+                    }
+                }
+                parryTimer--;
             }
-            parryTimer--;
         }
-        else if(!Greenfoot.isKeyDown("e"))
+        else if (!Greenfoot.isKeyDown("e")) 
         {
+            parryTimer = 30;
+        }
+        /*
+        if(cooldown > 0)
+        {
+            cooldown--;
+            return;
+        }
+        
+        if (Greenfoot.isKeyDown(parry) && cooldown == 0) {
+        
+            if (shield == null) {
+                shield = new Shield();
+                getWorld().addObject(shield, getX(), getY());
+            }else{
+                shield.setLocation(getX(), getY());
+            }
+
+            if (parryTimer > 0) {
+                state = "parrying";
+                ArrayList<EProjectile> projectilesInRange = (ArrayList<EProjectile>) getObjectsInRange(100, EProjectile.class);
+                for (EProjectile projectile : projectilesInRange) {
+                    projectile.parried(mouseX, mouseY);
+                    Greenfoot.delay(10);
+                    getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
+                    heal(3);
+                }
+                parryTimer--;
+            }
+
+        
+            cooldown = 0;
+        } else if (!Greenfoot.isKeyDown("e")) {
+            
+            if (shield != null) {
+                getWorld().removeObject(shield);
+                shield = null;
+            }
+    
+            
             parryTimer = 10;
         }
+        */
     }
     
     public void heal(int regen)
     {
-        health += regen;
-        if(health > maxHealth)
+        SaveFile.setInfo("health", SaveFile.getInt("health") + regen);
+        if(SaveFile.getInt("health") > maxHealth)
         {
-            health = maxHealth;
+            SaveFile.setInfo("health", maxHealth);
         }
         isHeal = true;
-        getWorld().getObjects(HealthBar.class).get(0).raise();
+    }
+    public void launch(int vertStrength)
+    {
+        touchingFloor = false;
+        yVelocity -= vertStrength;
+        globalPosition.setCoordinate(globalPosition.getX(), globalPosition.getY() + (int)yVelocity);
     }
     
     public void hurt(int damage)
     {
-        if(canBeHurt)
+        if(invincibilityFrames > 30)
         {
             super.hurt(damage);
+            hurtSound.play();
+            SaveFile.setInfo("health", SaveFile.getInt("health") - damage);
+            health = SaveFile.getInt("health");
             getWorld().getObjects(Camera.class).get(0).screenShake(3, 5);
-            isHurt = true;
-            invincibilityFrames = 1;
+            canBeHurt = false;
+            invincibilityFrames = 0;
         }
-        //Greenfoot.delay(10);
     }
     
     private int upperSpriteDirection;
@@ -531,10 +780,9 @@ public class Player extends Entity
     {
         lowerSpriteDirection = newDir;
     }
-    
-    public boolean getHurt()
+    public int getParryTimer()
     {
-        return isHurt;
+        return parryTimer;
     }
     public boolean getHeal()
     {
@@ -542,7 +790,19 @@ public class Player extends Entity
     }
     public int getHealthBarHP()
     {
-        return health/3;
+        maxHealth = SaveFile.getInt("maxHealth");
+        health = SaveFile.getInt("health");
+        return (int)Math.ceil(maxHealth/3);
+    }
+    public boolean getSlamming()
+    {
+        return isSlamming;
+    }
+    public void setGrounded()
+    {
+        coyoteTimer = 0;
+        isSlamming = false;
+        touchingFloor = true;
     }
     public boolean getFacing()
     {
@@ -552,6 +812,14 @@ public class Player extends Entity
     public boolean getHurtable()
     {
         return canBeHurt;
+    }
+    public void setXVelocity(double xVelocity)
+    {
+        this.xVelocity = xVelocity;
+    }
+    public void setYVelocity(double yVelocity)
+    {
+        this.yVelocity = yVelocity;
     }
     public double getXVelocity()
     {
@@ -564,5 +832,67 @@ public class Player extends Entity
     public double getYGravity()
     {
         return yGravity;
+    }
+    public String getState()
+    {
+        return state;
+    }
+    public void setRunOnce(boolean set){
+        runOnce = set;
+    }
+    public void setWeaponIndex(int index){
+        weaponIndex = index;
+    }
+    public int getWeaponIndex(){
+        return weaponIndex;
+    }
+    
+    private class RangedWeapon
+    {
+        private int cooldown, type, damage;
+        private int cooldownTimer = 0;
+        private Player owner;
+        public RangedWeapon(int cooldown, int type, Player owner, int damage)
+        {
+            this.cooldown = cooldown;
+            this.type = type;
+            this.owner = owner;
+            this.damage = damage;
+        }
+        public void shoot()
+        {
+            if(cooldown > cooldownTimer)
+            {
+                return;
+            }
+            cooldownTimer = 0;
+            switch(type)
+            {
+                case 0:
+                    getWorld().addObject(new PProjectile(mouseTarget, 15, owner, damage), getX(), getY());
+                    break;
+                case 1:
+                    getWorld().addObject(new BombPProjectile(mouseTarget, 25, owner), getX(), getY());
+                    break;
+                case 2:
+                    getWorld().addObject(new MissilePProjectile(mouseTarget, 0, owner), getX(), getY());
+                    break;
+                case 3:
+                    Coordinate coord1 = new Coordinate(mouseTarget.getX() + 50, mouseTarget.getY() + 50);
+                    Coordinate coord2 = new Coordinate(mouseTarget.getX() - 50, mouseTarget.getY() - 50);
+                    Coordinate coord3 = new Coordinate(mouseTarget.getX() - 100, mouseTarget.getY() + 100);
+                    Coordinate coord4 = new Coordinate(mouseTarget.getX() + 100, mouseTarget.getY() - 100);
+                    getWorld().addObject(new PProjectile(mouseTarget, 15, owner, damage), getX(), getY());
+                    getWorld().addObject(new PProjectile(coord1, 15, owner, damage), getX(), getY());
+                    getWorld().addObject(new PProjectile(coord2, 15, owner, damage), getX(), getY());
+                    getWorld().addObject(new PProjectile(coord3, 15, owner, damage), getX(), getY());
+                    getWorld().addObject(new PProjectile(coord4, 15, owner, damage), getX(), getY());
+                    break;
+            }
+        }
+        public void incrementTimer()
+        {
+            cooldownTimer++;
+        }
     }
 }

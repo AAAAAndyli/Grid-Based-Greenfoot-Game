@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=BugLeg
+comment0.text=\n\ Write\ a\ description\ of\ class\ BugLeg\ here.\n\ \n\ @author\ Andy\n\ @version\ 2,\ I\ had\ to\ rewrite\ all\ of\ this\ after\ I\ overwrote\ it.\n
+comment1.params=x\ y\ isVertical\ camera
+comment1.target=BugLeg(int,\ int,\ boolean,\ Camera)
+comment2.params=
+comment2.target=void\ die()
+comment3.params=
+comment3.target=void\ act()
+comment3.text=\n\ Act\ -\ do\ whatever\ the\ BugLeg\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment4.params=
+comment4.target=void\ verticalStab()
+comment5.params=
+comment5.target=void\ horizontalStab()
+comment6.params=path
+comment6.target=void\ loadAnimationFrames(java.lang.String)
+numComments=7

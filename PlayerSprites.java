@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class PlayerSprites extends SuperSmoothMover
+public class PlayerSprites extends ScrollingActor
 {
     protected Player player;
     protected boolean flipped = false;
@@ -16,12 +16,30 @@ public class PlayerSprites extends SuperSmoothMover
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnimR = new ArrayList<GreenfootImage>();
     protected ArrayList<GreenfootImage> walkAnimL = new ArrayList<GreenfootImage>();
-    protected int attackIndex;
-    protected ArrayList<GreenfootImage> attackAnimR = new ArrayList<GreenfootImage>();
-    protected ArrayList<GreenfootImage> attackAnimL = new ArrayList<GreenfootImage>();
+    protected int dashIndex;
+    protected ArrayList<GreenfootImage> dashAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> dashAnimL = new ArrayList<GreenfootImage>();
+    protected int jumpIndex;
+    protected ArrayList<GreenfootImage> jumpAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> jumpAnimL = new ArrayList<GreenfootImage>();
+    protected int fallIndex;
+    protected ArrayList<GreenfootImage> fallAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> fallAnimL = new ArrayList<GreenfootImage>();
+    protected int rangedAttackIndex;
+    protected ArrayList<GreenfootImage> rangedAttackAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> rangedAttackAnimL = new ArrayList<GreenfootImage>();
+    protected int meleeAttackIndex;
+    protected ArrayList<GreenfootImage> meleeAttackAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> meleeAttackAnimL = new ArrayList<GreenfootImage>();
+    protected int slideIndex;
+    protected ArrayList<GreenfootImage> slideAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> slideAnimL = new ArrayList<GreenfootImage>();
     protected int idleIndex;
     protected ArrayList<GreenfootImage> idleAnimR = new ArrayList<GreenfootImage>();
     protected ArrayList<GreenfootImage> idleAnimL = new ArrayList<GreenfootImage>();
+    protected int parry;
+    protected ArrayList<GreenfootImage> parryAnimR = new ArrayList<GreenfootImage>();
+    protected ArrayList<GreenfootImage> parryAnimL = new ArrayList<GreenfootImage>();
     protected int deathIndex;
     protected ArrayList<GreenfootImage> deathAnimR = new ArrayList<GreenfootImage>();    
     protected ArrayList<GreenfootImage> deathAnimL = new ArrayList<GreenfootImage>();
@@ -44,21 +62,26 @@ public class PlayerSprites extends SuperSmoothMover
     {
         if(player.getWorld() != null)
         {
-            setLocation(player.getX() + offsetX, player.getY());
+            getPosition().setCoordinate(player.getPosition().getX() + offsetX, player.getPosition().getY());
+        }
+        else
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                getWorld().addObject(new DeathEffects(), getPosition().getX(), getPosition().getY());
+            }
+            getWorld().removeObject(this);
         }
         animationTimer++;
-        idleIndex = animate(!flipped ? idleAnimR : idleAnimL, idleIndex);
-    }
-    
-     /**
-     * Loads in every frame for every animation
-     * 
-     * @param path - The file path for the unit
-     */
-    protected void loadAnimationFrames(String path)
-    {
-        loadSingleAnimation(path, idleAnimL, "idle", true);
-        loadSingleAnimation(path, idleAnimR, "idle");
+        //afterImage creation
+        switch(player.getState())
+        {
+            case "slamming":
+            case "dashing":
+                getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY), player.getPosition().getX(), player.getPosition().getY());
+                break;
+        }
+        super.act();
     }
     
     protected void loadSingleAnimation(String path, ArrayList<GreenfootImage> animation, String action)
@@ -80,7 +103,7 @@ public class PlayerSprites extends SuperSmoothMover
 
     protected int animate(ArrayList<GreenfootImage> animation, int index)
     {
-        if(animationTimer < 10){
+        if(animationTimer < 5){
             return index;
         }
         setImage(animation.get(index));

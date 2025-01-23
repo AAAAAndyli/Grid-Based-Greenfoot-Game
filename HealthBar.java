@@ -3,26 +3,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Write a description of class HealthBar here.
+ * The Manager for HealthPods and HealthBlob
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andy
+ * @version 1
  */
 public class HealthBar extends Actor
 {
     private Player player;
     private ArrayList<HealthPod> healthPods = new ArrayList<HealthPod>();
     private int healthBlobCount, health;
+    private int currentHealthBarHealth;
     public HealthBar(Player player)
     {
         this.player = player;
         healthBlobCount = player.getHealthBarHP();
-        health = player.getHP();
-        setImage("HealthBar/Head.png");
+        health = SaveFile.getInt("health");
+        setImage("HealthBar/h0.png");
     }
     public void addedToWorld(World world)
     {
-        for(int i = 0 ; i < healthBlobCount ; i++)
+        for(int i = 0 ; i < healthBlobCount; i++)
         {
             HealthPod healthPod = new HealthPod();
             healthPods.add(healthPod);
@@ -30,27 +31,16 @@ public class HealthBar extends Actor
         }
     }
     /**
-     * Act - do whatever the HealthBar wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Act - sets every healthPod to health
      */
     public void act()
     {
-        if(player.getHurt())
+        health = SaveFile.getInt("health");
+        for (int i = 0; i < healthPods.size(); i++) 
         {
-            if(player.getHP()/3 < healthBlobCount)
-            {
-                healthPods.get(player.getHP()/3).lower(health - player.getHP());
-                health = player.getHP();
-            }
-        }
-    }
-    public void raise()
-    {
-        int calcHealth = health;
-        for(int i = 0 ; i < player.getHP() - calcHealth ; i++)
-        {
-            healthPods.get(health/3).raise();
-            health++;
+            int podHealth = Math.min(3, health - (i * 3));
+            podHealth = Math.max(0, podHealth);
+            healthPods.get(i).setHealth(podHealth);
         }
     }
 }

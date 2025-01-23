@@ -18,20 +18,21 @@ public class EnemyID
      */
     public EnemyID()
     {
-        enemyHash.put(0, new WalMare());
-        enemyHash.put(1, new BurstTurret());
-        int value = 0;
-        for(HashMap.Entry<Integer, Enemy> entry : enemyHash.entrySet())
-        {
-            Enemy key = entry.getValue();
-            enemyIDHash.put(key, value);
-            value++;
-        }
+        loadHash();
     }
     public static void loadHash()
     {
         enemyHash.put(0, new WalMare());
-        enemyHash.put(1, new BurstTurret());
+        enemyHash.put(1, new Agast());
+        enemyHash.put(2, new Trogun());
+        enemyHash.put(3, new Reaper());
+        enemyHash.put(4, new Cytotoxin());
+        enemyHash.put(5, new Virus());
+        enemyHash.put(6, new Cypr());
+        enemyHash.put(7, new RTP());
+        enemyHash.put(8, new Patch());
+        enemyHash.put(9, new Piramire());
+        enemyHash.put(10, new Ram());
         int value = 0;
         for(HashMap.Entry<Integer, Enemy> entry : enemyHash.entrySet())
         {
@@ -64,10 +65,9 @@ public class EnemyID
     {
         if(index == null)
         {
-            System.out.println("Failed");
             return -1;
         }
-        if(enemyIDHash.get(index.getClass()) != null)
+        if(index.getClass() != null)
         {
             int hashMapIndex = 0;
             for(HashMap.Entry<Integer, Enemy> entry : enemyHash.entrySet())

@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=BindButton
+comment0.text=\n\ Subclass\ of\ button\ to\ bind\ a\ key\ to\ a\ specific\n\ action\ in\ game\n\ \n\ @author\ Darren\ T.\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=file\ sizeMulti\ txt\ type
+comment1.target=BindButton(java.lang.String,\ double,\ java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=key
+comment3.target=boolean\ checkDuplicate(java.lang.String)
+comment3.text=\n\ Method\ to\ check\ if\ there\ are\ duplicate\ keybinds\n
+comment4.params=
+comment4.target=java.lang.String\ getButtonType()
+comment4.text=\n\ Method\ to\ return\ button's\ type\ (eg,\ jump\ bind,\ dash\ bind,\ etc)\n
+comment5.params=
+comment5.target=Label\ getKeyLabel()
+comment5.text=\n\ Method\ to\ return\ the\ label\n
+comment6.params=
+comment6.target=java.lang.String\ getKeyBinding()
+comment6.text=\n\ Method\ to\ get\ the\ key\ that\ activates\ the\ button's\ action\n
+comment7.params=active
+comment7.target=void\ setBindingActive(boolean)
+comment7.text=\n\ Setter\ method\ to\ change\ if\ it\ is\ active\ or\ not\n
+numComments=8

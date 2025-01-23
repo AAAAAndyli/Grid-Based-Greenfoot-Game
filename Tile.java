@@ -12,6 +12,7 @@ public class Tile extends ScrollingActor
     protected int rotations;
     protected boolean isButton;
     protected boolean collidable = true; //Can Collide by default
+    protected boolean oneWayCollision = false; //Can collide on all sides by default
     protected int x, y;
     
     protected MapMaker mapMaker;
@@ -24,6 +25,10 @@ public class Tile extends ScrollingActor
     {
         this(type, rotations, isButton, mapMaker, 0, 0, false);
     }
+    public Tile(String type, int rotations, boolean isButton, MapMaker mapMaker, boolean isCollidable)
+    {
+        this(type, rotations, isButton, mapMaker, 0, 0, isCollidable);
+    }
     public Tile(String type, int rotations, boolean isButton, MapMaker mapMaker, int xPosition, int yPosition, boolean isCollidable)
     {
         this.type = type;
@@ -35,6 +40,10 @@ public class Tile extends ScrollingActor
         if(!isButton)
         {
             this.setImage("Tiles/"+type+".png");
+            if(type.contains("Background") || type.contains("Blank"))
+            {
+                collidable = false;
+            }
             getImage().scale(50,50);
             getImage().rotate(rotations*90);
         }
@@ -82,6 +91,14 @@ public class Tile extends ScrollingActor
     {
         return collidable;
     }
+    public void setGlobalX(int x)
+    {
+        this.x = x;
+    }
+    public void setGlobalY(int y)
+    {
+        this.y = y;
+    }
     public int getGlobalX()
     {
         return x;
@@ -102,8 +119,12 @@ public class Tile extends ScrollingActor
     {
         return isButton;
     }
+    public boolean getOneWayCollidable()
+    {
+        return oneWayCollision;
+    }
     public String toString()
     {
-        return(type + "," + rotations + ","  + x + "," + y);
+        return(type + "," + rotations + ","  + getPosition().getX() + "," + getPosition().getY());
     }
 }

@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class HealthBlob here.
+ * Health indicator
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andy
+ * @version 1
  */
 public class HealthBlob extends Actor
 {
@@ -29,6 +29,24 @@ public class HealthBlob extends Actor
         else
         {
             setImage(nothing);
+        }
+    }
+    public void set(int health)
+    {
+        switch(health)
+        {
+            case 0:
+                setImage(nothing);
+                break;
+            case 1:
+                setImage(red);
+                break;
+            case 2:
+                setImage(yellow);
+                break;
+            case 3:
+                setImage(green);
+                break;
         }
     }
     public void raise()

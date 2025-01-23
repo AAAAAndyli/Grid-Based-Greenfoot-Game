@@ -1,19 +1,31 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Bosses here.
+ * The big baddies.
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public abstract class Bosses extends Enemy
 {
-    /**
-     * Act - do whatever the Bosses wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
+    protected int state;
+    protected boolean currentAttackDone, bossActive;
+    protected int attackCooldown, totalAttackCooldown;
+    protected int maxHealth;
+    protected SuperStatBar bossbar = new SuperStatBar(health, maxHealth, null, 1000, 40, 0, Color.WHITE, Color.BLACK, false, Color.GREEN, 10);
+    
+    public int getState()
     {
-        // Add your action code here.
+        return state;
+    }
+    public int getFacing()
+    {
+        return xDirection;
+    }
+    public void die()
+    {
+        Coordinate playerPosition = getWorld().getObjects(Player.class).get(0).getPosition();
+        getWorld().addObject(new NextWorld("NextWorld", 0, playerPosition.getX(), playerPosition.getY(), 100), playerPosition.getX(), playerPosition.getY());
+        super.die();
     }
 }

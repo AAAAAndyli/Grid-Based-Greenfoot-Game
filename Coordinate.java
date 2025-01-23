@@ -42,6 +42,7 @@ public class Coordinate
     
     public String getString()
     {
-        return "X Coordinate: " + x + ", Y Coordinate: " + y;
+        return "(" + x + ", " + y + ")";
     }
+    
 }

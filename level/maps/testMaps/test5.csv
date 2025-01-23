@@ -52,6 +52,7 @@ FullTile,0,1000,-100
 FullTile,0,1000,-100
 FullTile,0,50,-50
 FullTile,0,50,-50
+EnemySpawnPoint,0,650,-50
 FullTile,0,1000,-50
 FullTile,0,1000,-50
 FullTile,0,50,0
@@ -177,4 +178,3 @@ FullTile,3,1350,450
 FullTile,3,1350,450
 FullTile,3,1400,450
 FullTile,3,1400,450
-EnemySpawnPoint,0,400,700

@@ -12,9 +12,9 @@ public class PProjectile extends Projectile
      * Act - do whatever the PProjectile wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public PProjectile(Coordinate target, double speed, ScrollingActor spawner)
+    public PProjectile(Coordinate target, double speed, ScrollingActor spawner, int damage)
     {
-        super(target, speed, 1, spawner, "PlayerDefault");
+        super(target, speed, damage, spawner, "PlayerSmall");
     }
     
     public PProjectile(Coordinate target, double speed, int damage, ScrollingActor spawner, String sprite)
@@ -34,8 +34,11 @@ public class PProjectile extends Projectile
         if(isTouching(Enemy.class))
         {
             Enemy enemyTarget = (Enemy)getOneIntersectingObject(Enemy.class);
-            enemyTarget.hurt(damage);
-            markedForDeletion = true;
+            if(enemyTarget.getHurtable())
+            {
+                enemyTarget.hurt(damage);
+                markedForDeletion = true;
+            }
         }
     }
 }

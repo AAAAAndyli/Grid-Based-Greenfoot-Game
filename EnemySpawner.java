@@ -11,6 +11,12 @@ public class EnemySpawner extends TriggerTile
     private Enemy enemy;
     private int timer = 0;
     private Label triggerNumberDisplay;
+    private boolean activated = false;
+    private int spawnDelay, spawnDelayTimer = 0;
+    
+    private Label enemyNumberDisplay;
+    private StillLabel buttonEnemyNumberDisplay;
+    
     public EnemySpawner(String type, int rotations, int xPosition, int yPosition, int triggerNumber, Enemy enemy)
     {
         this(type, rotations, false, null, xPosition, yPosition, triggerNumber, enemy);
@@ -25,6 +31,8 @@ public class EnemySpawner extends TriggerTile
         this.triggerNumber = triggerNumber;
         this.enemy = enemy;
         collidable = false;
+        enemyNumberDisplay = new Label(EnemyID.getID(enemy), 25, this);
+        buttonEnemyNumberDisplay = new StillLabel(EnemyID.getID(enemy), 25, this);
     }
     public void addedToWorld(World world)
     {
@@ -33,15 +41,25 @@ public class EnemySpawner extends TriggerTile
         if(TriggerCollection.searchTrigger(trigger))
         {
             trigger = TriggerCollection.returnTrigger(trigger);
+            trigger.addSpawner(this);
         }
         else
         {
             TriggerCollection.addTrigger(trigger);
+            trigger.addSpawner(this);
+        }
+        if(!isButton)
+        {
+            //getWorld().addObject(enemyNumberDisplay, getPosition().getX()+15, getPosition().getY()+15);
+        }
+        else
+        {
+            getWorld().addObject(buttonEnemyNumberDisplay, getPosition().getX()+15, getPosition().getY()+15);
         }
     }
     public void whenTriggered()
     {
-        getWorld().addObject(enemy, getPosition().getX(), getPosition().getY());
+        activated = true;
         if(timer > 0)
         {
             trigger.permanentlyDeactivateTrigger();
@@ -50,6 +68,17 @@ public class EnemySpawner extends TriggerTile
         {
             timer++;
         }
+    }
+    public void setSpawnDelay(int spawnDelay)
+    {
+        this.spawnDelay = spawnDelay;
+    }
+    public void spawnEnemies()
+    {
+        getWorld().addObject(enemy, getPosition().getX(), getPosition().getY() - enemy.getImage().getHeight()/2);
+        getWorld().addObject(new SpawnEffects(), getPosition().getX(), getPosition().getY() - enemy.getImage().getHeight()/2);
+        enemy.setLocation(enemy.getPosition().getX() + scrollX, getPosition().getY() - enemy.getImage().getHeight()/2 + scrollY);
+        activated = false;
     }
     public String toString()
     {
@@ -64,6 +93,17 @@ public class EnemySpawner extends TriggerTile
         if(trigger.getTrigger())
         {
             whenTriggered();
+        }
+        if(activated)
+        {
+            spawnDelayTimer++;
+            if(spawnDelay < spawnDelayTimer)
+            {
+                System.out.println(spawnDelayTimer);
+                spawnEnemies();
+                getWorld().removeObject(this);
+                return;
+            }
         }
         super.act();
     }

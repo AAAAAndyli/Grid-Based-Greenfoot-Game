@@ -1,15 +1,17 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MovingScrollingActor here.
+ * A scrolling actor, probably with some sort of actions it could do, and can move around and die
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public abstract class Entity extends ScrollingActor
 {
     protected boolean willDie = false;
     protected int maxHealth, health, speed;
+    protected boolean canBeHurt = true;
+    protected boolean isImmuneToExplosions = false;
     
     public Entity(int scrollX, int scrollY)
     {
@@ -18,26 +20,37 @@ public abstract class Entity extends ScrollingActor
     
     public void act()
     {
-        barrier();
-        super.act();
+        if(getWorld() != null)
+        {
+            barrier();
+            super.act();
+        }
     }
     public void die()
     {
         getWorld().removeObject(this);
+        return;
     }
     public void barrier()
     {
         if(isTouching(Laser.class) && ((Laser)getOneIntersectingObject(Laser.class)).getVariant() == 2)
         {
-            willDie = true;
+            hurt(1);
         }
     }
     public void hurt(int damage)
     {
-        health -= damage;
-        if(health < 0)
+        hurt(damage, false);
+    }
+    public void hurt(int damage, boolean isExplosion)
+    {
+        if(canBeHurt && !(isImmuneToExplosions && isExplosion))
         {
-            willDie = true;
+            health -= damage;
+            if(health <= 0)
+            {
+                willDie = true;
+            }
         }
     }
     public int getHP()

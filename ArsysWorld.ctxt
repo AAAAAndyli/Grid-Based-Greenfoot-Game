@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=ArsysWorld
+comment0.text=\n\ Write\ a\ description\ of\ class\ ArsysWorld\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=ArsysWorld()
+comment2.params=levelName
+comment2.target=ArsysWorld(java.lang.String)
+comment2.text=\n\ Constructor\ for\ objects\ of\ class\ ArsysWorld.\n
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ loadParallax()
+numComments=5

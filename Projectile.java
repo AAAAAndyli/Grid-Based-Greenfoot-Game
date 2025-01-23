@@ -23,18 +23,38 @@ public abstract class Projectile extends ScrollingActor
         this.spawner = spawner;
         setImage("Projectiles/" + sprite + ".png");
     }
+    public Projectile(Coordinate target, double speed, int damage, String sprite)
+    {
+        this.target = target;
+        this.speed = speed;
+        this.damage = damage;
+        setImage("Projectiles/" + sprite + ".png");
+    }
     public void addedToWorld(World world)
     {
-        globalPosition = new Coordinate(spawner.globalPosition.getX(), spawner.globalPosition.getY());
+        if(spawner != null)
+        {
+            globalPosition = new Coordinate(spawner.globalPosition.getX(), spawner.globalPosition.getY());
+        }
+        else
+        {
+            globalPosition = new Coordinate(getX(), getY());
+        }
         turnTowards(target.getX(), target.getY());
     }
     public void act()
     {
         distance += speed;
+        getWorld().addObject(new AfterImage(new GreenfootImage(getImage()), scrollX, scrollY, getRotation()), getPosition().getX(), getPosition().getY());
         super.act();
         globalPosition.setCoordinate(globalPosition.getX()+(int)Math.round(speed * Math.cos(Math.toRadians(getRotation()))), globalPosition.getY()+(int)Math.round(speed * Math.sin(Math.toRadians(getRotation()))));
         collide();
         //move(speed);
+        deleteConditions();
+    }
+    
+    public void deleteConditions()
+    {
         if(distance > MAX_DISTANCE)
         {
             getWorld().removeObject(this);
@@ -54,13 +74,5 @@ public abstract class Projectile extends ScrollingActor
     public void changeAim(Coordinate target)
     {
         turnTowards(target.getX(), target.getY());
-    }
-    public void autoAim()
-    {
-        
-    }
-    public void homing()
-    {
-        
     }
 }

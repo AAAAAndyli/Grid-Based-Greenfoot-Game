@@ -8,12 +8,46 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class EnemyHurtBox extends HurtBox
 {
-    /**
-     * Act - do whatever the EnemyHurtBox wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
+    private Enemy origin;
+    private boolean hitstop = true;
+    public EnemyHurtBox(int width, int height, int damage, Enemy origin)
     {
-        // Add your action code here.
+        this(width, height, damage, origin, true);
+    }
+    public EnemyHurtBox(int width, int height, int damage, Enemy origin, boolean hitStop)
+    {
+        super(width, height, damage);
+        this.hitstop = hitstop;
+        this.origin = origin;
+    }
+    public boolean collide()
+    {
+        if(isTouching(Player.class))
+        {
+            Player player = (Player)getOneIntersectingObject(Player.class);
+            if(player.getHurtable() && !(player.getState().equals("parrying") && player.getParryTimer() < 20))
+            {
+                player.hurt(damage);
+                getWorld().removeObject(this);
+                return true;
+            }
+            else if(player.getState().equals("parrying") && player.getParryTimer() < 20)
+            {
+                parried();
+                if(hitstop)
+                {
+                    getWorld().addObject(new ParryEffects(), getX(), getY());
+                    Greenfoot.delay(5);
+                }
+                getWorld().getObjects(Camera.class).get(0).screenShake(1, 10);
+                getWorld().removeObject(this);
+                return false;
+            }
+        }
+        return false;
+    }
+    public void parried()
+    {
+        origin.hurt(damage);
     }
 }

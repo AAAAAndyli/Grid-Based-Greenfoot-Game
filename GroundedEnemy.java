@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public abstract class GroundedEnemy extends Enemy
 {
     protected double xVelocity = 0;
-    protected int xDirection = 1;
     protected int xSpeed = 10;
     protected int detectionRange = 1080;
     protected int attackRange = 100;
@@ -24,7 +23,7 @@ public abstract class GroundedEnemy extends Enemy
     protected int playerDistance;
     
     protected int checkTimer = 0;
-    protected int trackTimer = 0;
+    protected int followTimer = 0;
     
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnimR = new ArrayList<GreenfootImage>();
@@ -45,42 +44,17 @@ public abstract class GroundedEnemy extends Enemy
      */
     public void act()
     {
-        applyGravity();
-        checkFloor();
-        predictFloor();
-        
-        if(checkForPlayer())
+        if(!isAttacking)
         {
-            Player player = (Player)getOneObjectAtOffset(playerDistance, 0, Player.class);
-            System.out.println("PlayerPos: " + player.getPosition().getX() + ", EnemyPosition: " +  getPosition().getX() + ", AttackRange: " + attackRange + ", DifferenceInRange: " +  Math.abs(player.getPosition().getX() - getPosition().getX()));
-            if(Math.abs(player.getPosition().getX() - getPosition().getX()) > attackRange)
-            {
-                moveTo(player.getPosition().getX() - xDirection * attackRange);
-                faceTowards(player.getPosition().getX());
-            }
-            else
-            {
-                xVelocity = 0;
-            }
-        }
-        else
-        {
-            xVelocity = 0;
-            if(checkTimer > 60)
-            {
-                xDirection *= -1;
-                checkTimer = 0;
-            }
-            else
-            {
-                checkTimer++;
-            }
+            applyGravity();
+            checkFloor();
+            predictFloor();
+            globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
         }
         
         animationTimer++;
-        idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
+        //idleIndex = animate(xDirection == 1 ? idleAnimR : idleAnimL, idleIndex);
         
-        globalPosition.setCoordinate(globalPosition.getX() + (int)xVelocity, globalPosition.getY() + (int)yVelocity);
         super.act();
     }
     
@@ -96,17 +70,7 @@ public abstract class GroundedEnemy extends Enemy
         }
         return false;
     }
-    public void faceTowards(int xPositionToFace)
-    {
-        if(xPositionToFace > getPosition().getX())
-        {
-            xDirection = 1;
-        }
-        else if(xPositionToFace < getPosition().getX())
-        {
-            xDirection = -1;
-        }
-    }
+    
     
     public void moveTo(int xPositionToMoveTo)
     {
@@ -141,8 +105,8 @@ public abstract class GroundedEnemy extends Enemy
     public void predictFloor()
     {
         Tile predictedMidTile = getOneTileAtOffset((int)xVelocity, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2+(int)xVelocity + 20, getImage().getHeight()/2+(int)yVelocity);
-        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2+(int)xVelocity - 20, getImage().getHeight()/2+(int)yVelocity);
+        Tile predictedLeftTile = getOneTileAtOffset(-getImage().getWidth()/2, getImage().getHeight()/2+(int)yVelocity);
+        Tile predictedRightTile = getOneTileAtOffset(getImage().getWidth()/2, getImage().getHeight()/2+(int)yVelocity);
         
         boolean midWillTouch = predictedMidTile != null;
         boolean leftWillTouch = predictedLeftTile != null;
@@ -165,6 +129,13 @@ public abstract class GroundedEnemy extends Enemy
                 globalPosition.setCoordinate(globalPosition.getX(), predictedRightTile.globalPosition.getY() - getImage().getHeight()/2 - predictedRightTile.getImage().getHeight()/2);
             }
         }
+    }
+    
+    public boolean checkFloorAhead()
+    {
+        Tile predictedMidTile = getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 10), getImage().getHeight()/2 + 20);
+        Tile predictedAheadTile = getOneTileAtOffset(xDirection * (getImage().getWidth()/2 + 20), 0);
+        return predictedMidTile != null && predictedAheadTile == null;
     }
     
     public Tile getOneTileAtOffset(int xOffset, int yOffset)

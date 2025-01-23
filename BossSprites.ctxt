@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=BossSprites
+comment0.text=\n\ Sprites\ of\ the\ bosses\n\ \n\ @author\ Andy\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=boss
+comment1.target=BossSprites(Bosses)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ MovingGraphic\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=path\ animation\ action
+comment3.target=void\ loadSingleAnimation(java.lang.String,\ java.util.ArrayList,\ java.lang.String)
+comment4.params=
+comment4.target=void\ createAfterImage()
+comment5.params=path\ animation\ action\ isRotated
+comment5.target=void\ loadSingleAnimation(java.lang.String,\ java.util.ArrayList,\ java.lang.String,\ boolean)
+comment5.text=\n\ Method\ loadSingleAnimation\ -\ Loads\ in\ frames\ of\ a\ folder,\ and\ then\ turns\ it\ into\ an\ arraylist\ to\ animate\n\n\ @param\ path\ filepath\n\ @param\ animation\ the\ animation\ arraylist\n\ @param\ action\ what\ is\ the\ action\ of\ the\ boss\n\ @param\ isRotated\ is\ facing\ other\ way\n
+comment6.params=animation\ index
+comment6.target=int\ animate(java.util.ArrayList,\ int)
+numComments=7

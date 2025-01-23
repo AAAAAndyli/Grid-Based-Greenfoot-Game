@@ -26,6 +26,12 @@ public class TriggerCollection
     {
         triggerList.add(trigger);
     }
+    /**
+     * Finds a trigger
+     *
+     * @param trigger The trigger to look for
+     * @return whether the trigger exists
+     */
     public static boolean searchTrigger(Trigger trigger)
     {
         for(Trigger inListTrigger : triggerList)
@@ -37,6 +43,12 @@ public class TriggerCollection
         }
         return false;
     }
+    /**
+     * Finds a trigger
+     *
+     * @param trigger The trigger ID to look for
+     * @return whether the trigger exists
+     */
     public static boolean searchTrigger(int id)
     {
         for(Trigger inListTrigger : triggerList)
@@ -48,6 +60,12 @@ public class TriggerCollection
         }
         return false;
     }
+    /**
+     * Gets a trigger
+     *
+     * @param trigger The trigger to look for
+     * @return The trigger (returns null if it doesn't exist)
+     */
     public static Trigger returnTrigger(Trigger trigger)
     {
         for(Trigger inListTrigger : triggerList)
@@ -59,6 +77,12 @@ public class TriggerCollection
         }
         return null;
     }
+    /**
+     * Gets a trigger
+     *
+     * @param trigger The trigger ID to look for
+     * @return The trigger (returns null if it doesn't exist)
+     */
     public static Trigger returnTrigger(int id)
     {
         for(Trigger inListTrigger : triggerList)

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=BugBody
+comment0.text=\n\ Body\ of\ bug\n\ \n\ @author\ Andy\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=boss
+comment1.target=BugBody(Bosses)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ BugBody\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=
+comment3.target=void\ followHead()
+comment4.params=path
+comment4.target=void\ loadAnimationFrames(java.lang.String)
+numComments=5

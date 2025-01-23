@@ -1,15 +1,16 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class ScrollingActor here.
+ * Scrolling actors. Used in a scrolling world. Pretty basic offset stuff.
  * 
- * @author (your name) 
+ * @author Andy
  * @version (a version number or a date)
  */
 public class ScrollingActor extends SuperSmoothMover
 {
     protected int scrollX;
     protected int scrollY;
+    protected int tempScrollX, tempScrollY;
     protected boolean isFirstAct = true;
     protected Coordinate globalPosition;
 
@@ -19,12 +20,12 @@ public class ScrollingActor extends SuperSmoothMover
     }
     public ScrollingActor(int scrollX, int scrollY)
     {
-        this.scrollX = scrollX;
-        this.scrollY = scrollY;
+        this.tempScrollX = scrollX;
+        this.tempScrollY = scrollY;
     }
     public void addedToWorld(World world)
     {
-        globalPosition = new Coordinate(getX()+scrollX, getY()+scrollY);
+        globalPosition = new Coordinate(getX() + scrollX, getY() + scrollY);
     }
     /**
      * Act - do whatever the ScrollingActor wants to do. This method is called whenever
@@ -32,7 +33,14 @@ public class ScrollingActor extends SuperSmoothMover
      */
     public void act()
     {
-        setLocation(globalPosition.getX() + scrollX, globalPosition.getY() + scrollY);
+        if(isFirstAct)
+        {
+            setLocation(globalPosition.getX() - tempScrollX, globalPosition.getY() - tempScrollY);
+        }
+        if(globalPosition != null)
+        {
+            setLocation(globalPosition.getX() + scrollX, globalPosition.getY() + scrollY);
+        }
     }
     public void changeScrollPosition(int x, int y)
     {
