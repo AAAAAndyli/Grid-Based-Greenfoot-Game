@@ -37,11 +37,11 @@ public class TriggerTile extends Tile
         //trigger.setTrigger(triggerNumber);
         if(!isButton)
         {
-            getWorld().addObject(triggerNumberDisplay, getPosition().getX()-15, getPosition().getY()-15);
+            //getWorld().addObject(triggerNumberDisplay, getPosition().getX()-15, getPosition().getY()-15);
         }
         else
         {
-            getWorld().addObject(buttonTriggerNumberDisplay, getPosition().getX()-15, getPosition().getY()-15);
+            //getWorld().addObject(buttonTriggerNumberDisplay, getPosition().getX()-15, getPosition().getY()-15);
         }
         if(TriggerCollection.searchTrigger(triggerNumber))
         {
